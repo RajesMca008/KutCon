@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">KutumbLink</string>
+    <string name="groups">Groups</string>
+    <string name="events">Events</string>
+    <string name="messages">Messages</string>
+    <string name="photos">Phontos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="groups_fragment">Groups Blank fragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
