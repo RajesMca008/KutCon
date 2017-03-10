@@ -8,21 +8,19 @@
     android:orientation="vertical"
     tools:context="kutumblink.appants.com.kutumblink.HomeActivity">
 
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+         >
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <!--<TextView
-            android:id="@+id/message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/groups" />-->
 
         <FrameLayout
             android:id="@+id/main_container"
@@ -32,15 +30,36 @@
             android:layout_alignParentTop="true">
         </FrameLayout>
 
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/navigation" />
+
     </FrameLayout>
+       <!-- &lt;!&ndash; The navigation drawer &ndash;&gt;
+        <ListView android:id="@+id/left_drawer"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:background="#111"/>-->
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
 
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation" />
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nvView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@android:color/white"
+            app:menu="@menu/drawer_view" />
+
+    </android.support.v4.widget.DrawerLayout>
+
 
 </LinearLayout>
