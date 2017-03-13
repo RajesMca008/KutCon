@@ -11,7 +11,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string-array name="planets_array">
+    <string-array name="menu_name_array">
         <item>Dashboard</item>
         <item>Group</item>
         <item>Contacts</item>
@@ -23,4 +23,5 @@
     <string name="faq">FAQs</string>
     <string name="backup_grout">Backup Groups</string>
     <string name="restore_group">Restore Groups</string>
+    <string name="messages_add_text">Add Message Link</string>
 </resources>

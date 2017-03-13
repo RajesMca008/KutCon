@@ -11,9 +11,12 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -40,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
                     break;
                 case R.id.navigation_message:
                     fragment=new MessageMainFragment();
-                   break;
+                    break;
                 case R.id.navigation_photos:
                     fragment=new CameraMainFragment();
                     break;
@@ -70,16 +73,60 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationViewHelper.disableShiftMode(navigation);
 
 
-        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+        mPlanetTitles = getResources().getStringArray(R.array.menu_name_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true); // this sets the button to the    back icon
+        actionBar.setHomeButtonEnabled(true); // makes it clickable
+        // actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);// set your own icon
+
+
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
+
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, R.string.groups, R.string.app_name){
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar() .setTitle(getString(R.string.app_name));
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Menu");
+            }
+        };
+
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+
         // Setup drawer view
         setupDrawerContent(nvDrawer);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
+            {
+                mDrawerLayout.closeDrawers();
+            }
+            else {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void setupDrawerContent(NavigationView navigationView) {
+
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
