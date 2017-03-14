@@ -3,4 +3,7 @@
     <color name="colorPrimary">#FFC107</color>
     <color name="colorPrimaryDark">#FFA000</color>
     <color name="colorAccent">#FF9800</color>
+    <color name="colorhash">#ccc</color>
+    <color name="redcolor">#FF0000</color>
+    <color name="whitecolor">#FBFBFB</color>
 </resources>

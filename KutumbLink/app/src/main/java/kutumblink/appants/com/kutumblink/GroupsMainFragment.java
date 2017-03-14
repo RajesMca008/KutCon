@@ -2,9 +2,11 @@ package kutumblink.appants.com.kutumblink;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 public class GroupsMainFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -38,6 +40,7 @@ public class GroupsMainFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    LinearLayout ll_addgroup;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,22 @@ public class GroupsMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_groups_main, container, false);
+        View view =inflater.inflate(R.layout.fragment_groups_main, container, false);
+        ll_addgroup=(LinearLayout)view.findViewById(R.id.ll_addgroup);
+
+        ll_addgroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
+
+            }
+        });
+
+
+
+        return view;
+
     }
 
 

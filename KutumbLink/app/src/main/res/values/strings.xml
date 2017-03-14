@@ -24,4 +24,6 @@
     <string name="backup_grout">Backup Groups</string>
     <string name="restore_group">Restore Groups</string>
     <string name="messages_add_text">Add Message Link</string>
+    <string name="addgroup">Add Group</string>
+    <string name="addgroupsubtitle">Select icon and enter name,or click</string>
 </resources>
