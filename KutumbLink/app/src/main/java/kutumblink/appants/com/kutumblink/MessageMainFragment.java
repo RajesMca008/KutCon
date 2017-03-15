@@ -102,6 +102,7 @@ public class MessageMainFragment extends Fragment {
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, editFragment);
+                            fragmentTransaction.addToBackStack("edit_msg");
                             fragmentTransaction.commit();
                         }
                     }

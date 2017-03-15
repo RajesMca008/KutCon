@@ -12,14 +12,17 @@
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:minHeight="45dp"
+            android:gravity="center_vertical"
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="wrap_content"
-                android:src="@drawable/ic_notifications_black_24dp"
+                android:src="@android:drawable/ic_menu_save"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+               android:gravity="center_vertical"
                 android:text="@string/messages_add_text" />
         </LinearLayout>
         <ListView

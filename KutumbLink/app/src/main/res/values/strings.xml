@@ -26,4 +26,12 @@
     <string name="messages_add_text">Add Message Link</string>
     <string name="addgroup">Add Group</string>
     <string name="addgroupsubtitle">Select icon and enter name,or click</string>
+    <string name="msg_title">Message Title</string>
+    <string name="msg_link_title">Message Link</string>
+
+    <string name="photo_title">Photo Title</string>
+    <string name="photo_link_title">Photo Link</string>
+    <string name="hint_text">URL Should start with http:// Or https://</string>
+    <string name="save_msg">Save Message Link</string>
+    <string name="save_photo">Save Photo Link</string>
 </resources>

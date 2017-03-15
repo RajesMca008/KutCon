@@ -14,7 +14,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:text="@string/msg_title" />
+        android:text="@string/photo_title" />
 
        <EditText
            android:minHeight="50dp"
@@ -31,7 +31,7 @@
            android:layout_marginBottom="5dp"
            android:layout_marginTop="5dp"
            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-           android:text="@string/msg_link_title" />
+           android:text="@string/photo_link_title" />
        <EditText
            android:layout_width="match_parent"
            android:minLines="4"
@@ -54,7 +54,7 @@
           android:layout_width="200dp"
           android:background="@color/button_color_blue"
           android:layout_gravity="center_horizontal"
-          android:text="@string/save_msg"
+          android:text="@string/save_photo"
           android:textColor="@color/whitecolor"
           android:layout_height="wrap_content"/>
    </LinearLayout>
