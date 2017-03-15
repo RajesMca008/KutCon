@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -16,11 +15,11 @@ import kutumblink.appants.com.kutumblink.R;
  */
 public class GroupListAdapter extends BaseAdapter {
 
-    ArrayList<GroupListBean> itemsList;
+    ArrayList itemsList;
     private Context context;
 
     //Constructor to initialize values
-    public GroupListAdapter(Context context,  ArrayList<GroupListBean> itemsList) {
+    public GroupListAdapter(Context context,  ArrayList itemsList) {
 
 
 
