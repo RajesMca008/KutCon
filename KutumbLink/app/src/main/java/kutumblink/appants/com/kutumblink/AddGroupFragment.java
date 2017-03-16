@@ -37,17 +37,12 @@ public class AddGroupFragment extends Fragment {
         tv_selectContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              /*  FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_container, new SelectContactsFragment()).commit();*/
-                Intent i = new Intent(Intent.ACTION_PICK,    ContactsContract.Contacts.CONTENT_URI);//CommonDataKinds.Phone.CONTENT_URI);
-                i.putExtra("additional", "phone-multi");
-                startActivityForResult(i, CONTACT_PICKER_RESULT);
 
-              /*  Intent phonebookIntent = new Intent("intent.action.INTERACTION_TOPMENU");
+                Intent phonebookIntent = new Intent("intent.action.INTERACTION_TOPMENU");
                 phonebookIntent.putExtra("additional", "phone-multi");
-
-                startActivityForResult(phonebookIntent, 1);*/
-
+                phonebookIntent.putExtra("maxRecipientCount", MAX_PICK_CONTACT);
+                phonebookIntent.putExtra("FromMMS", true);
+                startActivityForResult(phonebookIntent, REQUEST_CODE_PICK_CONTACT);
             }
         });
 

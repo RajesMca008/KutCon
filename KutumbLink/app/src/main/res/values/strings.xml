@@ -34,4 +34,6 @@
     <string name="hint_text">URL Should start with http:// Or https://</string>
     <string name="save_msg">Save Message Link</string>
     <string name="save_photo">Save Photo Link</string>
+    <string name="invalid_title">Invalid title</string>
+    <string name="invalid_url">Invalid URL</string>
 </resources>
