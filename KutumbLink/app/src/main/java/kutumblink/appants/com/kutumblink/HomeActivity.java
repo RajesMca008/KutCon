@@ -36,7 +36,8 @@ public class HomeActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_groups:
-                    fragment=new GroupsMainFragment();
+                   fragment=new GroupsMainFragment();
+
                     break;
                 case R.id.navigation_events:
                     fragment=new EventsMainFragment();
@@ -143,7 +144,7 @@ public class HomeActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.nav_share_fragment:
-                fragmentClass = GroupsMainFragment.class;
+               fragmentClass = GroupsMainFragment.class;
                 break;
             case R.id.nav_rate_fragment:
                 fragmentClass = MessageMainFragment.class;
@@ -164,6 +165,11 @@ public class HomeActivity extends AppCompatActivity {
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_container, fragment).commit();
+
+        /*Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+
+        startActivityForResult(intent,  */
+
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
