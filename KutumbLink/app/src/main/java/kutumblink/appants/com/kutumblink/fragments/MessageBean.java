@@ -1,4 +1,4 @@
-package kutumblink.appants.com.kutumblink;
+package kutumblink.appants.com.kutumblink.fragments;
 
 import java.io.Serializable;
 

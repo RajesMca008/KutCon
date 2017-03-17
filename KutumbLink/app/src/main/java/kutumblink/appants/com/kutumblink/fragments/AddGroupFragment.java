@@ -1,4 +1,4 @@
-package kutumblink.appants.com.kutumblink;
+package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.content.Intent;
@@ -10,13 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.fragments.BaseFragment;
+
 /**
  * Created by Vishnu on 13-03-2016.
  */
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddGroupFragment extends Fragment {
+public class AddGroupFragment extends BaseFragment {
 
 
     public AddGroupFragment() {

@@ -1,4 +1,4 @@
-package kutumblink.appants.com.kutumblink;
+package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.content.Context;
@@ -20,23 +20,25 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import kutumblink.appants.com.kutumblink.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CameraMainFragment extends Fragment {
+public class MessageMainFragment extends BaseFragment {
 
-    private ArrayList<MessageBean> mMsgList=null;
-    public CameraMainFragment() {
+
+    public MessageMainFragment() {
         // Required empty public constructor
     }
 
+
+    private ArrayList<MessageBean> mMsgList=null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_camera_main, container, false);
-
+        View view=inflater.inflate(R.layout.fragment_message_main, container, false);
         ListView listView=(ListView)view.findViewById(R.id.listView);
 
         mMsgList=new ArrayList<MessageBean>();
@@ -48,13 +50,20 @@ public class CameraMainFragment extends Fragment {
             mMsgList.add(bean);
         }
 
-        final  MyListAdapter adapter= new MyListAdapter(getContext(),mMsgList);
+        final MyListAdapter adapter=new MyListAdapter(getContext(),mMsgList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(getContext(),"Selected"+((MessageBean)adapterView.getItemAtPosition(i)).getMsgTitle(),Toast.LENGTH_LONG).show();
+
+                EditMessageFragment editFragment = new EditMessageFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, editFragment);
+                fragmentTransaction.addToBackStack("edit_msg");
+                fragmentTransaction.commit();
             }
         });
 
@@ -96,7 +105,7 @@ public class CameraMainFragment extends Fragment {
                         }
                         else if(item==0)
                         {
-                            EditPhotoFragment editFragment = new EditPhotoFragment();
+                            EditMessageFragment editFragment = EditMessageFragment.newInstance("121");
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, editFragment);
@@ -160,5 +169,4 @@ public class CameraMainFragment extends Fragment {
             return view;
         }
     }
-
 }

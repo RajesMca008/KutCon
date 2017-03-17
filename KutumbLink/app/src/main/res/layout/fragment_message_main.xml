@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kutumblink.appants.com.kutumblink.MessageMainFragment">
+    tools:context="kutumblink.appants.com.kutumblink.fragments.MessageMainFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,17 +12,19 @@
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:minHeight="45dp"
             android:gravity="center_vertical"
             android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:src="@android:drawable/ic_menu_save"
-                android:layout_height="wrap_content" />
+
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/email_icon"
+                 android:drawablePadding="15dp"
+                android:layout_marginLeft="15dp"
+                android:textStyle="bold"
+                android:drawableRight="@drawable/arrow_small"
+                android:layout_marginRight="10dp"
                 android:text="@string/messages_add_text" />
         </LinearLayout>
         <ListView

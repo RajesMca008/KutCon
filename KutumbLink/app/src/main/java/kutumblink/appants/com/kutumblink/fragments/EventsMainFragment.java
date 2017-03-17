@@ -1,4 +1,4 @@
-package kutumblink.appants.com.kutumblink;
+package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.os.Bundle;
@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.fragments.BaseFragment;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventsMainFragment extends Fragment {
+public class EventsMainFragment extends BaseFragment {
 
 
     public EventsMainFragment() {

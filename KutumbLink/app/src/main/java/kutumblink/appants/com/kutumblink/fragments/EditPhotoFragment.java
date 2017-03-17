@@ -1,29 +1,30 @@
-package kutumblink.appants.com.kutumblink;
+package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Patterns;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.fragments.BaseFragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditMessageFragment extends Fragment implements View.OnClickListener {
+public class EditPhotoFragment extends BaseFragment implements View.OnClickListener{
 
 
     private EditText textTitle;
     private EditText textLink;
 
-    public EditMessageFragment() {
+    public EditPhotoFragment() {
         // Required empty public constructor
     }
 
@@ -32,16 +33,15 @@ public class EditMessageFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_edit_message, container, false);
 
-          textTitle= (EditText) view.findViewById(R.id.message_title_text);
-          textLink=(EditText) view.findViewById(R.id.message_link_text);
+        View view=inflater.inflate(R.layout.fragment_edit_photo, container, false);
+        textTitle= (EditText) view.findViewById(R.id.photo_title_text);
+        textLink=(EditText) view.findViewById(R.id.photo_link_text);
 
         Button saveButton= (Button) view.findViewById(R.id.save_btn_id);
 
 
         saveButton.setOnClickListener(this);
-
         return view;
     }
 
@@ -64,9 +64,8 @@ public class EditMessageFragment extends Fragment implements View.OnClickListene
             }
 
 
-                Toast.makeText(getContext(),"Valid url",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"Valid url",Toast.LENGTH_LONG).show();
 
         }
     }
-
 }

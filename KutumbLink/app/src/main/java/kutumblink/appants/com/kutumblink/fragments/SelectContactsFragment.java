@@ -22,7 +22,7 @@ import java.io.FileOutputStream;
 import kutumblink.appants.com.kutumblink.R;
 
 
-public class SelectContactsFragment extends Fragment {
+public class SelectContactsFragment extends BaseFragment {
 
 
     public SelectContactsFragment() {

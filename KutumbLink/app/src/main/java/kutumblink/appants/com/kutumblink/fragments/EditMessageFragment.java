@@ -1,4 +1,4 @@
-package kutumblink.appants.com.kutumblink;
+package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.os.Bundle;
@@ -11,34 +11,58 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import kutumblink.appants.com.kutumblink.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditPhotoFragment extends Fragment implements View.OnClickListener{
+public class EditMessageFragment extends BaseFragment implements View.OnClickListener {
 
 
     private EditText textTitle;
     private EditText textLink;
+    private static final String ARG_PARAM1 = "param1";
 
-    public EditPhotoFragment() {
+    public EditMessageFragment() {
         // Required empty public constructor
     }
 
+    public static EditMessageFragment newInstance(String param1)
+    {
+        EditMessageFragment fragment=new EditMessageFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view=inflater.inflate(R.layout.fragment_edit_message, container, false);
 
-        View view=inflater.inflate(R.layout.fragment_edit_photo, container, false);
-        textTitle= (EditText) view.findViewById(R.id.photo_title_text);
-        textLink=(EditText) view.findViewById(R.id.photo_link_text);
+          textTitle= (EditText) view.findViewById(R.id.message_title_text);
+          textLink=(EditText) view.findViewById(R.id.message_link_text);
 
         Button saveButton= (Button) view.findViewById(R.id.save_btn_id);
 
 
         saveButton.setOnClickListener(this);
+
+
+        if(getArguments()==null)
+        {
+            //Not for edit
+
+            activity.setTitle("Create Message");
+        }else {
+            // Came for Edit
+
+            activity.setTitle("Edit Message");
+        }
+
         return view;
     }
 
@@ -61,8 +85,9 @@ public class EditPhotoFragment extends Fragment implements View.OnClickListener{
             }
 
 
-            Toast.makeText(getContext(),"Valid url",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Valid url",Toast.LENGTH_LONG).show();
 
         }
     }
+
 }

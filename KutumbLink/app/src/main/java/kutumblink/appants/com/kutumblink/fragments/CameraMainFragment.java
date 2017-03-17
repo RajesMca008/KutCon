@@ -1,11 +1,9 @@
-package kutumblink.appants.com.kutumblink;
+package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.preference.DialogPreference;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,23 +20,25 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import kutumblink.appants.com.kutumblink.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MessageMainFragment extends Fragment {
+public class CameraMainFragment extends BaseFragment {
 
-
-    public MessageMainFragment() {
+    private ArrayList<MessageBean> mMsgList=null;
+    public CameraMainFragment() {
         // Required empty public constructor
     }
 
-
-    private ArrayList<MessageBean> mMsgList=null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_message_main, container, false);
+        // Inflate the layout for this fragment
+        View view=inflater.inflate(R.layout.fragment_camera_main, container, false);
+
         ListView listView=(ListView)view.findViewById(R.id.listView);
 
         mMsgList=new ArrayList<MessageBean>();
@@ -50,7 +50,7 @@ public class MessageMainFragment extends Fragment {
             mMsgList.add(bean);
         }
 
-        final MyListAdapter adapter=new MyListAdapter(getContext(),mMsgList);
+        final  MyListAdapter adapter= new MyListAdapter(getContext(),mMsgList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -98,7 +98,7 @@ public class MessageMainFragment extends Fragment {
                         }
                         else if(item==0)
                         {
-                            EditMessageFragment editFragment = new EditMessageFragment();
+                            EditPhotoFragment editFragment = new EditPhotoFragment();
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, editFragment);
@@ -162,4 +162,5 @@ public class MessageMainFragment extends Fragment {
             return view;
         }
     }
+
 }
