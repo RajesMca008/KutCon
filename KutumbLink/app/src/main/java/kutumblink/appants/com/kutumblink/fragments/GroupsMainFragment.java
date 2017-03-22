@@ -1,13 +1,20 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.adapter.GroupListAdapter;
+import kutumblink.appants.com.kutumblink.model.GroupDo;
+import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 public class GroupsMainFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -42,6 +49,9 @@ public class GroupsMainFragment extends BaseFragment {
         return fragment;
     }
     LinearLayout ll_addgroup;
+    ListView lv_GroupList;
+    DatabaseHandler dbHandler;
+    ArrayList<GroupDo> arr_group=new ArrayList<GroupDo>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +60,7 @@ public class GroupsMainFragment extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        dbHandler=new DatabaseHandler(getActivity());
     }
 
     @Override
@@ -58,7 +69,8 @@ public class GroupsMainFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_groups_main, container, false);
         ll_addgroup=(LinearLayout)view.findViewById(R.id.ll_addgroup);
-
+        lv_GroupList=(ListView)view.findViewById(R.id.lv_grouplist);
+        arr_group.clear();
         ll_addgroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +82,27 @@ public class GroupsMainFragment extends BaseFragment {
 
 
 
+
+
+        Cursor c=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_GROUP);
+        if(c!=null)
+        {
+            if(c.getCount()>0)
+            {
+                c.moveToFirst();
+                do {
+                    GroupDo groupDetails=new GroupDo();
+                    groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
+                    groupDetails.setGroup_Name(c.getString(c.getColumnIndex(dbHandler.GROUP_NAME)));
+                    groupDetails.setGroup_totalContactList(c.getString(c.getColumnIndex(dbHandler.GROUP_TOTALCONTACTS)));
+                  //  groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
+                    arr_group.add(groupDetails);
+
+                }while(c.moveToNext());
+
+            }
+        }
+        lv_GroupList.setAdapter(new GroupListAdapter(getActivity(),arr_group));
         return view;
 
     }

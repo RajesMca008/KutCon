@@ -29,6 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String PHONE_CONTACT_NUMBER = "Phone_Contact_Number";
 	public static final String PHONE_CONTACT_EMAIL = "Phone_Contact_email";
 	public static final String PHONE_CONTACT_PIC = "Phone_Contact_Pic";
+	public static final String PHONE_CONTACT_GID = "Phone_Contact_Gid";
 	public static final String PHONE_GROUP_ID = "Phone_Group_ID";
 
 
@@ -58,14 +59,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				+ TABLE_PHONE_CONTACTS
 				+ " ("
 				+ PHONE_CONTACT_ID 		+ " INTEGER PRIMARY KEY,"
-
 				+ PHONE_CONTACT_NAME	+ " TEXT,"
 				+ PHONE_CONTACT_NUMBER 	+ " TEXT,"
 				+ PHONE_CONTACT_EMAIL 	+ " TEXT,"
 				+ PHONE_CONTACT_PIC 	+ " BLOB,"
-
-				+ " FOREIGN KEY ("+PHONE_GROUP_ID+") REFERENCES "+TABLE_GROUP+" ("+GROUP_ID+") "
-
+				+ PHONE_CONTACT_GID 	+ " TEXT"
 				+ ")";
 
 
