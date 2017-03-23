@@ -7,30 +7,35 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content">
 
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_goupname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@+id/iv_photo"
+            android:text="uhuhuhuhuh"
+            android:paddingLeft="25dp"
             android:textSize="20dp"
+
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/iv_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_name"
-            android:layout_centerHorizontal="true"
-            android:padding="5dp" />
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/ic_apps_black_24dp"
+            android:padding="5dp"
+            android:layout_alignParentStart="true" />
 
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
-            android:id="@+id/tv_details"
+            android:id="@+id/tv_totalcontacts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_photo"
-            />
+            android:text="55"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true" />
 
     </RelativeLayout>
 

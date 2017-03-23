@@ -21,7 +21,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	public static final String GROUP_ID = "G_GROUPID";
 	public static final String GROUP_NAME = "G_NAME";
-	public static final String GROUP_PIC = "G_GROUPID";
+	public static final String GROUP_PIC = "G_GROUP_PIC";
 	public static final String GROUP_TOTALCONTACTS = "G_TOTALCONTACTS";
 
 	public static final String PHONE_CONTACT_ID = "Phone_Contact_ID";
@@ -70,6 +70,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		db.execSQL(CREATE_GROUP);
 
+		db.execSQL(CREATE_CONTACTS);
 
 	}
 

@@ -67,12 +67,12 @@ public class GroupListAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
-            view = new View(context);
+           // view = new View(context);
 
             // get layout from grid_item.xml
             view = inflater.inflate(R.layout.inflate_grouplist, null);
             TextView tv_groupName=(TextView)view.findViewById(R.id.tv_goupname);
-            tv_groupName.setText(adb.getGroup_Name());
+            tv_groupName.setText(""+adb.getGroup_Name());
 
 
 

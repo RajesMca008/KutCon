@@ -3,6 +3,7 @@ package kutumblink.appants.com.kutumblink.fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,7 +103,9 @@ public class GroupsMainFragment extends BaseFragment {
 
             }
         }
-        lv_GroupList.setAdapter(new GroupListAdapter(getActivity(),arr_group));
+
+        Log.v("GROUP SIZE...","SIZE OF GROUP..."+arr_group.size());
+       lv_GroupList.setAdapter(new GroupListAdapter(getActivity(),arr_group));
         return view;
 
     }

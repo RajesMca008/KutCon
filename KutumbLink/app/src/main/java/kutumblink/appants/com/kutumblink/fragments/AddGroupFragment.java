@@ -101,22 +101,22 @@ public class AddGroupFragment extends BaseFragment {
 
                 dbHandler.insert(dbHandler.TABLE_PHONE_CONTACTS, cv);
 
-                Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME=" + Constants.G_NAME);
-                if (c != null) {
-                    if (c.getCount() == 0) {
+
                         ContentValues g_cv = new ContentValues();
                         g_cv.put(dbHandler.GROUP_NAME, Constants.G_NAME);
                         // g_cv.put(dbHandler.GROUP_PIC,""+contact.getPhone(0));
                         //  g_cv.put(dbHandler.GROUP_TOTALCONTACTS,""+contact.getEmail(0));
+                Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.G_NAME+"'");
 
-                        dbHandler.insert(dbHandler.TABLE_GROUP, cv);
+                    if (c==null || c.getCount() == 0) {
+                        dbHandler.insert(dbHandler.TABLE_GROUP, g_cv);
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
                     }else{
                         Toast.makeText(getActivity(),"Groupname already Exists",Toast.LENGTH_SHORT).show();
                     }
 
-                }
+
 
             }
         }
