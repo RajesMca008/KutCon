@@ -72,8 +72,9 @@ public class GroupListAdapter extends BaseAdapter {
             // get layout from grid_item.xml
             view = inflater.inflate(R.layout.inflate_grouplist, null);
             TextView tv_groupName=(TextView)view.findViewById(R.id.tv_goupname);
+            TextView tv_totalcontacts=(TextView)view.findViewById(R.id.tv_totalcontacts);
             tv_groupName.setText(""+adb.getGroup_Name());
-
+            tv_totalcontacts.setText(""+adb.getGroup_totalContactList());
 
 
             // set value into textview

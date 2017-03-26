@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -32,14 +33,7 @@ public class GroupsMainFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GroupsMainFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static GroupsMainFragment newInstance(String param1, String param2) {
         GroupsMainFragment fragment = new GroupsMainFragment();
@@ -50,6 +44,7 @@ public class GroupsMainFragment extends BaseFragment {
         return fragment;
     }
     LinearLayout ll_addgroup;
+    TextView tv_totalcontacts;
     ListView lv_GroupList;
     DatabaseHandler dbHandler;
     ArrayList<GroupDo> arr_group=new ArrayList<GroupDo>();
@@ -70,6 +65,7 @@ public class GroupsMainFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_groups_main, container, false);
         ll_addgroup=(LinearLayout)view.findViewById(R.id.ll_addgroup);
+
         lv_GroupList=(ListView)view.findViewById(R.id.lv_grouplist);
         arr_group.clear();
         ll_addgroup.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +92,7 @@ public class GroupsMainFragment extends BaseFragment {
                     groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     groupDetails.setGroup_Name(c.getString(c.getColumnIndex(dbHandler.GROUP_NAME)));
                     groupDetails.setGroup_totalContactList(c.getString(c.getColumnIndex(dbHandler.GROUP_TOTALCONTACTS)));
+
                   //  groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     arr_group.add(groupDetails);
 

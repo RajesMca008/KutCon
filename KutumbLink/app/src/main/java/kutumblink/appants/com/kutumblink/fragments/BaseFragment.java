@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
-import kutumblink.appants.com.kutumblink.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -119,4 +118,8 @@ public class BaseFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
+
 }

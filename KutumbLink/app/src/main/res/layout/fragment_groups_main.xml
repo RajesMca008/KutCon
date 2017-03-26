@@ -16,28 +16,55 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
 
+            android:weightSum="1"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="280dp"
-                android:layout_height="40dp"
-                android:gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/add_group"
 
-                android:background="@drawable/addgroupbuttonhover" />
+                android:layout_weight="0.03"
+                android:gravity="left" />
+
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:textSize="20sp"
+                android:text="Add Group"
+                android:textColor="#000000"
+                android:paddingTop="5dp"
+                android:gravity="left" />
 
 
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
                 android:layout_gravity="right"
-                android:background="@drawable/arrow_right" />
+                android:layout_weight="0.05"
+                android:background="@drawable/right_arrow" />
+
 
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/line" />
         <ListView
             android:id="@+id/lv_grouplist"
             android:layout_width="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:dividerHeight="1dp"
+            android:divider="@drawable/line"
             android:layout_height="match_parent"></ListView>
 
 

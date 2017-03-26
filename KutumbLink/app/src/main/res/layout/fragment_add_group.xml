@@ -10,16 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <kutumblink.appants.com.kutumblink.utils.CustomTextView
         android:id="@+id/tv_subtitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:drawablePadding="15dp"
-        android:drawableRight="@drawable/arrow_right"
+
         android:text="@string/addgroupsubtitle" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            app:srcCompat="@drawable/default_icon" />
+        </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,16 +40,18 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/photo_icon"
+            android:background="@drawable/add_group"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:id="@+id/iv_groupicon" />
         <kutumblink.appants.com.kutumblink.utils.CustomEditTextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:hint="Group Name"
             android:paddingLeft="5dp"
 
@@ -48,16 +62,13 @@
 
         <ImageView
             android:id="@+id/iv_favgroups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/et_groupname"
-            android:layout_alignRight="@+id/et_groupname"
-            android:layout_alignTop="@+id/et_groupname"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            app:srcCompat="@drawable/arrow_right" />
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            app:srcCompat="@drawable/default_icon"
+            android:layout_alignBottom="@+id/et_groupname"
+            android:layout_alignEnd="@+id/et_groupname" />
 
 
     </RelativeLayout>
@@ -74,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="Add Contacts"/>
         <View
             android:layout_width="match_parent"
@@ -86,10 +97,10 @@
             android:id="@+id/tv_selectContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/arrow_right"
+            android:textSize="18sp"
+            android:drawableRight="@drawable/right_arrow"
             android:layout_marginRight="10dp"
             android:text="Select Contact"/>
 
@@ -104,8 +115,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/arrow_right"
+            android:textSize="18sp"
+            android:drawableRight="@drawable/right_arrow"
             android:layout_marginRight="10dp"
             android:text="Create Contact"/>
         <View
@@ -119,8 +130,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/arrow_right"
+            android:textSize="18sp"
+            android:drawableRight="@drawable/right_arrow"
             android:layout_marginRight="10dp"
             android:text="Sort Order- Default"/>
 

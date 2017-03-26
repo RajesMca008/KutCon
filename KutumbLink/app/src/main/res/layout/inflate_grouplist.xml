@@ -7,14 +7,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
             android:id="@+id/tv_goupname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/iv_photo"
-            android:text="uhuhuhuhuh"
+            android:text=""
             android:paddingLeft="25dp"
             android:textSize="20dp"
 
@@ -34,6 +36,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="55"
+            android:paddingTop="2dp"
+            android:paddingBottom="2sp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="#ccc"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true" />
 
