@@ -46,6 +46,7 @@ public class AddGroupFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+
     private static final int CONTACT_PICKER_RESULT = 1001;
     public static final int REQUEST_CODE_PICK_CONTACT = 1;
     public static final int MAX_PICK_CONTACT = 10;
@@ -68,24 +69,12 @@ public class AddGroupFragment extends BaseFragment {
 
                 if (!canUseExternalStorage) {
                     Toast.makeText(getActivity(), "Cannot use this feature without requested permission", Toast.LENGTH_SHORT).show();
-                } else {
-                    // user now provided permission
-                    // perform function for what you want to achieve
-
-                    Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
-                            // .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_Dark : R.style.Theme_Light)
-                            .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
-                            .putExtra(ContactPickerActivity.EXTRA_SHOW_CHECK_ALL, true)
-                            .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION, ContactDescription.ADDRESS.name())
-                            .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
-                            .putExtra(ContactPickerActivity.EXTRA_CONTACT_SORT_ORDER, ContactSortOrder.AUTOMATIC.name());
-                    startActivityForResult(intent, REQUEST_CONTACT);
                 }
             }
         }
     }
 
-    ImageView iv_gicon;
+    ImageView iv_gicon,iv_groupicon;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,7 +84,12 @@ public class AddGroupFragment extends BaseFragment {
         tv_selectContact = (TextView) view.findViewById(R.id.tv_selectContact);
         et_groupname = (EditText) view.findViewById(R.id.et_groupname);
         iv_gicon=(ImageView)view.findViewById(R.id.iv_groupicon) ;
+        iv_groupicon=(ImageView)view.findViewById(R.id.iv_groupicon);
         dbHandler = new DatabaseHandler(getActivity());
+
+        if(Constants.imgID!=0){
+            iv_gicon.setImageResource(Constants.imgID);
+        }
 
         iv_gicon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +168,7 @@ public class AddGroupFragment extends BaseFragment {
             ContentValues g_cv = new ContentValues();
             g_cv.put(dbHandler.GROUP_NAME, Constants.G_NAME);
             g_cv.put(dbHandler.GROUP_TOTALCONTACTS,""+contacts.size());
-            //  g_cv.put(dbHandler.GROUP_TOTALCONTACTS,""+contact.getEmail(0));
+             g_cv.put(dbHandler.GROUP_PIC,""+Constants.imgID);
             Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.G_NAME+"'");
 
             if (c==null || c.getCount() == 0) {

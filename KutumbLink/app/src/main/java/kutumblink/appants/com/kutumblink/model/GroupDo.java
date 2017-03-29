@@ -8,8 +8,17 @@ public class GroupDo {
 
     private String group_ID;
     private String group_Name;
-    private String group_Pic;
+    private int group_Pic;
     private String group_totalContactList;
+
+
+    public int getGroup_Pic() {
+        return group_Pic;
+    }
+
+    public void setGroup_Pic(int group_Pic) {
+        this.group_Pic = group_Pic;
+    }
 
     public String getGroup_ID() {
         return group_ID;
@@ -27,13 +36,7 @@ public class GroupDo {
         this.group_Name = group_Name;
     }
 
-    public String getGroup_Pic() {
-        return group_Pic;
-    }
 
-    public void setGroup_Pic(String group_Pic) {
-        this.group_Pic = group_Pic;
-    }
 
     public String getGroup_totalContactList() {
         return group_totalContactList;

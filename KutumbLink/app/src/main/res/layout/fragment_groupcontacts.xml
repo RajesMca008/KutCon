@@ -1,0 +1,54 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kutumblink.appants.com.kutumblink.fragments.EventsMainFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/close_red"
+             />
+
+        <kutumblink.appants.com.kutumblink.utils.CustomEditTextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="Action"
+            android:background="@drawable/edtcornershape"
+            android:layout_toEndOf="@+id/btn_close"
+            android:layout_marginRight="15dp"
+            android:id="@+id/customEditTextView2" />
+
+        <Button
+            android:id="@+id/btn_action"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignEnd="@+id/customEditTextView2"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/down_arrow" />
+
+    </RelativeLayout>
+
+        <ListView
+            android:id="@+id/lv_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+
+    </LinearLayout>
+
+</FrameLayout>

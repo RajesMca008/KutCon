@@ -3,6 +3,7 @@ package kutumblink.appants.com.kutumblink.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.utils.Constants;
 
 
 /**
@@ -68,7 +71,37 @@ public class SelectGroupIconsFragment extends BaseFragment  {
             R.drawable.camera,R.drawable.cameratwo,R.drawable.car_service,R.drawable.cd,R.drawable.chat,R.drawable.font_letter,
             R.drawable.home,R.drawable.flag,R.drawable.doll,R.drawable.clock,R.drawable.chattwo   };
 
+    String[] imgName = new String[]{
+            "bag.jpg",
+            "basket.jpg",
+            "monitor.jpg",
+            "movies.jpg",
+            "note.jpg",
+            "pad.jpg",
+            "photo_gallery.jpg",
+            "photos.jpg",
+            "post_card.jpg",
+            "printwer.jpg",
 
+            "reading.jpg",
+            "rescue.jpg",
+            "rubix_cube.jpg",
+            "bank.jpg",
+            "search.jpg",
+            "sit.jpg",
+            "speaker.jpg",
+            "speedometer.jpg",
+            "spray.jpg",
+            "stop.jpg",
+            "sweep.jpg",
+            "twitter.jpg",
+
+            "umbrella.jpg",
+            "wheel.jpg",
+            "wifi.jpg","lock.jpg","binacular.jpg","neighbour.jpg","landline.jpg","id_card.jpg",
+            "building.jpg","bulb_twitter.jpg","bulbtwo.jpg","calendar.jpg","caliculator.jpg","caliculatortertwo.jpg",
+            "camera.jpg","cameratwo.jpg","car_service.jpg","cd.jpg","chat.jpg","font_letter.jpg",
+            "home.jpg","flag.jpg","doll.jpg","clock.jpg","chattwo.jpg"  };
     public static SelectGroupIconsFragment newInstance(String param1)
     {
         SelectGroupIconsFragment fragment=new SelectGroupIconsFragment();
@@ -85,11 +118,11 @@ public class SelectGroupIconsFragment extends BaseFragment  {
         View view=inflater.inflate(R.layout.fragment_group_icons, container, false);
 
 
-        List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
+        final List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
         for(int i=0;i<46;i++){
             HashMap<String, String> hm = new HashMap<String,String>();
-           // hm.put("txt", countries[i]);
+            hm.put("imgName", imgName[i]);
             hm.put("flag", Integer.toString(flags[i]) );
             aList.add(hm);
         }
@@ -110,8 +143,31 @@ public class SelectGroupIconsFragment extends BaseFragment  {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(),flags[i],Toast.LENGTH_LONG).show();
 
+
+
+                int a=0;
+
+                for (HashMap<String, String> map : aList) {
+                    if (a == i) {
+                        for (Map.Entry<String, String> mapEntry : map.entrySet()) {
+                            String key = mapEntry.getKey();
+                            String value = mapEntry.getValue();
+
+                            if(key.equalsIgnoreCase("flag")) {
+                                Constants.imgID=Integer.parseInt(value);
+
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
+
+                                Toast.makeText(getActivity(), "key....." + key + "...value..." + value, Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                    }
+
+                    a++;
+                }
             }
         });
         return view;

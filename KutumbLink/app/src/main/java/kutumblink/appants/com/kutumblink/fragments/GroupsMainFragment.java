@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.adapter.GroupListAdapter;
 import kutumblink.appants.com.kutumblink.model.GroupDo;
+import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 public class GroupsMainFragment extends BaseFragment {
@@ -58,7 +60,8 @@ public class GroupsMainFragment extends BaseFragment {
         }
         dbHandler=new DatabaseHandler(getActivity());
     }
-
+    int[] flags = new int[]{
+            R.drawable.add_group };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,8 +80,20 @@ public class GroupsMainFragment extends BaseFragment {
             }
         });
 
+        lv_GroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
 
+                Constants.GROUP_NAME=arr_group.get(i).getGroup_Name();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new GroupContactsFragment()).commit();
+
+            }
+        });
+
+        String mDrawableName = "add_group";
+        Constants.imgID = getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName());
 
 
         Cursor c=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_GROUP);
@@ -91,6 +106,7 @@ public class GroupsMainFragment extends BaseFragment {
                     GroupDo groupDetails=new GroupDo();
                     groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     groupDetails.setGroup_Name(c.getString(c.getColumnIndex(dbHandler.GROUP_NAME)));
+                    groupDetails.setGroup_Pic(Integer.parseInt(c.getString(c.getColumnIndex(dbHandler.GROUP_PIC))));
                     groupDetails.setGroup_totalContactList(c.getString(c.getColumnIndex(dbHandler.GROUP_TOTALCONTACTS)));
 
                   //  groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));

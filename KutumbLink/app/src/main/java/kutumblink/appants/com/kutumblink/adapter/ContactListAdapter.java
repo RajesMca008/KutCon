@@ -11,23 +11,25 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import kutumblink.appants.com.kutumblink.R;
-import kutumblink.appants.com.kutumblink.model.GroupDo;
+import kutumblink.appants.com.kutumblink.model.ContactsDo;
 
 /**
  * Created by Vishnu on 18-05-2016.
  */
-public class GroupListAdapter extends BaseAdapter {
+public class ContactListAdapter extends BaseAdapter {
 
     ArrayList itemsList;
     private Context context;
-    GroupDo adb;
+    ContactsDo adb;
+    boolean[] checkBoxState;
     //Constructor to initialize values
-    public GroupListAdapter(Context context,  ArrayList itemsList) {
+    public ContactListAdapter(Context context, ArrayList itemsList) {
 
 
 
         this.context = context;
         this.itemsList=itemsList;
+        checkBoxState=new boolean[itemsList.size()];
     }
 
     @Override
@@ -56,7 +58,7 @@ public class GroupListAdapter extends BaseAdapter {
 
         //LayoutInflator to call external grid_item.xml file
         try {
-            adb = (GroupDo) getItem(position);
+            adb = (ContactsDo) getItem(position);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -71,14 +73,27 @@ public class GroupListAdapter extends BaseAdapter {
            // view = new View(context);
 
             // get layout from grid_item.xml
-            view = inflater.inflate(R.layout.inflate_grouplist, null);
-            TextView tv_groupName=(TextView)view.findViewById(R.id.tv_goupname);
-            TextView tv_totalcontacts=(TextView)view.findViewById(R.id.tv_totalcontacts);
-            ImageView iv_groupPic=(ImageView)view.findViewById(R.id.iv_photo);
-            tv_groupName.setText(""+adb.getGroup_Name());
-            tv_totalcontacts.setText(""+adb.getGroup_totalContactList());
-            iv_groupPic.setImageResource(adb.getGroup_Pic());
+            view = inflater.inflate(R.layout.inflate_contactlist, null);
+            TextView tv_contactName=(TextView)view.findViewById(R.id.tv_contactName);
+            final ImageView cb_conatacts=(ImageView)view.findViewById(R.id.cb_contacts);
+            tv_contactName.setText(""+adb.getConatactName());
+          //  cb_conatacts.setChecked(checkBoxState[position]);
 
+
+
+            cb_conatacts.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    if(!checkBoxState[position]) {
+                        checkBoxState[position] = true;
+                        cb_conatacts.setBackgroundResource(R.drawable.radio_btn_selected);
+                    } else {
+                        cb_conatacts.setBackgroundResource(R.drawable.radio_btn);
+                        checkBoxState[position] = false;
+                    }
+
+                }
+            });
 
             // set value into textview
             return view;
