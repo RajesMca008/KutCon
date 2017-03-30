@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="wrap_content"
-                android:src="@android:drawable/ic_menu_save"
+                android:src="@drawable/arrow_right"
                 android:layout_height="wrap_content" />
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:layout_width="match_parent"

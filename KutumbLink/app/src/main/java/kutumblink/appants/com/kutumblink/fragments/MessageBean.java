@@ -9,6 +9,16 @@ import java.io.Serializable;
 class MessageBean implements Serializable{
     private String msgTitle=null;
 
+    public String getMsgLink() {
+        return msgLink;
+    }
+
+    public void setMsgLink(String msgLink) {
+        this.msgLink = msgLink;
+    }
+
+    private String msgLink=null;
+
     public String getMsgTitle() {
         return msgTitle;
     }

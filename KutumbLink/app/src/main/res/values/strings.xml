@@ -37,4 +37,5 @@
     <string name="invalid_title">Invalid title</string>
     <string name="invalid_url">Invalid URL</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="saved_sucess">successfully saved.</string>
 </resources>

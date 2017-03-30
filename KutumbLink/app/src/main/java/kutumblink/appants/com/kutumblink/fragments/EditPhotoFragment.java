@@ -1,6 +1,7 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Patterns;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.fragments.BaseFragment;
+import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 
 /**
@@ -63,8 +65,32 @@ public class EditPhotoFragment extends BaseFragment implements View.OnClickListe
                 return;
             }
 
+            DatabaseHandler dbHandler=null;
+            try {
 
-            Toast.makeText(getContext(),"Valid url",Toast.LENGTH_LONG).show();
+                dbHandler=new DatabaseHandler(getActivity());
+
+                ContentValues contentValues=new ContentValues();
+                contentValues.put(DatabaseHandler.PHOTO_LINK,textLink.getText().toString().trim());
+                contentValues.put(DatabaseHandler.PHOTO_TITLE,textTitle.getText().toString().trim());
+
+
+                long insert= dbHandler.insert(DatabaseHandler.TABLE_PHOTOS,contentValues);
+
+
+                if(insert>0)
+                {
+                    Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
+                    getActivity().onBackPressed();
+                }
+                dbHandler.close();
+            }
+            catch (Exception e)
+            {
+                if(dbHandler!=null)
+                    dbHandler.close();
+
+            }
 
         }
     }

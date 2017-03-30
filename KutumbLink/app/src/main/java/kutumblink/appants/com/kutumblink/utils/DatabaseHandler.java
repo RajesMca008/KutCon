@@ -18,11 +18,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// questionsData table name
 	public static final String TABLE_PHONE_CONTACTS = "TBL_PHONE_CONTACTS";
 	public static final String TABLE_GROUP = "TBL_GROUP";
+	public static final String TABLE_MESSAGES = "TBL_MSG";
+	public static final String TABLE_PHOTOS = "TBL_PHO";
 
 	public static final String GROUP_ID = "G_GROUPID";
 	public static final String GROUP_NAME = "G_NAME";
 	public static final String GROUP_PIC = "G_GROUP_PIC";
 	public static final String GROUP_TOTALCONTACTS = "G_TOTALCONTACTS";
+
+	/**
+	 * Message related fields.
+	 */
+	public static final String MSG_ID = "msg_id";
+	public static final String MSG_TITLE = "msg_title";
+	public static final String MSG_LINK = "msg_link";
+	public static final String CREATED_ON = "created_on";
+
+	/**
+	 * Photos table fields
+	 *
+	 */
+	public static final String PHOTO_ID = "pho_id";
+	public static final String PHOTO_TITLE = "pho_title";
+	public static final String PHOTO_LINK = "pho_link";
 
 	public static final String PHONE_CONTACT_ID = "Phone_Contact_ID";
 	public static final String PHONE_CONTACT_NAME = "Phone_Contact_Name";
@@ -38,39 +56,63 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
+
+	String CREATE_MESSGE_TABLE = "CREATE TABLE "
+			+ TABLE_MESSAGES
+			+ " ("
+			+ MSG_ID 		+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
+
+			+ MSG_TITLE	+ " TEXT,"
+			+ MSG_LINK 	+ " TEXT,"
+			+ CREATED_ON 	+ " DATETIME DEFAULT CURRENT_TIMESTAMP"
+			+ ")";
+
+	String CREATE_PHOTOS_TABLE = "CREATE TABLE "
+			+ TABLE_PHOTOS
+			+ " ("
+			+ PHOTO_ID 		+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
+
+			+ PHOTO_TITLE	+ " TEXT,"
+			+ PHOTO_LINK 	+ " TEXT,"
+			+ CREATED_ON 	+ "DATETIME DEFAULT CURRENT_TIMESTAMP"
+			+ ")";
+
+
+	String CREATE_GROUP = "CREATE TABLE "
+			+ TABLE_GROUP
+			+ " ("
+			+ GROUP_ID 		+ " INTEGER PRIMARY KEY,"
+
+			+ GROUP_NAME	+ " TEXT,"
+			+ GROUP_PIC 	+ " BLOB,"
+			+ GROUP_TOTALCONTACTS 	+ " TEXT"
+
+			+ ")";
+
+	String CREATE_CONTACTS = "CREATE TABLE "
+			+ TABLE_PHONE_CONTACTS
+			+ " ("
+			+ PHONE_CONTACT_ID 		+ " INTEGER PRIMARY KEY,"
+			+ PHONE_CONTACT_NAME	+ " TEXT,"
+			+ PHONE_CONTACT_NUMBER 	+ " TEXT,"
+			+ PHONE_CONTACT_EMAIL 	+ " TEXT,"
+			+ PHONE_CONTACT_PIC 	+ " BLOB,"
+			+ PHONE_CONTACT_GID 	+ " TEXT"
+			+ ")";
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
 
 
-		String CREATE_GROUP = "CREATE TABLE "
-				+ TABLE_GROUP
-				+ " ("
-				+ GROUP_ID 		+ " INTEGER PRIMARY KEY,"
-
-				+ GROUP_NAME	+ " TEXT,"
-				+ GROUP_PIC 	+ " BLOB,"
-				+ GROUP_TOTALCONTACTS 	+ " TEXT"
-
-				+ ")";
-
-		String CREATE_CONTACTS = "CREATE TABLE "
-				+ TABLE_PHONE_CONTACTS
-				+ " ("
-				+ PHONE_CONTACT_ID 		+ " INTEGER PRIMARY KEY,"
-				+ PHONE_CONTACT_NAME	+ " TEXT,"
-				+ PHONE_CONTACT_NUMBER 	+ " TEXT,"
-				+ PHONE_CONTACT_EMAIL 	+ " TEXT,"
-				+ PHONE_CONTACT_PIC 	+ " BLOB,"
-				+ PHONE_CONTACT_GID 	+ " TEXT"
-				+ ")";
 
 
 
 		db.execSQL(CREATE_GROUP);
 
 		db.execSQL(CREATE_CONTACTS);
+		db.execSQL(CREATE_MESSGE_TABLE);
+		db.execSQL(CREATE_PHOTOS_TABLE);
 
 	}
 
@@ -81,6 +123,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUP);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_MESSAGES);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PHOTOS);
 
 		// Create tables again
 		onCreate(db);
@@ -108,14 +152,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 
-	public void insert(String tableName, ContentValues values) {
+	public long insert(String tableName, ContentValues values) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		
-		db.insert(tableName, null, values);
+		long result=db.insert(tableName, null, values);
 		db.close(); 
-	//	return seq;
+	 	return result;
 	}
+
+
 
 	
 	

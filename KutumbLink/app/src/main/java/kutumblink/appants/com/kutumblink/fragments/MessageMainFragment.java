@@ -3,6 +3,7 @@ package kutumblink.appants.com.kutumblink.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 
 /**
@@ -43,12 +45,41 @@ public class MessageMainFragment extends BaseFragment {
 
         mMsgList=new ArrayList<MessageBean>();
 
-        for (int i=0;i<20;i++)
+        View addItem=view.findViewById(R.id.add_layout);
+
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                EditMessageFragment editFragment = new EditMessageFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, editFragment);
+                fragmentTransaction.addToBackStack("edit_msg");
+                fragmentTransaction.commit();
+            }
+        });
+
+
+        DatabaseHandler databaseHandler=null;
+        databaseHandler=new DatabaseHandler(getActivity());
+        Cursor cursor = databaseHandler.retriveData("select * from " + DatabaseHandler.TABLE_MESSAGES);
+
+
+        if(cursor!=null && cursor.getCount()>0)
         {
-            MessageBean bean=new MessageBean();
-            bean.setMsgTitle("Message title "+i);
-            mMsgList.add(bean);
+            cursor.moveToFirst();
+
+            do {
+                MessageBean bean=new MessageBean();
+                bean.setMsgLink(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_LINK)));
+                bean.setMsgTitle(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_TITLE)));
+                mMsgList.add(bean);
+            }
+            while (cursor.moveToNext());
         }
+        cursor.close();;
+        databaseHandler.close();
 
         final MyListAdapter adapter=new MyListAdapter(getContext(),mMsgList);
         listView.setAdapter(adapter);
