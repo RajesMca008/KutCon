@@ -44,7 +44,6 @@ dependencies {
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
 
-    debugCompile project(':library')
-    releaseCompile "com.1gravity:android-contactpicker:1.2.1"
-    testCompile 'junit:junit:4.12'
+    compile project(':my-library')
+    //releaseCompile "com.1gravity:android-contactpicker:1.2.1"
 }

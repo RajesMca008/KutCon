@@ -4,20 +4,20 @@
     <item
         android:id="@+id/navigation_groups"
         android:icon="@drawable/groups_btn"
-        android:title="@string/groups" />
+        android:title="" />
 
     <item
         android:id="@+id/navigation_events"
         android:icon="@drawable/events_btn"
-        android:title="@string/events" />
+        android:title="" />
 
     <item
         android:id="@+id/navigation_message"
         android:icon="@drawable/messages_btn"
-        android:title="@string/messages" />
+        android:title="" />
     <item
         android:id="@+id/navigation_photos"
         android:icon="@drawable/photos_btn"
-        android:title="@string/photos" />
+       android:title=""  />
 
 </menu>
