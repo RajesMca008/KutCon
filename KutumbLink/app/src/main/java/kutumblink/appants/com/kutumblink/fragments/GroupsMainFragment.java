@@ -3,6 +3,7 @@ package kutumblink.appants.com.kutumblink.fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,17 +81,6 @@ public class GroupsMainFragment extends BaseFragment {
             }
         });
 
-        lv_GroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-                Constants.GROUP_NAME=arr_group.get(i).getGroup_Name();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_container, new GroupContactsFragment()).commit();
-
-            }
-        });
 
         String mDrawableName = "add_group";
         Constants.imgID = getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName());
@@ -119,6 +109,28 @@ public class GroupsMainFragment extends BaseFragment {
 
         Log.v("GROUP SIZE...","SIZE OF GROUP..."+arr_group.size());
        lv_GroupList.setAdapter(new GroupListAdapter(getActivity(),arr_group));
+
+
+        lv_GroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                Constants.GROUP_NAME=arr_group.get(i).getGroup_Name();
+
+
+                GroupContactsFragment editFragment = new GroupContactsFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, editFragment);
+                fragmentTransaction.addToBackStack("group_Main");
+                fragmentTransaction.commit();
+
+
+            }
+        });
+
+
         return view;
 
     }

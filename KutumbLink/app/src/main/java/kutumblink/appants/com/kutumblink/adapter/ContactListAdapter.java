@@ -1,16 +1,19 @@
 package kutumblink.appants.com.kutumblink.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.fragments.GroupContactsFragment;
 import kutumblink.appants.com.kutumblink.model.ContactsDo;
 
 /**
@@ -75,21 +78,34 @@ public class ContactListAdapter extends BaseAdapter {
             // get layout from grid_item.xml
             view = inflater.inflate(R.layout.inflate_contactlist, null);
             TextView tv_contactName=(TextView)view.findViewById(R.id.tv_contactName);
+            RelativeLayout rl_contacts=(RelativeLayout)view.findViewById(R.id.rl_contacts);
             final ImageView cb_conatacts=(ImageView)view.findViewById(R.id.cb_contacts);
             tv_contactName.setText(""+adb.getConatactName());
           //  cb_conatacts.setChecked(checkBoxState[position]);
 
 
 
-            cb_conatacts.setOnClickListener(new View.OnClickListener() {
+            rl_contacts.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
                     if(!checkBoxState[position]) {
                         checkBoxState[position] = true;
                         cb_conatacts.setBackgroundResource(R.drawable.radio_btn_selected);
+
+                        Log.v("POSITION...","...POSITION..."+position);
+                        GroupContactsFragment.arr_contacts.get(position).setIS_CONTACT_SELECTED(1);
+                      //  GroupContactsFragment.et_action.setTextColor(Color.parseColor("#000000"));
                     } else {
                         cb_conatacts.setBackgroundResource(R.drawable.radio_btn);
                         checkBoxState[position] = false;
+                      //  adb.setIS_CONTACT_SELECTED(0);
+                        Log.v("POSITION...","...POSITION...ELSE"+position);
+                        GroupContactsFragment.arr_contacts.get(position).setIS_CONTACT_SELECTED(0);
+                     //   GroupContactsFragment.et_action.setTextColor(Color.parseColor("#cccccc"));
+
+                      for(int i=0;i<GroupContactsFragment.arr_contacts.size();i++){
+
+                      }
                     }
 
                 }

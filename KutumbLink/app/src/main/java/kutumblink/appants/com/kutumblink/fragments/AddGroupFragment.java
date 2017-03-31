@@ -110,11 +110,12 @@ public class AddGroupFragment extends BaseFragment {
                         requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
                                 MY_PERMISSIONS_REQUEST_READ_CONTACTS);
 
-                        Constants.G_NAME = et_groupname.getText().toString();
+                        Constants.GROUP_NAME = et_groupname.getText().toString();
                         Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
                                 // .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_Dark : R.style.Theme_Light)
                                 .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
                                 .putExtra(ContactPickerActivity.EXTRA_SHOW_CHECK_ALL, true)
+                                .putExtra(ContactPickerActivity.EXTRA_PRESELECTED_CONTACTS, true)
                                 .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION, ContactDescription.ADDRESS.name())
                                 .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
                                 .putExtra(ContactPickerActivity.EXTRA_CONTACT_SORT_ORDER, ContactSortOrder.AUTOMATIC.name());
@@ -123,7 +124,7 @@ public class AddGroupFragment extends BaseFragment {
                         requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
                                 MY_PERMISSIONS_REQUEST_READ_CONTACTS);
 
-                        Constants.G_NAME = et_groupname.getText().toString();
+                        Constants.GROUP_NAME = et_groupname.getText().toString();
                         Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
                                 // .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_Dark : R.style.Theme_Light)
                                 .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
@@ -157,7 +158,7 @@ public class AddGroupFragment extends BaseFragment {
                 cv.put(dbHandler.PHONE_CONTACT_NAME, "" + contact.getDisplayName());
                 cv.put(dbHandler.PHONE_CONTACT_NUMBER, "" + contact.getPhone(0));
                 cv.put(dbHandler.PHONE_CONTACT_EMAIL, "" + contact.getEmail(0));
-                cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.G_NAME);
+                cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
                 cv.put(dbHandler.PHONE_CONTACT_PIC, "" + contact.getPhotoUri());
 
                 dbHandler.insert(dbHandler.TABLE_PHONE_CONTACTS, cv);
@@ -166,10 +167,10 @@ public class AddGroupFragment extends BaseFragment {
             }
 
             ContentValues g_cv = new ContentValues();
-            g_cv.put(dbHandler.GROUP_NAME, Constants.G_NAME);
+            g_cv.put(dbHandler.GROUP_NAME, Constants.GROUP_NAME);
             g_cv.put(dbHandler.GROUP_TOTALCONTACTS,""+contacts.size());
              g_cv.put(dbHandler.GROUP_PIC,""+Constants.imgID);
-            Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.G_NAME+"'");
+            Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME+"'");
 
             if (c==null || c.getCount() == 0) {
                 dbHandler.insert(dbHandler.TABLE_GROUP, g_cv);
