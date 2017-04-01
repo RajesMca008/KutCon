@@ -4,6 +4,7 @@ package kutumblink.appants.com.kutumblink;
  * @auther Rrallabandi
  */
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,6 +33,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
     private Fragment fragment;
     private FragmentManager fragmentManager;
+    public Context ctx;
 
     private String[] mPlanetTitles;
     private DrawerLayout mDrawerLayout;
@@ -71,6 +73,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
 
         fragmentManager = getSupportFragmentManager();

@@ -119,10 +119,10 @@ public class GroupsMainFragment extends BaseFragment {
                 Constants.GROUP_NAME=arr_group.get(i).getGroup_Name();
 
 
-                GroupContactsFragment editFragment = new GroupContactsFragment(); //New means creating adding.
+                GroupContactsFragment groupContacts = new GroupContactsFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, editFragment);
+                fragmentTransaction.replace(R.id.main_container, groupContacts);
                 fragmentTransaction.addToBackStack("group_Main");
                 fragmentTransaction.commit();
 

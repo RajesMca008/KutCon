@@ -46,10 +46,6 @@ public class AddGroupFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-
-    private static final int CONTACT_PICKER_RESULT = 1001;
-    public static final int REQUEST_CODE_PICK_CONTACT = 1;
-    public static final int MAX_PICK_CONTACT = 10;
     TextView tv_selectContact;
     EditText et_groupname;
     DatabaseHandler dbHandler;
@@ -75,22 +71,38 @@ public class AddGroupFragment extends BaseFragment {
     }
 
     ImageView iv_gicon,iv_groupicon;
+    TextView tv_createContact;
+    int INSERT_CONTACT_REQUEST=2;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
+
+
         View view = inflater.inflate(R.layout.fragment_add_group, container, false);
 
         tv_selectContact = (TextView) view.findViewById(R.id.tv_selectContact);
         et_groupname = (EditText) view.findViewById(R.id.et_groupname);
         iv_gicon=(ImageView)view.findViewById(R.id.iv_groupicon) ;
         iv_groupicon=(ImageView)view.findViewById(R.id.iv_groupicon);
+        tv_createContact=(TextView)view.findViewById(R.id.tv_createContact);
         dbHandler = new DatabaseHandler(getActivity());
 
         if(Constants.imgID!=0){
             iv_gicon.setImageResource(Constants.imgID);
         }
 
+        tv_createContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(Intent.ACTION_INSERT, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(i, INSERT_CONTACT_REQUEST);
+            }
+        });
         iv_gicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +124,7 @@ public class AddGroupFragment extends BaseFragment {
 
                         Constants.GROUP_NAME = et_groupname.getText().toString();
                         Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
-                                // .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_Dark : R.style.Theme_Light)
+                              //   .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_AppCompat : R.style.TextAppearance_AppCompat_Caption)
                                 .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
                                 .putExtra(ContactPickerActivity.EXTRA_SHOW_CHECK_ALL, true)
                                 .putExtra(ContactPickerActivity.EXTRA_PRESELECTED_CONTACTS, true)
@@ -179,8 +191,18 @@ public class AddGroupFragment extends BaseFragment {
             }else{
                 Toast.makeText(getActivity(),"Groupname already Exists",Toast.LENGTH_SHORT).show();
             }
+        }else if(requestCode == INSERT_CONTACT_REQUEST){
+            if (resultCode == Activity.RESULT_OK)
+            {
+                Toast.makeText(getActivity(),"Added_Succesfully",Toast.LENGTH_SHORT).show();
+            }else if(resultCode == Activity.RESULT_CANCELED)
+            {
+                Toast.makeText(getActivity(),"Contact Added Succesfully",Toast.LENGTH_SHORT).show();
+            }
+
+        }
         }
 
 
     }
-}
+

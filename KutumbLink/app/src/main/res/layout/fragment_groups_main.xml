@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FBFBFB"
     tools:context="kutumblink.appants.com.kutumblink.fragments.GroupsMainFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -20,11 +21,11 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/add_group"
-
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_weight="0.03"
+
+                android:background="@drawable/add_group"
                 android:gravity="left" />
 
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
@@ -39,13 +40,13 @@
                 android:gravity="left" />
 
 
-
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_width="10dp"
+                android:layout_height="20dp"
                 android:layout_gravity="right"
+                android:layout_marginLeft="15dp"
                 android:layout_weight="0.05"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/right_arrow" />
 
 

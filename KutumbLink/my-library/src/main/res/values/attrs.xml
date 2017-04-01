@@ -17,8 +17,8 @@
 
 <resources>
 
-    <declare-styleable name="ContactPicker">
 
+    <declare-styleable name="ContactPicker">
 
     </declare-styleable>
 

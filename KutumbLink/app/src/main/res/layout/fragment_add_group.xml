@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FBFBFB"
     tools:context="kutumblink.appants.com.kutumblink.fragments.CameraMainFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -98,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:textSize="18sp"
             android:drawableRight="@drawable/right_arrow"
             android:layout_marginRight="10dp"
@@ -111,10 +112,11 @@
             android:background="@color/colorhash"/>
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
 
+            android:id="@+id/tv_createContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="30dp"
             android:textSize="18sp"
             android:drawableRight="@drawable/right_arrow"
             android:layout_marginRight="10dp"
@@ -129,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="30dp"
             android:textSize="18sp"
             android:drawableRight="@drawable/right_arrow"
             android:layout_marginRight="10dp"
