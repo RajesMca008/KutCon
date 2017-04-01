@@ -1,0 +1,51 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kutumblink.appants.com.kutumblink.fragments.EventsMainFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:id="@+id/tv_goupname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/iv_photo"
+            android:text=""
+            android:paddingLeft="25dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="20dp"
+
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="10dp"
+            android:padding="5dp"
+            android:layout_alignParentStart="true" />
+
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:id="@+id/tv_totalcontacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:paddingTop="2dp"
+            android:paddingBottom="2sp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/right_arrow"
+
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+</FrameLayout>

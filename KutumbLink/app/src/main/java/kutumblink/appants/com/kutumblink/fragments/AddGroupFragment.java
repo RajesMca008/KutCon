@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +71,7 @@ public class AddGroupFragment extends BaseFragment {
         }
     }
 
-    ImageView iv_gicon,iv_groupicon;
+    ImageView iv_gicon,iv_groupicon,fav_gicon;
     TextView tv_createContact;
     int INSERT_CONTACT_REQUEST=2;
 
@@ -89,6 +90,7 @@ public class AddGroupFragment extends BaseFragment {
         iv_gicon=(ImageView)view.findViewById(R.id.iv_groupicon) ;
         iv_groupicon=(ImageView)view.findViewById(R.id.iv_groupicon);
         tv_createContact=(TextView)view.findViewById(R.id.tv_createContact);
+        fav_gicon=(ImageView)view.findViewById(R.id.iv_favgroups);
         dbHandler = new DatabaseHandler(getActivity());
 
         if(Constants.imgID!=0){
@@ -103,11 +105,25 @@ public class AddGroupFragment extends BaseFragment {
                 startActivityForResult(i, INSERT_CONTACT_REQUEST);
             }
         });
+
+        fav_gicon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft=fragmentManager.beginTransaction();
+                ft.replace(R.id.main_container, new FavuarateGroupIconsFragment());
+                ft.addToBackStack("group_Main");
+                        ft.commit();
+            }
+        });
         iv_gicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_container, new SelectGroupIconsFragment()).commit();
+                FragmentTransaction ft=fragmentManager.beginTransaction();
+                ft.replace(R.id.main_container, new SelectGroupIconsFragment());
+                ft.addToBackStack("group_Main");
+                ft.commit();
             }
         });
         tv_selectContact.setOnClickListener(new View.OnClickListener() {
