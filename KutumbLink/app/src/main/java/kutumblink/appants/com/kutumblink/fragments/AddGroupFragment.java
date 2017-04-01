@@ -95,6 +95,7 @@ public class AddGroupFragment extends BaseFragment {
 
         if(Constants.imgID!=0){
             iv_gicon.setImageResource(Constants.imgID);
+            et_groupname.setText(Constants.GROUP_NAME);
         }
 
         tv_createContact.setOnClickListener(new View.OnClickListener() {

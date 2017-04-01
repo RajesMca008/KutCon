@@ -78,7 +78,7 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
 
         final List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
-        for(int i=0;i<10;i++){
+        for(int i=0;i<9;i++){
             HashMap<String, String> hm = new HashMap<String,String>();
            hm.put("str_flags", str_flags[i]);
             hm.put("flags", Integer.toString(flags[i]) );
@@ -112,15 +112,19 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
                             String key = mapEntry.getKey();
                             String value = mapEntry.getValue();
 
-                            if(key.equalsIgnoreCase("flags")) {
+                            if(key.equalsIgnoreCase("flags")  ) {
                                 Constants.imgID=Integer.parseInt(value);
 
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
-
-                                Toast.makeText(getActivity(), "key....." + key + "...value..." + value, Toast.LENGTH_LONG).show();
                             }
+
+                            if(key.equalsIgnoreCase("str_flags")  ) {
+                                Constants.GROUP_NAME=value;
+                            }
+
+
                         }
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
 
                     }
 

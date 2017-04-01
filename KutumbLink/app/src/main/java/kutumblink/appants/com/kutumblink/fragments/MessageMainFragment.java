@@ -78,7 +78,9 @@ public class MessageMainFragment extends BaseFragment {
             }
             while (cursor.moveToNext());
         }
-        cursor.close();;
+        if(cursor!=null)
+        cursor.close();
+        if(databaseHandler!=null)
         databaseHandler.close();
 
         final MyListAdapter adapter=new MyListAdapter(getContext(),mMsgList);
