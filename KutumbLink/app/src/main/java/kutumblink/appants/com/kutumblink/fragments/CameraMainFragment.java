@@ -3,7 +3,9 @@ package kutumblink.appants.com.kutumblink.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -89,7 +91,9 @@ public class CameraMainFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getContext(),"Selected"+((MessageBean)adapterView.getItemAtPosition(i)).getMsgTitle(),Toast.LENGTH_LONG).show();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(((MessageBean)adapterView.getItemAtPosition(i)).getMsgLink()));
+                startActivity(browserIntent);
+                //Toast.makeText(getContext(),"Selected"+((MessageBean)adapterView.getItemAtPosition(i)).getMsgTitle(),Toast.LENGTH_LONG).show();
             }
         });
 
