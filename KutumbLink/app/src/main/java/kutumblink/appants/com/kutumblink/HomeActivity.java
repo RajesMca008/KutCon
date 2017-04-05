@@ -78,6 +78,17 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
         fragmentManager = getSupportFragmentManager();
 
+
+        if (savedInstanceState == null) {
+            // on first time display view for first nav item
+
+                displayView(0);
+
+        }else{
+
+                displayView(0);
+
+        }
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -148,7 +159,28 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                     }
                 });
     }
+    private void displayView(int position) {
+        // update the main content by replacing fragments
+        android.app.Fragment fragment = null;
 
+
+            switch (position) {
+                case 0:
+
+
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
+
+                    break;
+
+
+
+                default:
+                    break;
+
+            }
+
+    }
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;

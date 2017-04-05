@@ -183,7 +183,7 @@ public class GroupContactsFragment extends BaseFragment {
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
-        listDataHeader.add("Action");
+        listDataHeader.add("");
 
         // Adding child data
         List<String> action = new ArrayList<String>();
