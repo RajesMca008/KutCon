@@ -33,6 +33,8 @@ import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 public class CameraMainFragment extends BaseFragment {
 
     private ArrayList<MessageBean> mMsgList=null;
+    private String linkURL;
+
     public CameraMainFragment() {
         // Required empty public constructor
     }
@@ -91,9 +93,10 @@ public class CameraMainFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(((MessageBean)adapterView.getItemAtPosition(i)).getMsgLink()));
-                startActivity(browserIntent);
-                //Toast.makeText(getContext(),"Selected"+((MessageBean)adapterView.getItemAtPosition(i)).getMsgTitle(),Toast.LENGTH_LONG).show();
+
+                linkURL=((MessageBean)adapterView.getItemAtPosition(i)).getMsgLink();
+                showConfirmDialog(getString(R.string.confirm_mesg));
+
             }
         });
 
@@ -198,6 +201,30 @@ public class CameraMainFragment extends BaseFragment {
 
             return view;
         }
+    }
+
+    public void showConfirmDialog(String message) {
+        AlertDialog.Builder builder = new  AlertDialog.Builder(getContext());
+
+
+        builder.setTitle(getString(R.string.app_name));
+        builder.setIcon(R.mipmap.ic_launcher);
+        StringBuffer sb = new StringBuffer(message);
+
+
+        builder.setMessage(sb.toString()).setCancelable(false);
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkURL));
+                        startActivity(browserIntent);
+
+                    }
+                }
+
+        );
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
     }
 
 }

@@ -33,6 +33,8 @@ import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 public class MessageMainFragment extends BaseFragment {
 
 
+    private String linkURL;
+
     public MessageMainFragment() {
         // Required empty public constructor
     }
@@ -93,14 +95,10 @@ public class MessageMainFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                // Toast.makeText(getContext(),"Selected"+((MessageBean)adapterView.getItemAtPosition(i)).getMsgTitle(),Toast.LENGTH_LONG).show();
 
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(((MessageBean)adapterView.getItemAtPosition(i)).getMsgLink()));
-                startActivity(browserIntent);
-               /* EditMessageFragment editFragment = new EditMessageFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, editFragment);
-                fragmentTransaction.addToBackStack("edit_msg");
-                fragmentTransaction.commit();*/
+               linkURL= ((MessageBean)adapterView.getItemAtPosition(i)).getMsgLink();
+                showConfirmDialog(getString(R.string.confirm_mesg));
+
+
             }
         });
 
@@ -205,5 +203,30 @@ public class MessageMainFragment extends BaseFragment {
 
             return view;
         }
+    }
+
+
+     public void showConfirmDialog(String message) {
+         AlertDialog.Builder builder = new  AlertDialog.Builder(getContext());
+
+
+        builder.setTitle(getString(R.string.app_name));
+         builder.setIcon(R.mipmap.ic_launcher);
+        StringBuffer sb = new StringBuffer(message);
+
+
+        builder.setMessage(sb.toString()).setCancelable(false);
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkURL));
+                        startActivity(browserIntent);
+
+                    }
+                }
+
+        );
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
     }
 }

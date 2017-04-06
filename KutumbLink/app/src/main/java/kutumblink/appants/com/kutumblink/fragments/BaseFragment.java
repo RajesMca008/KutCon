@@ -1,6 +1,8 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
+import kutumblink.appants.com.kutumblink.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -99,7 +102,6 @@ public class BaseFragment extends Fragment {
 
 
     protected void makeToast(String text) {
-//        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
         Toast toast = Toast.makeText(getActivity().getApplicationContext(),text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
@@ -120,6 +122,28 @@ public class BaseFragment extends Fragment {
     }
 
 
+
+
+        protected  void showConfirmDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext(), R.style.Theme_AppCompat_Dialog_Alert);
+
+        builder.setTitle("Thank You For Payment");
+        StringBuffer sb = new StringBuffer(message);
+
+
+        builder.setMessage(sb.toString()).setCancelable(false);
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                }
+
+        );
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
 
 
 }
