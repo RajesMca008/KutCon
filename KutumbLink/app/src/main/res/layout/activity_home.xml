@@ -12,9 +12,7 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-
-         >
+        android:orientation="vertical" >
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
@@ -35,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginBottom="-15dp"
 
             android:background="?android:attr/windowBackground"
             app:menu="@menu/navigation" />
@@ -51,13 +50,13 @@
             android:background="#111"/>-->
 
 
-        <android.support.design.widget.NavigationView
+      <!--  <android.support.design.widget.NavigationView
             android:id="@+id/nvView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@android:color/white"
-            app:menu="@menu/drawer_view" />
+            app:menu="@menu/drawer_view" />-->
 
     </android.support.v4.widget.DrawerLayout>
 

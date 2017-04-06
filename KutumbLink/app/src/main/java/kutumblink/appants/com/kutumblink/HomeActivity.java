@@ -13,13 +13,10 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 
 import kutumblink.appants.com.kutumblink.fragments.BaseFragment;
@@ -101,24 +98,25 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true); // this sets the button to the    back icon
-        actionBar.setHomeButtonEnabled(true); // makes it clickable
-        // actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);// set your own icon
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(false);
+         actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);// set your own icon
+        actionBar.setTitle("Groups");
 
 
-        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+      //  nvDrawer = (NavigationView) findViewById(R.id.nvView);
 
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+       /* ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, R.string.groups, R.string.app_name){
 
-            /** Called when a drawer has settled in a completely closed state. */
+            *//** Called when a drawer has settled in a completely closed state. *//*
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 getSupportActionBar() .setTitle(getString(R.string.app_name));
             }
 
-            /** Called when a drawer has settled in a completely open state. */
+            *//** Called when a drawer has settled in a completely open state. *//*
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getSupportActionBar().setTitle("Menu");
@@ -126,13 +124,13 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         };
 
         mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        toggle.syncState();*/
 
 
         // Setup drawer view
-        setupDrawerContent(nvDrawer);
+      //  setupDrawerContent(nvDrawer);
     }
-
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -145,9 +143,9 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             }
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
-    private void setupDrawerContent(NavigationView navigationView) {
+    /*private void setupDrawerContent(NavigationView navigationView) {
 
 
         navigationView.setNavigationItemSelectedListener(
@@ -158,30 +156,22 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                         return true;
                     }
                 });
-    }
+    }*/
     private void displayView(int position) {
         // update the main content by replacing fragments
         android.app.Fragment fragment = null;
-
-
             switch (position) {
                 case 0:
-
-
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
-
                     break;
-
-
-
                 default:
                     break;
 
             }
 
     }
-    public void selectDrawerItem(MenuItem menuItem) {
+  /*  public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
@@ -209,9 +199,9 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_container, fragment).commit();
 
-        /*Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        *//*Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
 
-        startActivityForResult(intent,  */
+        startActivityForResult(intent,  *//*
 
 
         // Highlight the selected item has been done by NavigationView
@@ -220,7 +210,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawerLayout.closeDrawers();
-    }
+    }*/
 
     @Override
     public void onFragmentInteraction(Uri uri) {
