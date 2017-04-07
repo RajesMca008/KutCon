@@ -19,7 +19,7 @@
             <ImageView
                 android:layout_marginLeft="3dp"
                 android:layout_width="45dp"
-                android:layout_height="45dp" android:src="@drawable/email_icon"/>
+                android:layout_height="45dp" android:src="@mipmap/messages_btn"/>
 
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:layout_width="match_parent"

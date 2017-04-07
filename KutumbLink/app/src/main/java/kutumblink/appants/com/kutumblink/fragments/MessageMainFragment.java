@@ -96,7 +96,7 @@ public class MessageMainFragment extends BaseFragment {
                // Toast.makeText(getContext(),"Selected"+((MessageBean)adapterView.getItemAtPosition(i)).getMsgTitle(),Toast.LENGTH_LONG).show();
 
                linkURL= ((MessageBean)adapterView.getItemAtPosition(i)).getMsgLink();
-                showConfirmDialog(getString(R.string.confirm_mesg));
+                showConfirmDialog(getString(R.string.message_text));
 
 
             }

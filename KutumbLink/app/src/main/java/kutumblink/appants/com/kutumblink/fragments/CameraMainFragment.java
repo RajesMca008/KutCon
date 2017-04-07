@@ -95,7 +95,7 @@ public class CameraMainFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 linkURL=((MessageBean)adapterView.getItemAtPosition(i)).getMsgLink();
-                showConfirmDialog(getString(R.string.confirm_mesg));
+                showConfirmDialog(getString(R.string.photo_message));
 
             }
         });

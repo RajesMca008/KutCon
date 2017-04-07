@@ -1,0 +1,112 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content" android:orientation="vertical">
+
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#101010"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:text="Date" />
+
+
+        <kutumblink.appants.com.kutumblink.utils.CustomEditTextView
+            android:id="@+id/event_title_text"
+            android:minHeight="50dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:drawableRight="@mipmap/events_btn"
+            android:padding="2dp"
+            android:layout_height="wrap_content" />
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#101010"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:text="Event Title" />
+
+
+        <kutumblink.appants.com.kutumblink.utils.CustomEditTextView
+            android:id="@+id/photo_title_text"
+            android:minHeight="50dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:padding="2dp"
+            android:layout_height="wrap_content" />
+
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#101010"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:text="Description" />
+        <kutumblink.appants.com.kutumblink.utils.CustomEditTextView
+            android:id="@+id/photo_link_text"
+            android:layout_width="match_parent"
+            android:minLines="4"
+            android:gravity="top"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:padding="2dp"
+            android:background="@drawable/shape"
+            android:layout_height="wrap_content" />
+
+
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:text="Select from Contact List"
+            android:gravity="center"
+            android:drawableRight="@drawable/right_arrow"
+            android:background="@drawable/shape"
+            android:textSize="20sp"
+            android:textColor="#101010"
+            android:padding="5dp"
+            android:layout_height="wrap_content" />
+
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:text="Sort Order - Default"
+            android:gravity="center"
+            android:drawableRight="@drawable/right_arrow"
+            android:background="@drawable/shape"
+            android:textSize="20sp"
+            android:textColor="#101010"
+            android:padding="5dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/save_btn_id"
+            android:layout_margin="10dp"
+            android:layout_width="200dp"
+            android:background="@color/button_color_blue"
+            android:layout_gravity="center_horizontal"
+            android:text="Save Event"
+            android:textColor="@color/whitecolor"
+            android:textSize="19sp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

@@ -38,5 +38,7 @@
     <string name="invalid_url">Invalid URL</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="saved_sucess">successfully saved.</string>
-    <string name="confirm_mesg">Open in browser</string>
+    <string name="message_text">Do you want to navigate to the message link?</string>
+
+    <string name="photo_message">Do you want to navigate to the photo link?</string>
 </resources>

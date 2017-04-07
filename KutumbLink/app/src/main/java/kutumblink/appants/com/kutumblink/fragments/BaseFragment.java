@@ -124,10 +124,11 @@ public class BaseFragment extends Fragment {
 
 
 
-        protected  void showConfirmDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext(), R.style.Theme_AppCompat_Dialog_Alert);
+        protected  void showConfirmDialog(String title,String message) {
+            android.support.v7.app.AlertDialog.Builder builder = new  android.support.v7.app.AlertDialog.Builder(getContext());
 
-        builder.setTitle("Thank You For Payment");
+            builder.setIcon(R.mipmap.ic_launcher);
+        builder.setTitle(title);
         StringBuffer sb = new StringBuffer(message);
 
 
@@ -136,12 +137,14 @@ public class BaseFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        getActivity().onBackPressed();
+                        //getFragmentManager().popBackStack();
 
                     }
                 }
 
         );
-        builder.setNegativeButton("Cancel", null);
+
         builder.show();
     }
 

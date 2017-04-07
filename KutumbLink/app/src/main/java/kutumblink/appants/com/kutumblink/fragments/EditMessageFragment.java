@@ -105,8 +105,9 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
 
                 if(insert>0)
                 {
-                    Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
-                    getActivity().onBackPressed();
+                    //Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
+                    showConfirmDialog(getString(R.string.app_name),getString(R.string.saved_sucess));
+                    //getActivity().onBackPressed();
                 }
                 dbHandler.close();
             }
