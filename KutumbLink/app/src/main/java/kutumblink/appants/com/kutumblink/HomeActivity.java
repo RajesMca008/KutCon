@@ -14,14 +14,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import kutumblink.appants.com.kutumblink.fragments.BaseFragment;
 import kutumblink.appants.com.kutumblink.fragments.CameraMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.EventsMainFragment;
+import kutumblink.appants.com.kutumblink.fragments.FavuarateGroupIconsFragment;
 import kutumblink.appants.com.kutumblink.fragments.GroupsMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.MessageMainFragment;
 
@@ -66,6 +71,10 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
     };
     private NavigationView nvDrawer;
 
+    public static ImageButton ib_back;
+   public static  TextView tv_title;
+   public static ImageButton ib_menu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +84,35 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
         fragmentManager = getSupportFragmentManager();
 
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_actionbar);
+        View view =getSupportActionBar().getCustomView();
+
+        ib_back=(ImageButton)view.findViewById(R.id.ib_action_bar_back);
+        ib_menu=(ImageButton)view.findViewById(R.id.ib_action_menu);
+        tv_title=(TextView)view.findViewById(R.id.tv_title);
+
+        ib_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+             //   FragmentManager fragmentManager = getSupportFragmentManager();
+            //    fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment());//.commit();
+
+
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction ft=fragmentManager.beginTransaction();
+                ft.replace(R.id.main_container, new FavuarateGroupIconsFragment());
+                ft.addToBackStack("group_Main");
+                ft.setCustomAnimations(R.anim.slide_left , R.anim.slide_right);
+
+                ft.commit();
+            }
+        });
 
         if (savedInstanceState == null) {
-            // on first time display view for first nav item
 
                 displayView(0);
 
@@ -97,12 +132,12 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+      /*  android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(false);
          actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);// set your own icon
         actionBar.setTitle("Groups");
-
+*/
 
       //  nvDrawer = (NavigationView) findViewById(R.id.nvView);
 
