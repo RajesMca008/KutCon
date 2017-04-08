@@ -145,9 +145,9 @@ public class SettingsFragment extends BaseFragment  {
 
 
                         }
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    /*    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
-
+*/
                     }
 
                     a++;

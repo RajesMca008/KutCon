@@ -1,9 +1,11 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +13,13 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.utils.Constants;
 
@@ -78,12 +80,46 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
 
         final List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
+
+        HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
+
+        HomeActivity.ib_back_next.setText("Add Group");
+        HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
+        HomeActivity.ib_menu.setText("");
+        HomeActivity.tv_title.setText("Groups");
+
+
+        HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddGroupFragment groupContacts = new AddGroupFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, groupContacts);
+                fragmentTransaction.addToBackStack("group_Main");
+                fragmentTransaction.commit();
+            }
+        });
+        HomeActivity.ib_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddGroupFragment groupContacts = new AddGroupFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, groupContacts);
+                fragmentTransaction.addToBackStack("group_Main");
+                fragmentTransaction.commit();
+            }
+        });
+
         for(int i=0;i<9;i++){
             HashMap<String, String> hm = new HashMap<String,String>();
            hm.put("str_flags", str_flags[i]);
             hm.put("flags", Integer.toString(flags[i]) );
             aList.add(hm);
         }
+
+
 
         // Keys used in Hashmap
         String[] from = { "flags","str_flags"};

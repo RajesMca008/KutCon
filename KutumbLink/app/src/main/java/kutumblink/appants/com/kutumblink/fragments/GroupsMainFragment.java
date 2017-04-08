@@ -51,7 +51,7 @@ public class GroupsMainFragment extends BaseFragment {
     TextView tv_totalcontacts;
     ListView lv_GroupList;
     DatabaseHandler dbHandler;
-    ArrayList<GroupDo> arr_group=new ArrayList<GroupDo>();
+   public static ArrayList<GroupDo> arr_group=new ArrayList<GroupDo>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,24 @@ public class GroupsMainFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_groups_main, container, false);
+
+
+
+        HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft=fragmentManager.beginTransaction();
+                ft.replace(R.id.main_container, new SettingsFragment());
+                ft.addToBackStack("group_Main");
+                ft.setCustomAnimations(R.anim.slide_right , R.anim.slide_left);
+
+                ft.commit();
+            }
+        });
+
+
         ll_addgroup=(RelativeLayout)view.findViewById(R.id.ll_addgroup);
 
         lv_GroupList=(ListView)view.findViewById(R.id.lv_grouplist);
@@ -101,11 +119,14 @@ public class GroupsMainFragment extends BaseFragment {
             {
                 c.moveToFirst();
                 do {
-                    GroupDo groupDetails=new GroupDo();
+
+                    Cursor cg=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_PHONE_CONTACTS +" where Phone_Contact_Gid='"+ c.getString(c.getColumnIndex(dbHandler.GROUP_NAME))+"'");
+
+                        GroupDo groupDetails=new GroupDo();
                     groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     groupDetails.setGroup_Name(c.getString(c.getColumnIndex(dbHandler.GROUP_NAME)));
                     groupDetails.setGroup_Pic(Integer.parseInt(c.getString(c.getColumnIndex(dbHandler.GROUP_PIC))));
-                    groupDetails.setGroup_totalContactList(c.getString(c.getColumnIndex(dbHandler.GROUP_TOTALCONTACTS)));
+                    groupDetails.setGroup_totalContactList(""+cg.getCount());
 
                   //  groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     arr_group.add(groupDetails);
@@ -127,6 +148,7 @@ public class GroupsMainFragment extends BaseFragment {
                 Constants.GROUP_NAME=arr_group.get(i).getGroup_Name();
 
 
+                Constants.imgID=arr_group.get(i).getGroup_Pic();
                 GroupContactsFragment groupContacts = new GroupContactsFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
