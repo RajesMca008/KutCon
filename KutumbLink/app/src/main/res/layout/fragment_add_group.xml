@@ -20,15 +20,15 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:textSize="16sp"
         android:drawablePadding="15dp"
 
         android:text="@string/addgroupsubtitle" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             app:srcCompat="@drawable/default_icon" />
@@ -36,12 +36,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp">
 
         <ImageView
             android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/add_group"
+            android:layout_height="25dp"
+            android:background="@mipmap/group_default_icon"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:id="@+id/iv_groupicon" />
@@ -63,8 +64,8 @@
 
         <ImageView
             android:id="@+id/iv_favgroups"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
             app:srcCompat="@drawable/default_icon"
@@ -80,7 +81,7 @@
             android:layout_marginTop="5dp"
             android:background="@color/colorhash"/>
 
-        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+     <!--   <kutumblink.appants.com.kutumblink.utils.CustomTextView
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,18 +93,18 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
-            android:background="@color/colorhash"/>
+            android:background="@color/colorhash"/>-->
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
 
             android:id="@+id/tv_selectContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="15dp"
             android:textSize="18sp"
-            android:drawableRight="@drawable/right_arrow"
+            android:drawableRight="@mipmap/right_arrow"
             android:layout_marginRight="10dp"
-            android:text="Select Contact"/>
+            android:text="Select from Contact List"/>
 
         <View
             android:layout_width="match_parent"
@@ -116,9 +117,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="15dp"
             android:textSize="18sp"
-            android:drawableRight="@drawable/right_arrow"
+            android:drawableRight="@mipmap/right_arrow"
             android:layout_marginRight="10dp"
             android:text="Create Contact"/>
         <View
@@ -131,9 +132,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="15dp"
             android:textSize="18sp"
-            android:drawableRight="@drawable/right_arrow"
+            android:drawableRight="@mipmap/right_arrow"
             android:layout_marginRight="10dp"
             android:text="Sort Order- Default"/>
 
@@ -147,6 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
+
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:paddingRight="15dp"

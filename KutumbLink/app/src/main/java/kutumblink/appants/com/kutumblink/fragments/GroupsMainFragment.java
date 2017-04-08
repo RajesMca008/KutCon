@@ -9,12 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.adapter.GroupListAdapter;
 import kutumblink.appants.com.kutumblink.model.GroupDo;
@@ -46,7 +47,7 @@ public class GroupsMainFragment extends BaseFragment {
         fragment.setArguments(args);
         return fragment;
     }
-    LinearLayout ll_addgroup;
+    RelativeLayout ll_addgroup;
     TextView tv_totalcontacts;
     ListView lv_GroupList;
     DatabaseHandler dbHandler;
@@ -68,25 +69,29 @@ public class GroupsMainFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_groups_main, container, false);
-        ll_addgroup=(LinearLayout)view.findViewById(R.id.ll_addgroup);
+        ll_addgroup=(RelativeLayout)view.findViewById(R.id.ll_addgroup);
 
         lv_GroupList=(ListView)view.findViewById(R.id.lv_grouplist);
         arr_group.clear();
         ll_addgroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Constants.GROUP_NAME="";
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                FragmentTransaction ft= fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new AddGroupFragment());
                         ft.addToBackStack("group_Main");
                         ft.commit();
-
             }
         });
-
-
-        String mDrawableName = "add_group";
-        Constants.imgID = getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName());
+        HomeActivity.tv_title.setText("Groups");
+        HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
+        HomeActivity.ib_back_next.setText("");
+        HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
+        HomeActivity.ib_menu.setText("");
+        String mDrawableName = "group_default_icon";
+        Constants.imgID = getResources().getIdentifier(mDrawableName , "mipmap", getActivity().getPackageName());
 
 
         Cursor c=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_GROUP);

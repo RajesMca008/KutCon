@@ -3,9 +3,11 @@ package kutumblink.appants.com.kutumblink.fragments;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.adapter.ContactListAdapter;
 import kutumblink.appants.com.kutumblink.adapter.ExpandableListAdapter;
@@ -58,6 +61,39 @@ public class GroupContactsFragment extends BaseFragment {
         activity.setTitle(Constants.GROUP_NAME);
 
 
+        HomeActivity.ib_back.setBackgroundColor(Color.TRANSPARENT);
+
+        HomeActivity.ib_back_next.setText("Done");
+        HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
+        HomeActivity.ib_menu.setText("Edit");
+        HomeActivity.tv_title.setText(Constants.GROUP_NAME);
+
+        HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AddGroupFragment groupContacts = new AddGroupFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, groupContacts);
+                fragmentTransaction.addToBackStack("group_Main");
+                fragmentTransaction.commit();
+            }
+        });
+
+        HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                GroupsMainFragment groupContacts = new GroupsMainFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, groupContacts);
+                fragmentTransaction.addToBackStack("group_Main");
+                fragmentTransaction.commit();
+
+            }
+        });
 
         Cursor c=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_PHONE_CONTACTS +" where Phone_Contact_Gid='"+ Constants.GROUP_NAME+"' order by Phone_Contact_Name ASC");
         if(c!=null)
@@ -87,6 +123,8 @@ public class GroupContactsFragment extends BaseFragment {
             public void onClick(View view) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
+
+
 
             }
         });

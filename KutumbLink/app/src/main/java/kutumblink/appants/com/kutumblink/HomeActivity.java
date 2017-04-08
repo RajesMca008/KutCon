@@ -19,16 +19,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import kutumblink.appants.com.kutumblink.fragments.BaseFragment;
 import kutumblink.appants.com.kutumblink.fragments.CameraMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.EventsMainFragment;
-import kutumblink.appants.com.kutumblink.fragments.FavuarateGroupIconsFragment;
 import kutumblink.appants.com.kutumblink.fragments.GroupsMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.MessageMainFragment;
+import kutumblink.appants.com.kutumblink.fragments.SettingsFragment;
 
 public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener {
 
@@ -71,9 +70,11 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
     };
     private NavigationView nvDrawer;
 
-    public static ImageButton ib_back;
+    public static TextView ib_back;
+    public static TextView ib_back_next;
+
    public static  TextView tv_title;
-   public static ImageButton ib_menu;
+   public static TextView ib_menu;
 
 
     @Override
@@ -89,24 +90,22 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         getSupportActionBar().setCustomView(R.layout.custom_actionbar);
         View view =getSupportActionBar().getCustomView();
 
-        ib_back=(ImageButton)view.findViewById(R.id.ib_action_bar_back);
-        ib_menu=(ImageButton)view.findViewById(R.id.ib_action_menu);
+        ib_back=(TextView)view.findViewById(R.id.ib_action_bar_back);
+        ib_menu=(TextView)view.findViewById(R.id.ib_action_menu);
         tv_title=(TextView)view.findViewById(R.id.tv_title);
-
+        ib_back_next=(TextView)view.findViewById(R.id.ib_action_bar_back_next);
+        ib_menu.setBackgroundResource(R.mipmap.ic_launcher);
+        ib_back_next.setText("");
+        tv_title.setText("Groups");
         ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-             //   FragmentManager fragmentManager = getSupportFragmentManager();
-            //    fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment());//.commit();
-
-
-
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction ft=fragmentManager.beginTransaction();
-                ft.replace(R.id.main_container, new FavuarateGroupIconsFragment());
+                ft.replace(R.id.main_container, new SettingsFragment());
                 ft.addToBackStack("group_Main");
-                ft.setCustomAnimations(R.anim.slide_left , R.anim.slide_right);
+                ft.setCustomAnimations(R.anim.slide_right , R.anim.slide_left);
 
                 ft.commit();
             }

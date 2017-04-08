@@ -12,37 +12,27 @@
         android:layout_marginBottom="10dp">
 
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
-            android:id="@+id/tv_goupname"
+            android:id="@+id/tv_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/iv_photo"
-            android:typeface="normal"
-            android:paddingLeft="25dp"
-            android:layout_marginLeft="15dp"
+            android:text=""
+
+
             android:textSize="20dp"
 
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/iv_photo"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="10dp"
-            android:padding="5dp"
 
-            android:layout_alignParentStart="true" />
 
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
-            android:id="@+id/tv_totalcontacts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="55"
+
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:paddingTop="2dp"
             android:paddingBottom="2sp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:background="#ccc"
+
+            android:background="@drawable/right_arrow"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true" />
 
