@@ -18,6 +18,7 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GroupContactsFragment extends BaseFragment {
+public class GroupContactsFragment extends BaseFragment implements Serializable {
 
 
     public GroupContactsFragment() {

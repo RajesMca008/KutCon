@@ -31,10 +31,14 @@ import com.onegravity.contactpicker.contact.ContactSortOrder;
 import com.onegravity.contactpicker.core.ContactPickerActivity;
 import com.onegravity.contactpicker.picture.ContactPictureType;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.model.ContactsDo;
 import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
@@ -383,13 +387,20 @@ public class AddGroupFragment extends BaseFragment {
                         Integer selectedList[]=new Integer[GroupsMainFragment.arr_group.size()];
 
 
+
+                        Collection<Long> selectContats=new ArrayList<Long>();
+                       /* selectContats.add((long) 6491);
+                        selectContats.add((long) 582);*/
+
                      /*   for(int i=0;i<GroupContactsFragment.arr_contacts.size();i++){
                            selectedList[i]=Integer.parseInt(GroupContactsFragment.arr_contacts.get(i).getConatactId());
                             Log.v("DATA....","DATA...PASE..."+selectedList[i]);
                         }*/
 
-                   /*  int i=0;
+                     int i=0;
 
+
+                        //Rajesh code
                         Cursor c=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_PHONE_CONTACTS +" where Phone_Contact_Gid='"+ Constants.GROUP_NAME+"'");
                         if(c!=null)
                         {
@@ -405,12 +416,13 @@ public class AddGroupFragment extends BaseFragment {
 
                                     Log.v("SELECTED CONTACTS...","CONTACTS.."+c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
 
+                                    selectContats.add(Long.parseLong(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID))));
+
                                i++;
                                 }while(c.moveToNext());
 
                             }
-                        }*/
-
+                        }
 
 
 
@@ -422,16 +434,11 @@ public class AddGroupFragment extends BaseFragment {
                               //  .putExtra(ContactPickerActivity.EXTRA_PRESELECTED_CONTACTS,  GroupsMainFragment.arr_group)
                                 .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION, ContactDescription.ADDRESS.name())
                                 .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
-                                .putExtra(ContactPickerActivity.EXTRA_CONTACT_SORT_ORDER, ContactSortOrder.AUTOMATIC.name())
-                                  .putExtra(ContactPickerActivity.SELECTED_CONTACTS, GroupContactsFragment.arr_contacts);
-                        /*
-                        4021
-04-09 12:22:44.721 2760-2760/kutumblink.appants.com.kutumblink V/CONTACTS...: CONTACTS ID...4398
-04-09 12:22:44.721 2760-2760/kutumblink.appants.com.kutumblink V/CONTACTS...: CONTACTS ID...4705
-04-09 12:22:44.721 2760-2760/kutumblink.appants.com.kutumblink V/CONTACTS...: CONTACTS ID...4826
-04-09 12:22:44.721 2760-2760/kutumblink.appants.com.kutumblink V/CONTACTS...: CONTACTS ID...5162
+                                .putExtra(ContactPickerActivity.EXTRA_ONLY_CONTACTS_WITH_PHONE,true)
+                         .putExtra(ContactPickerActivity.EXTRA_PRESELECTED_CONTACTS,(Serializable)selectContats)
+                                .putExtra(ContactPickerActivity.EXTRA_CONTACT_SORT_ORDER, ContactSortOrder.AUTOMATIC.name());
+                                  //.putExtra(ContactPickerActivity.SELECTED_CONTACTS, GroupContactsFragment.arr_contacts);
 
-                         */
                         startActivityForResult(intent, REQUEST_CONTACT);
                     }
              /*   } else {
