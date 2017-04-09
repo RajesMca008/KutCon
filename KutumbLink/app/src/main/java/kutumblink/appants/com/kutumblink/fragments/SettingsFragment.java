@@ -63,7 +63,7 @@ public class SettingsFragment extends BaseFragment  {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_favgroups_main, container, false);
 
-
+        Constants.NAV_GROUPS=104;
 
 
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
@@ -76,10 +76,11 @@ public class SettingsFragment extends BaseFragment  {
         HomeActivity.ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Constants.NAV_GROUPS=100;
                 GroupsMainFragment groupContacts = new GroupsMainFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, groupContacts);
+                fragmentTransaction.replace(R.id.main_container, new GroupsMainFragment());
 
                 fragmentTransaction.commit();
             }
@@ -88,6 +89,7 @@ public class SettingsFragment extends BaseFragment  {
         HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Constants.NAV_GROUPS=100;
                 GroupsMainFragment groupContacts = new GroupsMainFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

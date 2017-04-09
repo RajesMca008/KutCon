@@ -160,6 +160,8 @@ public class ContactPickerActivity extends AppCompatActivity implements
      */
     public static final String EXTRA_CONTACT_SORT_ORDER = "EXTRA_CONTACT_SORT_ORDER";
 
+    public static final String SELECTED_CONTACTS="SELECTED_CONTACTS";
+
     /**
      * This parameter contains a serializable collection of contact IDs. The contacts matching these IDs are
      * preselected when entering the activity.
@@ -217,6 +219,10 @@ public class ContactPickerActivity extends AppCompatActivity implements
     private String mLimitReachedMessage;
     private int mSelectContactsLimit = 0;
     private Boolean mOnlyWithPhoneNumbers = false;
+    /**
+     * @null
+     */
+    private Object selectContacts=null;
 
     // ****************************************** Lifecycle Methods *******************************************
 
@@ -225,7 +231,7 @@ public class ContactPickerActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         // check if all custom attributes are defined
-        if (! checkTheming()) {
+        if (!checkTheming()) {
             finish();
             return;
         }
@@ -238,14 +244,23 @@ public class ContactPickerActivity extends AppCompatActivity implements
             PackageManager pckMgr = getPackageManager();
             int uid = pckMgr.getApplicationInfo(getComponentName().getPackageName(), PackageManager.GET_META_DATA).uid;
             enforcePermission(Manifest.permission.READ_CONTACTS, pid, uid, "Contact permission hasn't been granted to this app, terminating.");
-        }
-        catch (PackageManager.NameNotFoundException | SecurityException e) {
+        } catch (PackageManager.NameNotFoundException | SecurityException e) {
             Log.e(getClass().getSimpleName(), e.getMessage());
             finish();
             return;
         }
 
         Intent intent = getIntent();
+
+
+        if (getIntent().getExtras().get(SELECTED_CONTACTS) != null) {
+
+            selectContacts=getIntent().getExtras().get(SELECTED_CONTACTS);
+            Log.v("TEST","selected list"+getIntent().getExtras().get(SELECTED_CONTACTS));
+        } else{
+            Log.v("TEST","intent.getExtras().getIntArray(SELECTED_CONTACTS)");
+    }
+
         if (savedInstanceState == null) {
             /*
              * Retrieve default title used if no contacts are selected.
@@ -780,7 +795,7 @@ public class ContactPickerActivity extends AppCompatActivity implements
         public void onContactChecked(Contact contact, boolean wasChecked, boolean isChecked) {
             if (!wasChecked && isChecked && mSelectContactsLimit > 0 &&
                     mNrOfSelectedContacts+1 > mSelectContactsLimit ){
-                contact.setChecked(false, true);
+                contact.setChecked(false, true);//Rajesh
                 ContactsLoaded.post(mContacts);
                 Toast.makeText(ContactPickerActivity.this, mLimitReachedMessage,
                         Toast.LENGTH_LONG).show();

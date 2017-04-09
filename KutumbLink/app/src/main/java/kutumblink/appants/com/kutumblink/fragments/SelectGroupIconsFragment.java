@@ -117,7 +117,7 @@ public class SelectGroupIconsFragment extends BaseFragment  {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_group_icons, container, false);
 
-
+        Constants.NAV_GROUPS=103;
         final List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
         for(int i=0;i<46;i++){

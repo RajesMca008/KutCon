@@ -43,12 +43,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> impl
     final private ContactPictureManager mContactPictureLoader;
 
     private LayoutInflater mInflater;
+    private Context mContext=null;
 
     public ContactAdapter(Context context, List<Contact> contacts,
                           ContactSortOrder sortOrder,
                           ContactPictureType contactPictureType,
                           ContactDescription contactDescription,
                           int contactDescriptionType) {
+
+        this.mContext=context;
         mContacts = contacts;
         mSortOrder = sortOrder;
         mContactPictureType = contactPictureType;
@@ -71,9 +74,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> impl
             mInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
+
         View view = mInflater.inflate(R.layout.cp_contact_list_item, parent, false);
         return new ContactViewHolder(view, mContactPictureLoader, mContactPictureType,
-                                     mContactDescription, mContactDescriptionType);
+                                     mContactDescription, mContactDescriptionType,mContext);
     }
 
     @Override

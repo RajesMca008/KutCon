@@ -11,5 +11,6 @@ public class Constants {
     public static String GROUP_NAME="";
     public static String GROUP_OPERATIONS="SAVE";
     public static String GROUP_OLD_NAME="";
+    public static int NAV_GROUPS=100;
 
 }

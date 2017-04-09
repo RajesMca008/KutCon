@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
@@ -45,6 +46,17 @@ public class MessageMainFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_message_main, container, false);
+
+
+
+        HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
+
+        HomeActivity.ib_back_next.setText("");
+        HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
+        HomeActivity.ib_menu.setText("");
+        HomeActivity.tv_title.setText("Message Links");
+
+
         ListView listView=(ListView)view.findViewById(R.id.listView);
 
         mMsgList=new ArrayList<MessageBean>();

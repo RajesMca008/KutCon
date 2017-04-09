@@ -16,9 +16,11 @@
 
 package com.onegravity.contactpicker.contact;
 
+import android.content.Context;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -26,6 +28,7 @@ import android.widget.TextView;
 
 import com.onegravity.contactpicker.Helper;
 import com.onegravity.contactpicker.R;
+import com.onegravity.contactpicker.core.ContactPickerActivity;
 import com.onegravity.contactpicker.picture.ContactBadge;
 import com.onegravity.contactpicker.picture.ContactPictureManager;
 import com.onegravity.contactpicker.picture.ContactPictureType;
@@ -38,13 +41,15 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
     private ContactBadge mBadge;
     private CheckBox mSelect;
 
-    final private ContactPictureType mContactPictureType;
-    final private ContactDescription mContactDescription;
-    final private int mContactDescriptionType;
-    final private ContactPictureManager mContactPictureLoader;
+    private ContactPictureType mContactPictureType=null;
+    private ContactDescription mContactDescription=null;
+    private int mContactDescriptionType=0;
+    private ContactPictureManager mContactPictureLoader=null;
+
+    private Integer mSelectedList[]=null;
 
     ContactViewHolder(View root, ContactPictureManager contactPictureLoader, ContactPictureType contactPictureType,
-                      ContactDescription contactDescription, int contactDescriptionType) {
+                      ContactDescription contactDescription, int contactDescriptionType, Context mContext) {
         super(root);
 
         mRoot = root;
@@ -59,6 +64,10 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
         mContactPictureLoader = contactPictureLoader;
 
         mBadge.setBadgeType(mContactPictureType);
+
+        mSelectedList= (Integer[]) ((ContactPickerActivity)mContext).getIntent().getExtras().get(ContactPickerActivity.SELECTED_CONTACTS);
+
+        Log.i("TEST","::"+mSelectedList);
     }
 
     void bind(final Contact contact) {
@@ -105,7 +114,26 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
 
         // check box
         mSelect.setOnCheckedChangeListener(null);
-        mSelect.setChecked( contact.isChecked() );
+
+
+        if(mSelectedList!=null)
+        {
+            for (int i=0;i<mSelectedList.length;i++)
+            {
+                if(contact.getId()==mSelectedList[i] && mSelectedList[i]!=null)
+                {
+                    mSelect.setChecked(true );
+                }
+                else {
+                    mSelect.setChecked( contact.isChecked() );
+                }
+            }
+        }else {
+
+            mSelect.setChecked( contact.isChecked() );
+        }
+
+
         mSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -77,7 +77,7 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_favgroups_main, container, false);
 
-
+        Constants.NAV_GROUPS=105;
         final List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
 
@@ -92,6 +92,7 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
         HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Constants.NAV_GROUPS=100;
                 AddGroupFragment groupContacts = new AddGroupFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -103,6 +104,7 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
         HomeActivity.ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Constants.NAV_GROUPS=100;
                 AddGroupFragment groupContacts = new AddGroupFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

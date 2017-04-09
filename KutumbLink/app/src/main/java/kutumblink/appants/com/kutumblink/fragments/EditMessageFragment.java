@@ -10,10 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.Date;
-
+import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
@@ -48,6 +46,15 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_edit_message, container, false);
+
+
+        HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
+
+        HomeActivity.ib_back_next.setText("");
+        HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
+        HomeActivity.ib_menu.setText("");
+        HomeActivity.tv_title.setText("Message Links");
+
 
           textTitle= (EditText) view.findViewById(R.id.message_title_text);
           textLink=(EditText) view.findViewById(R.id.message_link_text);

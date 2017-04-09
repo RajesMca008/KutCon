@@ -71,6 +71,32 @@ public class GroupsMainFragment extends BaseFragment {
         View view =inflater.inflate(R.layout.fragment_groups_main, container, false);
 
 
+      if(Constants.NAV_GROUPS==101){
+          FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+          FragmentTransaction ft=fragmentManager.beginTransaction();
+          ft.replace(R.id.main_container, new AddGroupFragment());
+          ft.commit();
+      }else if(Constants.NAV_GROUPS==102){
+          FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+          FragmentTransaction ft=fragmentManager.beginTransaction();
+          ft.replace(R.id.main_container, new GroupContactsFragment());
+          ft.commit();
+      }else if(Constants.NAV_GROUPS==103){
+          FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+          FragmentTransaction ft=fragmentManager.beginTransaction();
+          ft.replace(R.id.main_container, new SelectGroupIconsFragment());
+          ft.commit();
+      }else if(Constants.NAV_GROUPS==104){
+          FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+          FragmentTransaction ft=fragmentManager.beginTransaction();
+          ft.replace(R.id.main_container, new SettingsFragment());
+          ft.commit();
+      }else if(Constants.NAV_GROUPS==105){
+          FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+          FragmentTransaction ft=fragmentManager.beginTransaction();
+          ft.replace(R.id.main_container, new FavuarateGroupIconsFragment());
+          ft.commit();
+      }
 
         HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +152,12 @@ public class GroupsMainFragment extends BaseFragment {
                     groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     groupDetails.setGroup_Name(c.getString(c.getColumnIndex(dbHandler.GROUP_NAME)));
                     groupDetails.setGroup_Pic(Integer.parseInt(c.getString(c.getColumnIndex(dbHandler.GROUP_PIC))));
-                    groupDetails.setGroup_totalContactList(""+cg.getCount());
+
+                    if(cg.getCount()>0) {
+                        groupDetails.setGroup_totalContactList("" + cg.getCount());
+                    }else{
+                        groupDetails.setGroup_totalContactList("0");// + cg.getCount());
+                    }
 
                   //  groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     arr_group.add(groupDetails);

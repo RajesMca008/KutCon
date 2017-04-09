@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
@@ -44,6 +46,17 @@ public class CameraMainFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_camera_main, container, false);
+
+
+
+
+        HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
+
+        HomeActivity.ib_back_next.setText("");
+        HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
+        HomeActivity.ib_menu.setText("Edit");
+        HomeActivity.tv_title.setText("Photo Links");
+
 
         ListView listView=(ListView)view.findViewById(R.id.listView);
 

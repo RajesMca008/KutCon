@@ -51,7 +51,7 @@ public class GroupContactsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_groupcontacts, container, false);
-
+        Constants.NAV_GROUPS=102;
         arr_contacts.clear();
         dbHandler=new DatabaseHandler(getActivity());
         lv_conatcst=(ListView)view.findViewById(R.id.lv_contacts);
@@ -72,6 +72,7 @@ public class GroupContactsFragment extends BaseFragment {
         HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Constants.NAV_GROUPS=100;
 
                 Constants.GROUP_OPERATIONS="EDIT";
                 Constants.GROUP_OLD_NAME=Constants.GROUP_NAME;
@@ -88,6 +89,8 @@ public class GroupContactsFragment extends BaseFragment {
         HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Constants.NAV_GROUPS=100;
 
                 GroupsMainFragment groupContacts = new GroupsMainFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
