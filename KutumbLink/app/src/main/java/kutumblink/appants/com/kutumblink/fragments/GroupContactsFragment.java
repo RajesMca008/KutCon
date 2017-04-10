@@ -164,6 +164,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
 
 
+
                 String phoneNos="";
                 if(i1==0){
                     // message
@@ -196,7 +197,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     boolean sel=false;
                     for(int a=0;a<arr_contacts.size();a++){
 
-                        if(arr_contacts.get(a).getConatactEmail()!=null) {
+                        if(arr_contacts.get(a).getConatactEmail().length()!=0) {
 
                             data[a]=arr_contacts.get(a).getConatactEmail();
 
@@ -231,7 +232,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     ft.commit();
 
                 }else if(i1==3){
-
+                    Constants.NAV_GROUPS=100;
                     dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_NAME + "'");
                     dbHandler.DeleteTable("TBL_PHONE_CONTACTS","Phone_Contact_Gid='"+Constants.GROUP_NAME+"'");
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

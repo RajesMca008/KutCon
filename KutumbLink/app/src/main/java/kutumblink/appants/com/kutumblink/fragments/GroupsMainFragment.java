@@ -116,7 +116,7 @@ public class GroupsMainFragment extends BaseFragment {
         ll_addgroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Constants.GROUP_OPERATIONS="SAVE";
                 Constants.GROUP_NAME="";
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                FragmentTransaction ft= fragmentManager.beginTransaction();

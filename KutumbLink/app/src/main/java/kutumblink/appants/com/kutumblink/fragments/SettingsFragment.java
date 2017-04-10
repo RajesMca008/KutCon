@@ -99,7 +99,7 @@ public class SettingsFragment extends BaseFragment  {
                 FragmentManager fragmentManager = getFragmentManager();
                 if(fragmentManager!=null) {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+                    fragmentTransaction.replace(R.id.main_container, new GroupsMainFragment());
 
                     fragmentTransaction.commit();
                 }
@@ -132,8 +132,6 @@ public class SettingsFragment extends BaseFragment  {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
 
                 int a=0;
 
