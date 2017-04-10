@@ -55,7 +55,15 @@ public class MessageMainFragment extends BaseFragment {
         HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
         HomeActivity.ib_menu.setText("");
         HomeActivity.tv_title.setText("Message Links");
+        HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new SettingsFragment()).commit();
+            }
+        });
 
         ListView listView=(ListView)view.findViewById(R.id.listView);
 

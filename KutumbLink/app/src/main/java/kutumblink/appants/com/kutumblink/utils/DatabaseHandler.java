@@ -42,6 +42,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String PHOTO_TITLE = "pho_title";
 	public static final String PHOTO_LINK = "pho_link";
 
+	public static final String PHONE_ID = "Phone_ID";
 	public static final String PHONE_CONTACT_ID = "Phone_Contact_ID";
 	public static final String PHONE_CONTACT_NAME = "Phone_Contact_Name";
 	public static final String PHONE_CONTACT_NUMBER = "Phone_Contact_Number";
@@ -49,6 +50,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String PHONE_CONTACT_PIC = "Phone_Contact_Pic";
 	public static final String PHONE_CONTACT_GID = "Phone_Contact_Gid";
 	public static final String PHONE_GROUP_ID = "Phone_Group_ID";
+
+	public static final String PHONE_CONTACT_FNAME = "Phone_firstName";
+	public static final String PHONE_CONTACT_LNAME = "Phone_lastName";
+
 
 
 
@@ -92,8 +97,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	String CREATE_CONTACTS = "CREATE TABLE "
 			+ TABLE_PHONE_CONTACTS
 			+ " ("
-			+ PHONE_CONTACT_ID 		+ " INTEGER PRIMARY KEY,"
+			+ PHONE_ID + " INTEGER PRIMARY KEY,"
+			+ PHONE_CONTACT_ID 		+ " TEXT,"
 			+ PHONE_CONTACT_NAME	+ " TEXT,"
+			+ PHONE_CONTACT_FNAME	+ " TEXT,"
+			+ PHONE_CONTACT_LNAME	+ " TEXT,"
 			+ PHONE_CONTACT_NUMBER 	+ " TEXT,"
 			+ PHONE_CONTACT_EMAIL 	+ " TEXT,"
 			+ PHONE_CONTACT_PIC 	+ " BLOB,"

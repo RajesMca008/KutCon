@@ -12,9 +12,17 @@ public class ContactsDo {
     private String conatactPhone;
     private String conatactGroupName;
     private String conatactPIC;
+    private String conatactEmail;
 
     private int IS_CONTACT_SELECTED;
 
+    public String getConatactEmail() {
+        return conatactEmail;
+    }
+
+    public void setConatactEmail(String conatactEmail) {
+        this.conatactEmail = conatactEmail;
+    }
 
     public int getIS_CONTACT_SELECTED() {
         return IS_CONTACT_SELECTED;

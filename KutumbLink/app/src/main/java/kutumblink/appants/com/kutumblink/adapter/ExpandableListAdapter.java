@@ -24,6 +24,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     // child data in format of header title, child title
     private HashMap<String, List<String>> _listDataChild;
 
+    int[] flags = new int[]{
+            R.mipmap.message_icon,
+            R.mipmap.email_icon,
+            R.mipmap.add_group_icon,
+            R.mipmap.close_icon,
+            R.mipmap.events_icon,
+            R.drawable.note
+         };
+
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
                                  HashMap<String, List<String>> listChildData) {
         this._context = context;
@@ -57,6 +66,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.lblListItem);
 
+        TextView txtimg = (TextView) convertView
+                .findViewById(R.id.tvimage);
+
+
+        txtimg.setBackgroundResource(flags[childPosition]);
         txtListChild.setText(childText);
         return convertView;
     }
@@ -81,7 +95,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public long getGroupId(int groupPosition) {
         return groupPosition;
     }
-
+   public static TextView lblListHeader;
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
@@ -92,7 +106,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.listgroup, null);
         }
 
-        TextView lblListHeader = (TextView) convertView
+         lblListHeader = (TextView) convertView
                 .findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);

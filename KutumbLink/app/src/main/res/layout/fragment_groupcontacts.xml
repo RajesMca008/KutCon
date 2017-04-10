@@ -29,14 +29,16 @@
 
             <ExpandableListView
                 android:id="@+id/lvExp"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="50dp"
-                android:background="@android:drawable/btn_dropdown"
+                android:background="@drawable/edtcornershape"
+
+
                 android:layout_marginRight="15dp"
-                android:enabled="false"
+
                 android:indicatorRight="@dimen/activity_horizontal_margin"
-                android:textColor="#ccc"
+
                 />
 
 

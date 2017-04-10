@@ -1,7 +1,6 @@
 package kutumblink.appants.com.kutumblink.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.fragments.GroupContactsFragment;
 import kutumblink.appants.com.kutumblink.model.ContactsDo;
+import kutumblink.appants.com.kutumblink.utils.Constants;
 
 /**
  * Created by Vishnu on 18-05-2016.
@@ -83,6 +83,29 @@ public class ContactListAdapter extends BaseAdapter {
             tv_contactName.setText(""+adb.getConatactName());
           //  cb_conatacts.setChecked(checkBoxState[position]);
 
+            if(Constants.isGROUP_NOT_EXPAND){
+                for(int i=0;i< GroupContactsFragment.arr_contacts.size();i++){
+                    if(GroupContactsFragment.arr_contacts.get(position).getIS_CONTACT_SELECTED()==1){
+                        checkBoxState[position] = true;
+                        cb_conatacts.setBackgroundResource(R.drawable.radio_btn_selected);
+                    }else{
+                        cb_conatacts.setBackgroundResource(R.drawable.radio_btn);
+                        checkBoxState[position] = false;
+                    }
+                }
+            }else{
+
+
+                for(int i=0;i< GroupContactsFragment.arr_contacts.size();i++){
+                    if(GroupContactsFragment.arr_contacts.get(position).getIS_CONTACT_SELECTED()==1){
+                        checkBoxState[position] = true;
+                        cb_conatacts.setBackgroundResource(R.drawable.radio_btn_selected);
+                    }else{
+                        cb_conatacts.setBackgroundResource(R.drawable.radio_btn);
+                        checkBoxState[position] = false;
+                    }
+                }
+            }
 
 
             rl_contacts.setOnClickListener(new View.OnClickListener() {
@@ -91,21 +114,13 @@ public class ContactListAdapter extends BaseAdapter {
                     if(!checkBoxState[position]) {
                         checkBoxState[position] = true;
                         cb_conatacts.setBackgroundResource(R.drawable.radio_btn_selected);
-
-                        Log.v("POSITION...","...POSITION..."+position);
                         GroupContactsFragment.arr_contacts.get(position).setIS_CONTACT_SELECTED(1);
-                      //  GroupContactsFragment.et_action.setTextColor(Color.parseColor("#000000"));
                     } else {
                         cb_conatacts.setBackgroundResource(R.drawable.radio_btn);
                         checkBoxState[position] = false;
-                      //  adb.setIS_CONTACT_SELECTED(0);
-                        Log.v("POSITION...","...POSITION...ELSE"+position);
                         GroupContactsFragment.arr_contacts.get(position).setIS_CONTACT_SELECTED(0);
-                     //   GroupContactsFragment.et_action.setTextColor(Color.parseColor("#cccccc"));
 
-                      for(int i=0;i<GroupContactsFragment.arr_contacts.size();i++){
 
-                      }
                     }
 
                 }

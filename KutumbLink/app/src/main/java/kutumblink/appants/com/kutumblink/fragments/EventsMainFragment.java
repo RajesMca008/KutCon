@@ -40,7 +40,15 @@ public class EventsMainFragment extends BaseFragment {
         HomeActivity.ib_menu.setText("");
         HomeActivity.tv_title.setText("Events");
 
+        HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new SettingsFragment()).commit();
+            }
+        });
         ListView listView=(ListView)view.findViewById(R.id.listView);
 
         View addItem=view.findViewById(R.id.add_layout);

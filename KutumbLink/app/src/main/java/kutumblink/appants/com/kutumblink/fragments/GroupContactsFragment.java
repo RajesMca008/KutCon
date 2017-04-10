@@ -4,6 +4,7 @@ package kutumblink.appants.com.kutumblink.fragments;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -44,6 +45,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     Button btn_close;
     ListView lv_conatcst;
     DatabaseHandler dbHandler;
+
 
     public static ExpandableListView et_action;
    public static ArrayList<ContactsDo> arr_contacts=new ArrayList<ContactsDo>();
@@ -117,6 +119,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     contactsBean.setConatactName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NAME)));
                     contactsBean.setConatactPhone(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NUMBER)));
                     contactsBean.setConatactPIC(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_PIC)));
+                    contactsBean.setConatactEmail(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_EMAIL)));
                     contactsBean.setIS_CONTACT_SELECTED(0);
                     arr_contacts.add(contactsBean);
 
@@ -129,6 +132,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Constants.NAV_GROUPS=100;
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
 
@@ -138,35 +142,103 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         });
 
 
+        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+
+
+                if(expandableListView.isGroupExpanded(0)){
+                    Constants.isGROUP_NOT_EXPAND=true;
+                    Log.v("View..","VIEW CLICKED..true."+expandableListView.isGroupExpanded(0));
+                }else  if(!expandableListView.isGroupExpanded(0)){
+                    Constants.isGROUP_NOT_EXPAND=false;
+                    Log.v("View..","VIEW CLICKED..false."+expandableListView.isGroupExpanded(0));
+                }
+
+                return false;
+            }
+        });
+
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
 
 
-                Toast.makeText(getActivity(),".."+i1,Toast.LENGTH_LONG).show();
                 String phoneNos="";
                 if(i1==0){
                     // message
+                    boolean sel=false;
                     for(int a=0;a<arr_contacts.size();a++){
 
                         if(arr_contacts.get(a).getIS_CONTACT_SELECTED()==1) {
 
                             phoneNos+=arr_contacts.get(a).getConatactPhone()+";";
+                            sel=true;
                         }
 
                     }
-                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
-                    intent.putExtra("address", phoneNos);
 
-                    intent.putExtra("sms_body", "");
-                    intent.setType("vnd.android-dir/mms-sms");
-                    startActivity(intent);
+                    if(sel) {
+
+                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+                        intent.putExtra("address", phoneNos);
+
+                        intent.putExtra("sms_body", "");
+                        intent.setType("vnd.android-dir/mms-sms");
+                        startActivity(intent);
+                    }else{
+                        showConfirmDialog(getString(R.string.app_name),"Please select contacts");
+                    }
                 }else if(i1==1){
-// Email
 
+                    String data[]=new String[arr_contacts.size()];
+
+                    boolean sel=false;
+                    for(int a=0;a<arr_contacts.size();a++){
+
+                        if(arr_contacts.get(a).getConatactEmail()!=null) {
+
+                            data[a]=arr_contacts.get(a).getConatactEmail();
+
+                            sel=true;
+                        }
+
+                    }
+
+
+                    if(sel){
+                        String[] TO = {""};
+                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+                        emailIntent.setData(Uri.parse("mailto:"));
+                        emailIntent.setType("text/plain");
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL, data);
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                        emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+
+                        try {
+                            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(getActivity(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }else if(i1==2){
 
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction ft=fragmentManager.beginTransaction();
+                    ft.replace(R.id.main_container, new AddGroupFragment());
+                    ft.commit();
+
                 }else if(i1==3){
+
+                    dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_NAME + "'");
+                    dbHandler.DeleteTable("TBL_PHONE_CONTACTS","Phone_Contact_Gid='"+Constants.GROUP_NAME+"'");
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction ft=fragmentManager.beginTransaction();
+                    ft.replace(R.id.main_container, new GroupsMainFragment());
+                    ft.commit();
+                    Toast.makeText(getActivity(),"Group deleted successfully",Toast.LENGTH_LONG).show();
 
                 }else if(i1==4){
 
@@ -204,6 +276,9 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Log.v("Contacts Selected....", "...list ITEM CLICKED.." + arr_contacts.get(pos).getConatactName());
+
+
+
                 for(int i=0;i<arr_contacts.size();i++){
 
                     if(arr_contacts.get(i).getIS_CONTACT_SELECTED()==1) {
@@ -229,7 +304,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
-        listDataHeader.add("");
+        listDataHeader.add("Action");
 
         // Adding child data
         List<String> action = new ArrayList<String>();

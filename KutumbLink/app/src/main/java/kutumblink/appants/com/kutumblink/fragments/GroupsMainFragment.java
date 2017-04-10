@@ -102,13 +102,9 @@ public class GroupsMainFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction ft=fragmentManager.beginTransaction();
-                ft.replace(R.id.main_container, new SettingsFragment());
-                ft.addToBackStack("group_Main");
-                ft.setCustomAnimations(R.anim.slide_right , R.anim.slide_left);
 
-                ft.commit();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new SettingsFragment()).commit();
             }
         });
 
@@ -146,7 +142,7 @@ public class GroupsMainFragment extends BaseFragment {
                 c.moveToFirst();
                 do {
 
-                    Cursor cg=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_PHONE_CONTACTS +" where Phone_Contact_Gid='"+ c.getString(c.getColumnIndex(dbHandler.GROUP_NAME))+"'");
+                    Cursor cg = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + c.getString(c.getColumnIndex(dbHandler.GROUP_NAME)) + "'");
 
                         GroupDo groupDetails=new GroupDo();
                     groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
@@ -176,6 +172,7 @@ public class GroupsMainFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
 
+                Constants.GROUP_OPERATIONS="EDIT";
                 Constants.GROUP_NAME=arr_group.get(i).getGroup_Name();
 
 

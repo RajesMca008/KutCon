@@ -57,7 +57,15 @@ public class CameraMainFragment extends BaseFragment {
         HomeActivity.ib_menu.setText("Edit");
         HomeActivity.tv_title.setText("Photo Links");
 
+        HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new SettingsFragment()).commit();
+            }
+        });
         ListView listView=(ListView)view.findViewById(R.id.listView);
 
         mMsgList=new ArrayList<MessageBean>();
