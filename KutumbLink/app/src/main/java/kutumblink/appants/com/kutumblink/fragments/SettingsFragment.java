@@ -1,7 +1,10 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -143,7 +146,69 @@ public class SettingsFragment extends BaseFragment  {
 
                             if(key.equalsIgnoreCase("str_flags")  ) {
                                 Constants.GROUP_NAME=value;
+
+                                if(value.equalsIgnoreCase("Share KutumbLink"))
+                                {
+                                    int applicationNameId = getActivity().getApplicationInfo().labelRes;
+                                    final String appPackageName =  getActivity().getPackageName();
+                                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                    shareIntent.setType("text/plain");
+                                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, activity.getString(applicationNameId));
+                                    String text = "Install this application: ";
+                                    String link = "https://play.google.com/store/apps/details?id=" + appPackageName;
+                                    shareIntent.putExtra(Intent.EXTRA_TEXT, text + " " + link);
+                                    startActivity(Intent.createChooser(shareIntent, "Share link:"));
+                                }
+                                if(value.equalsIgnoreCase("Rate KutumbLink") )
+                                {
+                                    Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
+                                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                                    // To count with Play market backstack, After pressing back button,
+                                    // to taken back to our application, we need to add following flags to intent.
+                                    goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                                            Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                                    try {
+                                        startActivity(goToMarket);
+                                    } catch (ActivityNotFoundException e) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                                Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
+                                    }
+                                }
+                                if(value.equalsIgnoreCase("Contact"))
+                                {
+
+                                    //Contact
+                                    ContactEmailSentFragment emailIntent = new ContactEmailSentFragment(); //New means creating adding.
+                                    FragmentManager fragmentManager = getFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.main_container, emailIntent);
+
+                                    fragmentTransaction.commit();
+
+                                }
+
+                                if(value.equalsIgnoreCase("FAQs"));
+                                {
+
+                                    //FAQs
+                                    FAQsFragment faQsFragment = new FAQsFragment(); //New means creating adding.
+                                    FragmentManager fragmentManager = getFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.main_container, faQsFragment);
+                                    fragmentTransaction.commit();
+
+                                }
+                                if(value.equalsIgnoreCase("Kutumblink App Screen"));
+                                {
+
+                                    //Kutumblink App Screen
+
+                                }
+
                             }
+
+
 
 
                         }

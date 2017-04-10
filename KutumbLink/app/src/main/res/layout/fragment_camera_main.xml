@@ -17,8 +17,9 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp" android:src="@drawable/photo_icon"/>
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:src="@mipmap/photos_btn_new"/>
 
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:layout_width="match_parent"

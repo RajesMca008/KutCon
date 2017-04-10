@@ -1,0 +1,73 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kutumblink.appants.com.kutumblink.fragments.FAQsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content">
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:textSize="20sp"
+                android:id="@+id/faq1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:text="@string/faq1" />
+            <View
+                android:layout_width="match_parent"
+                android:background="#252424"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="0.5dp"/>
+
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:textSize="20sp"
+                android:id="@+id/faq2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:text="@string/faq1" />
+            <View
+                android:layout_width="match_parent"
+                android:background="#252424"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="0.5dp"/>
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:textSize="20sp"
+                android:id="@+id/faq3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:text="@string/faq1" />
+            <View
+                android:layout_width="match_parent"
+                android:background="#252424"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="0.5dp"/>
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:textSize="20sp"
+                android:id="@+id/faq4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:text="@string/faq1" />
+            <View
+                android:layout_width="match_parent"
+                android:background="#252424"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="0.5dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

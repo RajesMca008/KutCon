@@ -48,15 +48,12 @@ public class CameraMainFragment extends BaseFragment {
         View view=inflater.inflate(R.layout.fragment_camera_main, container, false);
 
 
-
-
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
 
         HomeActivity.ib_back_next.setText("");
-        HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
-        HomeActivity.ib_menu.setText("Edit");
+        HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
+        HomeActivity.ib_menu.setText("");
         HomeActivity.tv_title.setText("Photo Links");
-
         HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,6 +63,8 @@ public class CameraMainFragment extends BaseFragment {
                 fragmentManager.beginTransaction().replace(R.id.main_container, new SettingsFragment()).commit();
             }
         });
+
+
         ListView listView=(ListView)view.findViewById(R.id.listView);
 
         mMsgList=new ArrayList<MessageBean>();

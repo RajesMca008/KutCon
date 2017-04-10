@@ -20,5 +20,25 @@
         android:id="@+id/navigation_photos"
         android:icon="@mipmap/photos_btn"
        android:title=""  />
+    <!--
+     <item
+        android:id="@+id/navigation_groups"
+        android:icon="@mipmap/groups_btn_new"
+        android:title="Groups" />
+
+    <item
+        android:id="@+id/navigation_events"
+        android:icon="@mipmap/events_btn_new"
+        android:title="Events" />
+
+    <item
+        android:id="@+id/navigation_message"
+        android:icon="@mipmap/messages_btn_new"
+        android:title="Messages" />
+    <item
+        android:id="@+id/navigation_photos"
+        android:icon="@mipmap/photos_btn_new"
+       android:title="Photos"  />
+    -->
 
 </menu>
