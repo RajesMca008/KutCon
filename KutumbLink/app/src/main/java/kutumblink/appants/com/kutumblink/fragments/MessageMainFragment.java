@@ -47,10 +47,7 @@ public class MessageMainFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_message_main, container, false);
 
-
-
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
-
         HomeActivity.ib_back_next.setText("");
         HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
         HomeActivity.ib_menu.setText("");
@@ -98,6 +95,7 @@ public class MessageMainFragment extends BaseFragment {
                 MessageBean bean=new MessageBean();
                 bean.setMsgLink(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_LINK)));
                 bean.setMsgTitle(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_TITLE)));
+                bean.setMsgId(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_ID)));
                 mMsgList.add(bean);
             }
             while (cursor.moveToNext());
@@ -106,6 +104,7 @@ public class MessageMainFragment extends BaseFragment {
         cursor.close();
         if(databaseHandler!=null)
         databaseHandler.close();
+
 
         final MyListAdapter adapter=new MyListAdapter(getContext(),mMsgList);
         listView.setAdapter(adapter);
@@ -136,7 +135,6 @@ public class MessageMainFragment extends BaseFragment {
                         //cart = mMsgList.get(position);
                         //db.removeProductFromCart(context, cart);
 
-                        Log.i("TEST", "Action name" + item);
                         if (item == 1) {
                             new AlertDialog.Builder(getContext())
                                     .setTitle("Are You Sure ?")
@@ -144,9 +142,20 @@ public class MessageMainFragment extends BaseFragment {
                                     .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
 
-                                            //Need to write code for delete item from DB
-                                            mMsgList.remove(position);
-                                            adapter.notifyDataSetInvalidated();
+                                            try {
+                                                DatabaseHandler dbHandler = new DatabaseHandler(getContext());
+
+
+                                                dbHandler.DeleteTable(DatabaseHandler.TABLE_MESSAGES, DatabaseHandler.MSG_ID + " = " + mMsgList.get(position).getMsgId());
+                                                mMsgList.remove(position);
+                                                adapter.notifyDataSetInvalidated();
+                                                dbHandler.close();
+                                            }
+                                            catch (Exception e)
+                                            {
+                                                e.printStackTrace();
+                                            }
+
                                         }
                                     })
                                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -175,7 +184,7 @@ public class MessageMainFragment extends BaseFragment {
 
                 alert.show();
                 //do your stuff here
-                return false;
+                return true;
             }
         });
         return view;

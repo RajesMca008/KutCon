@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -197,7 +198,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			if (whereClause.equals("")) {
 				db.delete(tablename, null, null);
 			} else {
-				db.delete(tablename, whereClause, null);
+				int result=db.delete(tablename, whereClause, null);
+				Log.v("TEST","Deleted row"+result);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

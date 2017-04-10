@@ -97,6 +97,7 @@ public class CameraMainFragment extends BaseFragment {
                 MessageBean bean=new MessageBean();
                 bean.setMsgLink(cursor.getString(cursor.getColumnIndex(DatabaseHandler.PHOTO_LINK)));
                 bean.setMsgTitle(cursor.getString(cursor.getColumnIndex(DatabaseHandler.PHOTO_TITLE)));
+                bean.setMsgId(cursor.getString(cursor.getColumnIndex(DatabaseHandler.PHOTO_ID)));
                 mMsgList.add(bean);
             }
             while (cursor.moveToNext());
@@ -142,9 +143,18 @@ public class CameraMainFragment extends BaseFragment {
                                     .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
 
-                                            //Need to write code for delete item from DB
-                                            mMsgList.remove(position);
-                                            adapter.notifyDataSetInvalidated();
+                                            try {
+                                                DatabaseHandler dbHandler = new DatabaseHandler(getContext());
+                                                dbHandler.DeleteTable(DatabaseHandler.TABLE_PHOTOS, DatabaseHandler.PHOTO_ID + " = " + mMsgList.get(position).getMsgId());
+                                                mMsgList.remove(position);
+                                                adapter.notifyDataSetInvalidated();
+
+                                                dbHandler.close();
+                                            }
+                                            catch (Exception e)
+                                            {
+                                                e.printStackTrace();
+                                            }
                                         }
                                     })
                                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -173,7 +183,7 @@ public class CameraMainFragment extends BaseFragment {
 
                 alert.show();
                 //do your stuff here
-                return false;
+                return true;
             }
         });
         return view;

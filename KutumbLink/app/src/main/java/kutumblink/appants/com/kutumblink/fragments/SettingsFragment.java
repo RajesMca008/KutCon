@@ -95,10 +95,12 @@ public class SettingsFragment extends BaseFragment  {
                 Constants.NAV_GROUPS=100;
                 GroupsMainFragment groupContacts = new GroupsMainFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, groupContacts);
+                if(fragmentManager!=null) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, groupContacts);
 
-                fragmentTransaction.commit();
+                    fragmentTransaction.commit();
+                }
             }
         });
 
