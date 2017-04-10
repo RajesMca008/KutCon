@@ -169,11 +169,12 @@ public class MessageMainFragment extends BaseFragment {
                         }
                         else if(item==0)
                         {
-                            EditMessageFragment editFragment = EditMessageFragment.newInstance("121");
+                            EditMessageFragment editFragment = EditMessageFragment.newInstance( mMsgList.get(position).getMsgId());
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, editFragment);
                             fragmentTransaction.addToBackStack("edit_msg");
+
                             fragmentTransaction.commit();
                         }
                     }

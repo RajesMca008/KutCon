@@ -38,6 +38,8 @@
     <string name="invalid_url">Invalid URL</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="saved_sucess">successfully saved.</string>
+
+    <string name="updated_sucess">Updated successfully.</string>
     <string name="message_text">Do you want to navigate to the message link?</string>
 
     <string name="gname_exists">Group name already exists</string>

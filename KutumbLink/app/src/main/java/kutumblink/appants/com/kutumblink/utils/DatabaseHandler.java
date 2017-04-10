@@ -139,25 +139,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
-	public void UpdateTable(String TableName, ContentValues cvUpdate, String Where_Condition)
+	public long UpdateTable(String TableName, ContentValues cvUpdate, String Where_Condition)
 	{
 		/*SQLiteDatabase db = this.getWritableDatabase();
 			 db.update(TableName, cvUpdate, Where_Condition, null);
 			db.close();*/
 
 
+		long result=-1;
 
 		try {
 			SQLiteDatabase db = this.getWritableDatabase();
 			if (Where_Condition.equals("")) {
-				db.update(TableName,cvUpdate, null, null);
+				result=	db.update(TableName,cvUpdate, null, null);
 			} else {
-				db.update(TableName,cvUpdate, Where_Condition, null);
+				result=db.update(TableName,cvUpdate, Where_Condition, null);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		return result;
 	}
 
 

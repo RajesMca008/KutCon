@@ -75,7 +75,7 @@ public class CameraMainFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
-                EditPhotoFragment editFragment = new EditPhotoFragment(); //New means creating adding.
+                EditPhotoFragment editFragment =  new EditPhotoFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, editFragment);
@@ -168,7 +168,7 @@ public class CameraMainFragment extends BaseFragment {
                         }
                         else if(item==0)
                         {
-                            EditPhotoFragment editFragment = new EditPhotoFragment();
+                            EditPhotoFragment editFragment =  EditPhotoFragment.newInstance(mMsgList.get(position).getMsgId());
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.main_container, editFragment);

@@ -2,8 +2,10 @@ package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 
@@ -25,6 +28,9 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
     private EditText textTitle;
     private EditText textLink;
     private static final String ARG_PARAM1 = "param1";
+
+    private boolean isCreateNew=true;
+    private String msgId;
 
     public EditMessageFragment() {
         // Required empty public constructor
@@ -70,10 +76,40 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
             //Not for edit
 
             activity.setTitle("Create Message");
+            isCreateNew=true;
         }else {
             // Came for Edit
 
+            saveButton.setText("Update");
             activity.setTitle("Edit Message");
+            isCreateNew=false;
+
+            msgId= (String) getArguments().get(ARG_PARAM1);
+            DatabaseHandler dbHandler=null;
+            try {
+
+                dbHandler = new DatabaseHandler(getActivity());
+
+                Cursor c= dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_MESSAGES + " where "+DatabaseHandler.MSG_ID+" =" + msgId+ "");
+                Log.i("TEST" ,"::"+c.getCount());
+
+
+                String title=c.getString(c.getColumnIndex(DatabaseHandler.MSG_TITLE));
+                String link=c.getString(c.getColumnIndex(DatabaseHandler.MSG_LINK));
+
+                textTitle.setText(title);
+                textLink.setText(link);
+                dbHandler.close();
+                if(c!=null)
+                    if(!c.isClosed())
+                        c.close();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+
         }
 
         return view;
@@ -102,19 +138,33 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
 
                 dbHandler=new DatabaseHandler(getActivity());
 
-                ContentValues contentValues=new ContentValues();
-                contentValues.put(DatabaseHandler.MSG_LINK,textLink.getText().toString().trim());
-                contentValues.put(DatabaseHandler.MSG_TITLE,textTitle.getText().toString().trim());
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(DatabaseHandler.MSG_LINK, textLink.getText().toString().trim());
+                contentValues.put(DatabaseHandler.MSG_TITLE, textTitle.getText().toString().trim());
+                if(isCreateNew) {
 
 
-                long insert= dbHandler.insert(DatabaseHandler.TABLE_MESSAGES,contentValues);
+
+                    long insert = dbHandler.insert(DatabaseHandler.TABLE_MESSAGES, contentValues);
 
 
-                if(insert>0)
-                {
-                    //Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
-                    showConfirmDialog(getString(R.string.app_name),getString(R.string.saved_sucess));
-                    //getActivity().onBackPressed();
+                    if (insert > 0) {
+                        //Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
+                        showConfirmDialog(getString(R.string.app_name), getString(R.string.saved_sucess));
+                        //getActivity().onBackPressed();
+                    }
+                }
+                else {
+
+
+                    long insert = dbHandler.UpdateTable(DatabaseHandler.TABLE_MESSAGES,contentValues,DatabaseHandler.MSG_ID+ " = "+msgId);
+
+
+                    if (insert > 0) {
+                        //Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
+                        showConfirmDialog(getString(R.string.app_name), getString(R.string.updated_sucess));
+                        //getActivity().onBackPressed();
+                    }
                 }
                 dbHandler.close();
             }
