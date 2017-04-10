@@ -4,13 +4,17 @@ package kutumblink.appants.com.kutumblink.fragments;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.utils.Constants;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +49,24 @@ public class FAQsFragment extends Fragment {
             ((TextView)view.findViewById(R.id.faq3)).setText(Html.fromHtml(getString(R.string.faq3)));
             ((TextView)view.findViewById(R.id.faq4)).setText(Html.fromHtml(getString(R.string.faq4)));
         }
+
+        HomeActivity.tv_title.setText("FAQs");
+        HomeActivity.ib_back_next.setText("Groups");
+
+        HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Constants.NAV_GROUPS=100;
+                GroupsMainFragment groupContacts = new GroupsMainFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                if(fragmentManager!=null) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+
+                    fragmentTransaction.commit();
+                }
+            }
+        });
 
         return view;
     }

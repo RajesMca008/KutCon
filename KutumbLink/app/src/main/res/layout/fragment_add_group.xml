@@ -37,6 +37,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="45dp"
         android:layout_marginLeft="15dp">
 
         <ImageView
@@ -104,6 +105,8 @@
             android:textSize="18sp"
             android:drawableRight="@mipmap/right_arrow"
             android:layout_marginRight="10dp"
+            android:minHeight="35dp"
+            android:gravity="center_vertical"
             android:text="Select from Contact List"/>
 
         <View
@@ -113,6 +116,8 @@
             android:background="@color/colorhash"/>
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
 
+            android:minHeight="35dp"
+            android:gravity="center_vertical"
             android:id="@+id/tv_createContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,7 +133,8 @@
             android:layout_marginTop="5dp"
             android:background="@color/colorhash"/>
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
-
+            android:minHeight="35dp"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

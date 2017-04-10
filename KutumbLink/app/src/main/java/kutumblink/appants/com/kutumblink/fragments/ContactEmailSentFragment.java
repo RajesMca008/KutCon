@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.EditText;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 import static android.app.Activity.RESULT_OK;
@@ -45,7 +48,22 @@ public class ContactEmailSentFragment extends BaseFragment implements View.OnCli
         Button saveButton= (Button) view.findViewById(R.id.save_btn_id);
 
         HomeActivity.tv_title.setText("Contact");
-        HomeActivity.ib_back_next.setText("Settings");
+        HomeActivity.ib_back_next.setText("Groups");
+
+        HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Constants.NAV_GROUPS=100;
+                GroupsMainFragment groupContacts = new GroupsMainFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                if(fragmentManager!=null) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+
+                    fragmentTransaction.commit();
+                }
+            }
+        });
 
         saveButton.setOnClickListener(this);
         return view;

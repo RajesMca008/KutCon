@@ -82,10 +82,12 @@ public class SettingsFragment extends BaseFragment  {
                 Constants.NAV_GROUPS=100;
                 GroupsMainFragment groupContacts = new GroupsMainFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new GroupsMainFragment());
+                if(fragmentManager!=null) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, new GroupsMainFragment());
 
-                fragmentTransaction.commit();
+                    fragmentTransaction.commit();
+                }
             }
         });
 
@@ -160,6 +162,7 @@ public class SettingsFragment extends BaseFragment  {
                                     String link = "https://play.google.com/store/apps/details?id=" + appPackageName;
                                     shareIntent.putExtra(Intent.EXTRA_TEXT, text + " " + link);
                                     startActivity(Intent.createChooser(shareIntent, "Share link:"));
+                                    return;
                                 }
                                 if(value.equalsIgnoreCase("Rate KutumbLink") )
                                 {
@@ -176,6 +179,7 @@ public class SettingsFragment extends BaseFragment  {
                                         startActivity(new Intent(Intent.ACTION_VIEW,
                                                 Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
                                     }
+                                    return;
                                 }
                                 if(value.equalsIgnoreCase("Contact"))
                                 {
@@ -187,10 +191,10 @@ public class SettingsFragment extends BaseFragment  {
                                     fragmentTransaction.replace(R.id.main_container, emailIntent);
 
                                     fragmentTransaction.commit();
-
+                                    return;
                                 }
 
-                                if(value.equalsIgnoreCase("FAQs"));
+                                if(value.equalsIgnoreCase("FAQs"))
                                 {
 
                                     //FAQs
@@ -199,9 +203,9 @@ public class SettingsFragment extends BaseFragment  {
                                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                     fragmentTransaction.replace(R.id.main_container, faQsFragment);
                                     fragmentTransaction.commit();
-
+                                    return;
                                 }
-                                if(value.equalsIgnoreCase("Kutumblink App Screen"));
+                                if(value.equalsIgnoreCase("Kutumblink App Screen"))
                                 {
 
                                     //Kutumblink App Screen
