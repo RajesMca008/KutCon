@@ -63,6 +63,13 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         ll_grpcontacts=(LinearLayout)view.findViewById(R.id.ll_grpcontacts);
       //  expListView=(ExpandableListView)view.findViewById(R.id.lvExp);
 
+        ll_grpcontacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
 
         activity.setTitle(Constants.GROUP_NAME);
 
@@ -74,11 +81,13 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         HomeActivity.ib_menu.setText("Edit");
         HomeActivity.tv_title.setText(Constants.GROUP_NAME);
         topDialog = new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
+        topDialog.setCanceledOnTouchOutside(true);
         btn_actions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 topDialog.setContentView(R.layout.activity_actions);
+
                 topDialog.show();
             }
         });

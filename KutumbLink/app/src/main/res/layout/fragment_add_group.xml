@@ -14,22 +14,24 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:minHeight="30dp"
+        android:weightSum="1">
     <kutumblink.appants.com.kutumblink.utils.CustomTextView
         android:id="@+id/tv_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:textSize="16sp"
         android:drawablePadding="15dp"
-
+        android:layout_gravity="center"
         android:text="@string/addgroupsubtitle" />
 
         <ImageView
-            android:layout_width="12dp"
+            android:layout_width="11dp"
             android:layout_height="12dp"
-            android:layout_marginTop="10dp"
+          android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             app:srcCompat="@drawable/default_icon" />
         </LinearLayout>
@@ -42,7 +44,7 @@
 
         <ImageView
             android:layout_width="32dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:background="@mipmap/group_default_icon"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
@@ -50,7 +52,6 @@
         <kutumblink.appants.com.kutumblink.utils.CustomEditTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:paddingTop="5dp"
@@ -59,19 +60,19 @@
             android:paddingLeft="5dp"
 
             android:background="@drawable/rectangle_shape"
-            android:layout_toRightOf="@+id/iv_groupicon"
-            android:layout_toEndOf="@+id/iv_groupicon"
-            android:id="@+id/et_groupname" />
+            android:id="@+id/et_groupname"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/iv_groupicon" />
 
         <ImageView
             android:id="@+id/iv_favgroups"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
             app:srcCompat="@drawable/default_icon"
-            android:layout_alignBottom="@+id/et_groupname"
-            android:layout_alignEnd="@+id/et_groupname" />
+            android:layout_alignTop="@+id/iv_groupicon"
+            android:layout_alignEnd="@+id/et_groupname"
+            android:layout_marginEnd="11dp" />
 
 
     </RelativeLayout>
@@ -105,7 +106,7 @@
             android:textSize="18sp"
             android:drawableRight="@mipmap/right_arrow"
             android:layout_marginRight="10dp"
-            android:minHeight="35dp"
+            android:minHeight="45dp"
             android:gravity="center_vertical"
             android:text="Select from Contact List"/>
 
@@ -116,7 +117,7 @@
             android:background="@color/colorhash"/>
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
 
-            android:minHeight="35dp"
+            android:minHeight="45dp"
             android:gravity="center_vertical"
             android:id="@+id/tv_createContact"
             android:layout_width="match_parent"
@@ -133,7 +134,7 @@
             android:layout_marginTop="5dp"
             android:background="@color/colorhash"/>
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
-            android:minHeight="35dp"
+            android:minHeight="45dp"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
