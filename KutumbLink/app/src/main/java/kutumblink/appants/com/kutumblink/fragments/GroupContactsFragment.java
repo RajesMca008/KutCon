@@ -1,10 +1,9 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
-import android.content.Intent;
+import android.app.Dialog;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,9 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,7 +25,6 @@ import java.util.List;
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.adapter.ContactListAdapter;
-import kutumblink.appants.com.kutumblink.adapter.ExpandableListAdapter;
 import kutumblink.appants.com.kutumblink.model.ContactsDo;
 import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
@@ -47,8 +44,11 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     DatabaseHandler dbHandler;
 
 
-    public static ExpandableListView et_action;
-   public static ArrayList<ContactsDo> arr_contacts=new ArrayList<ContactsDo>();
+
+    Button btn_actions;
+    Dialog topDialog;
+    LinearLayout ll_grpcontacts;
+    public static ArrayList<ContactsDo> arr_contacts=new ArrayList<ContactsDo>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,7 +59,9 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         dbHandler=new DatabaseHandler(getActivity());
         lv_conatcst=(ListView)view.findViewById(R.id.lv_contacts);
         btn_close=(Button)view.findViewById(R.id.btn_close);
-        expListView=(ExpandableListView)view.findViewById(R.id.lvExp);
+        btn_actions=(Button)view.findViewById(R.id.btn_ations);
+        ll_grpcontacts=(LinearLayout)view.findViewById(R.id.ll_grpcontacts);
+      //  expListView=(ExpandableListView)view.findViewById(R.id.lvExp);
 
 
         activity.setTitle(Constants.GROUP_NAME);
@@ -71,6 +73,16 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
         HomeActivity.ib_menu.setText("Edit");
         HomeActivity.tv_title.setText(Constants.GROUP_NAME);
+        topDialog = new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
+        btn_actions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                topDialog.setContentView(R.layout.activity_actions);
+                topDialog.show();
+            }
+        });
+
 
         HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,16 +145,14 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             @Override
             public void onClick(View view) {
                 Constants.NAV_GROUPS=100;
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
-
-
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
 
             }
         });
 
 
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+       /* expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
 
@@ -248,7 +258,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 }
                 return false;
             }
-        });
+        });*/
        /* et_action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -267,10 +277,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         // preparing list data
         prepareListData();
 
-        listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
+      //  listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
 
         // setting list adapter
-        expListView.setAdapter(listAdapter);
+        //expListView.setAdapter(listAdapter);
         lv_conatcst.setAdapter(new ContactListAdapter(getActivity(),arr_contacts));
 
         lv_conatcst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -278,7 +288,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Log.v("Contacts Selected....", "...list ITEM CLICKED.." + arr_contacts.get(pos).getConatactName());
 
-
+                topDialog.cancel();
 
                 for(int i=0;i<arr_contacts.size();i++){
 
@@ -294,8 +304,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         return view;
     }
 
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
+   // ExpandableListAdapter listAdapter;
+  //  ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 

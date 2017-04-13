@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     tools:context="kutumblink.appants.com.kutumblink.fragments.EventsMainFragment">
     <LinearLayout
+        android:id="@+id/ll_grpcontacts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         >
 
@@ -23,26 +24,54 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/close_red"
-                android:elevation="0dp" />
-
-
-
-            <ExpandableListView
-                android:id="@+id/lvExp"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="50dp"
-                android:background="@drawable/edtcornershape"
-
-
-                android:layout_marginRight="15dp"
-
-                android:indicatorRight="@dimen/activity_horizontal_margin"
-
                 />
 
 
+
+
+
+            <LinearLayout
+
+                android:id="@+id/ll_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/btn_ations"
+                    android:layout_height="35dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:background="@drawable/action_drop_dwon"
+
+
+                    android:layout_marginRight="15dp"
+
+
+                    />
+
+
+          <!--  <LinearLayout
+
+                android:id="@+id/ll_popup_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edtcornershape"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+<include layout="@layout/activity_actions"/>
+
+            </LinearLayout>-->
+
+</LinearLayout>
+
+
+
+
         </RelativeLayout>
+
+
 
         <ListView
             android:id="@+id/lv_contacts"
