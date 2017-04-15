@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
@@ -57,7 +58,8 @@ public class EditPhotoFragment extends BaseFragment implements View.OnClickListe
 
         Button saveButton= (Button) view.findViewById(R.id.save_btn_id);
 
-
+        HomeActivity.ib_menu.setBackground(null);
+        HomeActivity.ib_menu.setText("");
         saveButton.setOnClickListener(this);
 
 

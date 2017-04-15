@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,9 @@ public class CameraMainFragment extends BaseFragment {
 
     private ArrayList<MessageBean> mMsgList=null;
     private String linkURL;
+    public  boolean editMode=false;
+    private ListView listView;
+    private MyListAdapter adapter;
 
     public CameraMainFragment() {
         // Required empty public constructor
@@ -51,21 +55,25 @@ public class CameraMainFragment extends BaseFragment {
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
 
         HomeActivity.ib_back_next.setText("");
-        HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
-        HomeActivity.ib_menu.setText("");
+        //HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
+        HomeActivity.ib_menu.setBackground(null);
+        HomeActivity.ib_menu.setText("Edit");
         HomeActivity.tv_title.setText("Photo Links");
         HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                editMode=!editMode;
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_container, new SettingsFragment()).commit();
+                listView.invalidateViews();
+
+               /* FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new SettingsFragment()).commit();*/
             }
         });
 
 
-        ListView listView=(ListView)view.findViewById(R.id.listView);
+          listView=(ListView)view.findViewById(R.id.listView);
 
         mMsgList=new ArrayList<MessageBean>();
 
@@ -115,8 +123,14 @@ public class CameraMainFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                linkURL=((MessageBean)adapterView.getItemAtPosition(i)).getMsgLink();
-                showConfirmDialog(getString(R.string.photo_message));
+
+                if(!editMode) {
+                    linkURL = ((MessageBean) adapterView.getItemAtPosition(i)).getMsgLink();
+                    showConfirmDialog(getString(R.string.message_text));
+                }
+                else {
+                    perFormEditDeleteOption(i);
+                }
 
             }
         });
@@ -124,64 +138,7 @@ public class CameraMainFragment extends BaseFragment {
         listView .setOnItemLongClickListener (new AdapterView.OnItemLongClickListener() {
             @SuppressWarnings("rawtypes")
             public boolean onItemLongClick(AdapterView parent, View view, final int position, long id) {
-                final CharSequence[] items = {"Edit", "Delete" };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                builder.setTitle("Action:");
-                builder.setItems(items, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int item) {
-                        //cart = mMsgList.get(position);
-                        //db.removeProductFromCart(context, cart);
-
-                        Log.i("TEST", "Action name" + item);
-                        if (item == 1) {
-                            new AlertDialog.Builder(getContext())
-                                    .setTitle("Are You Sure ?")
-                                    .setMessage(""+mMsgList.get(position).getMsgTitle())
-                                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                            try {
-                                                DatabaseHandler dbHandler = new DatabaseHandler(getContext());
-                                                dbHandler.DeleteTable(DatabaseHandler.TABLE_PHOTOS, DatabaseHandler.PHOTO_ID + " = " + mMsgList.get(position).getMsgId());
-                                                mMsgList.remove(position);
-                                                adapter.notifyDataSetInvalidated();
-
-                                                dbHandler.close();
-                                            }
-                                            catch (Exception e)
-                                            {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    })
-                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            Toast.makeText(getContext(), "Cancel", Toast.LENGTH_LONG).show();
-                                        }
-                                    })
-                                    .show();
-
-                        }
-                        else if(item==0)
-                        {
-                            EditPhotoFragment editFragment =  EditPhotoFragment.newInstance(mMsgList.get(position).getMsgId());
-                            FragmentManager fragmentManager = getFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, editFragment);
-                            fragmentTransaction.addToBackStack("edit_msg");
-                            fragmentTransaction.commit();
-                        }
-                    }
-
-                });
-
-                AlertDialog alert = builder.create();
-
-                alert.show();
+                perFormEditDeleteOption(position);
                 //do your stuff here
                 return true;
             }
@@ -189,6 +146,69 @@ public class CameraMainFragment extends BaseFragment {
         return view;
     }
 
+
+
+    private void perFormEditDeleteOption(final int position) {
+
+        final CharSequence[] items = {"Edit", "Delete" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setTitle("Action:");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int item) {
+                //cart = mMsgList.get(position);
+                //db.removeProductFromCart(context, cart);
+
+                Log.i("TEST", "Action name" + item);
+                if (item == 1) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("Are You Sure ?")
+                            .setMessage(""+mMsgList.get(position).getMsgTitle())
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    try {
+                                        DatabaseHandler dbHandler = new DatabaseHandler(getContext());
+                                        dbHandler.DeleteTable(DatabaseHandler.TABLE_PHOTOS, DatabaseHandler.PHOTO_ID + " = " + mMsgList.get(position).getMsgId());
+                                        mMsgList.remove(position);
+                                        adapter.notifyDataSetInvalidated();
+
+                                        dbHandler.close();
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Toast.makeText(getContext(), "Cancel", Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .show();
+
+                }
+                else if(item==0)
+                {
+                    EditPhotoFragment editFragment =  EditPhotoFragment.newInstance(mMsgList.get(position).getMsgId());
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, editFragment);
+                    fragmentTransaction.addToBackStack("edit_msg");
+                    fragmentTransaction.commit();
+                }
+            }
+
+        });
+
+        AlertDialog alert = builder.create();
+
+        alert.show();
+    }
 
     class MyListAdapter extends BaseAdapter {
         private Context mContext=null;
@@ -228,6 +248,13 @@ public class CameraMainFragment extends BaseFragment {
             TextView messageTitle=(TextView)view.findViewById(R.id.text_id);
 
             messageTitle.setText(mList.get(i).getMsgTitle());
+            ImageView editImage=(ImageView) view.findViewById(R.id.edit_mode);
+            if(editMode)
+            {
+                editImage.setVisibility(View.VISIBLE);
+            }else {
+                editImage.setVisibility(View.GONE);
+            }
 
             return view;
         }

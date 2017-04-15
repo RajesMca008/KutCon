@@ -57,10 +57,10 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
 
         HomeActivity.ib_back_next.setText("");
-        HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
-        HomeActivity.ib_menu.setText("");
-        HomeActivity.tv_title.setText("Message Links");
 
+        HomeActivity.tv_title.setText("Message Links");
+        HomeActivity.ib_menu.setBackground(null);
+        HomeActivity.ib_menu.setText("");
 
           textTitle= (EditText) view.findViewById(R.id.message_title_text);
           textLink=(EditText) view.findViewById(R.id.message_link_text);
