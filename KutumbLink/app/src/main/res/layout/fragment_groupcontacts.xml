@@ -32,7 +32,7 @@
 
             <LinearLayout
 
-                android:id="@+id/ll_actions"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -50,14 +50,14 @@
                     />
 
 
-                <!--  <LinearLayout
+               <!--   <LinearLayout
 
                       android:id="@+id/ll_popup_actions"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:background="@drawable/edtcornershape"
-                      android:layout_marginLeft="50dp"
-                      android:layout_marginRight="10dp"
+
+                      android:visibility="gone"
                       android:orientation="vertical">
 
       <include layout="@layout/activity_actions"/>
@@ -72,13 +72,30 @@
         </RelativeLayout>
 
 
-
         <ListView
             android:id="@+id/lv_contacts"
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+            </ListView>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="15dp">
+
+    <include
+        layout="@layout/activity_actions"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        ></include>
+    </LinearLayout>
 </FrameLayout>

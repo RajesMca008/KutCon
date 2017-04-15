@@ -1,9 +1,10 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
-import android.app.Dialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GroupContactsFragment extends BaseFragment implements Serializable {
+public class GroupContactsFragment extends BaseFragment implements Serializable  {
 
 
     public GroupContactsFragment() {
@@ -43,12 +46,15 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     ListView lv_conatcst;
     DatabaseHandler dbHandler;
 
+    LinearLayout ll_actions;
+
 
 
     Button btn_actions;
-    Dialog topDialog;
+  //  Dialog topDialog;
     LinearLayout ll_grpcontacts;
     public static ArrayList<ContactsDo> arr_contacts=new ArrayList<ContactsDo>();
+    boolean isVISIBLEACTIONS=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,13 +67,116 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         btn_close=(Button)view.findViewById(R.id.btn_close);
         btn_actions=(Button)view.findViewById(R.id.btn_ations);
         ll_grpcontacts=(LinearLayout)view.findViewById(R.id.ll_grpcontacts);
+        ll_actions=(LinearLayout)view.findViewById(R.id.ll_actions);
       //  expListView=(ExpandableListView)view.findViewById(R.id.lvExp);
+        ll_actions.setVisibility(View.GONE);
 
-        ll_grpcontacts.setOnClickListener(new View.OnClickListener() {
+        TextView tv_sms=(TextView)view.findViewById(R.id.tv_sms);
+        TextView tv_email=(TextView)view.findViewById(R.id.tv_sendEmail);
+        TextView tv_copygrp=(TextView)view.findViewById(R.id.tv_copygrp);
+        TextView tv_rmvgrp=(TextView)view.findViewById(R.id.tv_removegroup);
+        TextView tv_addevt=(TextView)view.findViewById(R.id.tv_addevt);
+        TextView tv_eci=(TextView)view.findViewById(R.id.tv_eci);
+        tv_sms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean sel=false;
+                String phoneNos="";
+
+                for(int a=0;a<arr_contacts.size();a++){
+
+                    if(arr_contacts.get(a).getIS_CONTACT_SELECTED()==1) {
+
+                        phoneNos+=arr_contacts.get(a).getConatactPhone()+";";
+                        sel=true;
+                    }
+
+                }
+
+                if(sel) {
+
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+                    intent.putExtra("address", phoneNos);
+
+                    intent.putExtra("sms_body", "");
+                    intent.setType("vnd.android-dir/mms-sms");
+                    startActivity(intent);
+                }else{
+                    showConfirmDialog(getString(R.string.app_name),"Please select contacts");
+                }
+            }
+        });
+        tv_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String data[]=new String[arr_contacts.size()];
+
+                boolean sel=false;
+                for(int a=0;a<arr_contacts.size();a++){
+
+                    if(arr_contacts.get(a).getConatactEmail().length()!=0) {
+
+                        data[a]=arr_contacts.get(a).getConatactEmail();
+
+                        sel=true;
+                    }
+
+                }
+
+
+                if(sel){
+                    String[] TO = {""};
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+                    emailIntent.setData(Uri.parse("mailto:"));
+                    emailIntent.setType("text/plain");
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, data);
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+
+                    try {
+                        startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(getActivity(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        tv_copygrp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft=fragmentManager.beginTransaction();
+                ft.replace(R.id.main_container, new AddGroupFragment());
+                ft.commit();
+            }
+        });
+        tv_rmvgrp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Constants.NAV_GROUPS=100;
+                dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_NAME + "'");
+                dbHandler.DeleteTable("TBL_PHONE_CONTACTS","Phone_Contact_Gid='"+Constants.GROUP_NAME+"'");
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft=fragmentManager.beginTransaction();
+                ft.replace(R.id.main_container, new GroupsMainFragment());
+                ft.commit();
+                Toast.makeText(getActivity(),"Group deleted successfully",Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
+                if(isVISIBLEACTIONS) {
+                    isVISIBLEACTIONS = false;
+                    ll_actions.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -80,15 +189,14 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
         HomeActivity.ib_menu.setText("Edit");
         HomeActivity.tv_title.setText(Constants.GROUP_NAME);
-        topDialog = new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
+       /* topDialog = new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
         topDialog.setCanceledOnTouchOutside(true);
+*/
         btn_actions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                topDialog.setContentView(R.layout.activity_actions);
-
-                topDialog.show();
+                isVISIBLEACTIONS=true;
+             ll_actions.setVisibility(View.VISIBLE);
             }
         });
 
@@ -153,9 +261,17 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.NAV_GROUPS=100;
+
+                if(isVISIBLEACTIONS){
+                    isVISIBLEACTIONS=false;
+                    ll_actions.setVisibility(View.GONE);
+                }else {
+
+                    Constants.NAV_GROUPS = 100;
+
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
+                }
 
             }
         });
@@ -297,7 +413,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Log.v("Contacts Selected....", "...list ITEM CLICKED.." + arr_contacts.get(pos).getConatactName());
 
-                topDialog.cancel();
+              //  topDialog.cancel();
 
                 for(int i=0;i<arr_contacts.size();i++){
 
