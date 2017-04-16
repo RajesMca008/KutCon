@@ -356,6 +356,19 @@ public class AddGroupFragment extends BaseFragment {
             }
         });
 
+        view.findViewById(R.id.sort_order_text).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Sort Oder
+                SortOderDetailsFragment sortOrderFragment = new SortOderDetailsFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, sortOrderFragment);
+                fragmentTransaction.addToBackStack("sort_order");
+                fragmentTransaction.commit();
+            }
+        });
+
         return view;
     }
 

@@ -135,6 +135,7 @@
             android:background="@color/colorhash"/>
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
             android:minHeight="45dp"
+            android:id="@+id/sort_order_text"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
