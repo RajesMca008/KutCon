@@ -1,6 +1,7 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,8 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.adapter.EventsListAdapter;
+import kutumblink.appants.com.kutumblink.model.EventsDo;
+import kutumblink.appants.com.kutumblink.utils.Constants;
+import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 
 /**
@@ -24,6 +31,8 @@ public class EventsMainFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    DatabaseHandler dbHandler;
+    ArrayList<EventsDo> arr_evts=new ArrayList<EventsDo>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +40,7 @@ public class EventsMainFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_events_main, container, false);
 
-
+        dbHandler=new DatabaseHandler(getActivity());
 
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
 
@@ -39,6 +48,31 @@ public class EventsMainFragment extends BaseFragment {
         HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
         HomeActivity.ib_menu.setText("");
         HomeActivity.tv_title.setText("Events");
+
+
+        Cursor c=dbHandler.retriveData("select * from "+ DatabaseHandler.TABLE_EVENTS);
+        if(c!=null)
+        {
+            if(c.getCount()>0)
+            {
+                c.moveToFirst();
+                do {
+
+
+                    EventsDo evtDetails=new EventsDo();
+                    evtDetails.setEvtTitle(c.getString(c.getColumnIndex(DatabaseHandler.EVT_TITLE)));
+                    evtDetails.setEvtDesc(c.getString(c.getColumnIndex(DatabaseHandler.EVT_DESC)));
+                    evtDetails.setEvtContacts(c.getString(c.getColumnIndex(DatabaseHandler.EVT_CONTACTS)));
+                    evtDetails.setEvtDate(c.getString(c.getColumnIndex(DatabaseHandler.EVT_CREATED_ON)));
+
+
+                    //  groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
+                    arr_evts.add(evtDetails);
+
+                }while(c.moveToNext());
+
+            }
+        }
 
         HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,11 +85,15 @@ public class EventsMainFragment extends BaseFragment {
         });
         ListView listView=(ListView)view.findViewById(R.id.listView);
 
+        listView.setAdapter(new EventsListAdapter(getActivity(),arr_evts));
+
         View addItem=view.findViewById(R.id.add_layout);
 
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Constants.EVENT_OPERATIONS="SAVE";
 
                 EditEventsFragment editEvent = new EditEventsFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();

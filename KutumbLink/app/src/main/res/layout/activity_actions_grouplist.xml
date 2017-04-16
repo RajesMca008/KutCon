@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:background="#FBFBFB"
+
+    android:layout_alignParentBottom="true"
+
+    android:layout_marginTop="350dp"
+
+>
+    <LinearLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:background="@drawable/edtcornershape"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+
+            android:background="@color/black_color"
+            android:orientation="horizontal">
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/whitecolor"
+                android:layout_weight="0.9"
+                android:layout_marginLeft="15dp"
+                android:text="Cancel"/>
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/whitecolor"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:text="Done"/>
+
+        </LinearLayout>
+
+<ListView
+    android:id="@+id/lv_actionsgroups"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"></ListView>
+    </LinearLayout>
+    </LinearLayout>
+

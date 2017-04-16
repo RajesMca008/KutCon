@@ -1,0 +1,59 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kutumblink.appants.com.kutumblink.fragments.EventsMainFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="5dp"
+            android:text="22222"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            android:typeface="normal" />
+
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="hdkjhhkls"
+
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            android:layout_below="@+id/tv_title"
+            android:layout_alignParentStart="true" />
+
+
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+
+            android:paddingBottom="2sp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="2dp"
+            android:text="" />
+
+    </RelativeLayout>
+
+</FrameLayout>

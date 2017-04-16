@@ -131,7 +131,12 @@ public class GroupsMainFragment extends BaseFragment {
         HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
         HomeActivity.ib_menu.setText("");
         String mDrawableName = "group_default_icon";
-        Constants.imgID = getResources().getIdentifier(mDrawableName , "mipmap", getActivity().getPackageName());
+        if(Constants.imgID!=0){
+
+        }else{
+            Constants.imgID = getResources().getIdentifier(mDrawableName , "mipmap", getActivity().getPackageName());
+
+        }
 
 
         Cursor c=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_GROUP);

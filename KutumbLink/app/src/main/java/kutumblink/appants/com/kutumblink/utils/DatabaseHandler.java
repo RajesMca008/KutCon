@@ -21,6 +21,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String TABLE_GROUP = "TBL_GROUP";
 	public static final String TABLE_MESSAGES = "TBL_MSG";
 	public static final String TABLE_PHOTOS = "TBL_PHO";
+	public static final String TABLE_EVENTS = "TBL_EVENTS";
 
 	public static final String GROUP_ID = "G_GROUPID";
 	public static final String GROUP_NAME = "G_NAME";
@@ -34,6 +35,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String MSG_TITLE = "msg_title";
 	public static final String MSG_LINK = "msg_link";
 	public static final String CREATED_ON = "created_on";
+
+	public static final String EVT_ID = "evt_id";
+	public static final String EVT_TITLE = "evt_title";
+	public static final String EVT_DESC = "evt_desc";
+	public static final String EVT_CREATED_ON = "evt_created_on";
+	public static final String EVT_CONTACTS = "evt_contacts";
+
+
 
 	/**
 	 * Photos table fields
@@ -71,6 +80,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			+ MSG_TITLE	+ " TEXT,"
 			+ MSG_LINK 	+ " TEXT,"
 			+ CREATED_ON 	+ " DATETIME DEFAULT CURRENT_TIMESTAMP"
+			+ ")";
+
+
+	String CREATE_EVENTS_TABLE = "CREATE TABLE "
+			+ TABLE_EVENTS
+			+ " ("
+			+ EVT_ID 		+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
+
+			+ EVT_TITLE	+ " TEXT,"
+			+ EVT_DESC 	+ " TEXT,"
+			+ EVT_CONTACTS 	+ " TEXT,"
+			+ EVT_CREATED_ON 	+ " TEXT"
+
 			+ ")";
 
 	String CREATE_PHOTOS_TABLE = "CREATE TABLE "
@@ -122,6 +144,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.execSQL(CREATE_CONTACTS);
 		db.execSQL(CREATE_MESSGE_TABLE);
 		db.execSQL(CREATE_PHOTOS_TABLE);
+		db.execSQL(CREATE_EVENTS_TABLE);
 
 	}
 

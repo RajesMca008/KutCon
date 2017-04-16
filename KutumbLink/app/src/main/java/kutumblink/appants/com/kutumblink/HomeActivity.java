@@ -4,6 +4,10 @@ package kutumblink.appants.com.kutumblink;
  * @auther Rrallabandi
  */
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,19 +20,25 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import kutumblink.appants.com.kutumblink.fragments.BaseFragment;
 import kutumblink.appants.com.kutumblink.fragments.CameraMainFragment;
+import kutumblink.appants.com.kutumblink.fragments.EditEventsFragment;
 import kutumblink.appants.com.kutumblink.fragments.EventsMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.GroupsMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.MessageMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.SettingsFragment;
+import kutumblink.appants.com.kutumblink.utils.Constants;
 
 public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener {
 
@@ -126,72 +136,10 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
         //If you want disable shift change mode for bottom
         BottomNavigationViewHelper.disableShiftMode(navigation);
-
-
         mPlanetTitles = getResources().getStringArray(R.array.menu_name_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-
-      /*  android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(false);
-         actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);// set your own icon
-        actionBar.setTitle("Groups");
-*/
-
-      //  nvDrawer = (NavigationView) findViewById(R.id.nvView);
-
-
-       /* ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, R.string.groups, R.string.app_name){
-
-            *//** Called when a drawer has settled in a completely closed state. *//*
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                getSupportActionBar() .setTitle(getString(R.string.app_name));
-            }
-
-            *//** Called when a drawer has settled in a completely open state. *//*
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Menu");
-            }
-        };
-
-        mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();*/
-
-
-        // Setup drawer view
-      //  setupDrawerContent(nvDrawer);
     }
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
-            {
-                mDrawerLayout.closeDrawers();
-            }
-            else {
-                mDrawerLayout.openDrawer(GravityCompat.START);
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
-    /*private void setupDrawerContent(NavigationView navigationView) {
-
-
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
-                });
-    }*/
     private void displayView(int position) {
         // update the main content by replacing fragments
         android.app.Fragment fragment = null;
@@ -206,46 +154,47 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             }
 
     }
-  /*  public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        Class fragmentClass;
-        switch(menuItem.getItemId()) {
-            case R.id.nav_share_fragment:
-               fragmentClass = GroupsMainFragment.class;
-                break;
-            case R.id.nav_rate_fragment:
-                fragmentClass = MessageMainFragment.class;
-                break;
-            case R.id.nav_contact_fragment:
-                fragmentClass = EventsMainFragment.class;
-                break;
-            default:
-                fragmentClass = CameraMainFragment.class;
+
+
+
+    public static class TimePicker extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
         }
 
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+        @Override
+        public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
+            Constants.strDT+=", "+String.valueOf(hourOfDay) + " : " + String.valueOf(minute);
+
+            Log.v("LOG....","LOG DETAILS>..TIME...>."+Constants.strDT);
+            EditEventsFragment.event_title_text.setText(Constants.strDT);
         }
+    }
 
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_container, fragment).commit();
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+        //    displayCurrentTime.setText("Selected date: " + String.valueOf(year) + " - " + String.valueOf(month) + " - " + String.valueOf(day));
 
-        *//*Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-
-        startActivityForResult(intent,  *//*
-
-
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
-        setTitle(menuItem.getTitle());
-        // Close the navigation drawer
-        mDrawerLayout.closeDrawers();
-    }*/
+            Constants.strDT= String.valueOf(day) + "/" + String.valueOf(month) + "/" +String.valueOf(year);
+           EditEventsFragment.event_title_text.setText(Constants.strDT);
+           // EditEventsFragment.event_title_text.setText(Constants.strDT+" ,");
+            Log.v("LOG....","LOG DETAILS>..date...>."+Constants.strDT);
+        }
+    }
 
     @Override
     public void onBackPressed() {

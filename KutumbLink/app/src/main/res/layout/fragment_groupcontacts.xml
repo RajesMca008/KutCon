@@ -97,5 +97,23 @@
 
         android:layout_height="wrap_content"
         ></include>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_grplistactions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="275dp"
+     >
+
+    <include
+        layout="@layout/activity_actions_grouplist"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        ></include>
     </LinearLayout>
 </FrameLayout>

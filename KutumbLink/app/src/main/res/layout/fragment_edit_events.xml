@@ -22,17 +22,47 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:text="Date" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="2dp"
+            android:background="@drawable/shape"
+            android:layout_height="wrap_content" android:orientation="horizontal">
+
 
         <kutumblink.appants.com.kutumblink.utils.CustomEditTextView
             android:id="@+id/event_title_text"
             android:minHeight="50dp"
             android:layout_width="match_parent"
-            android:background="@drawable/shape"
+            android:layout_marginLeft="2dp"
+            android:background="#FBFBFB"
+
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:drawableRight="@mipmap/events_btn_new"
+            android:layout_marginTop="2dp"
+
             android:padding="2dp"
+            android:layout_weight="0.8"
             android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@mipmap/events_icon"
+
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.1"
+                />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/clock"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.1"
+                />
+            </LinearLayout>
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -74,6 +104,7 @@
 
 
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:id="@+id/select_contactstext"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:text="Select from Contact List"
@@ -86,6 +117,7 @@
             android:layout_height="wrap_content" />
 
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:id="@+id/sort_order_text"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:text="Sort Order - Default"
