@@ -25,6 +25,8 @@ import com.onegravity.contactpicker.contact.ContactSortOrder;
 import com.onegravity.contactpicker.core.ContactPickerActivity;
 import com.onegravity.contactpicker.picture.ContactPictureType;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -34,6 +36,7 @@ import java.util.List;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.model.EventsDo;
 import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
@@ -54,13 +57,17 @@ public class EditEventsFragment extends Fragment {
     Button btn_save;
     DatabaseHandler dbHandler;
 
-
+    ArrayList<EventsDo> arrEvt=new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         dbHandler = new DatabaseHandler(getActivity());
         View view = inflater.inflate(R.layout.fragment_edit_events, container, false);
+
+
+
+
 
 
         event_title_text = (EditText) view.findViewById(R.id.event_title_text);
@@ -71,6 +78,39 @@ public class EditEventsFragment extends Fragment {
         tv_sel_contactlist = (TextView) view.findViewById(R.id.select_contactstext);
         tv_sortorder = (TextView) view.findViewById(R.id.sort_order_text);
         btn_save = (Button) view.findViewById(R.id.save_btn_id);
+
+
+
+
+        if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
+            Bundle args=getArguments();
+            event_title_text.setText(args.getString("time"));
+            tv_eventTitle.setText(args.getString("title"));
+            tv_desc.setText(args.getString("desc"));
+
+            try {
+
+                JSONArray jArr=new JSONArray(contacts);
+
+                for(int i=0;i<jArr.length();i++){
+
+                    JSONObject jobj=jArr.getJSONObject(i);
+
+                    EventsDo evtDo=new EventsDo();
+                    evtDo.setEvtContacts(jobj.getString(DatabaseHandler.PHONE_CONTACT_ID));
+                    arrEvt.add(evtDo);
+                }
+
+
+                // contactsInfo=jo
+
+
+            }catch(JSONException e){
+
+            }
+
+        }
+
 
         final Collection<Long> selectContats = new ArrayList<Long>();
         tv_sel_contactlist.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +123,7 @@ public class EditEventsFragment extends Fragment {
                     if (GroupContactsFragment.arr_contacts.get(i).getIS_CONTACT_SELECTED() == 1) {
 
 
-                        selectContats.add(Long.parseLong(GroupContactsFragment.arr_contacts.get(i).getConatactId()));
+                        selectContats.add(Long.parseLong(arrEvt.get(i).getEvtContacts()));
                     }
 
                 }
@@ -114,16 +154,20 @@ public class EditEventsFragment extends Fragment {
               //  if (tv_eventTitle.getText().toString().length() != 0 && tv_desc.getText().toString().length() != 0) {
                     try {
                         JSONObject jobj = null;
+                        jobj = new JSONObject();
+                        JSONArray jArr=new JSONArray();
                         for (int i = 0; i < GroupContactsFragment.arr_contacts.size(); i++) {
 
 
                             if (GroupContactsFragment.arr_contacts.get(i).getIS_CONTACT_SELECTED() == 1) {
-                                jobj = new JSONObject();
+
 
                                 jobj.put(DatabaseHandler.PHONE_CONTACT_ID, "" + GroupContactsFragment.arr_contacts.get(i).getConatactId());
                                 jobj.put(DatabaseHandler.PHONE_CONTACT_NUMBER, "" + GroupContactsFragment.arr_contacts.get(i).getConatactPhone());
                                 jobj.put(DatabaseHandler.PHONE_CONTACT_EMAIL, "" + GroupContactsFragment.arr_contacts.get(i).getConatactEmail());
                                 jobj.put(DatabaseHandler.PHONE_CONTACT_NAME, "" + GroupContactsFragment.arr_contacts.get(i).getConatactName());
+
+                                jArr.put(jobj);
                             }
 
                         }
@@ -131,7 +175,7 @@ public class EditEventsFragment extends Fragment {
                         ContentValues cv = new ContentValues();
                         cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
                         cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
-                        cv.put(DatabaseHandler.EVT_CONTACTS, jobj.toString());
+                        cv.put(DatabaseHandler.EVT_CONTACTS, jArr.toString());
                         cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
                         dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
                     } catch (Exception e) {
@@ -182,32 +226,67 @@ public class EditEventsFragment extends Fragment {
         if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
             HomeActivity.ib_menu.setText("");
         } else {
-            HomeActivity.ib_menu.setText("Edit");
+            HomeActivity.ib_menu.setText("Save");
         }
         HomeActivity.tv_title.setText("Add Event");
+
+        if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
+
+        }
+
+        HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+                    fragmentTransaction.addToBackStack("edit_event");
+                    fragmentTransaction.commit();
+
+            }
+        });
 
 
         HomeActivity.ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, groupContacts);
-                fragmentTransaction.addToBackStack("edit_event");
-                fragmentTransaction.commit();
+                if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
+                    EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+                    fragmentTransaction.addToBackStack("edit_event");
+                    fragmentTransaction.commit();
+                }else{
+                    EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+                    fragmentTransaction.addToBackStack("edit_event");
+                    fragmentTransaction.commit();
+                }
             }
         });
 
         HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, groupContacts);
-                fragmentTransaction.addToBackStack("edit_event");
-                fragmentTransaction.commit();
+                if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
+                    EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+                    fragmentTransaction.addToBackStack("edit_event");
+                    fragmentTransaction.commit();
+                }else{
+                    EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+                    fragmentTransaction.addToBackStack("edit_event");
+                    fragmentTransaction.commit();
+                }
             }
         });
 
@@ -257,18 +336,20 @@ public class EditEventsFragment extends Fragment {
 
                 try {
                     JSONObject jobj = new JSONObject();
+                    JSONArray jsonArray = new JSONArray();
                     for (Contact contact : contacts) {
 
                         jobj.put(DatabaseHandler.PHONE_CONTACT_ID, "" + contact.getId());
                         jobj.put(DatabaseHandler.PHONE_CONTACT_NUMBER, "" + contact.getPhone(0));
                         jobj.put(DatabaseHandler.PHONE_CONTACT_EMAIL, "" + contact.getEmail(0));
                         jobj.put(DatabaseHandler.PHONE_CONTACT_NAME, "" + contact.getDisplayName());
+                        jsonArray.put(jobj);
 
                     }
                     ContentValues cv = new ContentValues();
                     cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
-                    cv.put(DatabaseHandler.EVT_DESC, tv_eventTitle.getText().toString());
-                    cv.put(DatabaseHandler.EVT_CONTACTS, jobj.toString());
+                    cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
+                    cv.put(DatabaseHandler.EVT_CONTACTS, jsonArray.toString());
                     cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
                     dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, " evt_title='" + Constants.EVENTS_OLD_NAME + "'");
 
@@ -282,6 +363,7 @@ public class EditEventsFragment extends Fragment {
             } else if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
                 try {
                     JSONObject jobj = new JSONObject();
+                    JSONArray jsonArray = new JSONArray();
                     for (Contact contact : contacts) {
 
                         jobj.put(DatabaseHandler.PHONE_CONTACT_ID, "" + contact.getId());
@@ -289,11 +371,12 @@ public class EditEventsFragment extends Fragment {
                         jobj.put(DatabaseHandler.PHONE_CONTACT_EMAIL, "" + contact.getEmail(0));
                         jobj.put(DatabaseHandler.PHONE_CONTACT_NAME, "" + contact.getDisplayName());
 
+                        jsonArray.put(jobj);
                     }
                     ContentValues cv = new ContentValues();
                     cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
-                    cv.put(DatabaseHandler.EVT_DESC, tv_eventTitle.getText().toString());
-                    cv.put(DatabaseHandler.EVT_CONTACTS, jobj.toString());
+                    cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
+                    cv.put(DatabaseHandler.EVT_CONTACTS, jsonArray.toString());
                     cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
                     dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
 

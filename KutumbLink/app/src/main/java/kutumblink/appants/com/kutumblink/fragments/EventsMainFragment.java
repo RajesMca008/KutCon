@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -86,6 +87,35 @@ public class EventsMainFragment extends BaseFragment {
         ListView listView=(ListView)view.findViewById(R.id.listView);
 
         listView.setAdapter(new EventsListAdapter(getActivity(),arr_evts));
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                Constants.EVENT_OPERATIONS="EDIT";
+                Constants.Event_NAME=arr_evts.get(i).getEvtTitle();
+
+
+                EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+                Bundle args = new Bundle();
+                args.putString("title",arr_evts.get(i).getEvtTitle());
+                args.putString("desc",arr_evts.get(i).getEvtDesc());
+                args.putString("time",arr_evts.get(i).getEvtDate());
+                args.putString("contacts",arr_evts.get(i).getEvtContacts());
+                groupContacts.setArguments(args);
+                fragmentTransaction.replace(R.id.main_container, groupContacts);
+                fragmentTransaction.addToBackStack("Events_Main");
+                fragmentTransaction.commit();
+
+
+            }
+        });
 
         View addItem=view.findViewById(R.id.add_layout);
 

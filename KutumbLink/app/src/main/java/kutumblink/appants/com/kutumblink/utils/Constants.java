@@ -9,6 +9,7 @@ public class Constants {
    // public static String G_NAME="";
     public static int imgID=0;
     public static String GROUP_NAME="";
+    public static String Event_NAME="";
     public static String GROUP_OPERATIONS="SAVE";
  public static String EVENT_OPERATIONS="SAVE";
     public static String GROUP_OLD_NAME="";

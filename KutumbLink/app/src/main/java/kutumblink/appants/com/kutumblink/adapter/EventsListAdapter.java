@@ -76,7 +76,7 @@ public class EventsListAdapter extends BaseAdapter {
             TextView tv_date=(TextView)view.findViewById(R.id.tv_date);
             tv_title.setText(""+adb.getEvtTitle());
             tv_desc.setText(""+adb.getEvtDesc());
-            tv_date.setText(adb.getEvtDate());
+            tv_date.setText(adb.getEvtDate().replace(",","\n"));
 
 
             // set value into textview

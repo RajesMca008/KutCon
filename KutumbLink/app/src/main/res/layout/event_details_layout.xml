@@ -1,98 +1,156 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1">
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:isScrollContainer="false"
-        android:layout_height="wrap_content">
+    tools:context="kutumblink.appants.com.kutumblink.fragments.EventsMainFragment">
     <LinearLayout
+        android:id="@+id/ll_eventactions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="1">
-    <Button
-        android:id="@+id/btn_ations"
-        android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:layout_margin="25dp"
-        android:background="@drawable/action_drop_dwon" />
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <kutumblink.appants.com.kutumblink.utils.CustomTextView
-        android:id="@+id/tv_event_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:textSize="18sp"
-        android:singleLine="true"
-        android:text="Event Name" />
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="10dp"
-        android:background="#000000"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+          >
+            <Button
+                android:id="@+id/btn_ations"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_margin="25dp"
+                android:background="@drawable/action_drop_dwon" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <kutumblink.appants.com.kutumblink.utils.CustomTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:textSize="18sp"
-        android:singleLine="true"
-        android:layout_marginTop="5dp"
-        android:text="Event Description:" />
+                <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                    android:id="@+id/tv_event_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:textSize="18sp"
+                    android:layout_weight="0.8"
+                    android:singleLine="true"
+                    android:text="Event Title" />
 
-    <kutumblink.appants.com.kutumblink.utils.CustomTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:textSize="20sp"
-        android:singleLine="true"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/black_color"
-        android:text="Event Description Text" />
+                <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                    android:id="@+id/tv_event_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:textSize="18sp"
+                    android:layout_weight="0.2"
+                    android:singleLine="true"
+                    android:text="Event Name" />
 
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="10dp"
-        android:background="#000000"/>
+            </LinearLayout>
 
-    <kutumblink.appants.com.kutumblink.utils.CustomTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:textSize="18sp"
-        android:singleLine="true"
-        android:layout_marginTop="5dp"
-        android:text="Event Contacts:" />
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:id="@+id/tv_event_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:textSize="20sp"
+                android:singleLine="true"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black_color"
+                android:text="Event title Text" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/line"
+                />
+
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:textSize="18sp"
+                android:singleLine="true"
+                android:layout_marginTop="5dp"
+                android:text="Event Description:" />
+
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:textSize="20sp"
+                android:singleLine="true"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black_color"
+                android:text="Event Description Text" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/line"/>
+
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:textSize="18sp"
+                android:singleLine="true"
+                android:layout_marginTop="5dp"
+                android:text="Event Contacts:" />
 
 
-    <kutumblink.appants.com.kutumblink.utils.CustomTextView
-        android:layout_width="wrap_content"
-        android:id="@+id/tv_event_contactinfo"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:textSize="20sp"
-        android:lineSpacingExtra="12dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/black_color"
-        android:text="Contact info 1 \nContact info 2" />
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_event_contactinfo"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:textSize="20sp"
+                android:lineSpacingExtra="12dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black_color"
+                android:text="Contact info 1 \nContact info 2" />
 
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="10dp"
-        android:background="#000000"/>
-    <ImageView
-        android:id="@+id/btn_delete_event"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:src="@drawable/delete_event_button"
-        android:layout_height="wrap_content" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/line"/>
+            <ImageView
+                android:id="@+id/btn_delete_event"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:src="@drawable/delete_event_button"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+</ScrollView>
     </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="25dp">
+
+        <include
+            layout="@layout/activity_event_actions"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            ></include>
+
+    </LinearLayout>
+
+
+</FrameLayout>

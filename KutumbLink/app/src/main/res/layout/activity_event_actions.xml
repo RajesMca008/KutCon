@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:background="#FBFBFB"
+
+
+
+>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/edtcornershape"
+
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+
+            android:orientation="horizontal">
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:id="@+id/tv_addevent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black_color"
+                android:layout_weight="0.9"
+                android:layout_marginLeft="15dp"
+                android:text="Add/Remove Event Contacts"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:background="@mipmap/add_group_icon"/>
+
+        </LinearLayout>
+        <View   android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:id="@+id/tv_eventsms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black_color"
+                android:layout_weight="0.9"
+                android:layout_marginLeft="15dp"
+                android:text="Send Text Message"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:background="@mipmap/message_icon"/>
+
+        </LinearLayout>
+        <View   android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/line"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+
+            android:orientation="horizontal">
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:id="@+id/tv_eventsendEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black_color"
+                android:layout_weight="0.9"
+                android:layout_marginLeft="15dp"
+                android:text="Send Email"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/email_icon"/>
+
+        </LinearLayout>
+        <View   android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/line"/>
+
+
+
+
+    </LinearLayout>
+    </LinearLayout>
+
