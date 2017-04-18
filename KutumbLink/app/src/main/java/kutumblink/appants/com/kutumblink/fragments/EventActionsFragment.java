@@ -123,6 +123,7 @@ public class EventActionsFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Constants.EVENT_OPERATIONS="EDIT";
+                Constants.EVENTS_OLD_NAME=tv_evtTitle.getText().toString();
 
                 EditEventsFragment editEventFrag =new EditEventsFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
