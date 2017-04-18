@@ -85,7 +85,7 @@ public class ContactListAdapter extends BaseAdapter {
             final Button btn_email=(Button)view.findViewById(R.id.btn_email);
             tv_contactName.setText(""+adb.getConatactName());
 
-            if(GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")){
+          if(GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")){
                 btn_email.setVisibility(View.GONE);
             }else{
                 btn_email.setVisibility(View.VISIBLE);
@@ -96,6 +96,7 @@ public class ContactListAdapter extends BaseAdapter {
             }else{
                 btn_phone.setVisibility(View.VISIBLE);
             }
+
 
 
             rl_contacts.setOnClickListener(new View.OnClickListener() {

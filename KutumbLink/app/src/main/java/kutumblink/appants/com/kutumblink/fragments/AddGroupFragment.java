@@ -195,18 +195,6 @@ public class AddGroupFragment extends BaseFragment {
                     }
 
 
-                        ContentValues cv = new ContentValues();
-
-                        cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
-
-                        Cursor cphone = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_OLD_NAME + "'");
-
-                        if (cphone == null || cphone.getCount() == 0) {
-                            dbHandler.insert(dbHandler.TABLE_PHONE_CONTACTS, cv);
-                        } else {
-
-                            dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, " Phone_Contact_Gid='" + Constants.GROUP_OLD_NAME + "'");
-                        }
 
                     }
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

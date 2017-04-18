@@ -56,19 +56,15 @@ public class EditEventsFragment extends Fragment {
     Button btn_save;
     DatabaseHandler dbHandler;
 
-    ArrayList<EventsDo> arrEvt=new ArrayList<>();
+    ArrayList<EventsDo> arrEvt = new ArrayList<>();
+    String contactsInfo = "";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         dbHandler = new DatabaseHandler(getActivity());
         View view = inflater.inflate(R.layout.fragment_edit_events, container, false);
-
-
-
-
-
-
         event_title_text = (EditText) view.findViewById(R.id.event_title_text);
         tv_date = (TextView) view.findViewById(R.id.tv_date);
         tv_time = (TextView) view.findViewById(R.id.tv_time);
@@ -79,36 +75,38 @@ public class EditEventsFragment extends Fragment {
         btn_save = (Button) view.findViewById(R.id.save_btn_id);
 
 
+        //  if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
+        Bundle args = getArguments();
 
-
-        if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
-            Bundle args=getArguments();
+        if (args != null) {
             event_title_text.setText(args.getString("time"));
             tv_eventTitle.setText(args.getString("title"));
             tv_desc.setText(args.getString("desc"));
+            contactsInfo = args.getString("contacts");
+        }
 
-            try {
+        try {
 
-                JSONArray jArr=new JSONArray(contacts);
+            JSONArray jArr = new JSONArray(contactsInfo);
 
-                for(int i=0;i<jArr.length();i++){
+            for (int i = 0; i < jArr.length(); i++) {
 
-                    JSONObject jobj=jArr.getJSONObject(i);
+                JSONObject jobj = jArr.getJSONObject(i);
 
-                    EventsDo evtDo=new EventsDo();
-                    evtDo.setEvtContacts(jobj.getString(DatabaseHandler.PHONE_CONTACT_ID));
-                    arrEvt.add(evtDo);
-                }
-
-
-                // contactsInfo=jo
-
-
-            }catch(JSONException e){
-
+                EventsDo evtDo = new EventsDo();
+                evtDo.setEvtContacts(jobj.getString(DatabaseHandler.PHONE_CONTACT_ID));
+                arrEvt.add(evtDo);
             }
 
+
+            // contactsInfo=jo
+
+
+        } catch (JSONException e) {
+
         }
+
+        //  }
 
 
         final Collection<Long> selectContats = new ArrayList<Long>();
@@ -116,7 +114,7 @@ public class EditEventsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                for(int i=0; i<arrEvt.size();i++){
+                for (int i = 0; i < arrEvt.size(); i++) {
                     selectContats.add(Long.parseLong(arrEvt.get(i).getEvtContacts()));
                 }
                 Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
@@ -142,20 +140,20 @@ public class EditEventsFragment extends Fragment {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  if (tv_eventTitle.getText().toString().length() != 0 && tv_desc.getText().toString().length() != 0) {
-                    try {
+                //  if (tv_eventTitle.getText().toString().length() != 0 && tv_desc.getText().toString().length() != 0) {
+                try {
 
 
-                        ContentValues cv = new ContentValues();
-                        cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
-                        cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
+                    ContentValues cv = new ContentValues();
+                    cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
+                    cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
 
-                        cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
-                       // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
-                        dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
-                    } catch (Exception e) {
+                    cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
+                    // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
+                    dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
+                } catch (Exception e) {
 
-                    }
+                }
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
@@ -194,8 +192,12 @@ public class EditEventsFragment extends Fragment {
 
 
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
-
-        HomeActivity.ib_back_next.setText("Events");
+        if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
+            HomeActivity.tv_title.setText("Edit Details");
+        }else {
+            HomeActivity.tv_title.setText("Events");
+        }
+        HomeActivity.ib_back_next.setText("Edit Details");
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
 
         if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
@@ -203,7 +205,6 @@ public class EditEventsFragment extends Fragment {
         } else {
             HomeActivity.ib_menu.setText("Save");
         }
-        HomeActivity.tv_title.setText("Add Event");
 
 
 
@@ -217,13 +218,15 @@ public class EditEventsFragment extends Fragment {
                 cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
 
                 cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
-                dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
-                    EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container, groupContacts);
-                    fragmentTransaction.addToBackStack("edit_event");
-                    fragmentTransaction.commit();
+                dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, "evt_title='" + Constants.EVENTS_OLD_NAME + "'");
+                EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+                fragmentTransaction.replace(R.id.main_container, groupContacts);
+                fragmentTransaction.addToBackStack("edit_event");
+                fragmentTransaction.commit();
 
             }
         });
@@ -232,17 +235,31 @@ public class EditEventsFragment extends Fragment {
         HomeActivity.ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
+                if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
                     EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Bundle args = new Bundle();
+                    args.putString("contacts", contactsInfo);
+                    args.putString("desc", tv_desc.getText().toString());
+                    args.putString("title", tv_eventTitle.getText().toString());
+                    args.putString("time", event_title_text.getText().toString());
+                    groupContacts.setArguments(args);
+
                     fragmentTransaction.replace(R.id.main_container, groupContacts);
                     fragmentTransaction.addToBackStack("edit_event");
                     fragmentTransaction.commit();
-                }else{
+                } else {
                     EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Bundle args = new Bundle();
+                    args.putString("contacts", contactsInfo);
+                    args.putString("desc", tv_desc.getText().toString());
+                    args.putString("title", tv_eventTitle.getText().toString());
+                    args.putString("time", event_title_text.getText().toString());
+                    groupContacts.setArguments(args);
+
                     fragmentTransaction.replace(R.id.main_container, groupContacts);
                     fragmentTransaction.addToBackStack("edit_event");
                     fragmentTransaction.commit();
@@ -253,14 +270,14 @@ public class EditEventsFragment extends Fragment {
         HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
+                if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
                     EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.main_container, groupContacts);
                     fragmentTransaction.addToBackStack("edit_event");
                     fragmentTransaction.commit();
-                }else{
+                } else {
                     EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -270,8 +287,6 @@ public class EditEventsFragment extends Fragment {
                 }
             }
         });
-
-
 
 
         return view;
@@ -302,7 +317,7 @@ public class EditEventsFragment extends Fragment {
 
                     }
 
-                    Log.v("DATA....","DATA.....EDIT..."+jsonArray.toString());
+                    Log.v("DATA....", "DATA.....EDIT..." + jsonArray.toString());
                     ContentValues cv = new ContentValues();
                     cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
                     cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
@@ -330,7 +345,7 @@ public class EditEventsFragment extends Fragment {
 
                         jsonArray.put(jobj);
 
-                        Log.v("DATA....","DATA.....SAVE..CONTACTID...."+ contact.getId());
+                        Log.v("DATA....", "DATA.....SAVE..CONTACTID...." + contact.getId());
                     }
                     ContentValues cv = new ContentValues();
                     cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
@@ -338,7 +353,7 @@ public class EditEventsFragment extends Fragment {
                     cv.put(DatabaseHandler.EVT_CONTACTS, jsonArray.toString());
                     cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
                     dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
-                    Log.v("DATA....","DATA.....SAVE..."+jsonArray.toString());
+                    Log.v("DATA....", "DATA.....SAVE..." + jsonArray.toString());
                 } catch (Exception e) {
 
                 }
@@ -347,8 +362,6 @@ public class EditEventsFragment extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
 
             }
-
-
 
 
         } else if (requestCode == INSERT_CONTACT_REQUEST) {
