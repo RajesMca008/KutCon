@@ -6,7 +6,12 @@ package kutumblink.appants.com.kutumblink.utils;
 
 public class Constants {
 
-   // public static String G_NAME="";
+    public static final String PRF_FILE_NAME = "user_prf";
+    public static final String DEFAULT = "Default";
+    public static final String BY_FIRST_NAME = "By First Name";
+    public static final String BY_LAST_NAME = "By Last Name";
+
+    // public static String G_NAME="";
     public static int imgID=0;
     public static String GROUP_NAME="";
     public static String Event_NAME="";

@@ -4,7 +4,9 @@ package kutumblink.appants.com.kutumblink.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -41,6 +43,7 @@ import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.model.ContactsDo;
 import kutumblink.appants.com.kutumblink.utils.Constants;
+import kutumblink.appants.com.kutumblink.utils.CustomTextView;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 /**
@@ -390,7 +393,16 @@ public class AddGroupFragment extends BaseFragment {
             }
         });
 
-        view.findViewById(R.id.sort_order_text).setOnClickListener(new View.OnClickListener() {
+        CustomTextView sortOderText= (CustomTextView) view.findViewById(R.id.sort_order_text);
+
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences(Constants.PRF_FILE_NAME, Context.MODE_PRIVATE);
+
+        String sortOder=sharedPreferences.getString("SORT_ORDER",Constants.DEFAULT);
+
+
+        sortOderText.setText("Sort Order- "+sortOder);
+
+        sortOderText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Sort Oder
