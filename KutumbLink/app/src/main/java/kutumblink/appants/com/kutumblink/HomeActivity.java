@@ -184,6 +184,9 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
+
+
+
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
         public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -193,6 +196,8 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
            EditEventsFragment.event_title_text.setText(Constants.strDT);
            // EditEventsFragment.event_title_text.setText(Constants.strDT+" ,");
             Log.v("LOG....","LOG DETAILS>..date...>."+Constants.strDT);
+            HomeActivity.TimePicker mTimePicker = new HomeActivity.TimePicker();
+            mTimePicker.show(getActivity().getFragmentManager(), "Select time");
         }
     }
 

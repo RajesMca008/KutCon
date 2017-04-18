@@ -48,18 +48,16 @@ public class ContactEmailSentFragment extends BaseFragment implements View.OnCli
         Button saveButton= (Button) view.findViewById(R.id.save_btn_id);
 
         HomeActivity.tv_title.setText("Contact");
-        HomeActivity.ib_back_next.setText("Groups");
+        HomeActivity.ib_back_next.setText(getString(R.string.settings));
 
         HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.NAV_GROUPS=100;
-                GroupsMainFragment groupContacts = new GroupsMainFragment(); //New means creating adding.
+                SettingsFragment settingsFragment = new SettingsFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 if(fragmentManager!=null) {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container, groupContacts);
-
+                    fragmentTransaction.replace(R.id.main_container, settingsFragment);
                     fragmentTransaction.commit();
                 }
             }

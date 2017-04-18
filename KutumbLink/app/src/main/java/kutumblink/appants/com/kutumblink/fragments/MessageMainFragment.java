@@ -66,6 +66,13 @@ public class MessageMainFragment extends BaseFragment {
 
                 editMode=!editMode;
 
+                if(editMode)
+                {
+                    HomeActivity.ib_menu.setText("Done");
+                }
+                else {
+                    HomeActivity.ib_menu.setText("Edit");
+                }
                 listView.invalidateViews();
                /* FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.main_container, new SettingsFragment()).commit();*/

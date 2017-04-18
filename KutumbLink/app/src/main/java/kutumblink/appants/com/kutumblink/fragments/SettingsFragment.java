@@ -208,6 +208,13 @@ public class SettingsFragment extends BaseFragment  {
 
                                     //Kutumblink App Screen
 
+                                    //FAQs
+                                    AppScreen appScreen = new AppScreen(); //New means creating adding.
+                                    FragmentManager fragmentManager = getFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.main_container, appScreen);
+                                    fragmentTransaction.commit();
+                                    return;
                                 }
 
                             }

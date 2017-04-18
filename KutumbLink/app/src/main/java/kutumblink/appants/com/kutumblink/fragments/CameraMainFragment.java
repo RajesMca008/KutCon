@@ -64,7 +64,13 @@ public class CameraMainFragment extends BaseFragment {
             public void onClick(View view) {
 
                 editMode=!editMode;
-
+                if(editMode)
+                {
+                    HomeActivity.ib_menu.setText("Done");
+                }
+                else {
+                    HomeActivity.ib_menu.setText("Edit");
+                }
                 listView.invalidateViews();
 
                /* FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

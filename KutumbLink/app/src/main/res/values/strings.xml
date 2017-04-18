@@ -75,4 +75,5 @@
        All Contacts, Groups, Events, Message Links and Photo Links input in the App stay on your phone only.
         ]]>
         </string>
+    <string name="settings">Settings</string>
 </resources>
