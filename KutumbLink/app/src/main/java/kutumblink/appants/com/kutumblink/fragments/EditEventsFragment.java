@@ -147,10 +147,16 @@ public class EditEventsFragment extends Fragment {
                     ContentValues cv = new ContentValues();
                     cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
                     cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
+                 //   cv.put(DatabaseHandler.EVT_CONTACTS, tv_desc.getText().toString());
 
                     cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
-                    // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
-                    dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
+
+                    if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
+                        // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
+                        dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
+                    }else{
+                        dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
+                    }
                 } catch (Exception e) {
 
                 }
@@ -274,6 +280,7 @@ public class EditEventsFragment extends Fragment {
                     EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
                     fragmentTransaction.replace(R.id.main_container, groupContacts);
                     fragmentTransaction.addToBackStack("edit_event");
                     fragmentTransaction.commit();
@@ -281,6 +288,13 @@ public class EditEventsFragment extends Fragment {
                     EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Bundle args = new Bundle();
+                    args.putString("contacts", contactsInfo);
+                    args.putString("desc", tv_desc.getText().toString());
+                    args.putString("title", tv_eventTitle.getText().toString());
+                    args.putString("time", event_title_text.getText().toString());
+                    groupContacts.setArguments(args);
+
                     fragmentTransaction.replace(R.id.main_container, groupContacts);
                     fragmentTransaction.addToBackStack("edit_event");
                     fragmentTransaction.commit();

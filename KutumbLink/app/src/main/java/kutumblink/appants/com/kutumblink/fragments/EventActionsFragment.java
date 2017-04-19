@@ -1,8 +1,11 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.FragmentManager;
@@ -15,7 +18,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.onegravity.contactpicker.contact.Contact;
 import com.onegravity.contactpicker.contact.ContactDescription;
 import com.onegravity.contactpicker.contact.ContactSortOrder;
 import com.onegravity.contactpicker.core.ContactPickerActivity;
@@ -28,6 +33,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
@@ -56,10 +62,10 @@ public class EventActionsFragment extends BaseFragment {
 
     DatabaseHandler dbHandler;
 
-    String title = "";
-    String desc = "";
-    String time = "";
-    String contacts = "";
+    String b_title = "";
+    String b_desc = "";
+    String b_time = "";
+    String b_contactsInfo = "";
 
 
     @Override
@@ -74,10 +80,10 @@ public class EventActionsFragment extends BaseFragment {
         Bundle args = getArguments();
 
         if (args != null) {
-            title = args.getString("title");
-            desc = args.getString("desc");
-            time = args.getString("time");
-            contacts = args.getString("contacts");
+            b_title = args.getString("title");
+            b_desc = args.getString("desc");
+            b_time = args.getString("time");
+            b_contactsInfo = args.getString("contacts");
         }
         ll_actions = (LinearLayout) view.findViewById(R.id.ll_actions);
         ll_events = (LinearLayout) view.findViewById(R.id.ll_eventactions);
@@ -90,15 +96,19 @@ public class EventActionsFragment extends BaseFragment {
         tv_evtTime = (TextView) view.findViewById(R.id.tv_event_time);
         iv_delete_event = (ImageView) view.findViewById(R.id.btn_delete_event);
 
-        ll_actions.setVisibility(View.GONE);
-        tv_evtTitle.setText(title);
-        tv_evtDesc.setText(desc);
-        tv_evtTime.setText(time.replace(",", "\n"));
+        tv_addevent = (TextView) view.findViewById(R.id.tv_addevent);
+        tv_eventSMS = (TextView) view.findViewById(R.id.tv_eventsms);
+        tv_eventEmail = (TextView) view.findViewById(R.id.tv_eventsendEmail);
 
-        Log.v("COntacts...", "CONATCSTSSS..." + contacts);
+
+        ll_actions.setVisibility(View.GONE);
+        tv_evtTitle.setText(b_title);
+        tv_evtDesc.setText(b_desc);
+        tv_evtTime.setText(b_time.replace(",", "\n"));
+
         try {
 
-            JSONArray jArr = new JSONArray(contacts);
+            JSONArray jArr = new JSONArray(b_contactsInfo);
 
             for (int i = 0; i < jArr.length(); i++) {
 
@@ -106,6 +116,8 @@ public class EventActionsFragment extends BaseFragment {
                 contactsInfo += jobj.getString(DatabaseHandler.PHONE_CONTACT_NAME) + "\n";
                 EventsDo ed = new EventsDo();
                 ed.setEvtContacts(jobj.getString(DatabaseHandler.PHONE_CONTACT_ID));
+                ed.setEvtphone(jobj.getString(DatabaseHandler.PHONE_CONTACT_NUMBER));
+                ed.setEvtEmail(jobj.getString(DatabaseHandler.PHONE_CONTACT_EMAIL));
                 arrEvt.add(ed);
 
             }
@@ -153,10 +165,10 @@ public class EventActionsFragment extends BaseFragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 Bundle args = new Bundle();
-                args.putString("contacts", contacts);
-                args.putString("desc", desc);
-                args.putString("title", title);
-                args.putString("time", time);
+                args.putString("contacts", b_contactsInfo);
+                args.putString("desc", b_desc);
+                args.putString("title", b_title);
+                args.putString("time", b_time);
                 editEventFrag.setArguments(args);
                 ft.replace(R.id.main_container, editEventFrag);
                 ft.commit();
@@ -172,7 +184,7 @@ public class EventActionsFragment extends BaseFragment {
         iv_delete_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dbHandler.DeleteTable(DatabaseHandler.TABLE_EVENTS, "evt_title='" + title + "'");
+                dbHandler.DeleteTable(DatabaseHandler.TABLE_EVENTS, "evt_title='" + b_title + "'");
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new EventsMainFragment());
@@ -187,9 +199,6 @@ public class EventActionsFragment extends BaseFragment {
             }
         });
 
-        tv_addevent = (TextView) view.findViewById(R.id.tv_addevent);
-        tv_eventSMS = (TextView) view.findViewById(R.id.tv_addevent);
-        tv_eventEmail = (TextView) view.findViewById(R.id.tv_addevent);
 
         final Collection<Long> selectContats = new ArrayList<Long>();
         tv_addevent.setOnClickListener(new View.OnClickListener() {
@@ -219,16 +228,142 @@ public class EventActionsFragment extends BaseFragment {
         tv_eventSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean sel=false;
+                String phoneNos="";
 
+                for(int a=0;a<arrEvt.size();a++){
+                        phoneNos+=arrEvt.get(a).getEvtphone()+";";
+                        sel=true;
+                }
+
+                if(sel) {
+
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+                    intent.putExtra("address", phoneNos);
+
+                    intent.putExtra("sms_body", "Event Deails \n"+tv_evtTitle.getText().toString()+"\n Event Date & Time:"+tv_evtTime.getText().toString());
+                    intent.setType("vnd.android-dir/mms-sms");
+                    startActivity(intent);
+                }else{
+                    showConfirmDialog(getString(R.string.app_name),"Please select contacts");
+                }
             }
         });
         tv_eventEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String data[]=new String[arrEvt.size()];
+
+
+
+
+                    String[] TO = {""};
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+                    emailIntent.setData(Uri.parse("mailto:"));
+                    emailIntent.setType("text/plain");
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, data);
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Test");
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, "Event Date & Time: \n"+tv_evtTitle.getText().toString()+"\n Event Details: \n"+tv_evtDesc.getText().toString()+"\n List of Contacts: \n"+ contactsInfo);
+
+                    try {
+                        startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(getActivity(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                    }
 
             }
         });
 
         return view;
+    }
+
+
+
+    List<Contact> contacts;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CONTACT && resultCode == Activity.RESULT_OK &&
+                data != null && data.hasExtra(ContactPickerActivity.RESULT_CONTACT_DATA)) {
+
+            contacts = (List<Contact>) data.getSerializableExtra(ContactPickerActivity.RESULT_CONTACT_DATA);
+
+         //   dbHandler.DeleteTable(DatabaseHandler.TABLE_EVENTS,"evt_title='" + Constants.Event_NAME + "'");
+           /* if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")) {
+
+
+                try {
+
+                    JSONArray jsonArray = new JSONArray();
+                    for (Contact contact : contacts) {
+                        JSONObject jobj = new JSONObject();
+                        jobj.put(DatabaseHandler.PHONE_CONTACT_ID, "" + contact.getId());
+                        jobj.put(DatabaseHandler.PHONE_CONTACT_NUMBER, "" + contact.getPhone(0));
+                        jobj.put(DatabaseHandler.PHONE_CONTACT_EMAIL, "" + contact.getEmail(0));
+                        jobj.put(DatabaseHandler.PHONE_CONTACT_NAME, "" + contact.getDisplayName());
+                        jsonArray.put(jobj);
+
+                    }
+                 //   TextView tv_evtTitle, tv_evtDesc, tv_evtContacts, tv_evtTime;
+                    Log.v("DATA....", "DATA.....EDIT..." + jsonArray.toString());
+                    ContentValues cv = new ContentValues();
+                    cv.put(DatabaseHandler.EVT_TITLE, tv_evtTitle.getText().toString());
+                    cv.put(DatabaseHandler.EVT_DESC, tv_evtDesc.getText().toString());
+                    cv.put(DatabaseHandler.EVT_CONTACTS, jsonArray.toString());
+                    cv.put(DatabaseHandler.EVT_CREATED_ON, tv_evtTime.getText().toString());
+                    dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, " evt_title='" + Constants.EVENTS_OLD_NAME + "'");
+
+                } catch (Exception e) {
+
+                }
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
+
+            } else if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {*/
+                try {
+
+                    JSONArray jsonArray = new JSONArray();
+                    for (Contact contact : contacts) {
+                        JSONObject jobj = new JSONObject();
+                        jobj.put(DatabaseHandler.PHONE_CONTACT_ID, "" + contact.getId());
+                        jobj.put(DatabaseHandler.PHONE_CONTACT_NUMBER, "" + contact.getPhone(0));
+                        jobj.put(DatabaseHandler.PHONE_CONTACT_EMAIL, "" + contact.getEmail(0));
+                        jobj.put(DatabaseHandler.PHONE_CONTACT_NAME, "" + contact.getDisplayName());
+
+                        jsonArray.put(jobj);
+
+                        Log.v("DATA....", "DATA.....SAVE..CONTACTID...." + contact.getId());
+                    }
+                    ContentValues cv = new ContentValues();
+                    cv.put(DatabaseHandler.EVT_TITLE, tv_evtTitle.getText().toString());
+                    cv.put(DatabaseHandler.EVT_DESC, tv_evtDesc.getText().toString());
+                    cv.put(DatabaseHandler.EVT_CONTACTS, jsonArray.toString());
+                    cv.put(DatabaseHandler.EVT_CREATED_ON, tv_evtTime.getText().toString());
+                  //  dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
+                    dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, " evt_title='" + tv_evtTitle.getText().toString() + "'");
+
+                    Log.v("DATA....", "DATA.....SAVE..." + jsonArray.toString());
+                } catch (Exception e) {
+
+                }
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
+
+          //  }
+
+
+        } else if (requestCode == INSERT_CONTACT_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+
+
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                //    Toast.makeText(getActivity(),"Contact Added Succesfully",Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 }

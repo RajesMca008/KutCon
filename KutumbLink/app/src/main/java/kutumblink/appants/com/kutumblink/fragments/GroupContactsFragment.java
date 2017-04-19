@@ -1,6 +1,7 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -25,8 +26,10 @@ import java.util.List;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.adapter.ContactGroupListAdapter;
 import kutumblink.appants.com.kutumblink.adapter.ContactListAdapter;
 import kutumblink.appants.com.kutumblink.model.ContactsDo;
+import kutumblink.appants.com.kutumblink.model.GroupDo;
 import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
@@ -34,68 +37,119 @@ import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GroupContactsFragment extends BaseFragment implements Serializable  {
+public class GroupContactsFragment extends BaseFragment implements Serializable {
 
 
     public GroupContactsFragment() {
         // Required empty public constructor
     }
+
     Button btn_close;
     ListView lv_conatcst;
     DatabaseHandler dbHandler;
-
+    public static ArrayList<GroupDo> arr_group = new ArrayList<GroupDo>();
     LinearLayout ll_actions;
 
 
-
+    TextView tv_Done,tv_Cancel;
     Button btn_actions;
-  //  Dialog topDialog;
-    LinearLayout ll_grpcontacts,ll_grpactionslist;
+    //  Dialog topDialog;
+    LinearLayout ll_grpcontacts, ll_grpactionslist;
     ListView lv_grpactionslist;
-    public static ArrayList<ContactsDo> arr_contacts=new ArrayList<ContactsDo>();
-    boolean isVISIBLEACTIONS=false;
+    public static ArrayList<ContactsDo> arr_contacts = new ArrayList<ContactsDo>();
+    boolean isVISIBLEACTIONS = false;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_groupcontacts, container, false);
-        Constants.NAV_GROUPS=102;
+        View view = inflater.inflate(R.layout.fragment_groupcontacts, container, false);
+        Constants.NAV_GROUPS = 102;
         arr_contacts.clear();
-        dbHandler=new DatabaseHandler(getActivity());
-        lv_conatcst=(ListView)view.findViewById(R.id.lv_contacts);
-        btn_close=(Button)view.findViewById(R.id.btn_close);
-        btn_actions=(Button)view.findViewById(R.id.btn_ations);
-        ll_grpcontacts=(LinearLayout)view.findViewById(R.id.ll_grpcontacts);
-        ll_actions=(LinearLayout)view.findViewById(R.id.ll_actions);
-        ll_grpactionslist=(LinearLayout)view.findViewById(R.id.ll_grplistactions);
-        lv_grpactionslist=(ListView)view.findViewById(R.id.lv_actionsgroups);
+        dbHandler = new DatabaseHandler(getActivity());
+        lv_conatcst = (ListView) view.findViewById(R.id.lv_contacts);
+        btn_close = (Button) view.findViewById(R.id.btn_close);
+        btn_actions = (Button) view.findViewById(R.id.btn_ations);
+        ll_grpcontacts = (LinearLayout) view.findViewById(R.id.ll_grpcontacts);
+        ll_actions = (LinearLayout) view.findViewById(R.id.ll_actions);
+        ll_grpactionslist = (LinearLayout) view.findViewById(R.id.ll_grplistactions);
+        lv_grpactionslist = (ListView) view.findViewById(R.id.lv_actionsgroups);
+        tv_Cancel=(TextView)view.findViewById(R.id.tv_cancel);
+        tv_Done=(TextView)view.findViewById(R.id.tv_done);
 
-      //  expListView=(ExpandableListView)view.findViewById(R.id.lvExp);
+        tv_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ll_grpactionslist.setVisibility(View.GONE);
+            }
+        });
+        tv_Done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (int i = 0; i < arr_contacts.size(); i++) {
+
+                    for (int a = 0; a < arr_contacts.size(); a++) {
+
+                        if (arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+
+                            ContentValues cv = new ContentValues();
+                            //   Cursor conatacts = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_ID='" + contact.getId()+"'");
+                            cv.put(dbHandler.PHONE_CONTACT_ID, "" + arr_contacts.get(a).getConatactId());
+                            cv.put(dbHandler.PHONE_CONTACT_NAME, "" + arr_contacts.get(a).getConatactName());
+                            // cv.put(dbHandler.PHONE_CONTACT_FNAME, "" + arr_contacts.get(a).get);
+                            //cv.put(dbHandler.PHONE_CONTACT_LNAME, "" + contact.getLastName());
+                            cv.put(dbHandler.PHONE_CONTACT_NUMBER, "" + arr_contacts.get(a).getConatactPhone());
+                            cv.put(dbHandler.PHONE_CONTACT_EMAIL, "" + arr_contacts.get(a).getConatactEmail());
+                            cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
+                            Cursor conatacts = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + arr_group.get(i).getGroup_Name() + "' AND Phone_Contact_ID='" + arr_contacts.get(a).getConatactId() + "'");
+
+                            if (conatacts.getCount() == 0) {
+                                dbHandler.insert(dbHandler.TABLE_PHONE_CONTACTS, cv);
+                            } else {
+                                dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, "Phone_Contact_ID='" + arr_contacts.get(a).getConatactId() + "'");
+                            }
+                        }
+
+                    }
+                }
+
+                Constants.NAV_GROUPS=100;
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.main_container, new GroupsMainFragment());
+                ft.commit();
+                ll_grpactionslist.setVisibility(View.GONE);
+
+
+            }
+        });
+
+        //  expListView=(ExpandableListView)view.findViewById(R.id.lvExp);
         ll_actions.setVisibility(View.GONE);
 
-        TextView tv_sms=(TextView)view.findViewById(R.id.tv_sms);
-        TextView tv_email=(TextView)view.findViewById(R.id.tv_sendEmail);
-        TextView tv_copygrp=(TextView)view.findViewById(R.id.tv_copygrp);
-        TextView tv_rmvgrp=(TextView)view.findViewById(R.id.tv_removegroup);
-        TextView tv_addevt=(TextView)view.findViewById(R.id.tv_addevt);
-        TextView tv_eci=(TextView)view.findViewById(R.id.tv_eci);
+        TextView tv_sms = (TextView) view.findViewById(R.id.tv_sms);
+        TextView tv_email = (TextView) view.findViewById(R.id.tv_sendEmail);
+        TextView tv_copygrp = (TextView) view.findViewById(R.id.tv_copygrp);
+        TextView tv_rmvgrp = (TextView) view.findViewById(R.id.tv_removegroup);
+        TextView tv_addevt = (TextView) view.findViewById(R.id.tv_addevt);
+        TextView tv_eci = (TextView) view.findViewById(R.id.tv_eci);
         tv_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean sel=false;
-                String phoneNos="";
+                boolean sel = false;
+                String phoneNos = "";
 
-                for(int a=0;a<arr_contacts.size();a++){
+                for (int a = 0; a < arr_contacts.size(); a++) {
 
-                    if(arr_contacts.get(a).getIS_CONTACT_SELECTED()==1) {
+                    if (arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
 
-                        phoneNos+=arr_contacts.get(a).getConatactPhone()+";";
-                        sel=true;
+                        phoneNos += arr_contacts.get(a).getConatactPhone() + ";";
+                        sel = true;
                     }
 
                 }
 
-                if(sel) {
+                if (sel) {
 
                     Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
                     intent.putExtra("address", phoneNos);
@@ -103,30 +157,30 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     intent.putExtra("sms_body", "");
                     intent.setType("vnd.android-dir/mms-sms");
                     startActivity(intent);
-                }else{
-                    showConfirmDialog(getString(R.string.app_name),"Please select contacts");
+                } else {
+                    showConfirmDialog(getString(R.string.app_name), "Please select contacts");
                 }
             }
         });
         tv_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String data[]=new String[arr_contacts.size()];
+                String data[] = new String[arr_contacts.size()];
 
-                boolean sel=false;
-                for(int a=0;a<arr_contacts.size();a++){
+                boolean sel = false;
+                for (int a = 0; a < arr_contacts.size(); a++) {
 
-                    if(arr_contacts.get(a).getConatactEmail().length()!=0) {
+                    if (arr_contacts.get(a).getConatactEmail().length() != 0) {
 
-                        data[a]=arr_contacts.get(a).getConatactEmail();
+                        data[a] = arr_contacts.get(a).getConatactEmail();
 
-                        sel=true;
+                        sel = true;
                     }
 
                 }
 
 
-                if(sel){
+                if (sel) {
                     String[] TO = {""};
                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
@@ -151,25 +205,39 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             public void onClick(View view) {
                 isVISIBLEACTIONS = false;
                 ll_actions.setVisibility(View.GONE);
-                ll_grpactionslist.setVisibility(View.VISIBLE);
-                lv_grpactionslist.setAdapter(new ContactListAdapter(getActivity(),arr_contacts));
-               /* FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction ft=fragmentManager.beginTransaction();
-                ft.replace(R.id.main_container, new AddGroupFragment());
-                ft.commit();*/
+                boolean isContacts=false;
+               for(int i=0;i<arr_contacts.size();i++){
+                   if(arr_contacts.get(i).getIS_CONTACT_SELECTED()==1){
+                       isContacts=true;
+                   }
+               }
+
+               if(isContacts) {
+
+                   if (arr_group.size() != 0) {
+                       ll_grpactionslist.setVisibility(View.VISIBLE);
+
+                       lv_grpactionslist.setAdapter(new ContactGroupListAdapter(getActivity(), arr_group));
+                   } else {
+                       showConfirmDialog(getString(R.string.app_name), "You don't have more groups");
+                   }
+               }else{
+                   showConfirmDialog(getString(R.string.app_name), "Please select contacts");
+               }
+
             }
         });
         tv_rmvgrp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.NAV_GROUPS=100;
+                Constants.NAV_GROUPS = 100;
                 dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_NAME + "'");
-                dbHandler.DeleteTable("TBL_PHONE_CONTACTS","Phone_Contact_Gid='"+Constants.GROUP_NAME+"'");
+                dbHandler.DeleteTable("TBL_PHONE_CONTACTS", "Phone_Contact_Gid='" + Constants.GROUP_NAME + "'");
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction ft=fragmentManager.beginTransaction();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new GroupsMainFragment());
                 ft.commit();
-                Toast.makeText(getActivity(),"Group deleted successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Group deleted successfully", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -178,7 +246,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction ft=fragmentManager.beginTransaction();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new EditEventsFragment());
                 ft.commit();
             }
@@ -189,7 +257,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             @Override
             public void onClick(View view) {
 
-                if(isVISIBLEACTIONS) {
+                if (isVISIBLEACTIONS) {
                     isVISIBLEACTIONS = false;
                     ll_actions.setVisibility(View.GONE);
                 }
@@ -211,8 +279,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         btn_actions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isVISIBLEACTIONS=true;
-             ll_actions.setVisibility(View.VISIBLE);
+                isVISIBLEACTIONS = true;
+                ll_actions.setVisibility(View.VISIBLE);
             }
         });
 
@@ -220,10 +288,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.NAV_GROUPS=100;
+                Constants.NAV_GROUPS = 100;
 
-                Constants.GROUP_OPERATIONS="EDIT";
-                Constants.GROUP_OLD_NAME=Constants.GROUP_NAME;
+                Constants.GROUP_OPERATIONS = "EDIT";
+                Constants.GROUP_OLD_NAME = Constants.GROUP_NAME;
 
                 AddGroupFragment groupContacts = new AddGroupFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
@@ -238,7 +306,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             @Override
             public void onClick(View view) {
 
-                Constants.NAV_GROUPS=100;
+                Constants.NAV_GROUPS = 100;
 
                 GroupsMainFragment groupContacts = new GroupsMainFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
@@ -250,15 +318,13 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             }
         });
 
-        Cursor c=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_PHONE_CONTACTS +" where Phone_Contact_Gid='"+ Constants.GROUP_NAME+"' order by Phone_Contact_Name ASC");
-        if(c!=null)
-        {
-            if(c.getCount()>0)
-            {
+        Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
+        if (c != null) {
+            if (c.getCount() > 0) {
                 c.moveToFirst();
                 do {
 
-                    ContactsDo contactsBean=new ContactsDo();
+                    ContactsDo contactsBean = new ContactsDo();
                     contactsBean.setConatactGroupName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_GID)));
                     contactsBean.setConatactId(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
                     contactsBean.setConatactName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NAME)));
@@ -268,7 +334,30 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     contactsBean.setIS_CONTACT_SELECTED(0);
                     arr_contacts.add(contactsBean);
 
-                }while(c.moveToNext());
+                } while (c.moveToNext());
+
+            }
+        }
+
+
+        Cursor cg = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP);
+        if (cg != null) {
+            if (cg.getCount() > 0) {
+                cg.moveToFirst();
+                do {
+
+                    if (!cg.getString(cg.getColumnIndex(dbHandler.GROUP_NAME)).equalsIgnoreCase(Constants.GROUP_NAME)) {
+
+                        GroupDo groupDetails = new GroupDo();
+                        groupDetails.setGroup_Name(cg.getString(cg.getColumnIndex(dbHandler.GROUP_NAME)));
+                        groupDetails.setGroup_Pic(Integer.parseInt(cg.getString(cg.getColumnIndex(dbHandler.GROUP_PIC))));
+
+                        groupDetails.setGroup_isSELECT(0);
+
+                        arr_group.add(groupDetails);
+                    }
+
+                } while (cg.moveToNext());
 
             }
         }
@@ -278,10 +367,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             @Override
             public void onClick(View view) {
 
-                if(isVISIBLEACTIONS){
-                    isVISIBLEACTIONS=false;
+                if (isVISIBLEACTIONS) {
+                    isVISIBLEACTIONS = false;
                     ll_actions.setVisibility(View.GONE);
-                }else {
+                } else {
 
                     Constants.NAV_GROUPS = 100;
 
@@ -293,16 +382,14 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         });
 
 
-
-        lv_conatcst.setAdapter(new ContactListAdapter(getActivity(),arr_contacts));
-
+        lv_conatcst.setAdapter(new ContactListAdapter(getActivity(), arr_contacts));
 
 
         return view;
     }
 
-   // ExpandableListAdapter listAdapter;
-  //  ExpandableListView expListView;
+    // ExpandableListAdapter listAdapter;
+    //  ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 

@@ -40,6 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String EVT_TITLE = "evt_title";
 	public static final String EVT_DESC = "evt_desc";
 	public static final String EVT_CREATED_ON = "evt_created_on";
+	public static final String EVT_EMAIL= "evt_email";
 	public static final String EVT_CONTACTS = "evt_contacts";
 
 
@@ -91,6 +92,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			+ EVT_TITLE	+ " TEXT,"
 			+ EVT_DESC 	+ " TEXT,"
 			+ EVT_CONTACTS 	+ " TEXT,"
+			+ EVT_EMAIL + " TEXT,"
 			+ EVT_CREATED_ON 	+ " TEXT"
 
 			+ ")";

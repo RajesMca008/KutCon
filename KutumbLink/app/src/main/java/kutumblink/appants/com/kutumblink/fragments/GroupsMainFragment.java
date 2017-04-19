@@ -116,6 +116,7 @@ public class GroupsMainFragment extends BaseFragment {
         ll_addgroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String mDrawableName = "group_default_icon";
                 Constants.GROUP_OPERATIONS="SAVE";
                 Constants.GROUP_NAME="";
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -123,6 +124,8 @@ public class GroupsMainFragment extends BaseFragment {
                 ft.replace(R.id.main_container, new AddGroupFragment());
                         ft.addToBackStack("group_Main");
                         ft.commit();
+
+                Constants.imgID = getResources().getIdentifier(mDrawableName, "mipmap", getActivity().getPackageName());
             }
         });
         HomeActivity.tv_title.setText("Groups");
@@ -132,8 +135,12 @@ public class GroupsMainFragment extends BaseFragment {
         HomeActivity.ib_menu.setText("");
         String mDrawableName = "group_default_icon";
 
-            Constants.imgID = getResources().getIdentifier(mDrawableName , "mipmap", getActivity().getPackageName());
+        if(Constants.imgID!=0){
 
+        }else {
+
+            Constants.imgID = getResources().getIdentifier(mDrawableName, "mipmap", getActivity().getPackageName());
+        }
 
 
 

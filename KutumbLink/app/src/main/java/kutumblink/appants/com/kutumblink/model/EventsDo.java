@@ -10,6 +10,24 @@ public class EventsDo {
     private String evtDesc;
     private String evtContacts;
     private String evtDate;
+    private String evtEmail;
+    private String evtphone;
+
+    public String getEvtphone() {
+        return evtphone;
+    }
+
+    public void setEvtphone(String evtphone) {
+        this.evtphone = evtphone;
+    }
+
+    public String getEvtEmail() {
+        return evtEmail;
+    }
+
+    public void setEvtEmail(String evtEmail) {
+        this.evtEmail = evtEmail;
+    }
 
     public String getEvtTitle() {
         return evtTitle;

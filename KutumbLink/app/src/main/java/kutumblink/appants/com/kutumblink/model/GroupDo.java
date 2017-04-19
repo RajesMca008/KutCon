@@ -10,7 +10,15 @@ public class GroupDo {
     private String group_Name;
     private int group_Pic;
     private String group_totalContactList;
+    private int group_isSELECT;
 
+    public int getGroup_isSELECT() {
+        return group_isSELECT;
+    }
+
+    public void setGroup_isSELECT(int group_isSELECT) {
+        this.group_isSELECT = group_isSELECT;
+    }
 
     public int getGroup_Pic() {
         return group_Pic;
