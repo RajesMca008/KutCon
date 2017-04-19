@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
-import kutumblink.appants.com.kutumblink.utils.Constants;
 
 /**
  * A simple {@link Fragment} subclass.

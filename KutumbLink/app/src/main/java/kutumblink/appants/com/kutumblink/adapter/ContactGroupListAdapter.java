@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.fragments.GroupContactsFragment;
 import kutumblink.appants.com.kutumblink.model.GroupDo;
-import kutumblink.appants.com.kutumblink.utils.Constants;
 
 /**
  * Created by Vishnu on 18-05-2016.

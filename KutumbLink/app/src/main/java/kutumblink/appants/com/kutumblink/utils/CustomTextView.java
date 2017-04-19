@@ -3,10 +3,6 @@ package kutumblink.appants.com.kutumblink.utils;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.TextView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by rrallabandi on 3/16/2017.

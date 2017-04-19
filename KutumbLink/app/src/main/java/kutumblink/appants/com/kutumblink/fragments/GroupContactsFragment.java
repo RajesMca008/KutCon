@@ -27,9 +27,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ezvcard.VCard;
-import ezvcard.VCardVersion;
-import ezvcard.parameter.TelephoneType;
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.adapter.ContactGroupListAdapter;
@@ -460,29 +457,45 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         }
 
 
-        ArrayList<Uri> uris = new ArrayList<Uri>();
+        //ArrayList<Uri> uris = new ArrayList<Uri>();
+        ArrayList<Uri> arrayList=new ArrayList<Uri>();
         //convert from paths to Android friendly Parcelable Uri's
 
         for (int i=0;i<fileNames.size();i++)
         {
             Uri u = Uri.fromFile(fileNames.get(i));
-            uris.add(u);
+            arrayList.add(u);
         }
 
 
-        //Sending list of vCard files to email
+        if(arrayList.size()>0) {
+            //Sending list of vCard files to email
 
-        Intent email = new Intent(Intent.ACTION_SEND);
+       /* Intent email = new Intent(Intent.ACTION_SEND);
        // i.setType("text/x-vcard");
         //email.setType("message/rfc822");
         //i.setDataAndType(Uri.fromFile(vcfFile), "text/x-vcard");
         email.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
 
-        startActivity(email);
+        startActivityForResult(Intent.createChooser(email, "Sending multiple attachment"), 12345);*/
+            // startActivity(email);
 
+            Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE, Uri.parse("mailto:"));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From "+getString(R.string.app_name));
+            emailIntent.setType("text/plain");
+        /*Uri uri1 = Uri.parse("file://" +  URI1);
+        Uri uri2 = Uri.parse("file://" +  URI2);
+        Uri uri3 = Uri.parse("file://" +  URI3);*/
 
+       /* arrayList.add(uri1);
+        arrayList.add(uri2);
+        arrayList.add(uri3);*/
+            emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayList);
+            emailIntent.setType("message/rfc822");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "-");
+            startActivity(Intent.createChooser(emailIntent, "Send Via..."));
 
-
+        }
     }
 
     // ExpandableListAdapter listAdapter;

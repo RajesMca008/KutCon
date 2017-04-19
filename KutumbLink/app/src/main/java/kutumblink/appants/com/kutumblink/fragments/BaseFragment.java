@@ -1,6 +1,5 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;

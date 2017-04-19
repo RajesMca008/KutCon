@@ -1,13 +1,11 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +14,6 @@ import android.widget.EditText;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
-import kutumblink.appants.com.kutumblink.utils.Constants;
-import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 import static android.app.Activity.RESULT_OK;
 
