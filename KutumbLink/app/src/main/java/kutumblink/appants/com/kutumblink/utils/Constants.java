@@ -21,7 +21,7 @@ public class Constants {
     public static String EVENTS_OLD_NAME="";
     public static int NAV_GROUPS=100;
  public static  Boolean isGROUP_NOT_EXPAND=true;
-
+    public static String SortOrderValue=Constants.DEFAULT;
 
     public static String strDT="";
 }

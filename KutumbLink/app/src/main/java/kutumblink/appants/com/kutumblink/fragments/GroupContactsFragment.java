@@ -19,11 +19,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import ezvcard.VCard;
+import ezvcard.VCardVersion;
+import ezvcard.parameter.TelephoneType;
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.adapter.ContactGroupListAdapter;
@@ -133,6 +139,34 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         TextView tv_rmvgrp = (TextView) view.findViewById(R.id.tv_removegroup);
         TextView tv_addevt = (TextView) view.findViewById(R.id.tv_addevt);
         TextView tv_eci = (TextView) view.findViewById(R.id.tv_eci);
+
+        tv_eci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList<ContactsDo> selectedContactList=new ArrayList<ContactsDo>();
+                for (int a = 0; a < arr_contacts.size(); a++) {
+
+                    if (arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+
+
+                        ContactsDo contact = arr_contacts.get(a);
+                        selectedContactList.add(contact);
+
+                    }
+
+                }
+                //Requesting for generat multiple fiels for vcard.
+
+                if(selectedContactList.size()>0) {
+                    sendVcardAsEmail(selectedContactList);
+                }
+                else {
+                    makeToast("Please select contacts");
+                }
+
+            }
+        });
         tv_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -386,6 +420,69 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
 
         return view;
+    }
+
+    private void sendVcardAsEmail(ArrayList<ContactsDo> selectedContactList) {
+
+        ArrayList<File> fileNames=new ArrayList<File>();
+        for (int i=0;i<selectedContactList.size();i++)
+        {
+
+            File vcfFile = new File(getActivity().getExternalFilesDir(null), selectedContactList.get(i).getConatactName()+"_info.vcf");
+
+            FileWriter fw = null;
+            ContactsDo contact = selectedContactList.get(i);
+            try {
+
+                fw = new FileWriter(vcfFile);
+                fw.write("BEGIN:VCARD\r\n");
+                fw.write("VERSION:3.0\r\n");
+                //fw.write("N:" + p.getSurname() + ";" + p.getFirstName() + "\r\n");
+                fw.write("N:" + contact.getConatactName() + ";\r\n");
+                //fw.write("FN:" + p.getFirstName() + " " + p.getSurname() + "\r\n");
+                fw.write("ORG: \r\n");
+                fw.write("TITLE:" + contact.getConatactName() + "\r\n");
+               fw.write("TEL;TYPE=WORK,VOICE:" +  contact.getConatactPhone() + "\r\n");
+                fw.write("TEL;TYPE=HOME,VOICE:" +  contact.getConatactPhone() + "\r\n");
+                //fw.write("ADR;TYPE=WORK:;;" + p.getStreet() + ";" + p.getCity() + ";" + p.getState() + ";" + p.getPostcode() + ";" + p.getCountry() + "\r\n");
+                fw.write("EMAIL;TYPE=PREF,INTERNET:" + contact.getConatactEmail() + "\r\n");
+                fw.write("END:VCARD\r\n");
+                fw.close();
+
+                fileNames.add(vcfFile);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+        }
+
+
+        ArrayList<Uri> uris = new ArrayList<Uri>();
+        //convert from paths to Android friendly Parcelable Uri's
+
+        for (int i=0;i<fileNames.size();i++)
+        {
+            Uri u = Uri.fromFile(fileNames.get(i));
+            uris.add(u);
+        }
+
+
+        //Sending list of vCard files to email
+
+        Intent email = new Intent(Intent.ACTION_SEND);
+       // i.setType("text/x-vcard");
+        //email.setType("message/rfc822");
+        //i.setDataAndType(Uri.fromFile(vcfFile), "text/x-vcard");
+        email.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+
+        startActivity(email);
+
+
+
+
     }
 
     // ExpandableListAdapter listAdapter;

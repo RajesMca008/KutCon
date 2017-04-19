@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.fragments.GroupContactsFragment;
 import kutumblink.appants.com.kutumblink.model.GroupDo;
+import kutumblink.appants.com.kutumblink.utils.Constants;
 
 /**
  * Created by Vishnu on 18-05-2016.
@@ -86,6 +87,9 @@ public class ContactGroupListAdapter extends BaseAdapter {
             tv_contactName.setText(""+adb.getGroup_Name());
             btn_phone.setVisibility(View.GONE);
             btn_email.setVisibility(View.GONE);
+
+
+
         /*  if(GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")){
                 btn_email.setVisibility(View.GONE);
             }else{

@@ -158,6 +158,7 @@ public class GroupsMainFragment extends BaseFragment {
                     groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     groupDetails.setGroup_Name(c.getString(c.getColumnIndex(dbHandler.GROUP_NAME)));
                     groupDetails.setGroup_Pic(Integer.parseInt(c.getString(c.getColumnIndex(dbHandler.GROUP_PIC))));
+                    groupDetails.setGroup_sortOrder(c.getString(c.getColumnIndex(dbHandler.GROUP_SORT_ORDER)));
 
                     if(cg.getCount()>0) {
                         groupDetails.setGroup_totalContactList("" + cg.getCount());
@@ -184,6 +185,7 @@ public class GroupsMainFragment extends BaseFragment {
 
                 Constants.GROUP_OPERATIONS="EDIT";
                 Constants.GROUP_NAME=arr_group.get(i).getGroup_Name();
+                Constants.SortOrderValue=arr_group.get(i).getGroup_sortOrder();
 
 
                 Constants.imgID=arr_group.get(i).getGroup_Pic();

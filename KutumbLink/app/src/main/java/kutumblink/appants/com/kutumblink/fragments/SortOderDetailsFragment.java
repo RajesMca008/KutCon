@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,11 +44,12 @@ public class SortOderDetailsFragment extends BaseFragment implements View.OnClic
         firstName.setOnClickListener(this);
         lastname.setOnClickListener(this);
 
-        SharedPreferences sharedPreferences=getActivity().getSharedPreferences(Constants.PRF_FILE_NAME, Context.MODE_PRIVATE);
+       /* SharedPreferences sharedPreferences=getActivity().getSharedPreferences(Constants.PRF_FILE_NAME, Context.MODE_PRIVATE);
 
-        String sortOder=sharedPreferences.getString("SORT_ORDER",Constants.DEFAULT);
+        String sortOder=sharedPreferences.getString("SORT_ORDER",Constants.DEFAULT);*/
 
-        initi(sortOder);
+
+        initi(Constants.SortOrderValue);
 
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
 
@@ -58,10 +60,18 @@ public class SortOderDetailsFragment extends BaseFragment implements View.OnClic
         HomeActivity.ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              getActivity().onBackPressed();
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.popBackStack();
+
             }
         });
 
+        HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
         return view;
     }
 
@@ -98,6 +108,7 @@ public class SortOderDetailsFragment extends BaseFragment implements View.OnClic
                 firstName.setCheckMarkDrawable(null);
                 lastname.setCheckMarkDrawable(null);
                 edit.putString("SORT_ORDER",Constants.DEFAULT);
+                Constants.SortOrderValue=Constants.DEFAULT;
                 break;
             case R.id.by_firstname:
 
@@ -105,12 +116,14 @@ public class SortOderDetailsFragment extends BaseFragment implements View.OnClic
                 firstName.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
                 lastname.setCheckMarkDrawable(null);
                 edit.putString("SORT_ORDER",Constants.BY_FIRST_NAME);
+                Constants.SortOrderValue=Constants.BY_FIRST_NAME;
                 break;
             case R.id.by_lastname:
                 defaultText.setCheckMarkDrawable(null);
                 firstName.setCheckMarkDrawable(null);
                 lastname.setCheckMarkDrawable(android.R.drawable.checkbox_on_background);
                 edit.putString("SORT_ORDER",Constants.BY_LAST_NAME);
+                Constants.SortOrderValue=Constants.BY_LAST_NAME;
                 break;
         }
         edit.commit();

@@ -27,6 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String GROUP_NAME = "G_NAME";
 	public static final String GROUP_PIC = "G_GROUP_PIC";
 	public static final String GROUP_TOTALCONTACTS = "G_TOTALCONTACTS";
+	public static final String GROUP_SORT_ORDER = "g_sort_order";
 
 	/**
 	 * Message related fields.
@@ -115,7 +116,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 			+ GROUP_NAME	+ " TEXT,"
 			+ GROUP_PIC 	+ " BLOB,"
-			+ GROUP_TOTALCONTACTS 	+ " TEXT"
+			+ GROUP_TOTALCONTACTS 	+ " TEXT ,"
+			+GROUP_SORT_ORDER +" TEXT DEFAULT '"+Constants.DEFAULT+"'"
 
 			+ ")";
 

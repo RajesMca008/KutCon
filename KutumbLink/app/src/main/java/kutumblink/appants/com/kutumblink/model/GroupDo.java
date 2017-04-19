@@ -12,6 +12,16 @@ public class GroupDo {
     private String group_totalContactList;
     private int group_isSELECT;
 
+    public String getGroup_sortOrder() {
+        return group_sortOrder;
+    }
+
+    public void setGroup_sortOrder(String group_sortOrder) {
+        this.group_sortOrder = group_sortOrder;
+    }
+
+    private String group_sortOrder;
+
     public int getGroup_isSELECT() {
         return group_isSELECT;
     }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.fragments.GroupContactsFragment;
 import kutumblink.appants.com.kutumblink.model.ContactsDo;
+import kutumblink.appants.com.kutumblink.utils.Constants;
 
 /**
  * Created by Vishnu on 18-05-2016.
@@ -83,7 +84,41 @@ public class ContactListAdapter extends BaseAdapter {
             final ImageView cb_conatacts=(ImageView)view.findViewById(R.id.cb_contacts);
             Button btn_phone=(Button)view.findViewById(R.id.btn_phone);
             final Button btn_email=(Button)view.findViewById(R.id.btn_email);
-            tv_contactName.setText(""+adb.getConatactName());
+
+            try{
+                if(adb.getConatactName().split(" ").length>1)
+                {
+                    if( Constants.SortOrderValue.equalsIgnoreCase(Constants.BY_LAST_NAME))
+                    {
+
+
+
+                    String[] words = adb.getConatactName().split(" ");
+                    String tmp = words[0];  // grab the first
+                    words[0] = words[words.length-1];  //replace the first with the last
+                    words[words.length-1] = tmp;
+                    String name="";
+                    for (int i=0;i<words.length;i++)
+                    {
+                        name=name+" "+words[i];
+                    }
+                    Log.i("TEST", "Sort Name"+name);
+                    tv_contactName.setText(""+name);
+                    }
+                    else {
+                        tv_contactName.setText(""+adb.getConatactName());
+                    }
+                }
+                else {
+                    tv_contactName.setText(""+adb.getConatactName());
+                }
+            }catch (Exception e)
+            {
+                tv_contactName.setText(""+adb.getConatactName());
+                e.printStackTrace();
+            }
+
+
 
           if(GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")){
                 btn_email.setVisibility(View.GONE);
