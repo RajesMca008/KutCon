@@ -11,18 +11,23 @@ public class Constants {
     public static final String BY_FIRST_NAME = "By First Name";
     public static final String BY_LAST_NAME = "By Last Name";
 
-    // public static String G_NAME="";
-    public static int imgID=0;
-    public static String GROUP_NAME="";
-    public static String Event_NAME="";
-    public static String GROUP_OPERATIONS="SAVE";
- public static String EVENT_OPERATIONS="SAVE";
-    public static String GROUP_OLD_NAME="";
-    public static String EVENTS_OLD_NAME="";
-    public static int NAV_GROUPS=100;
- public static  Boolean isGROUP_NOT_EXPAND=true;
-    public static String SortOrderValue=Constants.DEFAULT;
-    public static int GROUP_CONTACTS_SIZE=0;
+    public static final int GROUP_DELETE=1;
+    public static final int EVENTS_DELETE=2;
+  //  public static final int GROUP_DELETE=1;
+   // public static final int GROUP_DELETE=1;
 
-    public static String strDT="";
+
+    public static int imgID = 0;
+    public static String GROUP_NAME = "";
+    public static String Event_NAME = "";
+    public static String GROUP_OPERATIONS = "SAVE";
+    public static String EVENT_OPERATIONS = "SAVE";
+    public static String GROUP_OLD_NAME = "";
+    public static String EVENTS_OLD_NAME = "";
+    public static int NAV_GROUPS = 100;
+    public static Boolean isGROUP_NOT_EXPAND = true;
+    public static String SortOrderValue = Constants.DEFAULT;
+    public static int GROUP_CONTACTS_SIZE = 0;
+
+    public static String strDT = "";
 }

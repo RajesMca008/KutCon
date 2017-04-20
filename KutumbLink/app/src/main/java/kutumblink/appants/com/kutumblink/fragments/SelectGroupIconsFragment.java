@@ -4,6 +4,7 @@ package kutumblink.appants.com.kutumblink.fragments;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -17,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.Utils;
@@ -133,6 +134,25 @@ public class SelectGroupIconsFragment extends BaseFragment  {
         btn_camera=(Button)view.findViewById(R.id.btn_camera);
         btn_gallery=(Button)view.findViewById(R.id.btn_gallery);
 
+
+
+        HomeActivity.ib_back.setBackgroundColor(Color.TRANSPARENT);
+
+        HomeActivity.ib_back_next.setText("Cancel");
+        HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
+        HomeActivity.ib_menu.setText("");
+        HomeActivity.tv_title.setText("Select Group Image");
+
+
+        HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
+
+            }
+        });
+
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,7 +212,7 @@ public class SelectGroupIconsFragment extends BaseFragment  {
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
 
-                                Toast.makeText(getActivity(), "key....." + key + "...value..." + value, Toast.LENGTH_LONG).show();
+                            //    Toast.makeText(getActivity(), "key....." + key + "...value..." + value, Toast.LENGTH_LONG).show();
                             }
                         }
 

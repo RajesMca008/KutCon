@@ -11,11 +11,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +66,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     ListView lv_grpactionslist;
     public static ArrayList<ContactsDo> arr_contacts = new ArrayList<ContactsDo>();
     boolean isVISIBLEACTIONS = false;
+    public static RelativeLayout rl_actions;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -83,6 +86,9 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         ll_nocontacts=(LinearLayout)view.findViewById(R.id.ll_nocontacts);
         tv_Cancel=(TextView)view.findViewById(R.id.tv_cancel);
         tv_Done=(TextView)view.findViewById(R.id.tv_done);
+        rl_actions=(RelativeLayout)view.findViewById(R.id.rl_actions);
+
+        rl_actions.setAlpha(0.99f);
 
         tv_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -335,14 +341,103 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         });
 
 
-        view.setOnClickListener(new View.OnClickListener() {
+
+
+
+      /*  view.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
 
                 if (isVISIBLEACTIONS) {
                     isVISIBLEACTIONS = false;
                     ll_actions.setVisibility(View.GONE);
                 }
+
+
+                boolean sel = false;
+
+                for (int a = 0; a < arr_contacts.size(); a++) {
+
+                    if (arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+
+                        sel = true;
+                    }
+
+                }
+
+                if (sel) {
+                    btn_close.setAlpha(0.9f);
+                    btn_actions.setAlpha(0.9f);
+                    btn_actions.setEnabled(true);
+                    btn_close.setEnabled(true);
+
+                } else {
+
+                    btn_close.setAlpha(0.5f);
+                    btn_actions.setAlpha(0.5f);
+                    btn_actions.setEnabled(false);
+                    btn_close.setEnabled(false);
+                    //  showConfirmDialog(getString(R.string.app_name), "Please select contacts");
+                }
+                return false;
+            }
+        });*/
+
+/*
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (isVISIBLEACTIONS) {
+                    isVISIBLEACTIONS = false;
+                    ll_actions.setVisibility(View.GONE);
+                }
+
+
+                boolean sel = false;
+
+                for (int a = 0; a < arr_contacts.size(); a++) {
+
+                    if (arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+
+                        sel = true;
+                    }
+
+                }
+
+                if (sel) {
+                    btn_close.setAlpha(0.9f);
+                    btn_actions.setAlpha(0.9f);
+                    btn_actions.setEnabled(true);
+                    btn_close.setEnabled(true);
+
+                } else {
+
+                    btn_close.setAlpha(0.5f);
+                    btn_actions.setAlpha(0.5f);
+                    btn_actions.setEnabled(false);
+                    btn_close.setEnabled(false);
+                    //  showConfirmDialog(getString(R.string.app_name), "Please select contacts");
+                }
+                return false;
+            }
+        });
+
+   */
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (isVISIBLEACTIONS) {
+                    isVISIBLEACTIONS = false;
+                    ll_actions.setVisibility(View.GONE);
+                }
+
+
+
+                return false;
             }
         });
 
@@ -361,8 +456,28 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         btn_actions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isVISIBLEACTIONS = true;
-                ll_actions.setVisibility(View.VISIBLE);
+
+
+                boolean sel = false;
+
+                for (int a = 0; a < GroupContactsFragment.arr_contacts.size(); a++) {
+
+                    if (GroupContactsFragment.arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+
+                        sel = true;
+                    }
+
+                }
+
+                if(sel) {
+
+                    isVISIBLEACTIONS = true;
+                    ll_actions.setVisibility(View.VISIBLE);
+                }else{
+
+                    isVISIBLEACTIONS = false;
+                    ll_actions.setVisibility(View.GONE);
+                }
             }
         });
 

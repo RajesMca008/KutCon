@@ -5,6 +5,9 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,8 @@ import android.widget.Toast;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
+import kutumblink.appants.com.kutumblink.utils.Constants;
+import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +38,7 @@ public class BaseFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    DatabaseHandler dbHandler;
     private OnFragmentInteractionListener mListener;
 
     public HomeActivity activity=null;
@@ -66,6 +72,7 @@ public class BaseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        dbHandler=new DatabaseHandler(getActivity());
     }
 
     @Override
@@ -145,12 +152,54 @@ public class BaseFragment extends Fragment {
                             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                         }
 
-                        getActivity().onBackPressed();
+
+
+                     //   getActivity().onBackPressed();
                     }
                 }
 
         );
 
+        builder.show();
+    }
+
+
+    public void showConfirmOptionsDialog(String title, String message, final int type, final String params) {
+        AlertDialog.Builder builder = new  AlertDialog.Builder(getContext());
+
+
+        builder.setTitle(title);
+        builder.setIcon(R.mipmap.ic_launcher);
+        StringBuffer sb = new StringBuffer(message);
+
+
+        builder.setMessage(sb.toString()).setCancelable(false);
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        if(type==1){
+                            Constants.NAV_GROUPS=100;
+                            dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + params+ "'");
+                            dbHandler.DeleteTable("TBL_PHONE_CONTACTS","Phone_Contact_Gid='"+params+"'");
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction ft=fragmentManager.beginTransaction();
+                            ft.replace(R.id.main_container, new GroupsMainFragment());
+                            ft.commit();
+                        }else if(type==2){
+                            dbHandler.DeleteTable(DatabaseHandler.TABLE_EVENTS, "evt_title='" + params + "'");
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction ft = fragmentManager.beginTransaction();
+                            ft.replace(R.id.main_container, new EventsMainFragment());
+                            ft.commit();
+                        }
+
+
+                    }
+                }
+
+        );
+        builder.setNegativeButton("Cancel", null);
         builder.show();
     }
 

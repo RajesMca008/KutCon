@@ -132,7 +132,6 @@ public class ContactListAdapter extends BaseAdapter {
                 }
 
 
-
             rl_contacts.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
@@ -142,7 +141,25 @@ public class ContactListAdapter extends BaseAdapter {
 
                         cb_conatacts.setBackgroundResource(R.drawable.radio_btn_selected);
                         GroupContactsFragment.arr_contacts.get(position).setIS_CONTACT_SELECTED(1);
+                        boolean sel = false;
 
+                        for (int a = 0; a < GroupContactsFragment.arr_contacts.size(); a++) {
+
+                            if (GroupContactsFragment.arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+
+                                sel = true;
+                            }
+
+                        }
+
+
+                        if(sel){
+                            GroupContactsFragment.rl_actions.setAlpha(0.9f);
+                            GroupContactsFragment.rl_actions.setEnabled(true);
+                        }else{
+                            GroupContactsFragment.rl_actions.setAlpha(0.5f);
+                            GroupContactsFragment.rl_actions.setEnabled(false);
+                        }
 
                     } else {
                         Log.v("Email....","....EMAIL....N."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());
@@ -150,7 +167,25 @@ public class ContactListAdapter extends BaseAdapter {
                         cb_conatacts.setBackgroundResource(R.drawable.radio_btn);
                         checkBoxState[position] = false;
                         GroupContactsFragment.arr_contacts.get(position).setIS_CONTACT_SELECTED(0);
+                        boolean sel = false;
 
+                        for (int a = 0; a < GroupContactsFragment.arr_contacts.size(); a++) {
+
+                            if (GroupContactsFragment.arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+
+                                sel = true;
+                            }
+
+                        }
+
+
+                        if(sel){
+                            GroupContactsFragment.rl_actions.setAlpha(0.99f);
+                            GroupContactsFragment.rl_actions.setEnabled(true);
+                        }else{
+                            GroupContactsFragment.rl_actions.setAlpha(0.5f);
+                            GroupContactsFragment.rl_actions.setEnabled(false);
+                        }
 
                     }
 

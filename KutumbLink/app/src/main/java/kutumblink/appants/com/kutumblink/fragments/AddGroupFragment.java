@@ -123,14 +123,11 @@ public class AddGroupFragment extends BaseFragment {
         btn_removegroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.NAV_GROUPS=100;
-                dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_NAME + "'");
-                dbHandler.DeleteTable("TBL_PHONE_CONTACTS","Phone_Contact_Gid='"+Constants.GROUP_NAME+"'");
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction ft=fragmentManager.beginTransaction();
-                ft.replace(R.id.main_container, new GroupsMainFragment());
-                ft.commit();
-                showConfirmDialog(getString(R.string.app_name),"Group deleted successfully");
+
+                showConfirmOptionsDialog("Delete Group","Are you sure",Constants.GROUP_DELETE,Constants.GROUP_NAME);
+
+
+
             }
         });
 

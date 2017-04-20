@@ -29,6 +29,9 @@
     <string name="msg_title">Message Title</string>
     <string name="msg_link_title">Message Link</string>
 
+    <string name="evt_title">Events</string>
+    <string name="evt_groups">Groups</string>
+
     <string name="photo_title">Photo Title</string>
     <string name="photo_link_title">Photo Link</string>
     <string name="hint_text">URL Should start with http:// Or https://</string>

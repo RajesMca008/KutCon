@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.onegravity.contactpicker.contact.Contact;
 import com.onegravity.contactpicker.contact.ContactDescription;
@@ -41,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
@@ -52,7 +49,7 @@ import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditEventsFragment extends Fragment {
+public class EditEventsFragment extends BaseFragment {
 
     private static final int REQUEST_CONTACT = 0;
     int INSERT_CONTACT_REQUEST = 2;
@@ -165,53 +162,63 @@ public class EditEventsFragment extends Fragment {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                  if (tv_eventTitle.getText().toString().length() != 0 && tv_desc.getText().toString().length() != 0) {
-                try {
-
-                    if(event_title_text.getText().toString().length()<14)
-                    {
-                        event_title_text.setError("Invalid date format.");
-                        return;
-                    }
-
-                    String givenDateString = event_title_text.getText().toString();
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
-
-                    long timeInMilliseconds=10000;
-                    try {
-                        Date mDate = sdf.parse(givenDateString);
-                        timeInMilliseconds = mDate.getTime();
-                        System.out.println("Date in milli :: " + timeInMilliseconds);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
 
 
-                    ContentValues cv = new ContentValues();
-                    cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
-                    cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
-                    cv.put(DatabaseHandler.EVT_CONTACTS, contactsInfo);
-                    cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
-                    cv.put(DatabaseHandler.EVT_TIME_MILLY, timeInMilliseconds);
+                if(event_title_text.getText().toString().length()==0){
+                    showConfirmDialog(getString(R.string.evt_title), "Please enter date");
+
+                }else if(tv_eventTitle.getText().toString().length()==0){
+                    showConfirmDialog(getString(R.string.evt_title), "Please enter title");
+                }else if(tv_desc.getText().toString().length()==0){
+                    showConfirmDialog(getString(R.string.evt_title), "Please enter description");
+                }else {
+
+
+                        try {
                     cv.put(DatabaseHandler.EVENT_SORT_ORDER, Constants.SortOrderValue);
 
-                    if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("Edit")) {
-                        // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
-                        dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
+                            if (event_title_text.getText().toString().length() < 14) {
+                                event_title_text.setError("Invalid date format.");
+                                return;
+                            }
 
-                    }else{
-                        dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
+                            String givenDateString = event_title_text.getText().toString();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
 
-                    }
-                    scheduleNotification(getNotification(tv_eventTitle.getText().toString()), timeInMilliseconds);
-                } catch (Exception e) {
+                            long timeInMilliseconds = 10000;
+                            try {
+                                Date mDate = sdf.parse(givenDateString);
+                                timeInMilliseconds = mDate.getTime();
+                                System.out.println("Date in milli :: " + timeInMilliseconds);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
 
-                }
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
-                } else {
-                    Toast.makeText(getActivity(), "Please enter the Title and description", Toast.LENGTH_LONG).show();
+                            ContentValues cv = new ContentValues();
+                            cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
+                            cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
+                            cv.put(DatabaseHandler.EVT_CONTACTS, contactsInfo);
+                            cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
+                            cv.put(DatabaseHandler.EVT_TIME_MILLY, timeInMilliseconds);
+
+                            if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("Edit")) {
+                                // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
+                                dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, "evt_title='" + Constants.EVENTS_OLD_NAME + "'");
+
+                            } else {
+                                dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
+
+                            }
+                            scheduleNotification(getNotification(tv_eventTitle.getText().toString()), timeInMilliseconds);
+                        } catch (Exception e) {
+
+                        }
+
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
+
+
                 }
             }
         });
