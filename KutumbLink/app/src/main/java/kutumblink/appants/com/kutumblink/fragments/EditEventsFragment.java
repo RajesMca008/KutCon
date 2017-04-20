@@ -2,10 +2,15 @@ package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,9 +35,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
@@ -147,13 +156,31 @@ public class EditEventsFragment extends Fragment {
                   if (tv_eventTitle.getText().toString().length() != 0 && tv_desc.getText().toString().length() != 0) {
                 try {
 
+                    if(event_title_text.getText().toString().length()<14)
+                    {
+                        event_title_text.setError("Invalid date format.");
+                        return;
+                    }
+
+                    String givenDateString = event_title_text.getText().toString();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+
+                    long timeInMilliseconds=10000;
+                    try {
+                        Date mDate = sdf.parse(givenDateString);
+                        timeInMilliseconds = mDate.getTime();
+                        System.out.println("Date in milli :: " + timeInMilliseconds);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
 
                     ContentValues cv = new ContentValues();
                     cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
                     cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
                     cv.put(DatabaseHandler.EVT_CONTACTS, contactsInfo);
-
                     cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
+                    cv.put(DatabaseHandler.EVT_TIME_MILLY, timeInMilliseconds);
 
                     if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("Edit")) {
                         // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
@@ -161,7 +188,9 @@ public class EditEventsFragment extends Fragment {
 
                     }else{
                         dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
+
                     }
+                    scheduleNotification(getNotification(tv_eventTitle.getText().toString()), timeInMilliseconds);
                 } catch (Exception e) {
 
                 }
@@ -183,6 +212,13 @@ public class EditEventsFragment extends Fragment {
 
             }
         });
+        event_title_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HomeActivity.DatePickerFragment mDatePicker = new HomeActivity.DatePickerFragment();
+                mDatePicker.show(getActivity().getFragmentManager(), "Select date");
+            }
+        });
         tv_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,15 +227,6 @@ public class EditEventsFragment extends Fragment {
                 mTimePicker.show(getActivity().getFragmentManager(), "Select time");
             }
         });
-
-     /*   event_title_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-            }
-        });*/
 
 
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
@@ -392,5 +419,27 @@ public class EditEventsFragment extends Fragment {
             }
 
         }
+    }
+
+
+    private void scheduleNotification(Notification notification, long delay) {
+
+        Intent notificationIntent = new Intent(getContext(), NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = /*SystemClock.elapsedRealtime() +10000*/ delay;
+        Log.i("Date in milli set to"," Alarem :"+futureInMillis);
+        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    private Notification getNotification(String content) {
+        Notification.Builder builder = new Notification.Builder(getContext());
+        builder.setContentTitle(getString(R.string.app_name));
+        builder.setContentText(content);
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        return builder.build();
     }
 }

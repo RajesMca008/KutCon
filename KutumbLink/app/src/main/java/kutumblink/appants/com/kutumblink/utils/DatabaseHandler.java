@@ -43,6 +43,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String EVT_CREATED_ON = "evt_created_on";
 	public static final String EVT_EMAIL= "evt_email";
 	public static final String EVT_CONTACTS = "evt_contacts";
+	public static  String EVT_TIME_MILLY= "evt_time_milly";
 
 
 
@@ -85,6 +86,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			+ ")";
 
 
+
 	String CREATE_EVENTS_TABLE = "CREATE TABLE "
 			+ TABLE_EVENTS
 			+ " ("
@@ -94,6 +96,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			+ EVT_DESC 	+ " TEXT,"
 			+ EVT_CONTACTS 	+ " TEXT,"
 			+ EVT_EMAIL + " TEXT,"
+			+ EVT_TIME_MILLY + " LONG,"
 			+ EVT_CREATED_ON 	+ " TEXT"
 
 			+ ")";

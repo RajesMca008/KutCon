@@ -1,6 +1,7 @@
 package kutumblink.appants.com.kutumblink.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,14 @@ public class EventsListAdapter extends BaseAdapter {
             TextView tv_date=(TextView)view.findViewById(R.id.tv_date);
             tv_title.setText(""+adb.getEvtTitle());
             tv_desc.setText(""+adb.getEvtDesc());
+
+            //Event date compair
+            if(adb.getTimeInMilli()<System.currentTimeMillis())
+            {
+                tv_date.setTextColor(Color.RED);
+            }else {
+                tv_date.setTextColor(Color.BLACK);
+            }
             tv_date.setText(adb.getEvtDate().replace(",","\n"));
 
 

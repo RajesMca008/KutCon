@@ -13,6 +13,19 @@ public class EventsDo {
     private String evtEmail;
     private String evtphone;
 
+    public long getTimeInMilli() {
+        return timeInMilli;
+    }
+
+    public void setTimeInMilli(long timeInMilli) {
+        this.timeInMilli = timeInMilli;
+    }
+
+    private long timeInMilli;
+
+
+
+
     public String getEvtphone() {
         return evtphone;
     }

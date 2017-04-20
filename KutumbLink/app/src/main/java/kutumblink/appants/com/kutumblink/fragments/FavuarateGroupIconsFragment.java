@@ -39,16 +39,14 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
     }
     // Array of integers points to images stored in /res/drawable-ldpi/
     int[] flags = new int[]{
-            R.drawable.bag,
-            R.drawable.basket,
-            R.drawable.monitor,
-            R.drawable.movies,
-            R.drawable.note,
-            R.drawable.pad,
-            R.drawable.photo_gallery,
-            R.drawable.photos,
-            R.drawable.post_card,
-            R.drawable.printwer  };
+            R.drawable.family_icon,
+            R.drawable.extended_family,
+            R.drawable.cousins_icon,
+            R.drawable.all_relatives,
+            R.drawable.friends_icon,
+            R.drawable.work_friends,
+            R.drawable.neighbour,
+            R.drawable.calendar2  };
 
     String[] str_flags = new String[]{
             "Family",
@@ -57,7 +55,6 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
             "All Relatives",
             "Friends",
             "Work Friends",
-            "photo_gallery",
             "Neighbors",
             "Party Friends" };
 
@@ -114,7 +111,7 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
             }
         });
 
-        for(int i=0;i<9;i++){
+        for(int i=0;i<flags.length;i++){
             HashMap<String, String> hm = new HashMap<String,String>();
            hm.put("str_flags", str_flags[i]);
             hm.put("flags", Integer.toString(flags[i]) );

@@ -65,7 +65,7 @@ public class EventsMainFragment extends BaseFragment {
                     evtDetails.setEvtDesc(c.getString(c.getColumnIndex(DatabaseHandler.EVT_DESC)));
                     evtDetails.setEvtContacts(c.getString(c.getColumnIndex(DatabaseHandler.EVT_CONTACTS)));
                     evtDetails.setEvtDate(c.getString(c.getColumnIndex(DatabaseHandler.EVT_CREATED_ON)));
-
+                    evtDetails.setTimeInMilli(c.getLong(c.getColumnIndex(DatabaseHandler.EVT_TIME_MILLY)));
 
                     //  groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     arr_evts.add(evtDetails);

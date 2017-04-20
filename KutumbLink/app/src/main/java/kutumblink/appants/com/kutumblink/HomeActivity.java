@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import kutumblink.appants.com.kutumblink.fragments.BaseFragment;
 import kutumblink.appants.com.kutumblink.fragments.CameraMainFragment;
@@ -39,6 +40,7 @@ import kutumblink.appants.com.kutumblink.fragments.GroupsMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.MessageMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.SettingsFragment;
 import kutumblink.appants.com.kutumblink.utils.Constants;
+import kutumblink.appants.com.kutumblink.utils.RangeTimePickerDialog;
 
 public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener {
 
@@ -161,16 +163,32 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
+           /* final Calendar c = Calendar.getInstance();
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
 
-            return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
+
+            RangeTimePickerDialog timePicker=  new RangeTimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
+            //timePicker.getT
+
+            timePicker.setMin(hour,minute);*/
+
+
+            final Calendar mcurrentTime = Calendar.getInstance();
+            final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+            final int minute = mcurrentTime.get(Calendar.MINUTE);
+            final RangeTimePickerDialog mTimePicker;
+            mTimePicker = new RangeTimePickerDialog(getActivity(), this, hour, minute, true);//true = 24 hour time
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.setMin(hour, minute);
+           // mTimePicker.show();
+
+            return mTimePicker;
         }
 
         @Override
         public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
-            Constants.strDT+=", "+String.valueOf(hourOfDay) + " : " + String.valueOf(minute);
+            Constants.strDT+=", "+String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
 
             Log.v("LOG....","LOG DETAILS>..TIME...>."+Constants.strDT);
             EditEventsFragment.event_title_text.setText(Constants.strDT);
@@ -185,17 +203,17 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
-
-
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            DatePickerDialog datepicker= new DatePickerDialog(getActivity(), this, year, month, day);
+            datepicker.getDatePicker().setMinDate(new Date().getTime());
+            return datepicker;
         }
         public void onDateSet(DatePicker view, int year, int month, int day) {
         //    displayCurrentTime.setText("Selected date: " + String.valueOf(year) + " - " + String.valueOf(month) + " - " + String.valueOf(day));
 
-            Constants.strDT= String.valueOf(day) + "/" + String.valueOf(month) + "/" +String.valueOf(year);
+            Constants.strDT= String.valueOf(day) + "/" + String.valueOf(month+1) + "/" +String.valueOf(year);
            EditEventsFragment.event_title_text.setText(Constants.strDT);
            // EditEventsFragment.event_title_text.setText(Constants.strDT+" ,");
-            Log.v("LOG....","LOG DETAILS>..date...>."+Constants.strDT);
+            //Log.v("LOG....","LOG DETAILS>..date...>."+Constants.strDT);
             HomeActivity.TimePicker mTimePicker = new HomeActivity.TimePicker();
             mTimePicker.show(getActivity().getFragmentManager(), "Select time");
         }
