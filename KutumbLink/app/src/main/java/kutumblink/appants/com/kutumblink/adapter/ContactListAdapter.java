@@ -86,7 +86,7 @@ public class ContactListAdapter extends BaseAdapter {
             final Button btn_email=(Button)view.findViewById(R.id.btn_email);
 
             try{
-                if(adb.getConatactName().split(" ").length>1)
+                if(adb.getConatactName().split(" ").length>1 && !adb.getConatactName().matches(".*\\d+.*"))
                 {
                     if( Constants.SortOrderValue.equalsIgnoreCase(Constants.BY_LAST_NAME))
                     {
