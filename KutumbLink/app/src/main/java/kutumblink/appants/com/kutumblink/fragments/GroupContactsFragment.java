@@ -19,6 +19,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -57,7 +60,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     TextView tv_Done,tv_Cancel;
     Button btn_actions;
     //  Dialog topDialog;
-    LinearLayout ll_grpcontacts, ll_grpactionslist;
+    LinearLayout ll_grpcontacts, ll_grpactionslist,ll_nocontacts;
     ListView lv_grpactionslist;
     public static ArrayList<ContactsDo> arr_contacts = new ArrayList<ContactsDo>();
     boolean isVISIBLEACTIONS = false;
@@ -77,6 +80,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         ll_actions = (LinearLayout) view.findViewById(R.id.ll_actions);
         ll_grpactionslist = (LinearLayout) view.findViewById(R.id.ll_grplistactions);
         lv_grpactionslist = (ListView) view.findViewById(R.id.lv_actionsgroups);
+        ll_nocontacts=(LinearLayout)view.findViewById(R.id.ll_nocontacts);
         tv_Cancel=(TextView)view.findViewById(R.id.tv_cancel);
         tv_Done=(TextView)view.findViewById(R.id.tv_done);
 
@@ -201,7 +205,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 boolean sel = false;
                 for (int a = 0; a < arr_contacts.size(); a++) {
 
-                    if (arr_contacts.get(a).getConatactEmail().length() != 0) {
+                    if (!arr_contacts.get(a).getConatactEmail().equalsIgnoreCase("null") && arr_contacts.get(a).getIS_CONTACT_SELECTED()==1) {
 
                         data[a] = arr_contacts.get(a).getConatactEmail();
 
@@ -212,20 +216,25 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
 
                 if (sel) {
-                    String[] TO = {""};
-                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                  //  String[] TO = {data};
 
-                    emailIntent.setData(Uri.parse("mailto:"));
-                    emailIntent.setType("text/plain");
-                    emailIntent.putExtra(Intent.EXTRA_EMAIL, data);
-                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "");
-                    emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                    if(data!=null) {
+                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
-                    try {
-                        startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                        emailIntent.setData(Uri.parse("mailto:"));
+                        emailIntent.setType("text/plain");
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL, data);
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                        emailIntent.putExtra(Intent.EXTRA_TEXT, "");
 
-                    } catch (android.content.ActivityNotFoundException ex) {
-                        Toast.makeText(getActivity(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                        try {
+                            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(getActivity(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(getActivity(), "Contact's doen't have email id", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -245,11 +254,13 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                if(isContacts) {
 
-                   if (arr_group.size() != 0) {
+                   if (Constants.GROUP_CONTACTS_SIZE != 0) {
                        ll_grpactionslist.setVisibility(View.VISIBLE);
 
                        lv_grpactionslist.setAdapter(new ContactGroupListAdapter(getActivity(), arr_group));
                    } else {
+
+
                        showConfirmDialog(getString(R.string.app_name), "You don't have more groups");
                    }
                }else{
@@ -258,6 +269,14 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
             }
         });
+
+        if(Constants.GROUP_CONTACTS_SIZE==0){
+            ll_nocontacts.setVisibility(View.VISIBLE);
+            lv_grpactionslist.setVisibility(View.GONE);
+        }else{
+            ll_nocontacts.setVisibility(View.GONE);
+            lv_grpactionslist.setVisibility(View.VISIBLE);
+        }
         tv_rmvgrp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -276,10 +295,42 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         tv_addevt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.main_container, new EditEventsFragment());
-                ft.commit();
+
+                try {
+                    JSONArray jsonArray = new JSONArray();
+                    for (int i = 0; i < arr_contacts.size(); i++) {
+
+                        if (arr_contacts.get(i).getIS_CONTACT_SELECTED() == 1) {
+
+
+                            JSONObject jobj = new JSONObject();
+                            jobj.put(DatabaseHandler.PHONE_CONTACT_ID, "" + arr_contacts.get(i).getConatactId());
+                            jobj.put(DatabaseHandler.PHONE_CONTACT_NUMBER, "" + arr_contacts.get(i).getConatactPhone());
+                            jobj.put(DatabaseHandler.PHONE_CONTACT_EMAIL, "" + arr_contacts.get(i).getConatactEmail());
+                            jobj.put(DatabaseHandler.PHONE_CONTACT_NAME, "" + arr_contacts.get(i).getConatactName());
+
+                            jsonArray.put(jobj);
+
+                        }
+                    }
+
+
+                     EditEventsFragment edtFrg=new EditEventsFragment();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+
+                    Bundle args = new Bundle();
+                    args.putString("title","");
+                    args.putString("desc","");
+                    args.putString("time","");
+                    args.putString("contacts",jsonArray.toString());
+
+                    edtFrg.setArguments(args);
+                    ft.replace(R.id.main_container, edtFrg);
+                    ft.commit();
+                }catch(Exception e){
+
+                }
             }
         });
 

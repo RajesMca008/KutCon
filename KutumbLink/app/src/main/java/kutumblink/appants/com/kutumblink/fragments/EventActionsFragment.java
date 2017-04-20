@@ -108,18 +108,21 @@ public class EventActionsFragment extends BaseFragment {
 
         try {
 
-            JSONArray jArr = new JSONArray(b_contactsInfo);
+            if(b_contactsInfo!=null) {
 
-            for (int i = 0; i < jArr.length(); i++) {
+                JSONArray jArr = new JSONArray(b_contactsInfo);
 
-                JSONObject jobj = jArr.getJSONObject(i);
-                contactsInfo += jobj.getString(DatabaseHandler.PHONE_CONTACT_NAME) + "\n";
-                EventsDo ed = new EventsDo();
-                ed.setEvtContacts(jobj.getString(DatabaseHandler.PHONE_CONTACT_ID));
-                ed.setEvtphone(jobj.getString(DatabaseHandler.PHONE_CONTACT_NUMBER));
-                ed.setEvtEmail(jobj.getString(DatabaseHandler.PHONE_CONTACT_EMAIL));
-                arrEvt.add(ed);
+                for (int i = 0; i < jArr.length(); i++) {
 
+                    JSONObject jobj = jArr.getJSONObject(i);
+                    contactsInfo += jobj.getString(DatabaseHandler.PHONE_CONTACT_NAME) + "\n";
+                    EventsDo ed = new EventsDo();
+                    ed.setEvtContacts(jobj.getString(DatabaseHandler.PHONE_CONTACT_ID));
+                    ed.setEvtphone(jobj.getString(DatabaseHandler.PHONE_CONTACT_NUMBER));
+                    ed.setEvtEmail(jobj.getString(DatabaseHandler.PHONE_CONTACT_EMAIL));
+                    arrEvt.add(ed);
+
+                }
             }
 
         } catch (JSONException e) {

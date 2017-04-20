@@ -22,6 +22,7 @@ public class Constants {
     public static int NAV_GROUPS=100;
  public static  Boolean isGROUP_NOT_EXPAND=true;
     public static String SortOrderValue=Constants.DEFAULT;
+    public static int GROUP_CONTACTS_SIZE=0;
 
     public static String strDT="";
 }

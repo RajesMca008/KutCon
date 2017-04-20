@@ -42,7 +42,7 @@ public class EventsMainFragment extends BaseFragment {
         View view= inflater.inflate(R.layout.fragment_events_main, container, false);
 
         dbHandler=new DatabaseHandler(getActivity());
-
+        arr_evts.clear();
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
 
         HomeActivity.ib_back_next.setText("");

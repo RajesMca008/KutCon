@@ -89,29 +89,9 @@ public class ContactGroupListAdapter extends BaseAdapter {
 
 
 
-        /*  if(GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")){
-                btn_email.setVisibility(View.GONE);
-            }else{
-                btn_email.setVisibility(View.VISIBLE);
-            }
-
-            if(GroupContactsFragment.arr_contacts.get(position).getConatactPhone().equalsIgnoreCase("null")){
-                btn_phone.setVisibility(View.GONE);
-            }else{
-                btn_phone.setVisibility(View.VISIBLE);
-            }*/
-
-
-
             rl_contacts.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-
-                  /*  for(int i=0;i<GroupContactsFragment.arr_group.size();i++){
-                        checkBoxState[i]=false;
-                        cb_conatacts.setBackgroundResource(R.drawable.radio_btn);
-                        GroupContactsFragment.arr_contacts.get(i).setIS_CONTACT_SELECTED(0);
-                    }*/
 
                     if(!checkBoxState[position]) {
                         checkBoxState[position] = true;

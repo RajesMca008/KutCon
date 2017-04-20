@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
@@ -144,6 +145,9 @@ public class GroupsMainFragment extends BaseFragment {
 
 
 
+        dbHandler.DeleteTable(DatabaseHandler.TABLE_GROUP,"G_NAME='"+""+"'");
+        dbHandler.DeleteTable(DatabaseHandler.TABLE_PHONE_CONTACTS,"Phone_Contact_Gid='"+""+"'");
+
         Cursor c=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_GROUP);
         if(c!=null)
         {
@@ -186,6 +190,7 @@ public class GroupsMainFragment extends BaseFragment {
                 Constants.GROUP_OPERATIONS="EDIT";
                 Constants.GROUP_NAME=arr_group.get(i).getGroup_Name();
                 Constants.SortOrderValue=arr_group.get(i).getGroup_sortOrder();
+                Constants.GROUP_CONTACTS_SIZE=Integer.parseInt(arr_group.get(i).getGroup_totalContactList());
 
 
                 Constants.imgID=arr_group.get(i).getGroup_Pic();

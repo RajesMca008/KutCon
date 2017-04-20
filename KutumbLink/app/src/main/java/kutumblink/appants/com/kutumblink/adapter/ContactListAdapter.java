@@ -119,18 +119,17 @@ public class ContactListAdapter extends BaseAdapter {
             }
 
 
+                if (GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")) {
+                    btn_email.setVisibility(View.GONE);
+                } else {
+                    btn_email.setVisibility(View.VISIBLE);
+                }
 
-          if(GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")){
-                btn_email.setVisibility(View.GONE);
-            }else{
-                btn_email.setVisibility(View.VISIBLE);
-            }
-
-            if(GroupContactsFragment.arr_contacts.get(position).getConatactPhone().equalsIgnoreCase("null")){
-                btn_phone.setVisibility(View.GONE);
-            }else{
-                btn_phone.setVisibility(View.VISIBLE);
-            }
+                if (GroupContactsFragment.arr_contacts.get(position).getConatactPhone().equalsIgnoreCase("null")) {
+                    btn_phone.setVisibility(View.GONE);
+                } else {
+                    btn_phone.setVisibility(View.VISIBLE);
+                }
 
 
 

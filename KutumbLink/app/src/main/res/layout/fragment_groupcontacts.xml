@@ -51,20 +51,6 @@
                     />
 
 
-               <!--   <LinearLayout
-
-                      android:id="@+id/ll_popup_actions"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:background="@drawable/edtcornershape"
-
-                      android:visibility="gone"
-                      android:orientation="vertical">
-
-      <include layout="@layout/activity_actions"/>
-
-                  </LinearLayout>-->
-
             </LinearLayout>
 
 
@@ -80,6 +66,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp">
             </ListView>
+    <LinearLayout
+        android:id="@+id/ll_nocontacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_weight="1"
+        android:layout_marginRight="15dp">
+        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+         android:gravity="center_horizontal"
+            android:text="No contacts available in this group. \n Please add contacts"/>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -105,8 +106,9 @@
         android:id="@+id/ll_grplistactions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="1"
 
-        android:layout_marginTop="275dp"
+       android:gravity="bottom"
      >
 
     <include

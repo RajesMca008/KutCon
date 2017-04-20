@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.onegravity.contactpicker.contact.Contact;
 import com.onegravity.contactpicker.contact.ContactDescription;
@@ -79,6 +80,7 @@ public class EditEventsFragment extends Fragment {
         Bundle args = getArguments();
 
         if (args != null) {
+
             event_title_text.setText(args.getString("time"));
             tv_eventTitle.setText(args.getString("title"));
             tv_desc.setText(args.getString("desc"));
@@ -87,17 +89,19 @@ public class EditEventsFragment extends Fragment {
 
         try {
 
-            JSONArray jArr = new JSONArray(contactsInfo);
+            if(contactsInfo!=null) {
+                JSONArray jArr = new JSONArray(contactsInfo);
 
-            for (int i = 0; i < jArr.length(); i++) {
+                for (int i = 0; i < jArr.length(); i++) {
 
-                JSONObject jobj = jArr.getJSONObject(i);
+                    JSONObject jobj = jArr.getJSONObject(i);
 
-                EventsDo evtDo = new EventsDo();
-                evtDo.setEvtContacts(jobj.getString(DatabaseHandler.PHONE_CONTACT_ID));
-                arrEvt.add(evtDo);
+                    EventsDo evtDo = new EventsDo();
+                    evtDo.setEvtContacts(jobj.getString(DatabaseHandler.PHONE_CONTACT_ID));
+                    arrEvt.add(evtDo);
+                }
+
             }
-
 
             // contactsInfo=jo
 
@@ -140,22 +144,23 @@ public class EditEventsFragment extends Fragment {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //  if (tv_eventTitle.getText().toString().length() != 0 && tv_desc.getText().toString().length() != 0) {
+                  if (tv_eventTitle.getText().toString().length() != 0 && tv_desc.getText().toString().length() != 0) {
                 try {
 
 
                     ContentValues cv = new ContentValues();
                     cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
                     cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
-                 //   cv.put(DatabaseHandler.EVT_CONTACTS, tv_desc.getText().toString());
+                    cv.put(DatabaseHandler.EVT_CONTACTS, contactsInfo);
 
                     cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
 
-                    if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
+                    if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("Edit")) {
                         // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
-                        dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
-                    }else{
                         dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
+
+                    }else{
+                        dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
                     }
                 } catch (Exception e) {
 
@@ -163,9 +168,9 @@ public class EditEventsFragment extends Fragment {
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
-              /*  } else {
+                } else {
                     Toast.makeText(getActivity(), "Please enter the Title and description", Toast.LENGTH_LONG).show();
-                }*/
+                }
             }
         });
 
