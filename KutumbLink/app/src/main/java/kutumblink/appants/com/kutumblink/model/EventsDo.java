@@ -1,5 +1,7 @@
 package kutumblink.appants.com.kutumblink.model;
 
+import kutumblink.appants.com.kutumblink.utils.Constants;
+
 /**
  * Created by Vishnu on 22-03-2017.
  */
@@ -12,6 +14,16 @@ public class EventsDo {
     private String evtDate;
     private String evtEmail;
     private String evtphone;
+
+    public String getEvtSortOder() {
+        return evtSortOder;
+    }
+
+    public void setEvtSortOder(String evtSortOder) {
+        this.evtSortOder = evtSortOder;
+    }
+
+    private String evtSortOder= Constants.DEFAULT;
 
     public long getTimeInMilli() {
         return timeInMilli;

@@ -84,6 +84,18 @@ public class EditEventsFragment extends Fragment {
         tv_sortorder = (TextView) view.findViewById(R.id.sort_order_text);
         btn_save = (Button) view.findViewById(R.id.save_btn_id);
 
+        tv_sortorder.setText("Sort Order- "+Constants.SortOrderValue);
+        tv_sortorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SortOderDetailsFragment sortOrderFragment = new SortOderDetailsFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, sortOrderFragment);
+                fragmentTransaction.addToBackStack("sort_order");
+                fragmentTransaction.commit();
+            }
+        });
 
         //  if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
         Bundle args = getArguments();
@@ -181,6 +193,7 @@ public class EditEventsFragment extends Fragment {
                     cv.put(DatabaseHandler.EVT_CONTACTS, contactsInfo);
                     cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
                     cv.put(DatabaseHandler.EVT_TIME_MILLY, timeInMilliseconds);
+                    cv.put(DatabaseHandler.EVENT_SORT_ORDER, Constants.SortOrderValue);
 
                     if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("Edit")) {
                         // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
@@ -429,6 +442,13 @@ public class EditEventsFragment extends Fragment {
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+       /* Intent resultIntent = new Intent(getContext(), HomeActivity.class);
+        PendingIntent pendingIntent= PendingIntent.getActivity(
+                getContext(),
+                0,
+                resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);*/
+
         long futureInMillis = /*SystemClock.elapsedRealtime() +10000*/ delay;
         Log.i("Date in milli set to"," Alarem :"+futureInMillis);
         AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
@@ -441,5 +461,12 @@ public class EditEventsFragment extends Fragment {
         builder.setContentText(content);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         return builder.build();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        tv_sortorder.setText("Sort Order- "+Constants.SortOrderValue);
     }
 }

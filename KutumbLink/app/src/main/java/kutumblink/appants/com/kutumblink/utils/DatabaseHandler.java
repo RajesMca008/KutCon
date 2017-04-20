@@ -44,6 +44,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String EVT_EMAIL= "evt_email";
 	public static final String EVT_CONTACTS = "evt_contacts";
 	public static  String EVT_TIME_MILLY= "evt_time_milly";
+	public static  String EVENT_SORT_ORDER= "evt_sort_order";
 
 
 
@@ -97,7 +98,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			+ EVT_CONTACTS 	+ " TEXT,"
 			+ EVT_EMAIL + " TEXT,"
 			+ EVT_TIME_MILLY + " LONG,"
-			+ EVT_CREATED_ON 	+ " TEXT"
+			+ EVT_CREATED_ON 	+ " TEXT ,"
+			+EVENT_SORT_ORDER +" TEXT DEFAULT '"+Constants.DEFAULT+"'"
 
 			+ ")";
 

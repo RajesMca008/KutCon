@@ -66,7 +66,7 @@ public class EventsMainFragment extends BaseFragment {
                     evtDetails.setEvtContacts(c.getString(c.getColumnIndex(DatabaseHandler.EVT_CONTACTS)));
                     evtDetails.setEvtDate(c.getString(c.getColumnIndex(DatabaseHandler.EVT_CREATED_ON)));
                     evtDetails.setTimeInMilli(c.getLong(c.getColumnIndex(DatabaseHandler.EVT_TIME_MILLY)));
-
+                    evtDetails.setEvtSortOder(c.getString(c.getColumnIndex(DatabaseHandler.EVENT_SORT_ORDER)));
                     //  groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     arr_evts.add(evtDetails);
 
@@ -96,6 +96,7 @@ public class EventsMainFragment extends BaseFragment {
 
                 Constants.EVENT_OPERATIONS="EDIT";
                 Constants.Event_NAME=arr_evts.get(i).getEvtTitle();
+                Constants.SortOrderValue=arr_evts.get(i).getEvtSortOder();
 
 
                 EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
