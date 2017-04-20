@@ -175,7 +175,6 @@ public class EditEventsFragment extends BaseFragment {
 
 
                         try {
-                    cv.put(DatabaseHandler.EVENT_SORT_ORDER, Constants.SortOrderValue);
 
                             if (event_title_text.getText().toString().length() < 14) {
                                 event_title_text.setError("Invalid date format.");
@@ -201,6 +200,8 @@ public class EditEventsFragment extends BaseFragment {
                             cv.put(DatabaseHandler.EVT_CONTACTS, contactsInfo);
                             cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
                             cv.put(DatabaseHandler.EVT_TIME_MILLY, timeInMilliseconds);
+                            cv.put(DatabaseHandler.EVENT_SORT_ORDER, Constants.SortOrderValue);
+
 
                             if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("Edit")) {
                                 // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
