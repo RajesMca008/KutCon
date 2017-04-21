@@ -7,6 +7,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -16,6 +18,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -433,8 +436,11 @@ public class AddGroupFragment extends BaseFragment {
         });
         HomeActivity.tv_title.setText("Add Group");
 
-        if(Constants.imgID!=0){
+        if(Constants.imgID!=0 && Constants.imgID<8){
             iv_gicon.setImageResource(Constants.imgID);
+            et_groupname.setText(Constants.GROUP_NAME);
+        }else{
+            iv_gicon.setImageBitmap(StringToBitMap(Constants.CONV_BM));
             et_groupname.setText(Constants.GROUP_NAME);
         }
 
@@ -690,6 +696,18 @@ public class AddGroupFragment extends BaseFragment {
 
 
         sortOderTextView.setText("Sort Order- "+Constants.SortOrderValue);
+    }
+
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0,
+                    encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }
 

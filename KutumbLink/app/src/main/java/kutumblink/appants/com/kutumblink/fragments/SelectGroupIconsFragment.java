@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -237,6 +238,8 @@ public class SelectGroupIconsFragment extends BaseFragment  {
     {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
+
+
     }
 
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
@@ -251,6 +254,43 @@ public class SelectGroupIconsFragment extends BaseFragment  {
                         galleryIntent();
                 } else {
                     //code for deny
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 0:
+                if (resultCode == REQUEST_CAMERA) {
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                        //imageVIew.setImageBitmap(bitmap);
+                        Constants.CONV_BM=BitMapToString(bitmap);
+                    } catch (FileNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case 1:
+                if (resultCode == SELECT_FILE) {
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+
+                        Constants.CONV_BM=BitMapToString(bitmap);
+                        //imageVIew.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
                 break;
         }
@@ -276,7 +316,12 @@ public class SelectGroupIconsFragment extends BaseFragment  {
             e.printStackTrace();
         }
 
-       // ivImage.setImageBitmap(thumbnail);
+        Constants.CONV_BM=BitMapToString(thumbnail);
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
+
+        // ivImage.setImageBitmap(thumbnail);
     }
 
     @SuppressWarnings("deprecation")
@@ -286,6 +331,10 @@ public class SelectGroupIconsFragment extends BaseFragment  {
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                Constants.CONV_BM=BitMapToString(bm);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -295,6 +344,11 @@ public class SelectGroupIconsFragment extends BaseFragment  {
     }
 
 
-
-
+    public String BitMapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
+    }
 }
