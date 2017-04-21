@@ -436,13 +436,13 @@ public class AddGroupFragment extends BaseFragment {
         });
         HomeActivity.tv_title.setText("Add Group");
 
-        if(Constants.imgID!=0 && Constants.imgID<8){
+        if(Constants.imgID!=0){
             iv_gicon.setImageResource(Constants.imgID);
             et_groupname.setText(Constants.GROUP_NAME);
-        }else{
+        }/*else{
             iv_gicon.setImageBitmap(StringToBitMap(Constants.CONV_BM));
             et_groupname.setText(Constants.GROUP_NAME);
-        }
+        }*/
 
         tv_createContact.setOnClickListener(new View.OnClickListener() {
             @Override

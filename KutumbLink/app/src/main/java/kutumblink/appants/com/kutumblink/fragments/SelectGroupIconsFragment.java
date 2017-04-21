@@ -267,7 +267,7 @@ public class SelectGroupIconsFragment extends BaseFragment  {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
                         //imageVIew.setImageBitmap(bitmap);
-                        Constants.CONV_BM=BitMapToString(bitmap);
+                      //  Constants.CONV_BM=BitMapToString(bitmap);
                     } catch (FileNotFoundException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -282,7 +282,7 @@ public class SelectGroupIconsFragment extends BaseFragment  {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
 
-                        Constants.CONV_BM=BitMapToString(bitmap);
+                     //   Constants.CONV_BM=BitMapToString(bitmap);
                         //imageVIew.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
                         // TODO Auto-generated catch block
@@ -316,7 +316,7 @@ public class SelectGroupIconsFragment extends BaseFragment  {
             e.printStackTrace();
         }
 
-        Constants.CONV_BM=BitMapToString(thumbnail);
+    ///    Constants.CONV_BM=BitMapToString(thumbnail);
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
@@ -331,7 +331,7 @@ public class SelectGroupIconsFragment extends BaseFragment  {
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
-                Constants.CONV_BM=BitMapToString(bm);
+            //    Constants.CONV_BM=BitMapToString(bm);
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();

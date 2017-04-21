@@ -22,7 +22,7 @@ public class Constants {
 
     public static String GROUP_NAMEP = "";
 
-    public static String CONV_BM = "";
+  //  public static String CONV_BM = "";
 
 
     public static String Event_NAME = "";
