@@ -118,19 +118,21 @@ public class ContactListAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
 
+try {
+    if (GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")) {
+        btn_email.setVisibility(View.GONE);
+    } else {
+        btn_email.setVisibility(View.VISIBLE);
+    }
 
-                if (GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")) {
-                    btn_email.setVisibility(View.GONE);
-                } else {
-                    btn_email.setVisibility(View.VISIBLE);
-                }
+    if (GroupContactsFragment.arr_contacts.get(position).getConatactPhone().equalsIgnoreCase("null")) {
+        btn_phone.setVisibility(View.GONE);
+    } else {
+        btn_phone.setVisibility(View.VISIBLE);
+    }
+}catch(Exception e){
 
-                if (GroupContactsFragment.arr_contacts.get(position).getConatactPhone().equalsIgnoreCase("null")) {
-                    btn_phone.setVisibility(View.GONE);
-                } else {
-                    btn_phone.setVisibility(View.VISIBLE);
-                }
-
+}
 
             rl_contacts.setOnClickListener(new View.OnClickListener() {
 
@@ -154,13 +156,16 @@ public class ContactListAdapter extends BaseAdapter {
 
 
                         if(sel){
-                            GroupContactsFragment.rl_actions.setAlpha(0.9f);
+                            GroupContactsFragment.rl_actions.setAlpha(0.99f);
                             GroupContactsFragment.rl_actions.setEnabled(true);
+                            GroupContactsFragment.btn_actions.setEnabled(true);
+                            GroupContactsFragment.btn_close.setEnabled(true);
                         }else{
                             GroupContactsFragment.rl_actions.setAlpha(0.5f);
                             GroupContactsFragment.rl_actions.setEnabled(false);
+                            GroupContactsFragment.btn_actions.setEnabled(false);
+                            GroupContactsFragment.btn_close.setEnabled(false);
                         }
-
                     } else {
                         Log.v("Email....","....EMAIL....N."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());
 
@@ -182,9 +187,13 @@ public class ContactListAdapter extends BaseAdapter {
                         if(sel){
                             GroupContactsFragment.rl_actions.setAlpha(0.99f);
                             GroupContactsFragment.rl_actions.setEnabled(true);
+                            GroupContactsFragment.btn_actions.setEnabled(true);
+                            GroupContactsFragment.btn_close.setEnabled(true);
                         }else{
                             GroupContactsFragment.rl_actions.setAlpha(0.5f);
                             GroupContactsFragment.rl_actions.setEnabled(false);
+                            GroupContactsFragment.btn_actions.setEnabled(false);
+                            GroupContactsFragment.btn_close.setEnabled(false);
                         }
 
                     }

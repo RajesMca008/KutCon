@@ -192,6 +192,23 @@ public class BaseFragment extends Fragment {
                             FragmentTransaction ft = fragmentManager.beginTransaction();
                             ft.replace(R.id.main_container, new EventsMainFragment());
                             ft.commit();
+                        }else if(type==3){
+                            for(int i=0;i<GroupContactsFragment.arr_contacts.size();i++){
+                                if(GroupContactsFragment.arr_contacts.get(i).getIS_CONTACT_SELECTED()==1){
+                                    dbHandler.DeleteTable("TBL_PHONE_CONTACTS", "Phone_Contact_Gid='" + Constants.GROUP_NAME + "' AND Phone_Contact_ID='"+GroupContactsFragment.arr_contacts.get(i).getConatactId()+"'");
+
+                                }
+                            }
+
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction ft = fragmentManager.beginTransaction();
+                            ft.replace(R.id.main_container, new GroupsMainFragment());
+                            ft.commit();
+
+
+
+
+                            Constants.NAV_GROUPS = 100;
                         }
 
 

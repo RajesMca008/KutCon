@@ -19,6 +19,8 @@ public class Constants {
 
     public static int imgID = 0;
     public static String GROUP_NAME = "";
+    public static String GROUP_NAMEP = "";
+
     public static String Event_NAME = "";
     public static String GROUP_OPERATIONS = "SAVE";
     public static String EVENT_OPERATIONS = "SAVE";
