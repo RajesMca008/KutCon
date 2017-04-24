@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.model.GroupDo;
+import kutumblink.appants.com.kutumblink.utils.Constants;
 
 /**
  * Created by Vishnu on 18-05-2016.
@@ -77,7 +78,7 @@ public class GroupListAdapter extends BaseAdapter {
             ImageView iv_groupPic=(ImageView)view.findViewById(R.id.iv_photo);
             tv_groupName.setText(""+adb.getGroup_Name());
             tv_totalcontacts.setText(""+adb.getGroup_totalContactList());
-            iv_groupPic.setImageResource(adb.getGroup_Pic());
+            iv_groupPic.setImageBitmap(Constants.stringToBitMap(adb.getGroup_Pic()));
 
 
             // set value into textview

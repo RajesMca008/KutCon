@@ -142,7 +142,7 @@ public class SettingsFragment extends BaseFragment  {
                             String value = mapEntry.getValue();
 
                             if(key.equalsIgnoreCase("flags")  ) {
-                                Constants.imgID=Integer.parseInt(value);
+                                Constants.imgID=value;
 
                             }
 
@@ -218,9 +218,6 @@ public class SettingsFragment extends BaseFragment  {
                                 }
 
                             }
-
-
-
 
                         }
                     /*    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

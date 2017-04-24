@@ -148,7 +148,7 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
                             String value = mapEntry.getValue();
 
                             if(key.equalsIgnoreCase("flags")  ) {
-                                Constants.imgID=Integer.parseInt(value);
+                                Constants.imgID=value;
 
                             }
 

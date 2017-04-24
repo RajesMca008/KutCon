@@ -1,16 +1,18 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +23,6 @@ import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -199,6 +198,7 @@ public class SelectGroupIconsFragment extends BaseFragment  {
 
 
 
+
                 int a=0;
 
                 for (HashMap<String, String> map : aList) {
@@ -207,8 +207,18 @@ public class SelectGroupIconsFragment extends BaseFragment  {
                             String key = mapEntry.getKey();
                             String value = mapEntry.getValue();
 
-                            if(key.equalsIgnoreCase("flag")) {
-                                Constants.imgID=Integer.parseInt(value);
+                            if(key.equalsIgnoreCase("imgName")) {
+                               // Constants.imgID=value;
+
+
+                                Log.v("DATA NAME...","DATA VALUE..."+value);
+                               Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(value.replace(".jpg","") , "drawable", getActivity().getPackageName()));
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+                                final String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+
+
+                                Constants.imgID = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
 
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
@@ -261,47 +271,26 @@ public class SelectGroupIconsFragment extends BaseFragment  {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case 0:
-                if (resultCode == REQUEST_CAMERA) {
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
-                        //imageVIew.setImageBitmap(bitmap);
-                      //  Constants.CONV_BM=BitMapToString(bitmap);
-                    } catch (FileNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-                break;
-            case 1:
-                if (resultCode == SELECT_FILE) {
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+        super.onActivityResult(requestCode, resultCode, data);
 
-                     //   Constants.CONV_BM=BitMapToString(bitmap);
-                        //imageVIew.setImageBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-                break;
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SELECT_FILE)
+                onSelectFromGalleryResult(data);
+            else if (requestCode == REQUEST_CAMERA)
+                onCaptureImageResult(data);
         }
     }
-
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        Constants.imgID=Constants.bitMapToString(thumbnail);
 
-        File destination = new File(Environment.getExternalStorageDirectory(),
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
+
+       /* File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
 
         FileOutputStream fo;
@@ -314,17 +303,14 @@ public class SelectGroupIconsFragment extends BaseFragment  {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
+        Log.v("DATA GALLERY..","DATA capture...");
 
-    ///    Constants.CONV_BM=BitMapToString(thumbnail);
 
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
 
-        // ivImage.setImageBitmap(thumbnail);
     }
 
-    @SuppressWarnings("deprecation")
+
     private void onSelectFromGalleryResult(Intent data) {
 
         Bitmap bm=null;
@@ -333,8 +319,16 @@ public class SelectGroupIconsFragment extends BaseFragment  {
                 bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
             //    Constants.CONV_BM=BitMapToString(bm);
 
+                Log.v("DATA GALLERY..","DATA GALLERY...");
+
+                Constants.imgID=Constants.bitMapToString(bm);
+
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();
+
+
+              /*  FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new AddGroupFragment()).commit();*/
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -344,11 +338,5 @@ public class SelectGroupIconsFragment extends BaseFragment  {
     }
 
 
-    public String BitMapToString(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String temp = Base64.encodeToString(b, Base64.DEFAULT);
-        return temp;
-    }
+
 }

@@ -450,15 +450,21 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 c.moveToFirst();
                 do {
 
-                    ContactsDo contactsBean = new ContactsDo();
-                    contactsBean.setConatactGroupName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_GID)));
-                    contactsBean.setConatactId(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
-                    contactsBean.setConatactName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NAME)));
-                    contactsBean.setConatactPhone(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NUMBER)));
-                    contactsBean.setConatactPIC(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_PIC)));
-                    contactsBean.setConatactEmail(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_EMAIL)));
-                    contactsBean.setIS_CONTACT_SELECTED(0);
-                    arr_contacts.add(contactsBean);
+                    try {
+                        if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
+                            ContactsDo contactsBean = new ContactsDo();
+                            contactsBean.setConatactGroupName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_GID)));
+                            contactsBean.setConatactId(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
+                            contactsBean.setConatactName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NAME)));
+                            contactsBean.setConatactPhone(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NUMBER)));
+                            contactsBean.setConatactPIC(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_PIC)));
+                            contactsBean.setConatactEmail(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_EMAIL)));
+                            contactsBean.setIS_CONTACT_SELECTED(0);
+                            arr_contacts.add(contactsBean);
+                        }
+                    }catch(Exception e){
+
+                    }
 
                 } while (c.moveToNext());
 
@@ -476,7 +482,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                         GroupDo groupDetails = new GroupDo();
                         groupDetails.setGroup_Name(cg.getString(cg.getColumnIndex(dbHandler.GROUP_NAME)));
-                        groupDetails.setGroup_Pic(Integer.parseInt(cg.getString(cg.getColumnIndex(dbHandler.GROUP_PIC))));
+                        groupDetails.setGroup_Pic(cg.getString(cg.getColumnIndex(dbHandler.GROUP_PIC)));
 
                         groupDetails.setGroup_isSELECT(0);
 

@@ -7,8 +7,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -18,7 +16,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -436,13 +433,13 @@ public class AddGroupFragment extends BaseFragment {
         });
         HomeActivity.tv_title.setText("Add Group");
 
-        if(Constants.imgID!=0){
-            iv_gicon.setImageResource(Constants.imgID);
+        if(!Constants.imgID.contains("/")){
+            iv_gicon.setImageResource(Integer.parseInt(Constants.imgID));
             et_groupname.setText(Constants.GROUP_NAME);
-        }/*else{
-            iv_gicon.setImageBitmap(StringToBitMap(Constants.CONV_BM));
+        }else{
+            iv_gicon.setImageBitmap(Constants.stringToBitMap(Constants.imgID));
             et_groupname.setText(Constants.GROUP_NAME);
-        }*/
+        }
 
         tv_createContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -507,15 +504,17 @@ public class AddGroupFragment extends BaseFragment {
                             c.moveToFirst();
                             do {
 
-                                ContactsDo contactsBean=new ContactsDo();
-                                contactsBean.setConatactId(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
-                                //    arr_contacts.add(contactsBean);
-                                //   selectedList[i]=Integer.parseInt(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
+                                if(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID))!=null) {
+                                    ContactsDo contactsBean = new ContactsDo();
+                                    contactsBean.setConatactId(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
+                                    //    arr_contacts.add(contactsBean);
+                                    //   selectedList[i]=Integer.parseInt(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
 
-                                Log.v("SELECTED CONTACTS...","CONTACTS.."+c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
+                                    Log.v("SELECTED CONTACTS...", "CONTACTS.." + c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
 
-                                selectContats.add(Long.parseLong(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID))));
+                                    selectContats.add(Long.parseLong(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID))));
 
+                                }
                                 i++;
                             }while(c.moveToNext());
 
@@ -698,16 +697,6 @@ public class AddGroupFragment extends BaseFragment {
         sortOderTextView.setText("Sort Order- "+Constants.SortOrderValue);
     }
 
-    public Bitmap StringToBitMap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0,
-                    encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
-    }
+
 }
 

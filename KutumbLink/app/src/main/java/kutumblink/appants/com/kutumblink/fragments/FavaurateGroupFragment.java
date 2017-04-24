@@ -1,8 +1,11 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import kutumblink.appants.com.kutumblink.R;
@@ -69,9 +73,17 @@ public class FavaurateGroupFragment extends BaseFragment {
         arr_group.clear();
 
 
-
         String mDrawableName = "add_group";
-        Constants.imgID = getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName());
+        Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName()));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+        final String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+
+
+        Constants.imgID = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+
+
+        //getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName());
 
 
 

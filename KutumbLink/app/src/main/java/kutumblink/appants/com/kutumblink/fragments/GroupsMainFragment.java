@@ -1,9 +1,12 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +16,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
@@ -126,7 +129,15 @@ public class GroupsMainFragment extends BaseFragment {
                         ft.addToBackStack("group_Main");
                         ft.commit();
 
-                Constants.imgID = getResources().getIdentifier(mDrawableName, "mipmap", getActivity().getPackageName());
+
+                Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(mDrawableName , "mipmap", getActivity().getPackageName()));
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                final String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+
+
+                Constants.imgID = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+              //  Constants.imgID = getResources().getIdentifier(mDrawableName, "mipmap", getActivity().getPackageName());
             }
         });
         HomeActivity.tv_title.setText("Groups");
@@ -136,12 +147,29 @@ public class GroupsMainFragment extends BaseFragment {
         HomeActivity.ib_menu.setText("");
         String mDrawableName = "group_default_icon";
 
-        if(Constants.imgID!=0){
+        if(!Constants.imgID.contains("/")){
+            mDrawableName = "add_group";
+            Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName()));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+            final String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
 
-        }else {
 
-            Constants.imgID = getResources().getIdentifier(mDrawableName, "mipmap", getActivity().getPackageName());
-        }
+            Constants.imgID = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        }/*else {
+
+             mDrawableName = "add_group";
+            Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName()));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+            final String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+
+
+            Constants.imgID = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+
+
+         //   Constants.imgID = getResources().getIdentifier(mDrawableName, "mipmap", getActivity().getPackageName());
+        }*/
 
 
 
@@ -161,11 +189,16 @@ public class GroupsMainFragment extends BaseFragment {
                         GroupDo groupDetails=new GroupDo();
                     groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     groupDetails.setGroup_Name(c.getString(c.getColumnIndex(dbHandler.GROUP_NAME)));
-                    groupDetails.setGroup_Pic(Integer.parseInt(c.getString(c.getColumnIndex(dbHandler.GROUP_PIC))));
+                    groupDetails.setGroup_Pic(c.getString(c.getColumnIndex(dbHandler.GROUP_PIC)));
                     groupDetails.setGroup_sortOrder(c.getString(c.getColumnIndex(dbHandler.GROUP_SORT_ORDER)));
 
                     if(cg.getCount()>0) {
-                        groupDetails.setGroup_totalContactList("" + cg.getCount());
+
+                        if(cg.getCount()==1 && cg.getString(c.getColumnIndex("Phone_Contact_ID"))!=null){
+                            groupDetails.setGroup_totalContactList("" + cg.getCount());
+                        }else {
+                            groupDetails.setGroup_totalContactList("0" );
+                        }
                     }else{
                         groupDetails.setGroup_totalContactList("0");// + cg.getCount());
                     }
@@ -181,7 +214,16 @@ public class GroupsMainFragment extends BaseFragment {
         Log.v("GROUP SIZE...","SIZE OF GROUP..."+arr_group.size());
        lv_GroupList.setAdapter(new GroupListAdapter(getActivity(),arr_group));
 
-
+     /*   Date today = new Date("19-04-2017");
+        Date myDate = new Date(today.getYear(),today.getMonth()-1,today.getDay());
+        System.out.println("**My Date is"+myDate);
+        System.out.println("**Today Date is"+today);
+        if (today.compareTo(myDate)<0)
+            System.out.println("**Today Date is Lesser than my Date");
+        else if (today.compareTo(myDate)>0)
+            System.out.println("Today Date is Greater than my date");
+        else
+            System.out.println("Both Dates are equal");*/
         lv_GroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
