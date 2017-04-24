@@ -305,7 +305,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             public void onClick(View view) {
 
 
-             showConfirmOptionsDialog("Remove contacts from group","Are you sure",3,"");
+             showConfirmOptionsDialog("Remove contacts from group","Are you sure?",3,"");
               //  dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_NAME + "'");
 
                // Toast.makeText(getActivity(), "Group deleted successfully", Toast.LENGTH_LONG).show();

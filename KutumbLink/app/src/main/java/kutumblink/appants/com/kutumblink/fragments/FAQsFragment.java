@@ -39,6 +39,7 @@ public class FAQsFragment extends Fragment {
             ((TextView)view.findViewById(R.id.faq2)).setText(Html.fromHtml(getString(R.string.faq2),Html.FROM_HTML_MODE_LEGACY));
             ((TextView)view.findViewById(R.id.faq3)).setText(Html.fromHtml(getString(R.string.faq3),Html.FROM_HTML_MODE_LEGACY));
             ((TextView)view.findViewById(R.id.faq4)).setText(Html.fromHtml(getString(R.string.faq4),Html.FROM_HTML_MODE_LEGACY));
+            ((TextView)view.findViewById(R.id.faq5)).setText(Html.fromHtml(getString(R.string.faq5),Html.FROM_HTML_MODE_LEGACY));
         }
 
         else
@@ -47,6 +48,7 @@ public class FAQsFragment extends Fragment {
             ((TextView)view.findViewById(R.id.faq2)).setText(Html.fromHtml(getString(R.string.faq2)));
             ((TextView)view.findViewById(R.id.faq3)).setText(Html.fromHtml(getString(R.string.faq3)));
             ((TextView)view.findViewById(R.id.faq4)).setText(Html.fromHtml(getString(R.string.faq4)));
+            ((TextView)view.findViewById(R.id.faq5)).setText(Html.fromHtml(getString(R.string.faq5)));
         }
 
         HomeActivity.tv_title.setText("FAQs");

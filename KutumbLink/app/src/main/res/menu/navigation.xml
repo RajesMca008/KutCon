@@ -3,23 +3,23 @@
 
     <item
         android:id="@+id/navigation_groups"
-        android:icon="@mipmap/groups_btn"
+        android:icon="@mipmap/groups_btn_n"
 
-        android:title="" />
+        android:title="Groups" />
 
     <item
         android:id="@+id/navigation_events"
-        android:icon="@mipmap/events_btn"
-        android:title="" />
+        android:icon="@mipmap/events_btn_n"
+        android:title="Events" />
 
     <item
         android:id="@+id/navigation_message"
-        android:icon="@drawable/message_selector"
-        android:title="" />
+        android:icon="@mipmap/messages_btn_n"
+        android:title="Messages" />
     <item
         android:id="@+id/navigation_photos"
-        android:icon="@mipmap/photos_btn"
-       android:title=""  />
+        android:icon="@mipmap/photos_btn_n"
+       android:title="Photos"  />
     <!--
      <item
         android:id="@+id/navigation_groups"

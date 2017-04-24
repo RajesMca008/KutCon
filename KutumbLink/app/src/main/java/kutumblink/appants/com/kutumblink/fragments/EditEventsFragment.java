@@ -81,7 +81,7 @@ public class EditEventsFragment extends BaseFragment {
         tv_sortorder = (TextView) view.findViewById(R.id.sort_order_text);
         btn_save = (Button) view.findViewById(R.id.save_btn_id);
 
-        tv_sortorder.setText("Sort Order- "+Constants.SortOrderValue);
+        tv_sortorder.setText("Sort Order  -  "+Constants.SortOrderValue);
         tv_sortorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -475,6 +475,6 @@ public class EditEventsFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 
-        tv_sortorder.setText("Sort Order- "+Constants.SortOrderValue);
+        tv_sortorder.setText("Sort Order  -  "+Constants.SortOrderValue);
     }
 }

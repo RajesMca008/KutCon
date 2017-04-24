@@ -53,29 +53,37 @@
     <string name="email">contact@britezest.com</string>
     <string name="faq1">
         <![CDATA[
-        <b>Why are contacts not visible?</b><BR/>
+        <b>1) Why are contacts not visible?</b><BR/>
         Go to your phone’s settings – privacy – contacts and give access.
         ]]>
         </string>
 
     <string name="faq2">
         <![CDATA[
-        <b>Why do I see advertisements?</b><BR/>
+        <b>2) Why do I see advertisements?</b><BR/>
         KutumbLink free App has advertisements and KutumbLink premium App has no advertisements.
         ]]>
         </string>
 
     <string name="faq3">
         <![CDATA[
-        <b>How can I edit or delete a Group or an Event?</b><BR/>
+        <b>3) How can I edit or delete a Group or an Event?</b><BR/>
        Swipe left on Group/Event name or click on Group/Event name and select Edit button at top right.
         ]]>
         </string>
 
     <string name="faq4">
         <![CDATA[
-        <b>What happens to data entered in the App?</b><BR/>
+        <b>4) What happens to data entered in the App?</b><BR/>
        All Contacts, Groups, Events, Message Links and Photo Links input in the App stay on your phone only.
+        ]]>
+        </string>
+
+    <string name="faq5">
+        <![CDATA[
+        <b>5) How can I send text or email to Group or Event contacts?</b><BR/>
+       Select Group contacts and click on Action dropdown and select action. Click on Action dropdown in Event Details screen
+       and select action.
         ]]>
         </string>
     <string name="settings">Settings</string>

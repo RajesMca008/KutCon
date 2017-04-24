@@ -144,7 +144,7 @@
             android:textSize="18sp"
             android:drawableRight="@mipmap/right_arrow"
             android:layout_marginRight="10dp"
-            android:text="Sort Order- Default"/>
+            android:text="Sort Order  -  Default"/>
 
         <View
             android:layout_width="match_parent"
@@ -162,6 +162,6 @@
             android:paddingRight="15dp"
             android:textColor="@color/whitecolor"
             android:background="@color/redcolor"
-            android:text="Remove Group"/>
+            android:text="Remove from Group"/>
     </LinearLayout>
 </FrameLayout>

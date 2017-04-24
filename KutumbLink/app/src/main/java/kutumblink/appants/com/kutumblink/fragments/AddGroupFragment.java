@@ -124,7 +124,7 @@ public class AddGroupFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
-                showConfirmOptionsDialog("Delete Group","Are you sure",Constants.GROUP_DELETE,Constants.GROUP_NAME);
+                showConfirmOptionsDialog("Delete Group","Are you sure?",Constants.GROUP_DELETE,Constants.GROUP_NAME);
 
 
 
@@ -574,7 +574,7 @@ public class AddGroupFragment extends BaseFragment {
         //String sortOder=sharedPreferences.getString("SORT_ORDER",Constants.DEFAULT);
 
 
-        sortOderTextView.setText("Sort Order- "+Constants.SortOrderValue);
+        sortOderTextView.setText("Sort Order  -  "+Constants.SortOrderValue);
 
         sortOderTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -694,7 +694,7 @@ public class AddGroupFragment extends BaseFragment {
         //String sortOder=sharedPreferences.getString("SORT_ORDER",Constants.DEFAULT);
 
 
-        sortOderTextView.setText("Sort Order- "+Constants.SortOrderValue);
+        sortOderTextView.setText("Sort Order  -  "+Constants.SortOrderValue);
     }
 
 

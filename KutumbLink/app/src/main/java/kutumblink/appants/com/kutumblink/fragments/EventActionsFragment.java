@@ -188,7 +188,7 @@ public class EventActionsFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
-                showConfirmOptionsDialog("Delete Event","Areyou sure",Constants.EVENTS_DELETE,b_title);
+                showConfirmOptionsDialog("Delete Event","Are you sure?",Constants.EVENTS_DELETE,b_title);
 
 
             }

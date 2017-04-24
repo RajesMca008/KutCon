@@ -12,6 +12,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -21,11 +22,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -61,16 +67,19 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             switch (item.getItemId()) {
                 case R.id.navigation_groups:
                    fragment=new GroupsMainFragment();
-
+                   // item.setIcon(R.mipmap.groups_btn_active_n);
                     break;
                 case R.id.navigation_events:
                     fragment=new EventsMainFragment();
+                   // item.setIcon(R.mipmap.events_btn_active_n);
                     break;
                 case R.id.navigation_message:
                     fragment=new MessageMainFragment();
+                   // item.setIcon(R.mipmap.messages_btn_active_n);
                     break;
                 case R.id.navigation_photos:
                     fragment=new CameraMainFragment();
+                   // item.setIcon(R.mipmap.photos_btn_active_n);
                     break;
             }
 
@@ -135,6 +144,23 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         }
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
+
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+        for (int i = 0; i < menuView.getChildCount(); i++) {
+            final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
+            final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
+            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            // set your height here
+            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, displayMetrics);
+            // set your width here
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, displayMetrics);
+
+            FrameLayout.LayoutParams  params = (FrameLayout.LayoutParams) iconView.getLayoutParams();
+            params.gravity = Gravity.CENTER;
+            iconView.setLayoutParams(layoutParams);
+        }
 
         //If you want disable shift change mode for bottom
         BottomNavigationViewHelper.disableShiftMode(navigation);
