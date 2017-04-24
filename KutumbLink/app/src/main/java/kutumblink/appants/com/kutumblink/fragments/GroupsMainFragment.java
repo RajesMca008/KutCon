@@ -194,11 +194,7 @@ public class GroupsMainFragment extends BaseFragment {
 
                     if(cg.getCount()>0) {
 
-                        if(cg.getCount()==1 && cg.getString(c.getColumnIndex("Phone_Contact_ID"))!=null){
                             groupDetails.setGroup_totalContactList("" + cg.getCount());
-                        }else {
-                            groupDetails.setGroup_totalContactList("0" );
-                        }
                     }else{
                         groupDetails.setGroup_totalContactList("0");// + cg.getCount());
                     }

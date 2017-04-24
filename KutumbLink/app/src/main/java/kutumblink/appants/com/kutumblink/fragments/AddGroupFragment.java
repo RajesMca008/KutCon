@@ -195,7 +195,7 @@ public class AddGroupFragment extends BaseFragment {
                         }
 
 
-                        ContentValues cv = new ContentValues();
+                       /* ContentValues cv = new ContentValues();
 
                         cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
 
@@ -208,7 +208,7 @@ public class AddGroupFragment extends BaseFragment {
 
                             dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, " Phone_Contact_Gid='" +"0"+ "'");
 
-                        }
+                        }*/
                     } else {
 
 
