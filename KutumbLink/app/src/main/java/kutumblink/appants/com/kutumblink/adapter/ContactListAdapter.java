@@ -1,6 +1,9 @@
 package kutumblink.appants.com.kutumblink.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +78,7 @@ public class ContactListAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
-           // view = new View(context);
+            // view = new View(context);
 
             // get layout from grid_item.xml
             view = inflater.inflate(R.layout.inflate_contactlist, null);
@@ -93,17 +96,17 @@ public class ContactListAdapter extends BaseAdapter {
 
 
 
-                    String[] words = adb.getConatactName().split(" ");
-                    String tmp = words[0];  // grab the first
-                    words[0] = words[words.length-1];  //replace the first with the last
-                    words[words.length-1] = tmp;
-                    String name="";
-                    for (int i=0;i<words.length;i++)
-                    {
-                        name=name+" "+words[i];
-                    }
-                    Log.i("TEST", "Sort Name"+name);
-                    tv_contactName.setText(""+name);
+                        String[] words = adb.getConatactName().split(" ");
+                        String tmp = words[0];  // grab the first
+                        words[0] = words[words.length-1];  //replace the first with the last
+                        words[words.length-1] = tmp;
+                        String name="";
+                        for (int i=0;i<words.length;i++)
+                        {
+                            name=name+" "+words[i];
+                        }
+                        Log.i("TEST", "Sort Name"+name);
+                        tv_contactName.setText(""+name);
                     }
                     else {
                         tv_contactName.setText(""+adb.getConatactName());
@@ -118,25 +121,37 @@ public class ContactListAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
 
-try {
-    if (GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")) {
-        btn_email.setVisibility(View.GONE);
-    } else {
-        btn_email.setVisibility(View.VISIBLE);
-    }
+            try {
+                if (GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")) {
+                    btn_email.setVisibility(View.GONE);
+                } else {
+                    btn_email.setVisibility(View.VISIBLE);
+                }
 
-    if (GroupContactsFragment.arr_contacts.get(position).getConatactPhone().equalsIgnoreCase("null")) {
-        btn_phone.setVisibility(View.GONE);
-    } else {
-        btn_phone.setVisibility(View.VISIBLE);
-    }
-}catch(Exception e){
+                if (GroupContactsFragment.arr_contacts.get(position).getConatactPhone().equalsIgnoreCase("null")) {
+                    btn_phone.setVisibility(View.GONE);
+                } else {
+                    btn_phone.setVisibility(View.VISIBLE);
+                }
+            }catch(Exception e){
 
-}
+            }
 
-            rl_contacts.setOnClickListener(new View.OnClickListener() {
+            tv_contactName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("TEST","Contact selected "+GroupContactsFragment.arr_contacts.get(position).getConatactName());
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, String.valueOf(GroupContactsFragment.arr_contacts.get(position).getConatactId()));
+                    intent.setData(uri);
+                    context.startActivity(intent);
+                }
+            });
+            cb_conatacts.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
+
+
                     if(!checkBoxState[position]) {
                         checkBoxState[position] = true;
                         Log.v("Email....","....EMAIL....Y."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());

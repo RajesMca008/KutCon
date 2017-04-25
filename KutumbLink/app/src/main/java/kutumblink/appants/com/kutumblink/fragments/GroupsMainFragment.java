@@ -132,7 +132,7 @@ public class GroupsMainFragment extends BaseFragment {
 
                 Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(mDrawableName , "mipmap", getActivity().getPackageName()));
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
                 final String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
 
 

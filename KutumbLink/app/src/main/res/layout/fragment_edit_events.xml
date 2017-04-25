@@ -84,6 +84,7 @@
                 android:layout_marginTop="5dp"
                 android:padding="2dp"
                 android:singleLine="true"
+                android:inputType="textCapSentences"
                 android:layout_height="wrap_content" />
 
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
@@ -102,6 +103,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:padding="2dp"
+                android:inputType="textCapSentences"
                 android:background="@drawable/shape"
                 android:layout_height="wrap_content" />
 

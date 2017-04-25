@@ -27,7 +27,7 @@
             android:layout_toEndOf="@+id/ib_action_bar_back"
             android:padding="10dp"
             android:text="groups"
-            android:textColor="#000000"
+            android:textColor="@color/bright_text_dark_focused"
             android:textSize="@dimen/margin_medium" />
 
 
@@ -42,17 +42,16 @@
             android:textStyle="bold"
             android:textColor="#000000"
             android:padding="10dp"
-            android:layout_centerInParent="true"
-            android:layout_alignParentTop="true"
             android:layout_weight="1"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ib_action_menu"
             android:padding="3dp"
-            android:textColor="#000000"
+            android:textColor="@color/bright_text_dark_focused"
             android:layout_gravity="right|center_vertical"
             android:background="@mipmap/menu"
             android:layout_centerVertical="true"

@@ -154,7 +154,7 @@ public class BaseFragment extends Fragment {
 
 
 
-                     //   getActivity().onBackPressed();
+                        getActivity().onBackPressed();
                     }
                 }
 

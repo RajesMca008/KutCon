@@ -5,11 +5,11 @@
     android:gravity="center_vertical"
     android:layout_height="match_parent">
     <ImageView
-        android:layout_width="35dp"
+        android:layout_width="17dp"
         android:id="@+id/edit_mode"
-        android:src="@drawable/close_red"
+        android:src="@mipmap/delete_icon_new"
         android:visibility="gone"
-        android:layout_height="35dp" />
+        android:layout_height="17dp" />
     <kutumblink.appants.com.kutumblink.utils.CustomTextView
         android:layout_width="match_parent"
         android:id="@+id/text_id"

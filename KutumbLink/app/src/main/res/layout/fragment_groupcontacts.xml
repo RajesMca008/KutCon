@@ -10,8 +10,6 @@
         android:background="#FBFBFB"
         android:orientation="vertical"
         >
-
-        <!-- TODO: Update blank fragment layout -->
         <RelativeLayout
             android:id="@+id/rl_actions"
             android:layout_width="match_parent"
@@ -20,45 +18,34 @@
 
             <Button
                 android:id="@+id/btn_close"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/close_red"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:background="@mipmap/cancel_button"
                 />
-
-
-
-
 
             <LinearLayout
 
-
+                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <Button
                     android:id="@+id/btn_ations"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_width="match_parent"
-                    android:layout_marginLeft="50dp"
-                    android:background="@drawable/action_drop_dwon"
-
-
+                    android:layout_marginLeft="55dp"
+                    android:background="@drawable/action_dropdown"
                     android:layout_marginRight="15dp"
-
-
                     />
 
 
             </LinearLayout>
 
-
-
-
         </RelativeLayout>
-
 
         <ListView
             android:id="@+id/lv_contacts"
@@ -66,21 +53,21 @@
 
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp">
-            </ListView>
-    <LinearLayout
-        android:id="@+id/ll_nocontacts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:visibility="gone"
-        android:layout_weight="1"
-        android:layout_marginRight="15dp">
-        <kutumblink.appants.com.kutumblink.utils.CustomTextView
+        </ListView>
+        <LinearLayout
+            android:id="@+id/ll_nocontacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-         android:gravity="center_horizontal"
-            android:text="No contacts available in this group. \n Please add contacts"/>
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_marginRight="15dp">
+            <kutumblink.appants.com.kutumblink.utils.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:gravity="center_horizontal"
+                android:text="No contacts available in this group. \n Please add contacts"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -93,13 +80,13 @@
         android:layout_marginTop="50dp"
         android:layout_marginRight="15dp">
 
-    <include
-        layout="@layout/activity_actions"
+        <include
+            layout="@layout/activity_actions"
 
-        android:layout_width="match_parent"
+            android:layout_width="match_parent"
 
-        android:layout_height="wrap_content"
-        ></include>
+            android:layout_height="wrap_content"
+            />
 
     </LinearLayout>
 
@@ -107,17 +94,17 @@
         android:id="@+id/ll_grplistactions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-      android:layout_marginTop="330dp"
+        android:layout_marginTop="330dp"
 
-       android:gravity="bottom"
-     >
+        android:gravity="bottom"
+        >
 
-    <include
-        layout="@layout/activity_actions_grouplist"
+        <include
+            layout="@layout/activity_actions_grouplist"
 
-        android:layout_width="match_parent"
+            android:layout_width="match_parent"
 
-        android:layout_height="wrap_content"
-        ></include>
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
 </FrameLayout>
