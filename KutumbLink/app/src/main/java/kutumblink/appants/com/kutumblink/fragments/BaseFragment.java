@@ -164,6 +164,40 @@ public class BaseFragment extends Fragment {
     }
 
 
+
+
+
+    protected  void showConfirmDialogActions(String title,String message) {
+        android.support.v7.app.AlertDialog.Builder builder = new  android.support.v7.app.AlertDialog.Builder(getContext());
+
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setTitle(title);
+        StringBuffer sb = new StringBuffer(message);
+
+
+        builder.setMessage(sb.toString()).setCancelable(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //getFragmentManager().popBackStack();
+                        View view = getActivity().getCurrentFocus();
+                        if (view != null) {
+                            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        }
+                      //  getActivity().onBackPressed();
+                    }
+                }
+
+        );
+
+        builder.show();
+    }
+
+
+
+
+
     public void showConfirmOptionsDialog(String title, String message, final int type, final String params) {
         AlertDialog.Builder builder = new  AlertDialog.Builder(getContext());
 
@@ -202,7 +236,7 @@ public class BaseFragment extends Fragment {
 
                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                             FragmentTransaction ft = fragmentManager.beginTransaction();
-                            ft.replace(R.id.main_container, new GroupsMainFragment());
+                            ft.replace(R.id.main_container, new GroupContactsFragment());
                             ft.commit();
 
 

@@ -175,6 +175,7 @@ public class GroupsMainFragment extends BaseFragment {
 
         dbHandler.DeleteTable(DatabaseHandler.TABLE_GROUP,"G_NAME='"+""+"'");
         dbHandler.DeleteTable(DatabaseHandler.TABLE_PHONE_CONTACTS,"Phone_Contact_Gid='"+""+"'");
+        dbHandler.DeleteTable(DatabaseHandler.TABLE_PHONE_CONTACTS,"Phone_Contact_Number='"+"##000"+"'");
 
         Cursor c=dbHandler.retriveData("select * from "+DatabaseHandler.TABLE_GROUP);
         if(c!=null)
@@ -194,6 +195,7 @@ public class GroupsMainFragment extends BaseFragment {
 
                     if(cg.getCount()>0) {
 
+                      //  if(cg.getString(cg.getColumnIndex("Phone_Contact_Number")).equalsIgnoreCase("##000"))
                             groupDetails.setGroup_totalContactList("" + cg.getCount());
                     }else{
                         groupDetails.setGroup_totalContactList("0");// + cg.getCount());

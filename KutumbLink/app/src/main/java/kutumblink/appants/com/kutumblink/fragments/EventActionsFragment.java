@@ -247,7 +247,7 @@ public class EventActionsFragment extends BaseFragment {
                     intent.setType("vnd.android-dir/mms-sms");
                     startActivity(intent);
                 } else {
-                    showConfirmDialog(getString(R.string.app_name), "Please select contacts");
+                    showConfirmDialogActions(getString(R.string.app_name), "Please select contacts");
                 }
             }
         });
@@ -318,7 +318,7 @@ public class EventActionsFragment extends BaseFragment {
             }
 
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.main_container, new EventActionsFragment()).commit();
 
             //  }
 
