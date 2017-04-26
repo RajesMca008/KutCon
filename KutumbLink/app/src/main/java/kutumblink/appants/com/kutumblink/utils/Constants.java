@@ -22,6 +22,8 @@ public class Constants {
   //  public static final int GROUP_DELETE=1;
    // public static final int GROUP_DELETE=1;
 
+    public static final boolean needToShowAdd=true;
+
 
     public static String imgID = "0";
     public static String GROUP_NAME = "";

@@ -37,6 +37,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -50,6 +51,7 @@ import kutumblink.appants.com.kutumblink.fragments.MessageMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.SettingsFragment;
 import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.RangeTimePickerDialog;
+import kutumblink.appants.com.kutumblink.utils.Utils;
 
 public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener {
 
@@ -87,14 +89,14 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                     break;
             }
 
-            if(mAdView.isShown())
-            {
+            if(Constants.needToShowAdd) {
+                if (mAdView.isShown()) {
 
-                AdRequest adRequest = new AdRequest.Builder()
-                        .build();
-                mAdView.loadAd(adRequest);
+                    AdRequest adRequest = new AdRequest.Builder()
+                            .build();
+                    mAdView.loadAd(adRequest);
+                }
             }
-
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.main_container, fragment).commit();
 
@@ -110,6 +112,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
    public static  TextView tv_title;
    public static TextView ib_menu;
     private AdView mAdView;
+    private InterstitialAd interstitial;
 
 
     @Override
@@ -180,12 +183,26 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         mPlanetTitles = getResources().getStringArray(R.array.menu_name_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         
-        
-        //Ads
-        mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
-        mAdView.loadAd(adRequest);
+
+        if(Constants.needToShowAdd) {
+            //Ads
+            mAdView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder()
+                    .build();
+            mAdView.loadAd(adRequest);
+
+
+            AdRequest adRequest2 = new AdRequest.Builder()
+                    .addTestDevice("E399DEBE7C412EAE23738DF4A849FE60")
+                    .build();
+
+            interstitial = new InterstitialAd(HomeActivity.this);
+            // Insert the Ad Unit ID
+            interstitial.setAdUnitId(getString(R.string.banner_ad_unit_id));
+            // Load ads into Interstitial Ads
+            interstitial.loadAd(adRequest2);
+
+        }
     }
 
     private void displayView(int position) {
@@ -272,6 +289,17 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(Constants.needToShowAdd) {
+            Log.i("TEST", "onDes" + interstitial.isLoaded());
+            if (interstitial.isLoaded()) {
+                interstitial.show();
+            }
         }
     }
 
