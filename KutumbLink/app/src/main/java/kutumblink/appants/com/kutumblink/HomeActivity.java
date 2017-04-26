@@ -35,6 +35,9 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -68,6 +71,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                 case R.id.navigation_groups:
                    fragment=new GroupsMainFragment();
                    // item.setIcon(R.mipmap.groups_btn_active_n);
+
                     break;
                 case R.id.navigation_events:
                     fragment=new EventsMainFragment();
@@ -81,6 +85,14 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                     fragment=new CameraMainFragment();
                    // item.setIcon(R.mipmap.photos_btn_active_n);
                     break;
+            }
+
+            if(mAdView.isShown())
+            {
+
+                AdRequest adRequest = new AdRequest.Builder()
+                        .build();
+                mAdView.loadAd(adRequest);
             }
 
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -97,6 +109,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
    public static  TextView tv_title;
    public static TextView ib_menu;
+    private AdView mAdView;
 
 
     @Override
@@ -166,6 +179,13 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         BottomNavigationViewHelper.disableShiftMode(navigation);
         mPlanetTitles = getResources().getStringArray(R.array.menu_name_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        
+        
+        //Ads
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        mAdView.loadAd(adRequest);
     }
 
     private void displayView(int position) {
