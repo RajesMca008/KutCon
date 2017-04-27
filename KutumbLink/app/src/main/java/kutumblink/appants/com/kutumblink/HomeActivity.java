@@ -193,12 +193,12 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
 
             AdRequest adRequest2 = new AdRequest.Builder()
-                    .addTestDevice("E399DEBE7C412EAE23738DF4A849FE60")
+                    //.addTestDevice("E399DEBE7C412EAE23738DF4A849FE60")
                     .build();
 
             interstitial = new InterstitialAd(HomeActivity.this);
             // Insert the Ad Unit ID
-            interstitial.setAdUnitId(getString(R.string.banner_ad_unit_id));
+            interstitial.setAdUnitId(getString(R.string.intresttitle_ad_unit_id));
             // Load ads into Interstitial Ads
             interstitial.loadAd(adRequest2);
 
