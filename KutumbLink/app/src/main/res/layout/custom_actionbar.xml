@@ -2,18 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
-
-
-
+    android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@mipmap/left_arrow"
             android:id="@+id/ib_action_bar_back"
-
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true" />
@@ -29,10 +24,7 @@
             android:text="groups"
             android:textColor="@color/bright_text_dark_focused"
             android:textSize="@dimen/margin_medium" />
-
-
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
-
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

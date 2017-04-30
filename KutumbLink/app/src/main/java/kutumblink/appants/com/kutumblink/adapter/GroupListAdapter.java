@@ -1,6 +1,7 @@
 package kutumblink.appants.com.kutumblink.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,18 +70,19 @@ public class GroupListAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
-           // view = new View(context);
-
-            // get layout from grid_item.xml
             view = inflater.inflate(R.layout.inflate_grouplist, null);
             TextView tv_groupName=(TextView)view.findViewById(R.id.tv_goupname);
             TextView tv_totalcontacts=(TextView)view.findViewById(R.id.tv_totalcontacts);
             ImageView iv_groupPic=(ImageView)view.findViewById(R.id.iv_photo);
             tv_groupName.setText(""+adb.getGroup_Name());
             tv_totalcontacts.setText(""+adb.getGroup_totalContactList());
-            iv_groupPic.setImageBitmap(Constants.stringToBitMap(adb.getGroup_Pic()));
+            if(!adb.getGroup_Pic().contains("/")){
+                iv_groupPic.setImageResource(Integer.parseInt(adb.getGroup_Pic()));
+            }else{
+                iv_groupPic.setImageBitmap(Constants.stringToBitMap(adb.getGroup_Pic()));
+            }
 
-
+            Log.v("DATA..","DATA..BASE 64...."+adb.getGroup_Pic());
             // set value into textview
             return view;
         }

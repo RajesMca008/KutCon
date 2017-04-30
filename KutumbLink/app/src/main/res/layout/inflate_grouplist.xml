@@ -38,28 +38,30 @@
 
         <ImageView
             android:id="@+id/arrow_icon"
-            android:layout_width="10dp"
-            android:src="@drawable/right_arrow"
+            android:layout_width="32dp"
+            android:src="@drawable/r_icon"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="2dp"
             android:layout_centerVertical="true"
 
-            android:layout_height="15dp" />
+            android:layout_height="32dp" />
 
 
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
             android:id="@+id/tv_totalcontacts"
-            android:layout_width="wrap_content"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:text="55"
+            android:gravity="center_horizontal"
+
             android:layout_centerVertical="true"
-            android:paddingTop="2dp"
+            android:paddingTop="3dp"
             android:paddingBottom="2sp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_marginLeft="10dp"
             android:background="#ccc"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="35dp"
 android:layout_alignRight="@id/arrow_icon"
             />
 

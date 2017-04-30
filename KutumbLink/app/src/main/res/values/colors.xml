@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#f29801</color>
-    <color name="colorPrimaryDark">#fbe49105</color>
+    <color name="colorPrimaryDark">#FFC001</color>
+    <color name="colorPrimary">#FAC50E</color>
+
     <color name="colorAccent">#FF9800</color>
     <color name="colorhash">#ccc</color>
-    <color name="redcolor">#FF0000</color>
+    <color name="redcolor">#C22202</color>
     <color name="whitecolor">#FBFBFB</color>
     <color name="button_color_blue">#070739</color>
     <color name="black_color">#000000</color>

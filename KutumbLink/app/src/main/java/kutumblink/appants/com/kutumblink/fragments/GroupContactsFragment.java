@@ -1,10 +1,13 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -14,11 +17,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -56,17 +61,19 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         // Required empty public constructor
     }
 
-   public static Button btn_close;
+    private static final int REQUEST_CONTACT = 0;
+    public static Button btn_close;
     ListView lv_conatcst;
     DatabaseHandler dbHandler;
+    ImageView iv_contacts;
     public static ArrayList<GroupDo> arr_group = new ArrayList<GroupDo>();
     LinearLayout ll_actions;
 
 
-    TextView tv_Done,tv_Cancel;
+    TextView tv_Done, tv_Cancel;
     public static Button btn_actions;
     //  Dialog topDialog;
-    LinearLayout ll_grpcontacts, ll_grpactionslist,ll_nocontacts;
+    LinearLayout ll_grpcontacts, ll_grpactionslist, ll_nocontacts;
     ListView lv_grpactionslist;
     public static ArrayList<ContactsDo> arr_contacts = new ArrayList<ContactsDo>();
     boolean isVISIBLEACTIONS = false;
@@ -87,14 +94,46 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         ll_actions = (LinearLayout) view.findViewById(R.id.ll_actions);
         ll_grpactionslist = (LinearLayout) view.findViewById(R.id.ll_grplistactions);
         lv_grpactionslist = (ListView) view.findViewById(R.id.lv_actionsgroups);
-        ll_nocontacts=(LinearLayout)view.findViewById(R.id.ll_nocontacts);
-        tv_Cancel=(TextView)view.findViewById(R.id.tv_cancel);
-        tv_Done=(TextView)view.findViewById(R.id.tv_done);
-        rl_actions=(RelativeLayout)view.findViewById(R.id.rl_actions);
+        ll_nocontacts = (LinearLayout) view.findViewById(R.id.ll_nocontacts);
+        tv_Cancel = (TextView) view.findViewById(R.id.tv_cancel);
+        tv_Done = (TextView) view.findViewById(R.id.tv_done);
+        rl_actions = (RelativeLayout) view.findViewById(R.id.rl_actions);
+        iv_contacts = (ImageView) view.findViewById(R.id.iv_selectContacts);
 
         rl_actions.setAlpha(0.5f);
         btn_close.setEnabled(false);
         btn_actions.setEnabled(false);
+
+
+
+
+
+
+      /*  for (int a = 0; a < arr_contacts.size(); a++) {
+
+
+
+
+
+            String whereName = ContactsContract.Data.MIMETYPE + " = ? AND " + ContactsContract.CommonDataKinds.StructuredName.CONTACT_ID + " = ?";
+            String[] whereNameParams = new String[] { ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, arr_contacts.get(a).getConatactId() };
+            Cursor nameCur = getActivity().getContentResolver().query(ContactsContract.Data.CONTENT_URI, null, whereName, whereNameParams, ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME);
+            while (nameCur.moveToNext()) {
+                String fname = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME));
+                String lname = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME));
+                String mobileno = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                String email = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS));
+
+
+                Log.v("NAME","DATA FIRTSNAME.."+fname);
+                Log.v("NAME","DATA FIRTSNAME.."+lname);
+                Log.v("NAME","DATA FIRTSNAME.."+mobileno);
+                Log.v("NAME","DATA FIRTSNAME.."+email);
+
+            }
+            nameCur.close();
+
+        }*/
 
 
         tv_Cancel.setOnClickListener(new View.OnClickListener() {
@@ -103,26 +142,44 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 ll_grpactionslist.setVisibility(View.GONE);
             }
         });
+
+        iv_contacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Constants.GROUP_OPERATIONS = "EDIT";
+                Constants.GROUP_OLD_NAME = Constants.GROUP_NAME;
+
+                AddGroupFragment groupContacts = new AddGroupFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, groupContacts);
+                fragmentTransaction.addToBackStack("group_Main");
+                fragmentTransaction.commit();
+
+
+            }
+        });
         tv_Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                Boolean sel=false;
+                Boolean sel = false;
                 for (int i = 0; i < arr_group.size(); i++) {
 
                     if (arr_group.get(i).getGroup_isSELECT() == 1) {
 
-                        sel=true;
+                        sel = true;
                     }
                 }
 
-                if(sel){
+                if (sel) {
 
-                    showConfirmOptionsDialog("Contacts copied to selected groups","Are you sure?");
-                }else{
+                    showConfirmOptionsDialog("Contacts copied to selected groups", "Are you sure?");
+                } else {
 
-                    showConfirmOptionsDialog("Groups","Please select Group");
+                    showConfirmOptionsDialog("Groups", "Please select Group");
                 }
 
             }
@@ -142,7 +199,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             @Override
             public void onClick(View view) {
 
-                ArrayList<ContactsDo> selectedContactList=new ArrayList<ContactsDo>();
+                ArrayList<ContactsDo> selectedContactList = new ArrayList<ContactsDo>();
                 for (int a = 0; a < arr_contacts.size(); a++) {
 
                     if (arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
@@ -156,10 +213,9 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 }
                 //Requesting for generat multiple fiels for vcard.
 
-                if(selectedContactList.size()>0) {
+                if (selectedContactList.size() > 0) {
                     sendVcardAsEmail(selectedContactList);
-                }
-                else {
+                } else {
                     makeToast("Please select contacts");
                 }
 
@@ -202,12 +258,11 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 boolean sel = false;
                 for (int a = 0; a < arr_contacts.size(); a++) {
 
-                    if (!arr_contacts.get(a).getConatactEmail().equalsIgnoreCase("null") && arr_contacts.get(a).getIS_CONTACT_SELECTED()==1) {
+                    if (!arr_contacts.get(a).getConatactEmail().equalsIgnoreCase("null") && arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+                        data[a] = arr_contacts.get(a).getConatactEmail();
 
-
-
-                        ContentResolver cr = getActivity().getContentResolver();
-                        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null);
+                      /*  ContentResolver cr = getActivity().getContentResolver();
+                        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
                         if (cur.getCount() > 0) {
                             while (cur.moveToNext()) {
                                 String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
@@ -217,18 +272,18 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                                         new String[]{id}, null);
                                 while (cur1.moveToNext()) {
                                     //to get the contact names
-                                    String name=cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                                    String name = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
 
                                     String email = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
 
-                                    if(email!=null){
+                                    if (email != null) {
 
                                         data[a] = email;
                                     }
                                 }
                                 cur1.close();
                             }
-                        }
+                        }*/
 
                         sel = true;
                     }
@@ -237,28 +292,33 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
 
                 if (sel) {
-                  //  String[] TO = {data};
+                    //  String[] TO = {data};
 
-                    if(data!=null) {
-                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                    if (data != null) {
 
-                        emailIntent.setData(Uri.parse("mailto:"));
-                        emailIntent.setType("text/plain");
-                        emailIntent.putExtra(Intent.EXTRA_EMAIL, data);
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "");
-                        emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                        final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                        intent.setType("text/plain");
 
-                        try {
-                            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                        intent.putExtra(Intent.EXTRA_EMAIL, data);
+                        intent.setType("message/rfc822");
+                        final PackageManager pm = getActivity().getPackageManager();
+                        final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
+                        ResolveInfo best = null;
+                        for (final ResolveInfo info : matches)
+                            if (info.activityInfo.packageName.endsWith(".gm") ||
+                                    info.activityInfo.name.toLowerCase().contains("gmail"))
+                                best = info;
+                        if (best != null)
+                            intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+                        //   startActivity(intent);
+                        startActivityForResult(Intent.createChooser(intent, "Send mail client :"), Activity.RESULT_OK);
 
-                        } catch (android.content.ActivityNotFoundException ex) {
-                            Toast.makeText(getActivity(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
+
+                    } else {
                         Toast.makeText(getActivity(), "Contact's doen't have email id", Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    showConfirmDialog("Groups","Selected contacts do not have email");
+                } else {
+                    showConfirmDialog("Groups", "Selected contacts do not have email");
                 }
             }
         });
@@ -268,7 +328,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             public void onClick(View view) {
                 isVISIBLEACTIONS = false;
                 ll_actions.setVisibility(View.GONE);
-                boolean isContacts=false;
+                boolean isContacts = false;
 
                 arr_group.clear();
                 Cursor cg = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP);
@@ -293,7 +353,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     }
                 }
 
-                if(arr_group.size()>0) {
+                if (arr_group.size() > 0) {
                     for (int i = 0; i < arr_contacts.size(); i++) {
                         if (arr_contacts.get(i).getIS_CONTACT_SELECTED() == 1) {
                             isContacts = true;
@@ -321,16 +381,16 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         showConfirmDialogActions(getString(R.string.app_name), "Please select contacts");
                     }
 
-                }else{
-                    showConfirmDialogActions("Groups","There are no groups to add this contact into.");
+                } else {
+                    showConfirmDialogActions("Groups", "There are no groups to add this contact into.");
                 }
             }
         });
 
-        if(Constants.GROUP_CONTACTS_SIZE==0){
+        if (Constants.GROUP_CONTACTS_SIZE == 0) {
             ll_nocontacts.setVisibility(View.VISIBLE);
             lv_grpactionslist.setVisibility(View.GONE);
-        }else{
+        } else {
             ll_nocontacts.setVisibility(View.GONE);
             lv_grpactionslist.setVisibility(View.VISIBLE);
         }
@@ -339,10 +399,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             public void onClick(View view) {
 
 
-             showConfirmOptionsDialog("Remove contacts from group","Are you sure?",3,"");
-              //  dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_NAME + "'");
+                showConfirmOptionsDialog("Remove contacts from group", "Are you sure?", 3, "");
+                //  dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_NAME + "'");
 
-               // Toast.makeText(getActivity(), "Group deleted successfully", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getActivity(), "Group deleted successfully", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -370,20 +430,20 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     }
 
 
-                     EditEventsFragment edtFrg=new EditEventsFragment();
+                    EditEventsFragment edtFrg = new EditEventsFragment();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
 
                     Bundle args = new Bundle();
-                    args.putString("title","");
-                    args.putString("desc","");
-                    args.putString("time","");
-                    args.putString("contacts",jsonArray.toString());
+                    args.putString("title", "");
+                    args.putString("desc", "");
+                    args.putString("time", "");
+                    args.putString("contacts", jsonArray.toString());
 
                     edtFrg.setArguments(args);
                     ft.replace(R.id.main_container, edtFrg);
                     ft.commit();
-                }catch(Exception e){
+                } catch (Exception e) {
 
                 }
             }
@@ -397,7 +457,6 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     isVISIBLEACTIONS = false;
                     ll_actions.setVisibility(View.GONE);
                 }
-
 
 
                 return false;
@@ -416,7 +475,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
        /* topDialog = new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
         topDialog.setCanceledOnTouchOutside(true);
 */
-       GroupContactsFragment.btn_actions.setOnClickListener(new View.OnClickListener() {
+        GroupContactsFragment.btn_actions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -432,11 +491,11 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                 }
 
-                if(sel) {
+                if (sel) {
 
                     isVISIBLEACTIONS = true;
                     ll_actions.setVisibility(View.VISIBLE);
-                }else{
+                } else {
 
                     isVISIBLEACTIONS = false;
                     ll_actions.setVisibility(View.GONE);
@@ -478,12 +537,37 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             }
         });
 
+        arr_contacts.clear();
         Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
+
+
         if (c != null) {
             if (c.getCount() > 0) {
                 c.moveToFirst();
                 do {
+                   try {
+                        if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
+                            readContacts(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
 
+
+
+                        }
+                    } catch (Exception e) {
+
+                    }
+
+                } while (c.moveToNext());
+
+            }
+        }
+
+    //    Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
+
+
+        if (c != null) {
+            if (c.getCount() > 0) {
+                c.moveToFirst();
+                do {
                     try {
                         if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
                             ContactsDo contactsBean = new ContactsDo();
@@ -495,8 +579,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                             contactsBean.setConatactEmail(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_EMAIL)));
                             contactsBean.setIS_CONTACT_SELECTED(0);
                             arr_contacts.add(contactsBean);
+
+
                         }
-                    }catch(Exception e){
+                    } catch (Exception e) {
 
                     }
 
@@ -504,9 +590,6 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
             }
         }
-
-
-
 
 
         btn_close.setOnClickListener(new View.OnClickListener() {
@@ -526,12 +609,12 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 }
 
 
-                if(sel){
+                if (sel) {
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.main_container, new GroupContactsFragment()).commit();
 
-                }else{
+                } else {
                     GroupContactsFragment.rl_actions.setAlpha(0.5f);
                     GroupContactsFragment.rl_actions.setEnabled(false);
                     GroupContactsFragment.btn_actions.setEnabled(false);
@@ -550,11 +633,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
     private void sendVcardAsEmail(ArrayList<ContactsDo> selectedContactList) {
 
-        ArrayList<File> fileNames=new ArrayList<File>();
-        for (int i=0;i<selectedContactList.size();i++)
-        {
+        ArrayList<File> fileNames = new ArrayList<File>();
+        for (int i = 0; i < selectedContactList.size(); i++) {
 
-            File vcfFile = new File(getActivity().getExternalFilesDir(null), selectedContactList.get(i).getConatactName()+"_info.vcf");
+            File vcfFile = new File(getActivity().getExternalFilesDir(null), selectedContactList.get(i).getConatactName() + "_info.vcf");
 
             FileWriter fw = null;
             ContactsDo contact = selectedContactList.get(i);
@@ -568,8 +650,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 //fw.write("FN:" + p.getFirstName() + " " + p.getSurname() + "\r\n");
                 fw.write("ORG: \r\n");
                 fw.write("TITLE:" + contact.getConatactName() + "\r\n");
-               fw.write("TEL;TYPE=WORK,VOICE:" +  contact.getConatactPhone() + "\r\n");
-                fw.write("TEL;TYPE=HOME,VOICE:" +  contact.getConatactPhone() + "\r\n");
+                fw.write("TEL;TYPE=WORK,VOICE:" + contact.getConatactPhone() + "\r\n");
+                fw.write("TEL;TYPE=HOME,VOICE:" + contact.getConatactPhone() + "\r\n");
                 //fw.write("ADR;TYPE=WORK:;;" + p.getStreet() + ";" + p.getCity() + ";" + p.getState() + ";" + p.getPostcode() + ";" + p.getCountry() + "\r\n");
                 fw.write("EMAIL;TYPE=PREF,INTERNET:" + contact.getConatactEmail() + "\r\n");
                 fw.write("END:VCARD\r\n");
@@ -582,47 +664,55 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             }
 
 
-
         }
 
 
         //ArrayList<Uri> uris = new ArrayList<Uri>();
-        ArrayList<Uri> arrayList=new ArrayList<Uri>();
+        ArrayList<Uri> arrayList = new ArrayList<Uri>();
         //convert from paths to Android friendly Parcelable Uri's
 
-        for (int i=0;i<fileNames.size();i++)
-        {
+        for (int i = 0; i < fileNames.size(); i++) {
             Uri u = Uri.fromFile(fileNames.get(i));
             arrayList.add(u);
         }
 
 
-        if(arrayList.size()>0) {
-            //Sending list of vCard files to email
+        if (arrayList.size() > 0) {
 
-       /* Intent email = new Intent(Intent.ACTION_SEND);
-       // i.setType("text/x-vcard");
-        //email.setType("message/rfc822");
-        //i.setDataAndType(Uri.fromFile(vcfFile), "text/x-vcard");
-        email.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
 
-        startActivityForResult(Intent.createChooser(email, "Sending multiple attachment"), 12345);*/
-            // startActivity(email);
+            final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            intent.setType("text/plain");
 
-            Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE, Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_SUBJECT, "From " + getString(R.string.app_name));
+            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayList);
+            intent.setType("message/rfc822");
+            final PackageManager pm = getActivity().getPackageManager();
+            final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
+            ResolveInfo best = null;
+            for (final ResolveInfo info : matches)
+                if (info.activityInfo.packageName.endsWith(".gm") ||
+                        info.activityInfo.name.toLowerCase().contains("gmail")) best = info;
+            if (best != null)
+                intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+            //   startActivity(intent);
+            startActivityForResult(Intent.createChooser(intent, "Send mail client :"), REQUEST_CONTACT);
+
+
+
+         /*   Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE, Uri.parse("mailto:"));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From "+getString(R.string.app_name));
             emailIntent.setType("text/plain");
-        /*Uri uri1 = Uri.parse("file://" +  URI1);
+        *//*Uri uri1 = Uri.parse("file://" +  URI1);
         Uri uri2 = Uri.parse("file://" +  URI2);
-        Uri uri3 = Uri.parse("file://" +  URI3);*/
+        Uri uri3 = Uri.parse("file://" +  URI3);*//*
 
-       /* arrayList.add(uri1);
+       *//* arrayList.add(uri1);
         arrayList.add(uri2);
-        arrayList.add(uri3);*/
+        arrayList.add(uri3);*//*
             emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayList);
             emailIntent.setType("message/rfc822");
             emailIntent.putExtra(Intent.EXTRA_TEXT, "-");
-            startActivity(Intent.createChooser(emailIntent, "Send Via..."));
+            startActivity(Intent.createChooser(emailIntent, "Send Via..."));*/
 
         }
     }
@@ -657,9 +747,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 */
 
 
-
     public void showConfirmOptionsDialog(String title, String message) {
-        AlertDialog.Builder builder = new  AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
 
         builder.setTitle(title);
@@ -675,11 +764,11 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                         for (int i = 0; i < arr_group.size(); i++) {
 
-                            if(arr_group.get(i).getGroup_isSELECT()==1) {
+                            if (arr_group.get(i).getGroup_isSELECT() == 1) {
                                 for (int a = 0; a < arr_contacts.size(); a++) {
 
 
-                                    if(arr_contacts.get(a).getIS_CONTACT_SELECTED()==1) {
+                                    if (arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
 
                                         ContentValues cv = new ContentValues();
                                         cv.put(dbHandler.PHONE_CONTACT_ID, "" + arr_contacts.get(a).getConatactId());
@@ -688,7 +777,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                                         //cv.put(dbHandler.PHONE_CONTACT_LNAME, "" + contact.getLastName());
                                         cv.put(dbHandler.PHONE_CONTACT_NUMBER, "" + arr_contacts.get(a).getConatactPhone());
                                         cv.put(dbHandler.PHONE_CONTACT_EMAIL, "" + arr_contacts.get(a).getConatactEmail());
-                                        cv.put(dbHandler.PHONE_CONTACT_GID, "" +arr_group.get(i).getGroup_Name());
+                                        cv.put(dbHandler.PHONE_CONTACT_GID, "" + arr_group.get(i).getGroup_Name());
                                         Cursor conatacts = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + arr_group.get(i).getGroup_Name() + "' AND Phone_Contact_ID='" + arr_contacts.get(a).getConatactId() + "'");
 
                                         if (conatacts.getCount() == 0) {
@@ -704,7 +793,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                             }
                         }
 
-                        Constants.NAV_GROUPS=100;
+                        Constants.NAV_GROUPS = 100;
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction ft = fragmentManager.beginTransaction();
                         ft.replace(R.id.main_container, new GroupsMainFragment());
@@ -718,5 +807,63 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         );
         builder.setNegativeButton("Cancel", null);
         builder.show();
+    }
+
+
+    public void readContacts(String contactId) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("......Contact Details.....");
+        ContentResolver cr = getActivity().getContentResolver();
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        String phone = null;
+        String name=null;
+        String emailContact = null;
+        String emailType = null;
+        String image_uri = "";
+
+                System.out.println("*****name :  ID : " + contactId);
+                sb.append("\n Contact Name:");
+                Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{contactId}, null);
+                while (pCur.moveToNext()) {
+
+                        name = pCur.getString(pCur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                        sb.append("\n Phone number:" + phone);
+                        System.out.println("******phone" + phone + "NAME..." + name);
+                }
+                pCur.close();
+               Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[]{contactId}, null);
+                while (emailCur.moveToNext()) {
+                        emailContact = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                        emailType = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE));
+                        sb.append("\nEmail:" + emailContact + "Email type:" + emailType);
+                        System.out.println("****Email " + emailContact + " Email Type : " + emailType);
+
+            }
+
+            Log.v("DATA....","DATA FIRSTLOADED...NAME"+name);
+        Log.v("DATA....","DATA FIRSTLOADED...PHONE"+phone);
+        Log.v("DATA....","DATA FIRSTLOADED...EMAILID"+emailContact);
+        Log.v("DATA....","DATA FIRSTLOADED...EMAILTYPE"+emailType);
+
+
+                ContentValues cv = new ContentValues();
+                cv.put(dbHandler.PHONE_CONTACT_NAME, "" + name);
+                // cv.put(dbHandler.PHONE_CONTACT_FNAME, "" + arr_contacts.get(a).get);
+                //cv.put(dbHandler.PHONE_CONTACT_LNAME, "" + contact.getLastName());
+                cv.put(dbHandler.PHONE_CONTACT_NUMBER, "" +phone);
+                cv.put(dbHandler.PHONE_CONTACT_EMAIL, "" + emailContact);
+
+                    dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, "Phone_Contact_ID='" + contactId + "'");
+
+
+
+
+
+
+
+            emailCur.close();
+     //   }
     }
 }

@@ -685,15 +685,66 @@ public class AddGroupFragment extends BaseFragment {
             }
 
         }else if(requestCode == INSERT_CONTACT_REQUEST){
-            if (resultCode == Activity.RESULT_OK)
+          //  contacts = (List<Contact>) data.getSerializableExtra(ContactPickerActivity.RESULT_CONTACT_DATA);
+/*
+
+
+            Uri contactData = data.getData();
+            Cursor c = getActivity().managedQuery(contactData, null, null, null, null);
+            if (c.moveToFirst()) {
+                String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+
+                String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+                if (hasPhone.equalsIgnoreCase("1")) {
+                    Cursor phones = getActivity().getContentResolver().query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
+                            null, null);
+                    phones.moveToFirst();
+                   String cNumber = phones.getString(phones.getColumnIndex("data1"));
+                    System.out.println("number is:" + cNumber);
+                }
+                String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                System.out.println("number is:" + name);
+
+            }
+*/
+
+          /*  for (Contact contact : contacts) {
+                ContentValues cv = new ContentValues();
+                //   Cursor conatacts = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_ID='" + contact.getId()+"'");
+                cv.put(dbHandler.PHONE_CONTACT_ID, "" + contact.getId());
+                cv.put(dbHandler.PHONE_CONTACT_NAME, "" + contact.getDisplayName());
+                cv.put(dbHandler.PHONE_CONTACT_FNAME, "" + contact.getFirstName());
+                cv.put(dbHandler.PHONE_CONTACT_LNAME, "" + contact.getLastName());
+                cv.put(dbHandler.PHONE_CONTACT_NUMBER, "" + contact.getPhone(0));
+                cv.put(dbHandler.PHONE_CONTACT_EMAIL, "" + contact.getEmail(0));
+
+                if (Constants.GROUP_NAME.equalsIgnoreCase("")) {
+                    cv.put(dbHandler.PHONE_CONTACT_GID, "0");
+                } else {
+                    cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
+                }
+
+
+                cv.put(dbHandler.PHONE_CONTACT_PIC, "" + contact.getPhotoUri());
+
+                dbHandler.insert(dbHandler.TABLE_PHONE_CONTACTS, cv);
+
+
+
+           *//* if (resultCode == Activity.RESULT_OK)
             {
+
 
 
             }else if(resultCode == Activity.RESULT_CANCELED)
             {
                 //    Toast.makeText(getActivity(),"Contact Added Succesfully",Toast.LENGTH_SHORT).show();
-            }
+            }*//*
 
+            }*/
         }
     }
 

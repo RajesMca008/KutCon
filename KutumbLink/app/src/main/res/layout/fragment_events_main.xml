@@ -32,7 +32,7 @@
                 android:layout_marginLeft="15dp"
 
                 android:textSize="20sp"
-                android:drawableRight="@drawable/right_arrow"
+                android:drawableRight="@drawable/r_icon"
                 android:layout_marginRight="10dp"
                 android:text="Add Event" />
 
