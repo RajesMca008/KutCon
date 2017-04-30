@@ -2,17 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:minHeight="45dp"
-    android:gravity="center_vertical"
+
     android:layout_height="match_parent">
     <ImageView
         android:layout_width="17dp"
         android:id="@+id/edit_mode"
         android:src="@mipmap/delete_icon_new"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:layout_height="17dp" />
     <kutumblink.appants.com.kutumblink.utils.CustomTextView
         android:layout_width="match_parent"
         android:id="@+id/text_id"
+        android:layout_marginLeft="15dp"
         android:layout_margin="5dp"
         android:layout_height="wrap_content" />
 </LinearLayout>
