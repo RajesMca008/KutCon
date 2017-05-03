@@ -10,7 +10,7 @@
 
     android:layout_alignParentBottom="true"
 
-    android:layout_marginTop="350dp"
+
 
 >
     <LinearLayout

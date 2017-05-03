@@ -92,10 +92,6 @@ public class AddGroupFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-
-
 
         View view = inflater.inflate(R.layout.fragment_add_group, container, false);
 

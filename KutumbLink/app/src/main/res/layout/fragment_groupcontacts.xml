@@ -77,7 +77,7 @@
             android:id="@+id/lv_contacts"
             android:layout_width="match_parent"
 
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="15dp">
         </ListView>
         <LinearLayout
@@ -119,16 +119,18 @@
     <LinearLayout
         android:id="@+id/ll_grplistactions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="330dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="300dp"
 
-        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
+
         >
 
         <include
             layout="@layout/activity_actions_grouplist"
 
             android:layout_width="match_parent"
+
 
             android:layout_height="wrap_content"
             />

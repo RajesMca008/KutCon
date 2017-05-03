@@ -722,31 +722,6 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 
-
-  /*  private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-
-        // Adding child data
-        listDataHeader.add("Action");
-
-        // Adding child data
-        List<String> action = new ArrayList<String>();
-        action.add("Send Text Message");
-        action.add("Email");
-        action.add("Add to Group");
-        action.add("Remove the Group");
-        action.add("Add Event");
-        action.add("Email Contact Info");
-
-
-
-        listDataChild.put(listDataHeader.get(0), action); // Header, Child data
-
-    }
-*/
-
-
     public void showConfirmOptionsDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -856,14 +831,6 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 cv.put(dbHandler.PHONE_CONTACT_EMAIL, "" + emailContact);
 
                     dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, "Phone_Contact_ID='" + contactId + "'");
-
-
-
-
-
-
-
             emailCur.close();
-     //   }
     }
 }
