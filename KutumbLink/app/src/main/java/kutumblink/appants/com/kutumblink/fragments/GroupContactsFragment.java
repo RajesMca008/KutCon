@@ -2,6 +2,7 @@ package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -11,13 +12,13 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -85,7 +86,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_groupcontacts, container, false);
         Constants.NAV_GROUPS = 102;
-        arr_contacts.clear();
+
+
         dbHandler = new DatabaseHandler(getActivity());
         lv_conatcst = (ListView) view.findViewById(R.id.lv_contacts);
         btn_close = (Button) view.findViewById(R.id.btn_close);
@@ -104,36 +106,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         btn_close.setEnabled(false);
         btn_actions.setEnabled(false);
 
-
-
-
-
-
-      /*  for (int a = 0; a < arr_contacts.size(); a++) {
-
-
-
-
-
-            String whereName = ContactsContract.Data.MIMETYPE + " = ? AND " + ContactsContract.CommonDataKinds.StructuredName.CONTACT_ID + " = ?";
-            String[] whereNameParams = new String[] { ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, arr_contacts.get(a).getConatactId() };
-            Cursor nameCur = getActivity().getContentResolver().query(ContactsContract.Data.CONTENT_URI, null, whereName, whereNameParams, ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME);
-            while (nameCur.moveToNext()) {
-                String fname = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME));
-                String lname = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME));
-                String mobileno = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                String email = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS));
-
-
-                Log.v("NAME","DATA FIRTSNAME.."+fname);
-                Log.v("NAME","DATA FIRTSNAME.."+lname);
-                Log.v("NAME","DATA FIRTSNAME.."+mobileno);
-                Log.v("NAME","DATA FIRTSNAME.."+email);
-
-            }
-            nameCur.close();
-
-        }*/
+        new updateContacts(getActivity()).execute();
+        arr_contacts.clear();
 
 
         tv_Cancel.setOnClickListener(new View.OnClickListener() {
@@ -261,29 +235,6 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     if (!arr_contacts.get(a).getConatactEmail().equalsIgnoreCase("null") && arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
                         data[a] = arr_contacts.get(a).getConatactEmail();
 
-                      /*  ContentResolver cr = getActivity().getContentResolver();
-                        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
-                        if (cur.getCount() > 0) {
-                            while (cur.moveToNext()) {
-                                String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
-                                Cursor cur1 = cr.query(
-                                        ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
-                                        ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?",
-                                        new String[]{id}, null);
-                                while (cur1.moveToNext()) {
-                                    //to get the contact names
-                                    String name = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-
-                                    String email = cur1.getString(cur1.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-
-                                    if (email != null) {
-
-                                        data[a] = email;
-                                    }
-                                }
-                                cur1.close();
-                            }
-                        }*/
 
                         sel = true;
                     }
@@ -472,9 +423,6 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
         HomeActivity.ib_menu.setText("Edit");
         HomeActivity.tv_title.setText(Constants.GROUP_NAME);
-       /* topDialog = new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
-        topDialog.setCanceledOnTouchOutside(true);
-*/
         GroupContactsFragment.btn_actions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -537,59 +485,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             }
         });
 
-        arr_contacts.clear();
-        Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
 
-
-        if (c != null) {
-            if (c.getCount() > 0) {
-                c.moveToFirst();
-                do {
-                   try {
-                        if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
-                            readContacts(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
-
-
-
-                        }
-                    } catch (Exception e) {
-
-                    }
-
-                } while (c.moveToNext());
-
-            }
-        }
-
-    //    Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
-
-
-        if (c != null) {
-            if (c.getCount() > 0) {
-                c.moveToFirst();
-                do {
-                    try {
-                        if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
-                            ContactsDo contactsBean = new ContactsDo();
-                            contactsBean.setConatactGroupName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_GID)));
-                            contactsBean.setConatactId(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
-                            contactsBean.setConatactName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NAME)));
-                            contactsBean.setConatactPhone(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NUMBER)));
-                            contactsBean.setConatactPIC(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_PIC)));
-                            contactsBean.setConatactEmail(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_EMAIL)));
-                            contactsBean.setIS_CONTACT_SELECTED(0);
-                            arr_contacts.add(contactsBean);
-
-
-                        }
-                    } catch (Exception e) {
-
-                    }
-
-                } while (c.moveToNext());
-
-            }
-        }
 
 
         btn_close.setOnClickListener(new View.OnClickListener() {
@@ -625,7 +521,6 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         });
 
 
-        lv_conatcst.setAdapter(new ContactListAdapter(getActivity(), arr_contacts));
 
 
         return view;
@@ -699,26 +594,12 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
 
 
-         /*   Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE, Uri.parse("mailto:"));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From "+getString(R.string.app_name));
-            emailIntent.setType("text/plain");
-        *//*Uri uri1 = Uri.parse("file://" +  URI1);
-        Uri uri2 = Uri.parse("file://" +  URI2);
-        Uri uri3 = Uri.parse("file://" +  URI3);*//*
 
-       *//* arrayList.add(uri1);
-        arrayList.add(uri2);
-        arrayList.add(uri3);*//*
-            emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayList);
-            emailIntent.setType("message/rfc822");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "-");
-            startActivity(Intent.createChooser(emailIntent, "Send Via..."));*/
 
         }
     }
 
-    // ExpandableListAdapter listAdapter;
-    //  ExpandableListView expListView;
+
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 
@@ -814,15 +695,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         emailType = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE));
                         sb.append("\nEmail:" + emailContact + "Email type:" + emailType);
                         System.out.println("****Email " + emailContact + " Email Type : " + emailType);
-
             }
-
-            Log.v("DATA....","DATA FIRSTLOADED...NAME"+name);
-        Log.v("DATA....","DATA FIRSTLOADED...PHONE"+phone);
-        Log.v("DATA....","DATA FIRSTLOADED...EMAILID"+emailContact);
-        Log.v("DATA....","DATA FIRSTLOADED...EMAILTYPE"+emailType);
-
-
                 ContentValues cv = new ContentValues();
                 cv.put(dbHandler.PHONE_CONTACT_NAME, "" + name);
                 // cv.put(dbHandler.PHONE_CONTACT_FNAME, "" + arr_contacts.get(a).get);
@@ -832,5 +705,111 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                     dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, "Phone_Contact_ID='" + contactId + "'");
             emailCur.close();
+    }
+
+
+
+
+    class updateContacts extends AsyncTask<String, String, String> {
+        private ProgressDialog dialog;
+
+        public updateContacts(Activity activity) {
+            dialog = new ProgressDialog(activity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+          dialog.setMessage("Please wait...");
+            dialog.setCancelable(false);
+            dialog.show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... f_url) {
+            int count;
+
+            arr_contacts.clear();
+            Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
+
+
+            if (c != null) {
+                if (c.getCount() > 0) {
+                    c.moveToFirst();
+                    do {
+                        try {
+                            if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
+                                readContacts(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
+
+
+
+                            }
+                        } catch (Exception e) {
+
+                        }
+
+                    } while (c.moveToNext());
+
+                }
+            }
+
+            //    Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
+
+
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+           if (dialog.isShowing()) {
+                dialog.dismiss();
+                dialog.setCancelable(false);
+
+          arr_contacts.clear();
+                Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
+
+                if (c != null) {
+                    if (c.getCount() > 0) {
+                        c.moveToFirst();
+                        do {
+                            try {
+                                if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
+                                    ContactsDo contactsBean = new ContactsDo();
+                                    contactsBean.setConatactGroupName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_GID)));
+                                    contactsBean.setConatactId(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
+                                    contactsBean.setConatactName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NAME)));
+                                    contactsBean.setConatactPhone(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NUMBER)));
+                                    contactsBean.setConatactPIC(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_PIC)));
+                                    contactsBean.setConatactEmail(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_EMAIL)));
+                                    contactsBean.setIS_CONTACT_SELECTED(0);
+                                    arr_contacts.add(contactsBean);
+
+
+                                }
+                            } catch (Exception e) {
+
+                            }
+
+                        } while (c.moveToNext());
+
+                    }
+                }
+                lv_conatcst.setAdapter(new ContactListAdapter(getActivity(), arr_contacts));
+
+            }
+
+
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        arr_contacts.clear();
+        new updateContacts(getActivity()).execute();
     }
 }

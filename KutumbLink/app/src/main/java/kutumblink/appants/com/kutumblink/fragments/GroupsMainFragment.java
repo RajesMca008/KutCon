@@ -1,12 +1,16 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,13 +77,87 @@ public class GroupsMainFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_groups_main, container, false);
 
+    /*    Cursor cr = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
 
+
+        if (cr != null) {
+            if (cr.getCount() > 0) {
+                cr.moveToFirst();
+                do {
+                    try {
+                        if (!cr.getString(cr.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
+                            readContacts(cr.getString(cr.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
+
+
+
+                        }
+                    } catch (Exception e) {
+
+                    }
+
+                } while (cr.moveToNext());
+
+            }
+        }*/
       if(Constants.NAV_GROUPS==101){
+
+
+          Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
+
+
+          if (c != null) {
+              if (c.getCount() > 0) {
+                  c.moveToFirst();
+                  do {
+                      try {
+                          if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
+                              readContacts(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
+
+
+
+                          }
+                      } catch (Exception e) {
+
+                      }
+
+                  } while (c.moveToNext());
+
+              }
+          }
           FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
           FragmentTransaction ft=fragmentManager.beginTransaction();
           ft.replace(R.id.main_container, new AddGroupFragment());
           ft.commit();
       }else if(Constants.NAV_GROUPS==102){
+
+          Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
+
+
+          if (c != null) {
+              if (c.getCount() > 0) {
+                  c.moveToFirst();
+                  do {
+                      try {
+                          if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
+                              readContacts(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
+
+
+
+                          }
+                      } catch (Exception e) {
+
+                      }
+
+                  } while (c.moveToNext());
+
+              }
+          }
+
+
+
+
+
+
           FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
           FragmentTransaction ft=fragmentManager.beginTransaction();
           ft.replace(R.id.main_container, new GroupContactsFragment());
@@ -150,7 +228,7 @@ public class GroupsMainFragment extends BaseFragment {
 
 
 
-        if(!Constants.imgID.contains("/")){
+        if(Constants.imgID.length()<15){
             mDrawableName = "add_group";
             Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName()));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -159,7 +237,11 @@ public class GroupsMainFragment extends BaseFragment {
 
 
             Constants.imgID = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-        }/*else {
+        }
+
+
+
+        /*else {
 
              mDrawableName = "add_group";
             Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName()));
@@ -241,6 +323,53 @@ public class GroupsMainFragment extends BaseFragment {
     }
 
 
+    public void readContacts(String contactId) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("......Contact Details.....");
+        ContentResolver cr = getActivity().getContentResolver();
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        String phone = null;
+        String name=null;
+        String emailContact = null;
+        String emailType = null;
+        String image_uri = "";
 
+        System.out.println("*****name :  ID : " + contactId);
+        sb.append("\n Contact Name:");
+        Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{contactId}, null);
+        while (pCur.moveToNext()) {
+
+            name = pCur.getString(pCur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+            phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+            sb.append("\n Phone number:" + phone);
+            System.out.println("******phone" + phone + "NAME..." + name);
+        }
+        pCur.close();
+        Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[]{contactId}, null);
+        while (emailCur.moveToNext()) {
+            emailContact = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+            emailType = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE));
+            sb.append("\nEmail:" + emailContact + "Email type:" + emailType);
+            System.out.println("****Email " + emailContact + " Email Type : " + emailType);
+
+        }
+
+        Log.v("DATA....","DATA FIRSTLOADED...NAME"+name);
+        Log.v("DATA....","DATA FIRSTLOADED...PHONE"+phone);
+        Log.v("DATA....","DATA FIRSTLOADED...EMAILID"+emailContact);
+        Log.v("DATA....","DATA FIRSTLOADED...EMAILTYPE"+emailType);
+
+
+        ContentValues cv = new ContentValues();
+        cv.put(dbHandler.PHONE_CONTACT_NAME, "" + name);
+        // cv.put(dbHandler.PHONE_CONTACT_FNAME, "" + arr_contacts.get(a).get);
+        //cv.put(dbHandler.PHONE_CONTACT_LNAME, "" + contact.getLastName());
+        cv.put(dbHandler.PHONE_CONTACT_NUMBER, "" +phone);
+        cv.put(dbHandler.PHONE_CONTACT_EMAIL, "" + emailContact);
+
+        dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, "Phone_Contact_ID='" + contactId + "'");
+        emailCur.close();
+    }
 
 }
