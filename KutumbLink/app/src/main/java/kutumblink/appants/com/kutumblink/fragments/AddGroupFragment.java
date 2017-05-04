@@ -463,6 +463,7 @@ public class AddGroupFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
+
                 Intent i = new Intent(Intent.ACTION_INSERT, ContactsContract.Contacts.CONTENT_URI);
                 if (Integer.valueOf(Build.VERSION.SDK) > 14)
                     i.putExtra("finishActivityOnSaveCompleted", true); // Fix for 4.0.3 +
@@ -685,9 +686,34 @@ public class AddGroupFragment extends BaseFragment {
         }else if(requestCode == INSERT_CONTACT_REQUEST){
 
 
-            Uri da=data.getData();
+            if(data!=null) {
+                Uri da = data.getData();
 
-            Log.v("DATA...","DATA;;;...."+da);
+                Log.v("DATA...", "DATA;;;...." + da);
+                Uri contactData = data.getData();
+                Cursor c = getActivity().managedQuery(contactData, null, null, null, null);
+                if (c.moveToFirst()) {
+                    String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+
+                    String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+                    if (hasPhone.equalsIgnoreCase("1")) {
+                        Cursor phones = getActivity().getContentResolver().query(
+                                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
+                                null, null);
+                        phones.moveToFirst();
+                        String cNumber = phones.getString(phones.getColumnIndex("data1"));
+                        System.out.println("number is:" + cNumber);
+                    }
+                    String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                    System.out.println("number is:" + name);
+
+                } Log.v("DATA...", "Cursor;;;...." + c);
+            }
+            else {
+                Log.v("DATA...", "Error;;;....");
+            }
         }
     }
 
