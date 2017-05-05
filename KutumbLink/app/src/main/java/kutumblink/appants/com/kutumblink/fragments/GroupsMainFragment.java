@@ -76,7 +76,9 @@ public class GroupsMainFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_groups_main, container, false);
-
+        Constants.GROUP_NAMECI="";
+        Constants.GROUP_NAMEP="";
+      //  Constants.RESULT=0;
     /*    Cursor cr = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
 
 

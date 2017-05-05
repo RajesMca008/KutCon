@@ -303,6 +303,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                     }
                 }
+                cg.close();
 
                 if (arr_group.size() > 0) {
                     for (int i = 0; i < arr_contacts.size(); i++) {
@@ -642,6 +643,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                                             dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, "where Phone_Contact_Gid='" + arr_group.get(i).getGroup_Name() + "' AND Phone_Contact_ID='" + arr_contacts.get(a).getConatactId() + "'");
                                         }
 
+                                        conatacts.close();
                                     }
                                 }
 
@@ -696,6 +698,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         sb.append("\nEmail:" + emailContact + "Email type:" + emailType);
                         System.out.println("****Email " + emailContact + " Email Type : " + emailType);
             }
+            emailCur.close();
                 ContentValues cv = new ContentValues();
                 cv.put(dbHandler.PHONE_CONTACT_NAME, "" + name);
                 // cv.put(dbHandler.PHONE_CONTACT_FNAME, "" + arr_contacts.get(a).get);
@@ -753,6 +756,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                 }
             }
+            c.close();
 
             //    Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
 
@@ -797,6 +801,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                     }
                 }
+                c.close();
                 lv_conatcst.setAdapter(new ContactListAdapter(getActivity(), arr_contacts));
 
             }

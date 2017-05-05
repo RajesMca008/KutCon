@@ -27,6 +27,8 @@ public class Constants {
 
     public static String imgID = "0";
     public static String GROUP_NAME = "";
+    public static String GROUP_NAMECI = "";
+    public static int RESULT = 0;
 
     public static String GROUP_NAMEP = "";
 
