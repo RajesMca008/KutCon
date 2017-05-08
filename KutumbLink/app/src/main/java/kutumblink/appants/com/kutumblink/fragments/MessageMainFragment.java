@@ -97,6 +97,7 @@ public class MessageMainFragment extends BaseFragment {
             }
         });
 
+        View bottomView=view.findViewById(R.id.bottom_view);
 
         DatabaseHandler databaseHandler=null;
         databaseHandler=new DatabaseHandler(getActivity());
@@ -105,6 +106,8 @@ public class MessageMainFragment extends BaseFragment {
 
         if(cursor!=null && cursor.getCount()>0)
         {
+            bottomView.setVisibility(View.VISIBLE);
+
             cursor.moveToFirst();
 
             do {
@@ -116,6 +119,9 @@ public class MessageMainFragment extends BaseFragment {
             }
             while (cursor.moveToNext());
         }
+        else {
+            bottomView.setVisibility(View.GONE);
+        }
         if(cursor!=null)
         cursor.close();
         if(databaseHandler!=null)
@@ -124,6 +130,10 @@ public class MessageMainFragment extends BaseFragment {
 
          adapter=new MyListAdapter(getContext(),mMsgList);
         listView.setAdapter(adapter);
+
+
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:minHeight="45dp"
 
+    android:gravity="center_vertical"
     android:layout_height="match_parent">
     <ImageView
         android:layout_width="17dp"
@@ -16,4 +17,5 @@
         android:layout_marginLeft="15dp"
         android:layout_margin="5dp"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

@@ -96,6 +96,7 @@ public class CameraMainFragment extends BaseFragment {
                 fragmentTransaction.commit();
             }
         });
+        View bottomView=view.findViewById(R.id.bottom_view);
 
         DatabaseHandler databaseHandler=null;
         databaseHandler=new DatabaseHandler(getActivity());
@@ -104,6 +105,7 @@ public class CameraMainFragment extends BaseFragment {
 
         if(cursor!=null && cursor.getCount()>0)
         {
+            bottomView.setVisibility(View.VISIBLE);
             cursor.moveToFirst();
 
             do {
@@ -115,7 +117,9 @@ public class CameraMainFragment extends BaseFragment {
             }
             while (cursor.moveToNext());
         }
-
+        else {
+            bottomView.setVisibility(View.GONE);
+        }
         if(cursor!=null)
         cursor.close();
         if(databaseHandler!=null)
