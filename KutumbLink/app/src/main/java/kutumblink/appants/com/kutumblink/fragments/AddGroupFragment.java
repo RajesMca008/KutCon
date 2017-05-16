@@ -124,45 +124,28 @@ public class AddGroupFragment extends BaseFragment {
         } else if (Constants.GROUP_OPERATIONS.equalsIgnoreCase("SAVE")) {
             btn_removegroup.setVisibility(View.INVISIBLE);
         }
-
         btn_removegroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 showConfirmOptionsDialog("Delete Group", "Are you sure?", Constants.GROUP_DELETE, Constants.GROUP_NAME);
-
-
             }
         });
 
         HomeActivity.ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (!Constants.GROUP_NAME.equalsIgnoreCase("")) {
-
-                    //  if(gEXISTS) {
                     Constants.NAV_GROUPS = 100;
-
-
                     if (Constants.GROUP_OPERATIONS.equalsIgnoreCase("EDIT")) {
-
-
                         boolean _GROUP_EXISTSEDT = false;
-
                         Cursor cg = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_OLD_NAME + "'");
                         if (cg != null) {
                             if (cg.getCount() > 0) {
-
                                 _GROUP_EXISTSEDT = true;
-
                             } else {
                                 _GROUP_EXISTSEDT = false;
                             }
-
-
                             if (_GROUP_EXISTSEDT) {
-
                                 ContentValues g_cv = new ContentValues();
                                 g_cv.put(dbHandler.GROUP_NAME, Constants.GROUP_NAME);
                                 g_cv.put(dbHandler.GROUP_TOTALCONTACTS, "0");
@@ -182,149 +165,118 @@ public class AddGroupFragment extends BaseFragment {
 
                     } else if (Constants.GROUP_OPERATIONS.equalsIgnoreCase("SAVE")) {
 
-                        boolean _GROUP_EXISTSAVE = false;
+                        Cursor cgsavesameName = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME + "'");
 
-                        Cursor cgsave = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + "0" + "'");
-                        if (cgsave != null) {
-                            if (cgsave.getCount() > 0) {
-
-                                _GROUP_EXISTSAVE = true;
-
-                            } else {
-                                _GROUP_EXISTSAVE = false;
-                            }
-
-
-                            if (_GROUP_EXISTSAVE) {
-
-                                ContentValues g_cv = new ContentValues();
-                                g_cv.put(dbHandler.GROUP_NAME, Constants.GROUP_NAME);
-                                g_cv.put(dbHandler.GROUP_TOTALCONTACTS, "0");
-                                g_cv.put(dbHandler.GROUP_PIC, "" + Constants.imgID);
-                                g_cv.put(dbHandler.GROUP_SORT_ORDER, "" + Constants.SortOrderValue);
-                                dbHandler.UpdateTable(dbHandler.TABLE_GROUP, g_cv, " G_NAME='" + "0" + "'");
-
-                                ContentValues cv = new ContentValues();
-                                cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
-                                dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, " Phone_Contact_Gid='" + "0" + "'");
-                            }
-                            cgsave.close();
-
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
+                        if(cgsavesameName.getCount()>0){
+                            showConfirmDialog("KutumbLink","Group name already exists");
 
                         }else {
 
 
-                            if (Constants.GROUP_NAMEP.equalsIgnoreCase("vdgfhhTT")) {
-                                ContentValues g_cv = new ContentValues();
-                                g_cv.put(dbHandler.GROUP_NAME, Constants.GROUP_NAME);
-                                g_cv.put(dbHandler.GROUP_TOTALCONTACTS, "0");
-                                g_cv.put(dbHandler.GROUP_PIC, "" + Constants.imgID);
-                                g_cv.put(dbHandler.GROUP_SORT_ORDER, "" + Constants.SortOrderValue);
-                                Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + "0" + "'");
+                            boolean _GROUP_EXISTSAVE = false;
 
-                                if (c == null || c.getCount() == 0) {
-                                    dbHandler.insert(dbHandler.TABLE_GROUP, g_cv);
+                            Cursor cgsave = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + "0" + "'");
+                            if (cgsave != null) {
+                                if (cgsave.getCount() > 0) {
+
+                                    _GROUP_EXISTSAVE = true;
+
                                 } else {
+                                    _GROUP_EXISTSAVE = false;
+                                }
 
+
+                                if (_GROUP_EXISTSAVE) {
+
+
+                                    ContentValues g_cv = new ContentValues();
+                                    g_cv.put(dbHandler.GROUP_NAME, Constants.GROUP_NAME);
+                                    g_cv.put(dbHandler.GROUP_TOTALCONTACTS, "0");
+                                    g_cv.put(dbHandler.GROUP_PIC, "" + Constants.imgID);
+                                    g_cv.put(dbHandler.GROUP_SORT_ORDER, "" + Constants.SortOrderValue);
                                     dbHandler.UpdateTable(dbHandler.TABLE_GROUP, g_cv, " G_NAME='" + "0" + "'");
 
+                                    ContentValues cv = new ContentValues();
+                                    cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
+                                    dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, " Phone_Contact_Gid='" + "0" + "'");
                                 }
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
+
+
+
+                                /*else {
+                                Cursor cgsavename = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME + "'");
+                                if (cgsavename != null) {
+                                    if (cgsavename.getCount() > 0) {
+
+                                        _GROUP_EXISTSAVE = true;
+
+                                    } else {
+                                        _GROUP_EXISTSAVE = false;
+                                    }
+                                }
+                                cgsavename.close();
 
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
-                            } else if (Constants.GROUP_NAMECI.equalsIgnoreCase("CINSERT")) {
 
-
-                                ContentValues g_cv = new ContentValues();
-                                g_cv.put(dbHandler.GROUP_NAME, Constants.GROUP_NAME);
-                                g_cv.put(dbHandler.GROUP_TOTALCONTACTS, "0");
-                                g_cv.put(dbHandler.GROUP_PIC, "" + Constants.imgID);
-                                g_cv.put(dbHandler.GROUP_SORT_ORDER, "" + Constants.SortOrderValue);
-
-
-                                dbHandler.UpdateTable(dbHandler.TABLE_GROUP, g_cv, " G_NAME='" + "0" + "'");
-
-                                ContentValues cv = new ContentValues();
-
-
-                                cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
-
-
-                                dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, " Phone_Contact_Gid='" + "0" + "'");
-
-
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
 
                             }
-
-
-                        }
-
-                        /*else {
-                            boolean _GROUP_EXISTS = false;
-                            Cursor cg = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME + "'");
-                            if (cg != null) {
-                                if (cg.getCount() > 0) {
-                                    _GROUP_EXISTS = true;
-                                } else {
-                                    _GROUP_EXISTS = false;
-                                }
-                            }
-                            cg.close();
-
-                            if (!_GROUP_EXISTS) {
-
-                                ContentValues g_cv = new ContentValues();
-                                g_cv.put(dbHandler.GROUP_NAME, Constants.GROUP_NAME);
-                                g_cv.put(dbHandler.GROUP_TOTALCONTACTS, "0");
-                                g_cv.put(dbHandler.GROUP_PIC, "" + Constants.imgID);
-                                g_cv.put(dbHandler.GROUP_SORT_ORDER, "" + Constants.SortOrderValue);
-                                Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME + "'");
-
-                                if (c == null || c.getCount() == 0) {
-                                    dbHandler.insert(dbHandler.TABLE_GROUP, g_cv);
-                                } else {
-
-                                    dbHandler.UpdateTable(dbHandler.TABLE_GROUP, g_cv, " G_NAME='" + Constants.GROUP_NAME + "'");
-
-                                }
-                                c.close();
-
-
-                                ContentValues cv = new ContentValues();
-
-                                cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
-                                cv.put(dbHandler.PHONE_CONTACT_NUMBER, "##000");
-
-                                Cursor cphone = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "'");
-
-                                if (cphone == null || cphone.getCount() == 0) {
-                                    dbHandler.insert(dbHandler.TABLE_PHONE_CONTACTS, cv);
-                                } else {
-                                    dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, " Phone_Contact_Gid='" + Constants.GROUP_NAME + "'");
-                                }
-                                cphone.close();
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
+*/
 
                             } else {
 
-                                if (Constants.RESULT == 1) {
+
+                                if (Constants.GROUP_NAMEP.equalsIgnoreCase("vdgfhhTT")) {
+                                    ContentValues g_cv = new ContentValues();
+                                    g_cv.put(dbHandler.GROUP_NAME, Constants.GROUP_NAME);
+                                    g_cv.put(dbHandler.GROUP_TOTALCONTACTS, "0");
+                                    g_cv.put(dbHandler.GROUP_PIC, "" + Constants.imgID);
+                                    g_cv.put(dbHandler.GROUP_SORT_ORDER, "" + Constants.SortOrderValue);
+                                    Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + "0" + "'");
+
+                                    if (c == null || c.getCount() == 0) {
+                                        dbHandler.insert(dbHandler.TABLE_GROUP, g_cv);
+                                    } else {
+
+                                        dbHandler.UpdateTable(dbHandler.TABLE_GROUP, g_cv, " G_NAME='" + "0" + "'");
+
+                                    }
+
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
+                                } else if (Constants.GROUP_NAMECI.equalsIgnoreCase("CINSERT")) {
+
+
+                                    ContentValues g_cv = new ContentValues();
+                                    g_cv.put(dbHandler.GROUP_NAME, Constants.GROUP_NAME);
+                                    g_cv.put(dbHandler.GROUP_TOTALCONTACTS, "0");
+                                    g_cv.put(dbHandler.GROUP_PIC, "" + Constants.imgID);
+                                    g_cv.put(dbHandler.GROUP_SORT_ORDER, "" + Constants.SortOrderValue);
+
+
+                                    dbHandler.UpdateTable(dbHandler.TABLE_GROUP, g_cv, " G_NAME='" + "0" + "'");
+
+                                    ContentValues cv = new ContentValues();
+
+
+                                    cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
+
+
+                                    dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, " Phone_Contact_Gid='" + "0" + "'");
+
+
                                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                     fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
 
-                                } else {
-                                    showConfirmDialogActions("Groups", "Group already exists");
                                 }
+
+
                             }
-                        }*/
+                        }
 
                     }
-
-
                 } else {
 
                 }
@@ -758,16 +710,7 @@ public class AddGroupFragment extends BaseFragment {
 
                     if (!cINS) {
                         dbHandler.insert(dbHandler.TABLE_GROUP, g_cv);
-                    }/* else {
-
-                        dbHandler.UpdateTable(dbHandler.TABLE_GROUP, g_cv, " G_NAME='" + Constants.GROUP_NAME + "'");
-
-                    }*/
-
-
-                    // dbHandler.insert(dbHandler.TABLE_GROUP, g_cv);
-
-
+                    }
                     ContentValues cv = new ContentValues();
                     cv.put(dbHandler.PHONE_CONTACT_ID, "" + id);
                     cv.put(dbHandler.PHONE_CONTACT_NAME, "" + name);

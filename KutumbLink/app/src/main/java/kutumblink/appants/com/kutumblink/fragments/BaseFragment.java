@@ -108,6 +108,8 @@ public class BaseFragment extends Fragment {
     }
 
 
+
+
     protected void makeToast(String text) {
         Toast toast = Toast.makeText(getActivity().getApplicationContext(),text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -254,5 +256,18 @@ public class BaseFragment extends Fragment {
         builder.show();
     }
 
+
+    public void onBackPressed() {
+
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            //super.onBackPressed();
+            //additional code
+        } else {
+            getFragmentManager().popBackStack();
+        }
+
+    }
 
 }
