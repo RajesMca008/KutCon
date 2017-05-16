@@ -482,6 +482,16 @@ public class AddGroupFragment extends BaseFragment {
         tv_selectContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(Constants.GROUP_OPERATIONS.equalsIgnoreCase("SAVE")) {
+                    Cursor cgsavesameName = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME + "'");
+
+                    if (cgsavesameName.getCount() > 0) {
+                        showConfirmDialog("KutumbLink", "Group name already exists");
+                        return;
+                    }
+                }
+
                 if ((ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)) {
 
                     requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
@@ -594,7 +604,10 @@ public class AddGroupFragment extends BaseFragment {
                 g_cv.put(dbHandler.GROUP_NAME, "0");
                 Constants.GROUP_NAMECI = "CINSERT";
             } else {
-                g_cv.put(dbHandler.GROUP_NAME, "" + Constants.GROUP_NAME);
+                if(Constants.GROUP_OPERATIONS.equalsIgnoreCase("SAVE"))
+                g_cv.put(dbHandler.GROUP_NAME, "0" /*+ Constants.GROUP_NAME*/);
+                else
+                    g_cv.put(dbHandler.GROUP_NAME, "" + Constants.GROUP_NAME);
             }
             g_cv.put(dbHandler.GROUP_TOTALCONTACTS, "0");
             g_cv.put(dbHandler.GROUP_PIC, "" + Constants.imgID);
@@ -615,7 +628,10 @@ public class AddGroupFragment extends BaseFragment {
                     cv.put(dbHandler.PHONE_CONTACT_GID, "0");
                     Constants.GROUP_NAMECI = "CINSERT";
                 } else {
+                    if(Constants.GROUP_OPERATIONS.equalsIgnoreCase("EDIT"))
                     cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
+                    else
+                        cv.put(dbHandler.PHONE_CONTACT_GID, "0"/* + Constants.GROUP_NAME*/);
                 }
                 cv.put(dbHandler.PHONE_CONTACT_PIC, "" + contact.getPhotoUri());
 

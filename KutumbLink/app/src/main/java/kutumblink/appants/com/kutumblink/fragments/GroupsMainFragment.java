@@ -308,11 +308,11 @@ public class GroupsMainFragment extends BaseFragment {
 
 
                 Constants.imgID=arr_group.get(i).getGroup_Pic();
-                GroupContactsFragment groupContacts = new GroupContactsFragment(); //New means creating adding.
+                GroupContactsFragment groupContacts =  GroupContactsFragment.newInstance(Constants.GROUP_OPERATIONS); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, groupContacts);
-                fragmentTransaction.addToBackStack("group_Main");
+                 fragmentTransaction.addToBackStack("group_Main");
                 fragmentTransaction.commit();
 
 

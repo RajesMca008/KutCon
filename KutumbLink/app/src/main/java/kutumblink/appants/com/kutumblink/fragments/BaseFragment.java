@@ -257,7 +257,8 @@ public class BaseFragment extends Fragment {
     }
 
 
-    public void onBackPressed() {
+
+    /*public void onBackPressed() {
 
         int count = getFragmentManager().getBackStackEntryCount();
 
@@ -268,6 +269,6 @@ public class BaseFragment extends Fragment {
             getFragmentManager().popBackStack();
         }
 
-    }
+    }*/
 
 }

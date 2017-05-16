@@ -56,10 +56,22 @@ import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
  * A simple {@link Fragment} subclass.
  */
 public class GroupContactsFragment extends BaseFragment implements Serializable {
-
+    private static final String ARG_PARAM1 = "param1";
 
     public GroupContactsFragment() {
         // Required empty public constructor
+    }
+
+
+    public static GroupContactsFragment newInstance(String param1)
+    {
+        GroupContactsFragment fragment=new GroupContactsFragment();
+
+
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private static final int REQUEST_CONTACT = 0;
@@ -814,7 +826,20 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     @Override
     public void onResume() {
         super.onResume();
-        arr_contacts.clear();
-        new updateContacts(getActivity()).execute();
+      //  arr_contacts.clear();
+      //  new updateContacts(getActivity()).execute();
     }
+
+   /* @Override
+    public void onBackPressed() {
+
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            //super.onBackPressed();
+            //additional code
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }*/
 }
