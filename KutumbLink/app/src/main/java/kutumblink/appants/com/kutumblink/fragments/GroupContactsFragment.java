@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -97,7 +99,17 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_groupcontacts, container, false);
-        Constants.NAV_GROUPS = 102;
+       // Constants.NAV_GROUPS = 102;
+
+        activity.setTitle(Constants.GROUP_NAME);
+
+
+        HomeActivity.ib_back.setBackgroundColor(Color.TRANSPARENT);
+
+        HomeActivity.ib_back_next.setText("Done");
+        HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
+        HomeActivity.ib_menu.setText("Edit");
+        HomeActivity.tv_title.setText(Constants.GROUP_NAME);
 
 
         dbHandler = new DatabaseHandler(getActivity());
@@ -427,15 +439,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             }
         });
 
-        activity.setTitle(Constants.GROUP_NAME);
 
-
-        HomeActivity.ib_back.setBackgroundColor(Color.TRANSPARENT);
-
-        HomeActivity.ib_back_next.setText("Done");
-        HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
-        HomeActivity.ib_menu.setText("Edit");
-        HomeActivity.tv_title.setText(Constants.GROUP_NAME);
         GroupContactsFragment.btn_actions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -826,8 +830,14 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     @Override
     public void onResume() {
         super.onResume();
-      //  arr_contacts.clear();
-      //  new updateContacts(getActivity()).execute();
+
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+        arr_contacts.clear();
+         new updateContacts(getActivity()).execute();
     }
 
    /* @Override

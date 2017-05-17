@@ -312,7 +312,7 @@ public class GroupsMainFragment extends BaseFragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, groupContacts);
-                 fragmentTransaction.addToBackStack("group_Main");
+                fragmentTransaction.addToBackStack("group_Main");
                 fragmentTransaction.commit();
 
 

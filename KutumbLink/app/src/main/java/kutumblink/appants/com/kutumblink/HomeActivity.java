@@ -389,6 +389,14 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            //super.onBackPressed();
+            //additional code
+        } else {
+            getFragmentManager().popBackStack();
+        }
     }
 
     @Override
