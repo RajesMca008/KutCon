@@ -142,7 +142,7 @@ public class AddGroupFragment extends BaseFragment {
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(keyView.getWindowToken(), 0);
                 }
-                if (!Constants.GROUP_NAME.equalsIgnoreCase("")) {
+                 if (!Constants.GROUP_NAME.equalsIgnoreCase("")) {
                     Constants.NAV_GROUPS = 100;
                     if (Constants.GROUP_OPERATIONS.equalsIgnoreCase("EDIT")) {
                         boolean _GROUP_EXISTSEDT = false;
@@ -207,6 +207,20 @@ public class AddGroupFragment extends BaseFragment {
                                     ContentValues cv = new ContentValues();
                                     cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
                                     dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, " Phone_Contact_Gid='" + "0" + "'");
+                                }
+
+                                else {
+
+                                    ContentValues g_cv = new ContentValues();
+                                    g_cv.put(dbHandler.GROUP_NAME, Constants.GROUP_NAME);
+                                    g_cv.put(dbHandler.GROUP_TOTALCONTACTS, "0");
+                                    g_cv.put(dbHandler.GROUP_PIC, "" + Constants.imgID);
+                                    g_cv.put(dbHandler.GROUP_SORT_ORDER, "" + Constants.SortOrderValue);
+                                    dbHandler.insert(dbHandler.TABLE_GROUP, g_cv);
+
+                                    /*ContentValues cv = new ContentValues();
+                                    cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
+                                    dbHandler.insert(dbHandler.TABLE_PHONE_CONTACTS, cv);*/
                                 }
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
@@ -502,8 +516,8 @@ public class AddGroupFragment extends BaseFragment {
 
                 if ((ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)) {
 
-                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                            MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+                   /* requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                            MY_PERMISSIONS_REQUEST_READ_CONTACTS);*/
                     Constants.GROUP_NAME = et_groupname.getText().toString();
                     Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
                             //   .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_AppCompat : R.style.TextAppearance_AppCompat_Caption)
@@ -515,8 +529,8 @@ public class AddGroupFragment extends BaseFragment {
 
                     startActivityForResult(intent, REQUEST_CONTACT);
                 } else {
-                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                            MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+                    /*requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                            MY_PERMISSIONS_REQUEST_READ_CONTACTS);*/
                     Integer selectedList[] = new Integer[GroupsMainFragment.arr_group.size()];
                     Collection<Long> selectContats = new ArrayList<Long>();
                     int i = 0;
