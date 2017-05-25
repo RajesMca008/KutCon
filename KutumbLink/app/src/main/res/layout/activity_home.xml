@@ -40,12 +40,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="-5dp"
-
-
+            app:itemTextColor="#3d3b3d"
+            app:itemIconTint="@null"
             android:layout_alignParentBottom="true"
-            android:background="?android:attr/windowBackground"
+            android:background="@color/whitecolor"
             app:menu="@menu/navigation" />
 
+        <!--
+        app:itemIconTint="@color/bnv_tab_item_foreground"
+            app:itemTextColor="@color/bnv_tab_item_foreground"
+        -->
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="wrap_content"

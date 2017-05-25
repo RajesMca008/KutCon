@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -187,11 +188,23 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        navigation.setItemIconTintList(null);
 
 
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {
             final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
+
+            try{
+                TextView textView= ((TextView)menuView.getChildAt(i).findViewById(android.support.design.R.id.largeLabel));
+                Typeface face = Typeface.createFromAsset(getAssets(),
+                        "trebuc.ttf");
+                textView.setTypeface(face);
+
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
             final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
             final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
             // set your height here
@@ -206,9 +219,10 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
         //If you want disable shift change mode for bottom
         BottomNavigationViewHelper.disableShiftMode(navigation);
+
         mPlanetTitles = getResources().getStringArray(R.array.menu_name_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        
+
 
         if(Constants.needToShowAdd) {
             //Ads
