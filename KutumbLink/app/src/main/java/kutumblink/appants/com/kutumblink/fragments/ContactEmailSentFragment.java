@@ -2,6 +2,7 @@ package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -81,7 +82,7 @@ public class ContactEmailSentFragment extends BaseFragment implements View.OnCli
                 return;
             }
 
-            Intent email = new Intent(Intent.ACTION_SEND);
+           /* Intent email = new Intent(Intent.ACTION_SEND);
             email.putExtra(Intent.EXTRA_EMAIL,new String[] { getString(R.string.email)});
             email.putExtra(Intent.EXTRA_SUBJECT,emailTitle.getText().toString().trim());
             email.putExtra(Intent.EXTRA_TEXT,emailBody.getText().toString().trim());
@@ -90,8 +91,21 @@ public class ContactEmailSentFragment extends BaseFragment implements View.OnCli
             email.setType("message/rfc822");
 
             startActivityForResult(Intent.createChooser(email, "Choose an Email client:"),
-                    1);
+                    1);*/
+           /* Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:jorgesys12@gmail.com"));
+            startActivity(intent);*/
 
+
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[] { getString(R.string.email)});
+            intent.putExtra(Intent.EXTRA_SUBJECT, emailTitle.getText().toString().trim());
+            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                //startActivity(intent);
+                startActivityForResult(Intent.createChooser(intent, "Choose an Email client:"),
+                        1);
+            }
         }
     }
 
@@ -105,8 +119,6 @@ public class ContactEmailSentFragment extends BaseFragment implements View.OnCli
             } else {
 
                 makeToast("Email sent Fail");
-
-
 
             }
         }
