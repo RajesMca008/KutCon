@@ -41,6 +41,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -129,7 +130,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
     };
     private NavigationView nvDrawer;
 
-    public static TextView ib_back;
+    public static ImageView ib_back;
     public static TextView ib_back_next;
 
    public static  TextView tv_title;
@@ -155,7 +156,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         getSupportActionBar().setCustomView(R.layout.custom_actionbar);
         View view =getSupportActionBar().getCustomView();
 
-        ib_back=(TextView)view.findViewById(R.id.ib_action_bar_back);
+        ib_back=(ImageView)view.findViewById(R.id.ib_action_bar_back);
         ib_menu=(TextView)view.findViewById(R.id.ib_action_menu);
         tv_title=(TextView)view.findViewById(R.id.tv_title);
         ib_back_next=(TextView)view.findViewById(R.id.ib_action_bar_back_next);

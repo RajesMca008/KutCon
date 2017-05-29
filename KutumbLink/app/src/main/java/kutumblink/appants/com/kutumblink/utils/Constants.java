@@ -2,6 +2,7 @@ package kutumblink.appants.com.kutumblink.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.Nullable;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
@@ -54,6 +55,7 @@ public class Constants {
         String temp = Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
     }
+    @Nullable
     public static Bitmap stringToBitMap(String encodedString) {
         try {
             byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);

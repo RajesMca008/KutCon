@@ -48,7 +48,7 @@ public class SortOderDetailsFragment extends BaseFragment implements View.OnClic
 
         initi(Constants.SortOrderValue);
 
-        HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
+        HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
 
         HomeActivity.ib_back_next.setText(HomeActivity.ib_back_next.getText().toString());
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);

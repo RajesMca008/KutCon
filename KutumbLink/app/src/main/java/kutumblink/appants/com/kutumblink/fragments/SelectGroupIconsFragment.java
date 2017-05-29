@@ -214,7 +214,7 @@ public class SelectGroupIconsFragment extends BaseFragment  {
                                 Log.v("DATA NAME...","DATA VALUE..."+value);
                                Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(value.replace(".jpg","") , "drawable", getActivity().getPackageName()));
                                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+                                bm.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
                                 final String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
 
 

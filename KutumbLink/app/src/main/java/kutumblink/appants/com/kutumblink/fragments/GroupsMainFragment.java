@@ -230,7 +230,7 @@ public class GroupsMainFragment extends BaseFragment {
 
 
 
-        if(Constants.imgID.length()<15){
+        if(Constants.imgID.length()<5){
             mDrawableName = "add_group";
             Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(mDrawableName , "drawable", getActivity().getPackageName()));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();

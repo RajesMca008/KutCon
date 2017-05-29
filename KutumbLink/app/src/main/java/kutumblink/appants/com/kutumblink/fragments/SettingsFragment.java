@@ -69,7 +69,7 @@ public class SettingsFragment extends BaseFragment  {
         Constants.NAV_GROUPS=104;
 
 
-        HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
+        HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
 
         HomeActivity.ib_back_next.setText("Groups");
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);

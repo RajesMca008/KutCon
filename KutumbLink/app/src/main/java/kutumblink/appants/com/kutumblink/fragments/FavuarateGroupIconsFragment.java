@@ -78,7 +78,7 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
         final List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
 
-        HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
+        HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
 
         HomeActivity.ib_back_next.setText("Add Group");
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);

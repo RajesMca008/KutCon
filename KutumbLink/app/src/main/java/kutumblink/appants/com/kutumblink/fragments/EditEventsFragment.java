@@ -250,7 +250,7 @@ public class EditEventsFragment extends BaseFragment {
         });
 
 
-        HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
+        HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
         if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
             HomeActivity.tv_title.setText("Edit Details");
         }else {

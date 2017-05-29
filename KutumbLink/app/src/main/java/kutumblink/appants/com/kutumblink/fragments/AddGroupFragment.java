@@ -107,7 +107,7 @@ public class AddGroupFragment extends BaseFragment {
         dbHandler = new DatabaseHandler(getActivity());
         btn_removegroup = (Button) view.findViewById(R.id.btn_removegroup);
         Constants.NAV_GROUPS = 101;
-        HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
+        HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
 
         HomeActivity.ib_back_next.setText("Groups");
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);

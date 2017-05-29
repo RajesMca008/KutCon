@@ -131,7 +131,7 @@ public class EventActionsFragment extends BaseFragment {
         tv_evtContacts.setText(contactsInfo);
 
 
-        HomeActivity.ib_back.setBackgroundResource(R.mipmap.left_arrow);
+        HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
 
         HomeActivity.ib_back_next.setText("Events");
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
