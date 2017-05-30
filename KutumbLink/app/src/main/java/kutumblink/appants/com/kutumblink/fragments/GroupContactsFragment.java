@@ -152,7 +152,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, groupContacts);
-                fragmentTransaction.addToBackStack("group_Main");
+                //fragmentTransaction.addToBackStack("group_Main");
                 fragmentTransaction.commit();
 
 
@@ -481,7 +481,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, groupContacts);
-                fragmentTransaction.addToBackStack("group_Main");
+               // fragmentTransaction.addToBackStack("group_Main");
                 fragmentTransaction.commit();
             }
         });
@@ -496,7 +496,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, groupContacts);
-                fragmentTransaction.addToBackStack("group_Main");
+                //fragmentTransaction.addToBackStack("group_Main");
                 fragmentTransaction.commit();
 
             }

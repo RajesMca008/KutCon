@@ -204,8 +204,8 @@ public class GroupsMainFragment extends BaseFragment {
                 Constants.GROUP_NAME="";
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                FragmentTransaction ft= fragmentManager.beginTransaction();
-                ft.replace(R.id.main_container, new AddGroupFragment());
-                        ft.addToBackStack("group_Main");
+                ft.add(R.id.main_container, new AddGroupFragment());
+                       // ft.addToBackStack("group_Main");
                         ft.commit();
 
 
