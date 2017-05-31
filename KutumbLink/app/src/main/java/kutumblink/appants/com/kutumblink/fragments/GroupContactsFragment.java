@@ -244,7 +244,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     intent.setType("vnd.android-dir/mms-sms");
                     startActivity(intent);
                 } else {
-                    showConfirmDialog(getString(R.string.app_name), "Please select contacts");
+                    showConfirmDialog(getString(R.string.app_name), "Please select contacts",false);
                 }
             }
         });
@@ -293,7 +293,11 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         Toast.makeText(getActivity(), "Contact's doen't have email id", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    showConfirmDialog("Groups", "Selected contacts do not have email");
+                    if(ll_actions.getVisibility()==View.VISIBLE)
+                    {
+                        ll_actions.setVisibility(View.GONE);
+                    }
+                    showConfirmDialog("Groups", "Selected contacts do not have email",false);
                 }
             }
         });

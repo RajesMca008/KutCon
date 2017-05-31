@@ -176,7 +176,7 @@ public class AddGroupFragment extends BaseFragment {
                         Cursor cgsavesameName = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME + "'");
 
                         if(cgsavesameName.getCount()>0){
-                            showConfirmDialog("KutumbLink","Group name already exists");
+                            showConfirmDialog("KutumbLink","Group name already exists",true);
 
                         }else {
 
@@ -509,7 +509,7 @@ public class AddGroupFragment extends BaseFragment {
                     Cursor cgsavesameName = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME + "'");
 
                     if (cgsavesameName.getCount() > 0) {
-                        showConfirmDialog("KutumbLink", "Group name already exists");
+                        showConfirmDialog("KutumbLink", "Group name already exists",true);
                         return;
                     }
                 }

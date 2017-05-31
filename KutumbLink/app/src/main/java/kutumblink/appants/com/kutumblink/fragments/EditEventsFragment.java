@@ -165,12 +165,12 @@ public class EditEventsFragment extends BaseFragment {
 
 
                 if(event_title_text.getText().toString().length()==0){
-                    showConfirmDialog(getString(R.string.evt_title), "Please enter date");
+                    showConfirmDialog(getString(R.string.evt_title), "Please enter date",false);
 
                 }else if(tv_eventTitle.getText().toString().length()==0){
-                    showConfirmDialog(getString(R.string.evt_title), "Please enter title");
+                    showConfirmDialog(getString(R.string.evt_title), "Please enter title",false);
                 }else if(tv_desc.getText().toString().length()==0){
-                    showConfirmDialog(getString(R.string.evt_title), "Please enter description");
+                    showConfirmDialog(getString(R.string.evt_title), "Please enter description",false);
                 }else {
 
 

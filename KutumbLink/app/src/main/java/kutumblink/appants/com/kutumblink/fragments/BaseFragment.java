@@ -133,7 +133,7 @@ public class BaseFragment extends Fragment {
 
 
 
-        protected  void showConfirmDialog(String title,String message) {
+        protected  void showConfirmDialog(String title, String message, final boolean needGoBack) {
             android.support.v7.app.AlertDialog.Builder builder = new  android.support.v7.app.AlertDialog.Builder(getContext());
 
             builder.setIcon(R.mipmap.ic_launcher);
@@ -156,7 +156,9 @@ public class BaseFragment extends Fragment {
 
 
 
-                        getActivity().onBackPressed();
+                        if(needGoBack) {
+                            getActivity().onBackPressed();
+                        }
                     }
                 }
 

@@ -148,7 +148,7 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
 
                     if (insert > 0) {
                         //Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
-                        showConfirmDialog(getString(R.string.app_name), getString(R.string.saved_sucess));
+                        showConfirmDialog(getString(R.string.app_name), getString(R.string.saved_sucess),true);
                         //getActivity().onBackPressed();
                     }
                 }
@@ -160,7 +160,7 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
 
                     if (insert > 0) {
                         //Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
-                        showConfirmDialog(getString(R.string.app_name), getString(R.string.updated_sucess));
+                        showConfirmDialog(getString(R.string.app_name), getString(R.string.updated_sucess),true);
                         //getActivity().onBackPressed();
                     }
                 }
