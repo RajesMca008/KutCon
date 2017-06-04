@@ -44,7 +44,6 @@ public class EventsMainFragment extends BaseFragment {
         dbHandler=new DatabaseHandler(getActivity());
         arr_evts.clear();
         HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
-
         HomeActivity.ib_back_next.setText("");
         HomeActivity.ib_menu.setBackgroundResource(R.mipmap.menu);
         HomeActivity.ib_menu.setText("");
@@ -58,8 +57,6 @@ public class EventsMainFragment extends BaseFragment {
             {
                 c.moveToFirst();
                 do {
-
-
                     EventsDo evtDetails=new EventsDo();
                     evtDetails.setEvtTitle(c.getString(c.getColumnIndex(DatabaseHandler.EVT_TITLE)));
                     evtDetails.setEvtDesc(c.getString(c.getColumnIndex(DatabaseHandler.EVT_DESC)));

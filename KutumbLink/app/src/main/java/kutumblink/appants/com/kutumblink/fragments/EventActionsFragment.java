@@ -128,7 +128,11 @@ public class EventActionsFragment extends BaseFragment {
         } catch (JSONException e) {
 
         }
-        tv_evtContacts.setText(contactsInfo);
+        if(contactsInfo.length()==0){
+            tv_evtContacts.setText(contactsInfo);
+        }else {
+            tv_evtContacts.setText(contactsInfo);
+        }
 
 
         HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
@@ -313,12 +317,30 @@ public class EventActionsFragment extends BaseFragment {
                 dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, " evt_title='" + tv_evtTitle.getText().toString() + "'");
 
                 Log.v("DATA....", "DATA.....SAVE..." + jsonArray.toString());
+
+
+                EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+                Bundle args = new Bundle();
+                args.putString("title",tv_evtTitle.getText().toString());
+                args.putString("desc",tv_evtDesc.getText().toString());
+                args.putString("time",tv_evtTime.getText().toString());
+                args.putString("contacts",jsonArray.toString());
+                groupContacts.setArguments(args);
+                fragmentTransaction.replace(R.id.main_container, groupContacts);
+                fragmentTransaction.addToBackStack("Events_Main");
+                fragmentTransaction.commit();
+
+
             } catch (Exception e) {
 
             }
 
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.main_container, new EventActionsFragment()).commit();
+          /*  FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.main_container, new EventActionsFragment()).commit();*/
 
             //  }
 

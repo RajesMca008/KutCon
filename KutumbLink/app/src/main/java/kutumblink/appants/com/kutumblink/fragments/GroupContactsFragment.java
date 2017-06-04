@@ -721,18 +721,12 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             emailCur.close();
                 ContentValues cv = new ContentValues();
                 cv.put(dbHandler.PHONE_CONTACT_NAME, "" + name);
-                // cv.put(dbHandler.PHONE_CONTACT_FNAME, "" + arr_contacts.get(a).get);
-                //cv.put(dbHandler.PHONE_CONTACT_LNAME, "" + contact.getLastName());
                 cv.put(dbHandler.PHONE_CONTACT_NUMBER, "" +phone);
                 cv.put(dbHandler.PHONE_CONTACT_EMAIL, "" + emailContact);
 
                     dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv, "Phone_Contact_ID='" + contactId + "'");
             emailCur.close();
     }
-
-
-
-
     class updateContacts extends AsyncTask<String, String, String> {
         private ProgressDialog dialog;
 
@@ -755,8 +749,6 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
             arr_contacts.clear();
             Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
-
-
             if (c != null) {
                 if (c.getCount() > 0) {
                     c.moveToFirst();
@@ -764,25 +756,14 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         try {
                             if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
                                 readContacts(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
-
-
-
                             }
                         } catch (Exception e) {
 
                         }
-
                     } while (c.moveToNext());
-
                 }
             }
             c.close();
-
-            //    Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
-
-
-
-
             return null;
         }
 
@@ -810,31 +791,20 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                                     contactsBean.setConatactEmail(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_EMAIL)));
                                     contactsBean.setIS_CONTACT_SELECTED(0);
                                     arr_contacts.add(contactsBean);
-
-
                                 }
                             } catch (Exception e) {
-
-                            }
-
+                        }
                         } while (c.moveToNext());
-
                     }
                 }
                 c.close();
                 lv_conatcst.setAdapter(new ContactListAdapter(getActivity(), arr_contacts));
-
             }
-
-
         }
     }
-
-
     @Override
     public void onResume() {
         super.onResume();
-
         View view = getActivity().getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.onegravity.contactpicker.contact.Contact;
@@ -65,6 +66,9 @@ public class EditEventsFragment extends BaseFragment {
 
     ArrayList<EventsDo> arrEvt = new ArrayList<>();
     String contactsInfo = "";
+    String showContacts="";
+    LinearLayout ll_contactsList;
+    TextView tv_contactInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +84,9 @@ public class EditEventsFragment extends BaseFragment {
         tv_sel_contactlist = (TextView) view.findViewById(R.id.select_contactstext);
         tv_sortorder = (TextView) view.findViewById(R.id.sort_order_text);
         btn_save = (Button) view.findViewById(R.id.save_btn_id);
+        ll_contactsList=(LinearLayout)view.findViewById(R.id.ll_contactslist) ;
 
+        tv_contactInfo=(TextView)view.findViewById(R.id.tv_event_contactinfo);
         tv_sortorder.setText("Sort Order  -  "+Constants.SortOrderValue);
         tv_sortorder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,17 +99,41 @@ public class EditEventsFragment extends BaseFragment {
                 fragmentTransaction.commit();
             }
         });
-
-        //  if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
         Bundle args = getArguments();
-
         if (args != null) {
-
             event_title_text.setText(args.getString("time"));
             tv_eventTitle.setText(args.getString("title"));
             tv_desc.setText(args.getString("desc"));
             contactsInfo = args.getString("contacts");
         }
+        try {
+            if (contactsInfo != null) {
+                JSONArray jArr = new JSONArray(contactsInfo);
+                for (int i = 0; i < jArr.length(); i++) {
+                    JSONObject jobj = jArr.getJSONObject(i);
+                    showContacts += jobj.getString(DatabaseHandler.PHONE_CONTACT_NAME) + "\n";
+                    EventsDo ed = new EventsDo();
+                    ed.setEvtContacts(jobj.getString(DatabaseHandler.PHONE_CONTACT_ID));
+                    ed.setEvtphone(jobj.getString(DatabaseHandler.PHONE_CONTACT_NUMBER));
+                    ed.setEvtEmail(jobj.getString(DatabaseHandler.PHONE_CONTACT_EMAIL));
+                    arrEvt.add(ed);
+                }
+            }
+        } catch (JSONException e) {
+
+        }
+
+        if(contactsInfo.length()==0){
+            ll_contactsList.setVisibility(View.GONE);
+            tv_sel_contactlist.setVisibility(View.VISIBLE);
+            tv_sel_contactlist.setText("Select from Contact List");
+        }else{
+            tv_sel_contactlist.setVisibility(View.GONE);
+            ll_contactsList.setVisibility(View.VISIBLE);
+            tv_contactInfo.setText(showContacts);
+        }
+
+
 
         try {
 
@@ -158,29 +188,23 @@ public class EditEventsFragment extends BaseFragment {
 
             }
         });
+     //  btn_save.setVisibility(View.VISIBLE);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if(event_title_text.getText().toString().length()==0){
                     showConfirmDialog(getString(R.string.evt_title), "Please enter date",false);
-
                 }else if(tv_eventTitle.getText().toString().length()==0){
                     showConfirmDialog(getString(R.string.evt_title), "Please enter title",false);
                 }else if(tv_desc.getText().toString().length()==0){
                     showConfirmDialog(getString(R.string.evt_title), "Please enter description",false);
                 }else {
-
-
                         try {
-
                             if (event_title_text.getText().toString().length() < 14) {
                                 event_title_text.setError("Invalid date format.");
                                 return;
                             }
-
                             String givenDateString = event_title_text.getText().toString();
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
 
@@ -272,7 +296,7 @@ public class EditEventsFragment extends BaseFragment {
             public void onClick(View view) {
 
 
-                ContentValues cv = new ContentValues();
+             /*   ContentValues cv = new ContentValues();
                 cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
                 cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
 
@@ -285,7 +309,61 @@ public class EditEventsFragment extends BaseFragment {
 
                 fragmentTransaction.replace(R.id.main_container, groupContacts);
                 fragmentTransaction.addToBackStack("edit_event");
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+
+
+                if(event_title_text.getText().toString().length()==0){
+                    showConfirmDialog(getString(R.string.evt_title), "Please enter date",false);
+                }else if(tv_eventTitle.getText().toString().length()==0){
+                    showConfirmDialog(getString(R.string.evt_title), "Please enter title",false);
+                }else if(tv_desc.getText().toString().length()==0){
+                    showConfirmDialog(getString(R.string.evt_title), "Please enter description",false);
+                }else {
+                    try {
+                        if (event_title_text.getText().toString().length() < 14) {
+                            event_title_text.setError("Invalid date format.");
+                            return;
+                        }
+                        String givenDateString = event_title_text.getText().toString();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+
+                        long timeInMilliseconds = 10000;
+                        try {
+                            Date mDate = sdf.parse(givenDateString);
+                            timeInMilliseconds = mDate.getTime();
+                            System.out.println("Date in milli :: " + timeInMilliseconds);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        ContentValues cv = new ContentValues();
+                        cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
+                        cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
+                        cv.put(DatabaseHandler.EVT_CONTACTS, contactsInfo);
+                        cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
+                        cv.put(DatabaseHandler.EVT_TIME_MILLY, timeInMilliseconds);
+                        cv.put(DatabaseHandler.EVENT_SORT_ORDER, Constants.SortOrderValue);
+
+
+                        if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("Edit")) {
+                            // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
+                            dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, "evt_title='" + Constants.EVENTS_OLD_NAME + "'");
+
+                        } else {
+                            dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
+
+                        }
+                        scheduleNotification(getNotification(tv_eventTitle.getText().toString()), timeInMilliseconds);
+                    } catch (Exception e) {
+
+                    }
+
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
+
+
+                }
 
             }
         });
@@ -392,12 +470,36 @@ public class EditEventsFragment extends BaseFragment {
                     cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
                     dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, " evt_title='" + Constants.EVENTS_OLD_NAME + "'");
 
+
+                    EditEventsFragment groupContacts = new EditEventsFragment(); //New means creating adding.
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+                    Bundle args = new Bundle();
+                    args.putString("title",tv_eventTitle.getText().toString());
+                    args.putString("desc",tv_desc.getText().toString());
+                    args.putString("time",event_title_text.getText().toString());
+                    args.putString("contacts",jsonArray.toString());
+                    groupContacts.setArguments(args);
+                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+                    fragmentTransaction.addToBackStack("Events_Main");
+                    fragmentTransaction.commit();
+
+
+                   // FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    //fragmentManager.beginTransaction().replace(R.id.main_container, new EditEventsFragment()).commit();
+
+
+
+
+
+
                 } catch (Exception e) {
 
                 }
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
+
 
             } else if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
                 try {
@@ -414,20 +516,32 @@ public class EditEventsFragment extends BaseFragment {
 
                         Log.v("DATA....", "DATA.....SAVE..CONTACTID...." + contact.getId());
                     }
-                    ContentValues cv = new ContentValues();
+               /*     ContentValues cv = new ContentValues();
                     cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
                     cv.put(DatabaseHandler.EVT_DESC, tv_desc.getText().toString());
                     cv.put(DatabaseHandler.EVT_CONTACTS, jsonArray.toString());
                     cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
-                    dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
+                    dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);*/
                     Log.v("DATA....", "DATA.....SAVE..." + jsonArray.toString());
+                    EditEventsFragment groupContacts = new EditEventsFragment(); //New means creating adding.
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Bundle args = new Bundle();
+                    args.putString("title",tv_eventTitle.getText().toString());
+                    args.putString("desc",tv_desc.getText().toString());
+                    args.putString("time",event_title_text.getText().toString());
+                    args.putString("contacts",jsonArray.toString());
+                    groupContacts.setArguments(args);
+                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+                    fragmentTransaction.addToBackStack("Events_Main");
+                    fragmentTransaction.commit();
                 } catch (Exception e) {
 
                 }
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
-
+             /*   FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_container, new EditEventsFragment()).commit();
+*/
             }
 
 
