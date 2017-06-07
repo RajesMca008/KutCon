@@ -40,17 +40,19 @@
             android:id="@+id/rl_actions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp">
 
             <Button
                 android:id="@+id/btn_close"
-                android:layout_width="35dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+
                 android:layout_marginRight="5dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
-                android:background="@mipmap/cancel_button"
+
+                android:background="@mipmap/cancel_"
                 />
 
             <LinearLayout
@@ -62,9 +64,9 @@
                 <Button
                     android:id="@+id/btn_ations"
                     android:layout_height="35dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="250dp"
                     android:layout_marginLeft="55dp"
-                    android:background="@drawable/action_dropdown"
+                    android:background="@mipmap/action_button_"
                     android:layout_marginRight="15dp"
                     />
 
@@ -110,7 +112,6 @@
             layout="@layout/activity_actions"
 
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
             />
 
