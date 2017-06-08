@@ -62,7 +62,7 @@ public class RangeTimePickerDialog extends TimePickerDialog {
     @Override
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 
-        Log.d("DADADADA", "onTimeChanged");
+        Log.d("DADADADA", "onTimeChanged-H:"+hourOfDay+"-M:"+minute);
 
         boolean validTime = true;
         if (hourOfDay < minHour || (hourOfDay == minHour && minute < minMinute)) {
@@ -80,6 +80,8 @@ public class RangeTimePickerDialog extends TimePickerDialog {
 
         updateTime(currentHour, currentMinute);
         updateDialogTitle(view, currentHour, currentMinute);
+
+
     }
 
     private void updateDialogTitle(TimePicker timePicker, int hourOfDay, int minute) {

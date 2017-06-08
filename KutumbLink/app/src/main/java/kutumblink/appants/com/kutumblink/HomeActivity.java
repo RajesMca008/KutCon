@@ -50,6 +50,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -62,7 +64,6 @@ import kutumblink.appants.com.kutumblink.fragments.MessageMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.SettingsFragment;
 import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.RangeTimePickerDialog;
-import kutumblink.appants.com.kutumblink.utils.Utils;
 
 public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener {
 
@@ -352,9 +353,9 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
             final int minute = mcurrentTime.get(Calendar.MINUTE);
             final RangeTimePickerDialog mTimePicker;
-            mTimePicker = new RangeTimePickerDialog(getActivity(), this, hour, minute, true);//true = 24 hour time
+            mTimePicker = new RangeTimePickerDialog(getActivity(), this, hour, minute+5, true);//true = 24 hour time
             mTimePicker.setTitle("Select Time");
-            mTimePicker.setMin(hour, minute);
+            // mTimePicker.setMin(hour, minute);
            // mTimePicker.show();
 
             return mTimePicker;
@@ -364,8 +365,57 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
             Constants.strDT+=", "+String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
 
-            Log.v("LOG....","LOG DETAILS>..TIME...>."+Constants.strDT);
-            EditEventsFragment.event_title_text.setText(Constants.strDT);
+            Log.v("LOG....","LOG DETAILS>..TIME...>"+Constants.strDT);
+
+            String strDate = Constants.strDT;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+            Date selectedDate = null;
+
+            Date today = new Date();
+            try {
+                selectedDate = dateFormat.parse(strDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            System.out.println(selectedDate);
+
+            System.out.println("My Date is"+selectedDate);
+            System.out.println("Today Date is"+today);
+            if (today.compareTo(selectedDate)<0) {
+                System.out.println("Today Date is Lesser than my Date");
+                EditEventsFragment.event_title_text.setText(Constants.strDT);
+            }
+            else if (today.compareTo(selectedDate)>0) {
+                System.out.println("Today Date is Greater than my date");
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Invalid");
+                builder.setMessage("Please select future date.");
+                builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Constants.strDT="";
+                        EditEventsFragment.event_title_text.setText("");
+
+                    }
+                });
+/*                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });*/
+                builder.show();
+
+            }
+            else {
+                System.out.println("Both Dates are equal");
+                EditEventsFragment.event_title_text.setText(Constants.strDT);
+            }
+
+
         }
     }
 

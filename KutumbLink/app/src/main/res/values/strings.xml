@@ -68,22 +68,21 @@
     <string name="faq3">
         <![CDATA[
         <b>3) How can I edit or delete a Group or an Event?</b><BR/>
-       Swipe left on Group/Event name or click on Group/Event name and select Edit button at top right.
+       Long press on Group/Event name or click on Group/Event name and select Edit button at top right.
         ]]>
         </string>
 
     <string name="faq4">
         <![CDATA[
-        <b>4) What happens to data entered in the App?</b><BR/>
-       All Contacts, Groups, Events, Message Links and Photo Links input in the App stay on your phone only.
+        <b>4) If a Contact has multiple phone numbers, which phone number is the text message sent to?</b><BR/>
+       Text message is sent to the first iPhone or mobile number listed under the contact.
         ]]>
         </string>
 
     <string name="faq5">
         <![CDATA[
-        <b>5) How can I send text or email to Group or Event contacts?</b><BR/>
-       Select Group contacts and click on Action dropdown and select action. Click on Action dropdown in Event Details screen
-       and select action.
+        <b>5) What happens to data entered in the App?</b><BR/>
+       All Contacts, Groups, Events, Message Links and Photo Links input in the App stay on your phone only.
         ]]>
         </string>
     <string name="settings">Settings</string>
