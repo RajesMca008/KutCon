@@ -401,6 +401,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
                     }
                 });
+
 /*                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
