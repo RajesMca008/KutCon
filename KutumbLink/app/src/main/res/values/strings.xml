@@ -85,6 +85,13 @@
        All Contacts, Groups, Events, Message Links and Photo Links input in the App stay on your phone only.
         ]]>
         </string>
+
+    <string name="faq6">
+        <![CDATA[
+        <b>6) How can I send text or email to Group or Event contacts?</b><BR/>
+       Select Group contacts and click on Action dropdown and select action. Click on Action dropdown in Event Details screen and select action.
+        ]]>
+        </string>
     <string name="settings">Settings</string>
     <string name="banner_ad_unit_id">ca-app-pub-4167699027441195/7064361067</string>
     <string name="intresttitle_ad_unit_id">ca-app-pub-4167699027441195/8541094269
