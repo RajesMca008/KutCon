@@ -122,7 +122,10 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                     mAdView.loadAd(adRequest);
                 }
             }
+
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
+            if(fragmentManager.getFragments().size()>0)
+                fragmentManager.popBackStack();
             transaction.replace(R.id.main_container, fragment).commit();
 
             return true;

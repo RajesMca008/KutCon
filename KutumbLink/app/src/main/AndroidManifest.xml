@@ -27,6 +27,7 @@
 
         <activity android:name="kutumblink.appants.com.kutumblink.HomeActivity"
             android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"/>
 
         <activity

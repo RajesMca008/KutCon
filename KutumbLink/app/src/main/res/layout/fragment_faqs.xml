@@ -17,7 +17,7 @@
                 android:id="@+id/faq1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
                 android:clickable="true"
                 android:text="@string/faq1" />
             <View
@@ -32,7 +32,7 @@
                 android:id="@+id/faq2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
                 android:text="@string/faq1" />
             <View
                 android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                 android:id="@+id/faq3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
                 android:text="@string/faq1" />
             <View
                 android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                 android:id="@+id/faq4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
                 android:text="@string/faq1" />
             <View
                 android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                 android:id="@+id/faq5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
                 android:text="@string/faq5" />
             <View
                 android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                 android:id="@+id/faq6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
                 android:text="@string/faq5" />
             <View
                 android:layout_width="match_parent"
