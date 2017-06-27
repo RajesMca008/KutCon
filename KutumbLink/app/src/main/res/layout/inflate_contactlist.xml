@@ -12,26 +12,29 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp">
 
+
+
+        <ImageView
+            android:id="@+id/cb_contacts"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/radio_btn"
+            android:padding="10dp"
+            android:layout_alignParentStart="true" />
+
         <kutumblink.appants.com.kutumblink.utils.CustomTextView
             android:id="@+id/tv_contactName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/iv_photo"
+            android:layout_alignStart="@id/cb_contacts"
             android:text="Contact"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+           android:layout_marginEnd="5dp"
             android:paddingLeft="25dp"
             android:textSize="20dp"
             android:layout_centerVertical="true"
-              />
-
-        <ImageView
-            android:id="@+id/cb_contacts"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/radio_btn"
-            android:padding="5dp"
-            android:layout_alignParentStart="true" />
+            />
 
         <Button
             android:id="@+id/btn_phone"

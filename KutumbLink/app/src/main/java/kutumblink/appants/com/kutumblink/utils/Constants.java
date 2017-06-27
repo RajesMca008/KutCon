@@ -23,7 +23,7 @@ public class Constants {
   //  public static final int GROUP_DELETE=1;
    // public static final int GROUP_DELETE=1;
 
-    public static final boolean needToShowAdd=true;
+    public static final boolean needToShowAdd=false;
 
 
     public static String imgID = "0";

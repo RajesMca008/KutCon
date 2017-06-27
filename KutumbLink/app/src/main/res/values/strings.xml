@@ -96,4 +96,6 @@
     <string name="banner_ad_unit_id">ca-app-pub-4167699027441195/7064361067</string>
     <string name="intresttitle_ad_unit_id">ca-app-pub-4167699027441195/8541094269
     </string>
+    <string name="no_contacts_list">No contacts available in this group. Please add contacts</string>
+    <string name="to_enable">To enable actions, select contacts by clicking</string>
 </resources>

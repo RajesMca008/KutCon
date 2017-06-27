@@ -20,11 +20,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -59,6 +61,7 @@ import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
  */
 public class GroupContactsFragment extends BaseFragment implements Serializable {
     private static final String ARG_PARAM1 = "param1";
+    private TextView no_contacts;
 
     public GroupContactsFragment() {
         // Required empty public constructor
@@ -82,7 +85,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     DatabaseHandler dbHandler;
     ImageView iv_contacts;
     public static ArrayList<GroupDo> arr_group = new ArrayList<GroupDo>();
-    LinearLayout ll_actions;
+    public static LinearLayout ll_actions;
 
 
     TextView tv_Done, tv_Cancel;
@@ -92,7 +95,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     ListView lv_grpactionslist;
     public static ArrayList<ContactsDo> arr_contacts = new ArrayList<ContactsDo>();
     boolean isVISIBLEACTIONS = false;
-    public static RelativeLayout rl_actions;
+    public static LinearLayout rl_actions;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -123,14 +126,17 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         ll_nocontacts = (LinearLayout) view.findViewById(R.id.ll_nocontacts);
         tv_Cancel = (TextView) view.findViewById(R.id.tv_cancel);
         tv_Done = (TextView) view.findViewById(R.id.tv_done);
-        rl_actions = (RelativeLayout) view.findViewById(R.id.rl_actions);
+        rl_actions = (LinearLayout) view.findViewById(R.id.rl_actions);
         iv_contacts = (ImageView) view.findViewById(R.id.iv_selectContacts);
+        no_contacts=(TextView)view.findViewById(R.id.no_contacts);
+        no_contacts.setVisibility(View.GONE);
+
 
         rl_actions.setAlpha(0.5f);
         btn_close.setEnabled(false);
         btn_actions.setEnabled(false);
 
-        new updateContacts(getActivity()).execute();
+         new updateContacts(getActivity()).execute();
         arr_contacts.clear();
 
 
@@ -140,6 +146,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 ll_grpactionslist.setVisibility(View.GONE);
             }
         });
+
+
 
         iv_contacts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +230,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         tv_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if( ll_actions.getVisibility()==View.VISIBLE)
+                {
+                    ll_actions.setVisibility(View.GONE);
+                }
                 boolean sel = false;
                 String phoneNos = "";
 
@@ -252,6 +264,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             @Override
             public void onClick(View view) {
                 String data[] = new String[arr_contacts.size()];
+                if( ll_actions.getVisibility()==View.VISIBLE)
+                {
+                    ll_actions.setVisibility(View.GONE);
+                }
 
                 boolean sel = false;
                 for (int a = 0; a < arr_contacts.size(); a++) {
@@ -290,7 +306,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
 
                     } else {
-                        Toast.makeText(getActivity(), "Contact's doen't have email id", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Contact's doesn't have email id", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     if(ll_actions.getVisibility()==View.VISIBLE)
@@ -391,6 +407,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             @Override
             public void onClick(View view) {
 
+                if( ll_actions.getVisibility()==View.VISIBLE)
+                {
+                    ll_actions.setVisibility(View.GONE);
+                }
                 try {
                     JSONArray jsonArray = new JSONArray();
                     for (int i = 0; i < arr_contacts.size(); i++) {
@@ -548,6 +568,11 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     }
 
     private void sendVcardAsEmail(ArrayList<ContactsDo> selectedContactList) {
+
+        if( ll_actions.getVisibility()==View.VISIBLE)
+        {
+            ll_actions.setVisibility(View.GONE);
+        }
 
         ArrayList<File> fileNames = new ArrayList<File>();
         for (int i = 0; i < selectedContactList.size(); i++) {
@@ -797,8 +822,22 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         } while (c.moveToNext());
                     }
                 }
+
+               Log.i("TEST","List size:"+arr_contacts.size());
+                if(arr_contacts.size()==0)
+                {
+                    no_contacts.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    no_contacts.setVisibility(View.GONE);
+                }
+
+
+               if(c!=null)
                 c.close();
                 lv_conatcst.setAdapter(new ContactListAdapter(getActivity(), arr_contacts));
+
             }
         }
     }
@@ -810,8 +849,9 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-        arr_contacts.clear();
-         new updateContacts(getActivity()).execute();
+       // arr_contacts.clear();
+       //  new updateContacts(getActivity()).execute();
+
     }
 
    /* @Override
@@ -826,4 +866,11 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             getFragmentManager().popBackStack();
         }
     }*/
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(ll_actions.getVisibility()==View.VISIBLE)
+        ll_actions.setVisibility(View.GONE);
+    }
 }

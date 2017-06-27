@@ -61,20 +61,20 @@ public class EventsListAdapter extends BaseAdapter {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view=null;
+
+
 
         if (convertView == null) {
-
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
            // view = new View(context);
 
             // get layout from grid_item.xml
-            view = inflater.inflate(R.layout.inflate_eventslist, null);
-            TextView tv_title=(TextView)view.findViewById(R.id.tv_title);
-            TextView tv_desc=(TextView)view.findViewById(R.id.tv_desc);
-            TextView tv_date=(TextView)view.findViewById(R.id.tv_date);
+            convertView = inflater.inflate(R.layout.inflate_eventslist, null);
+            TextView tv_title=(TextView)convertView.findViewById(R.id.tv_title);
+            TextView tv_desc=(TextView)convertView.findViewById(R.id.tv_desc);
+            TextView tv_date=(TextView)convertView.findViewById(R.id.tv_date);
             tv_title.setText(""+adb.getEvtTitle());
             tv_desc.setText(""+adb.getEvtDesc());
 
@@ -89,12 +89,12 @@ public class EventsListAdapter extends BaseAdapter {
 
 
             // set value into textview
-            return view;
+
         }
 
 
 
-        return view;
+        return convertView;
     }
 
 

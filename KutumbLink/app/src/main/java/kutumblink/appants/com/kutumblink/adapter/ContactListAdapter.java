@@ -71,22 +71,22 @@ public class ContactListAdapter extends BaseAdapter {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view=null;
+
+
 
         if (convertView == null) {
-
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // view = new View(context);
 
             // get layout from grid_item.xml
-            view = inflater.inflate(R.layout.inflate_contactlist, null);
-            TextView tv_contactName=(TextView)view.findViewById(R.id.tv_contactName);
-            RelativeLayout rl_contacts=(RelativeLayout)view.findViewById(R.id.rl_contacts);
-            final ImageView cb_conatacts=(ImageView)view.findViewById(R.id.cb_contacts);
-            Button btn_phone=(Button)view.findViewById(R.id.btn_phone);
-            final Button btn_email=(Button)view.findViewById(R.id.btn_email);
+            convertView = inflater.inflate(R.layout.inflate_contactlist, null);
+            TextView tv_contactName=(TextView)convertView.findViewById(R.id.tv_contactName);
+            RelativeLayout rl_contacts=(RelativeLayout)convertView.findViewById(R.id.rl_contacts);
+            final ImageView cb_conatacts=(ImageView)convertView.findViewById(R.id.cb_contacts);
+            Button btn_phone=(Button)convertView.findViewById(R.id.btn_phone);
+            final Button btn_email=(Button)convertView.findViewById(R.id.btn_email);
 
             try{
                 if(adb.getConatactName().split(" ").length>1 && !adb.getConatactName().matches(".*\\d+.*"))
@@ -140,7 +140,11 @@ public class ContactListAdapter extends BaseAdapter {
             tv_contactName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.i("TEST","Contact selected "+GroupContactsFragment.arr_contacts.get(position).getConatactName());
+                    if( GroupContactsFragment.ll_actions.getVisibility()==View.VISIBLE)
+                    {
+                        GroupContactsFragment.ll_actions.setVisibility(View.GONE);
+                    }
+                    //Log.i("TEST","Contact selected "+GroupContactsFragment.arr_contacts.get(position).getConatactName());
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, String.valueOf(GroupContactsFragment.arr_contacts.get(position).getConatactId()));
                     intent.setData(uri);
@@ -151,6 +155,10 @@ public class ContactListAdapter extends BaseAdapter {
 
                 public void onClick(View v) {
 
+                    if( GroupContactsFragment.ll_actions.getVisibility()==View.VISIBLE)
+                    {
+                        GroupContactsFragment.ll_actions.setVisibility(View.GONE);
+                    }
 
                     if(!checkBoxState[position]) {
                         checkBoxState[position] = true;
@@ -217,12 +225,11 @@ public class ContactListAdapter extends BaseAdapter {
             });
 
             // set value into textview
-            return view;
         }
 
 
 
-        return view;
+        return convertView;
     }
 
 

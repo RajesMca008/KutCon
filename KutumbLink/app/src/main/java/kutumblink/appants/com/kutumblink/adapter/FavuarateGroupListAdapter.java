@@ -14,9 +14,7 @@ import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.model.GroupDo;
 import kutumblink.appants.com.kutumblink.utils.Constants;
 
-/**
- * Created by Vishnu on 18-05-2016.
- */
+
 public class FavuarateGroupListAdapter extends BaseAdapter {
 
     ArrayList itemsList;
@@ -62,20 +60,19 @@ public class FavuarateGroupListAdapter extends BaseAdapter {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view=null;
+
 
         if (convertView == null) {
 
            // view = new View(context);
-
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // get layout from grid_item.xml
-            view = inflater.inflate(R.layout.inflate_grouplist, null);
-            TextView tv_groupName=(TextView)view.findViewById(R.id.tv_goupname);
-            TextView tv_totalcontacts=(TextView)view.findViewById(R.id.tv_totalcontacts);
-            ImageView iv_groupPic=(ImageView)view.findViewById(R.id.iv_photo);
+            convertView = inflater.inflate(R.layout.inflate_grouplist, null);
+            TextView tv_groupName=(TextView)convertView.findViewById(R.id.tv_goupname);
+            TextView tv_totalcontacts=(TextView)convertView.findViewById(R.id.tv_totalcontacts);
+            ImageView iv_groupPic=(ImageView)convertView.findViewById(R.id.iv_photo);
             tv_groupName.setText(""+adb.getGroup_Name());
             tv_totalcontacts.setText(""+adb.getGroup_totalContactList());
           //  iv_groupPic.setImageResource(adb.getGroup_Pic());
@@ -83,12 +80,11 @@ public class FavuarateGroupListAdapter extends BaseAdapter {
 
 
             // set value into textview
-            return view;
         }
 
 
 
-        return view;
+        return convertView;
     }
 
 

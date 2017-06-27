@@ -70,19 +70,19 @@ public class ContactGroupListAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view=null;
+
 
         if (convertView == null) {
 
            // view = new View(context);
 
             // get layout from grid_item.xml
-            view = inflater.inflate(R.layout.inflate_contactlist, null);
-            TextView tv_contactName=(TextView)view.findViewById(R.id.tv_contactName);
-            RelativeLayout rl_contacts=(RelativeLayout)view.findViewById(R.id.rl_contacts);
-            final ImageView cb_conatacts=(ImageView)view.findViewById(R.id.cb_contacts);
-            Button btn_phone=(Button)view.findViewById(R.id.btn_phone);
-            final Button btn_email=(Button)view.findViewById(R.id.btn_email);
+            convertView = inflater.inflate(R.layout.inflate_contactlist, null);
+            TextView tv_contactName=(TextView)convertView.findViewById(R.id.tv_contactName);
+            RelativeLayout rl_contacts=(RelativeLayout)convertView.findViewById(R.id.rl_contacts);
+            final ImageView cb_conatacts=(ImageView)convertView.findViewById(R.id.cb_contacts);
+            Button btn_phone=(Button)convertView.findViewById(R.id.btn_phone);
+            final Button btn_email=(Button)convertView.findViewById(R.id.btn_email);
             tv_contactName.setText(""+adb.getGroup_Name());
             btn_phone.setVisibility(View.GONE);
             btn_email.setVisibility(View.GONE);
@@ -115,12 +115,12 @@ public class ContactGroupListAdapter extends BaseAdapter {
             });
 
             // set value into textview
-            return view;
+
         }
 
 
 
-        return view;
+        return convertView;
     }
 
 

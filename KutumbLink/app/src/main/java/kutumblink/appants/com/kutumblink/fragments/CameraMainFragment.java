@@ -135,7 +135,7 @@ public class CameraMainFragment extends BaseFragment {
 
                 if(!editMode) {
                     linkURL = ((MessageBean) adapterView.getItemAtPosition(i)).getMsgLink();
-                    showConfirmDialog(getString(R.string.message_text));
+                    showConfirmDialog(getString(R.string.photo_message));
                 }
                 else {
                     perFormEditDeleteOption(i);
