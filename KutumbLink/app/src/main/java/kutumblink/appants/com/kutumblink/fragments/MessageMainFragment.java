@@ -91,8 +91,8 @@ public class MessageMainFragment extends BaseFragment {
                 EditMessageFragment editFragment = new EditMessageFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, editFragment);
-                fragmentTransaction.addToBackStack("edit_msg");
+                fragmentTransaction.add(R.id.main_container, editFragment);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
