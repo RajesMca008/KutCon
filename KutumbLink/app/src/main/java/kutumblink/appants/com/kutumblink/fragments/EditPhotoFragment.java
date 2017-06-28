@@ -113,6 +113,7 @@ public class EditPhotoFragment extends BaseFragment implements View.OnClickListe
 
             if(!(textTitle.getText().toString().length()>1))
             {
+                showConfirmDialogActions(getString(R.string.app_name),getString(R.string.invalid_title));
                 textTitle.setError(getString(R.string.invalid_title));
                 return;
             }
@@ -120,6 +121,7 @@ public class EditPhotoFragment extends BaseFragment implements View.OnClickListe
             if(!(Patterns.WEB_URL.matcher(textLink.getText().toString()).matches())   || !(textLink.getText().toString().contains("http")))
             {
                 textLink.setError(getString(R.string.invalid_url));
+                showConfirmDialogActions(getString(R.string.app_name),getString(R.string.invalid_url));
                 return;
             }
 

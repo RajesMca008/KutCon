@@ -39,6 +39,7 @@ public class MessageMainFragment extends BaseFragment {
     public  boolean editMode=false;
     private ListView listView;
     private MyListAdapter adapter;
+    private View bottomView;
 
     public MessageMainFragment() {
         // Required empty public constructor
@@ -91,48 +92,13 @@ public class MessageMainFragment extends BaseFragment {
                 EditMessageFragment editFragment = new EditMessageFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.main_container, editFragment);
+                fragmentTransaction.replace(R.id.main_container, editFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
 
-        View bottomView=view.findViewById(R.id.bottom_view);
-
-        DatabaseHandler databaseHandler=null;
-        databaseHandler=new DatabaseHandler(getActivity());
-        Cursor cursor = databaseHandler.retriveData("select * from " + DatabaseHandler.TABLE_MESSAGES);
-
-
-        if(cursor!=null && cursor.getCount()>0)
-        {
-            bottomView.setVisibility(View.VISIBLE);
-
-            cursor.moveToFirst();
-
-            do {
-                MessageBean bean=new MessageBean();
-                bean.setMsgLink(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_LINK)));
-                bean.setMsgTitle(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_TITLE)));
-                bean.setMsgId(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_ID)));
-                mMsgList.add(bean);
-            }
-            while (cursor.moveToNext());
-        }
-        else {
-            bottomView.setVisibility(View.GONE);
-        }
-        if(cursor!=null)
-        cursor.close();
-        if(databaseHandler!=null)
-        databaseHandler.close();
-
-
-         adapter=new MyListAdapter(getContext(),mMsgList);
-        listView.setAdapter(adapter);
-
-
-
+          bottomView=view.findViewById(R.id.bottom_view);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -161,6 +127,48 @@ public class MessageMainFragment extends BaseFragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateList();
+    }
+
+    private void updateList() {
+
+        mMsgList.clear();
+        DatabaseHandler databaseHandler=null;
+        databaseHandler=new DatabaseHandler(getActivity());
+        Cursor cursor = databaseHandler.retriveData("select * from " + DatabaseHandler.TABLE_MESSAGES);
+
+
+        if(cursor!=null && cursor.getCount()>0)
+        {
+            bottomView.setVisibility(View.VISIBLE);
+
+            cursor.moveToFirst();
+
+            do {
+                MessageBean bean=new MessageBean();
+                bean.setMsgLink(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_LINK)));
+                bean.setMsgTitle(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_TITLE)));
+                bean.setMsgId(cursor.getString(cursor.getColumnIndex(DatabaseHandler.MSG_ID)));
+                mMsgList.add(bean);
+            }
+            while (cursor.moveToNext());
+        }
+        else {
+            bottomView.setVisibility(View.GONE);
+        }
+        if(cursor!=null)
+            cursor.close();
+        if(databaseHandler!=null)
+            databaseHandler.close();
+
+
+        adapter=new MyListAdapter(getContext(),mMsgList);
+        listView.setAdapter(adapter);
     }
 
     private void perFormEditDeleteOption(final int position) {

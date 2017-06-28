@@ -122,12 +122,14 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
             if(!(textTitle.getText().toString().length()>1))
             {
                 textTitle.setError(getString(R.string.invalid_title));
+                showConfirmDialogActions(getString(R.string.app_name),"Please enter title");
                 return;
             }
 
             if(!(Patterns.WEB_URL.matcher(textLink.getText().toString()).matches())  || !(textLink.getText().toString().contains("http")))
             {
-                textLink.setError(getString(R.string.invalid_url));
+                textLink.setError("Invalid URL");
+                showConfirmDialogActions(getString(R.string.app_name),getString(R.string.invalid_url));
                 return;
             }
 
