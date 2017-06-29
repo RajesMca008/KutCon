@@ -99,4 +99,5 @@
     </string>
     <string name="no_contacts_list">No contacts available in this group. Please add contacts</string>
     <string name="to_enable">To enable actions, select contacts by clicking</string>
+    <string name="enter_link">Please enter link</string>
 </resources>

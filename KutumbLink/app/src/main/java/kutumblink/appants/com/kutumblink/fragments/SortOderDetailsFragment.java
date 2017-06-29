@@ -60,13 +60,18 @@ public class SortOderDetailsFragment extends BaseFragment implements View.OnClic
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.popBackStack();
+               
 
             }
         });
 
+
+
         HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.popBackStack();
             }
         });
         return view;
