@@ -90,7 +90,7 @@ public class AddGroupFragment extends BaseFragment {
 
     TextView tv_createContact;
     int INSERT_CONTACT_REQUEST = 2;
-    private FragmentManager fragmentManager;
+    //private FragmentManager fragmentManager;
     Button btn_removegroup;
 
     @Override
@@ -173,10 +173,10 @@ public class AddGroupFragment extends BaseFragment {
 
                     } else if (Constants.GROUP_OPERATIONS.equalsIgnoreCase("SAVE")) {
 
-                        Cursor cgsavesameName = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME + "'");
+                        Cursor cgsavesameName = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME.trim() + "'");
 
                         if(cgsavesameName.getCount()>0){
-                            showConfirmDialog("KutumbLink","Group name already exists",true);
+                            showConfirmDialog("KutumbLink","Group name already exists",false);
 
                         }else {
 
@@ -425,7 +425,7 @@ public class AddGroupFragment extends BaseFragment {
 
                 if (s.length() != 0) {
 
-                    Constants.GROUP_NAME = et_groupname.getText().toString();
+                    Constants.GROUP_NAME = et_groupname.getText().toString().trim();
                     HomeActivity.ib_menu.setTextColor(Color.parseColor("#000000"));
                 } else {
 
@@ -440,6 +440,7 @@ public class AddGroupFragment extends BaseFragment {
             public void onClick(View view) {
                 Constants.NAV_GROUPS = 100;
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.popBackStack();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new GroupsMainFragment());
                 ft.addToBackStack("group_Main");
@@ -452,10 +453,13 @@ public class AddGroupFragment extends BaseFragment {
             public void onClick(View view) {
                 Constants.NAV_GROUPS = 100;
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.popBackStack();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new GroupsMainFragment());
                 ft.addToBackStack("group_Main");
                 ft.commit();
+
+
             }
         });
         HomeActivity.tv_title.setText("Add Group");
@@ -518,7 +522,7 @@ public class AddGroupFragment extends BaseFragment {
 
                    /* requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
                             MY_PERMISSIONS_REQUEST_READ_CONTACTS);*/
-                    Constants.GROUP_NAME = et_groupname.getText().toString();
+                    Constants.GROUP_NAME = et_groupname.getText().toString().trim();
                     Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
                             //   .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_AppCompat : R.style.TextAppearance_AppCompat_Caption)
                             .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
@@ -558,7 +562,7 @@ public class AddGroupFragment extends BaseFragment {
                     c.close();
 
 
-                    Constants.GROUP_NAME = et_groupname.getText().toString();
+                    Constants.GROUP_NAME = et_groupname.getText().toString().trim();
 
                     Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
                             // .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_Dark : R.style.Theme_Light)

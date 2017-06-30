@@ -97,7 +97,7 @@ public class FavaurateGroupFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
 
-                Constants.GROUP_NAME=arr_group.get(i).getGroup_Name();
+                Constants.GROUP_NAME=arr_group.get(i).getGroup_Name().trim();
 
 
                 AddGroupFragment addGroupFragment = new AddGroupFragment(); //New means creating adding.

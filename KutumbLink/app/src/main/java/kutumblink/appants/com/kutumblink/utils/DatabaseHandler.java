@@ -119,7 +119,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			+ " ("
 			+ GROUP_ID 		+ " INTEGER PRIMARY KEY,"
 
-			+ GROUP_NAME	+ " TEXT,"
+			+ GROUP_NAME	+ " TEXT not null unique,"
 			+ GROUP_PIC 	+ " BLOB,"
 			+ GROUP_TOTALCONTACTS 	+ " TEXT ,"
 			+GROUP_SORT_ORDER +" TEXT DEFAULT '"+Constants.DEFAULT+"'"

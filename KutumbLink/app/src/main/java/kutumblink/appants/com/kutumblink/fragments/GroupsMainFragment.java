@@ -205,7 +205,7 @@ public class GroupsMainFragment extends BaseFragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                FragmentTransaction ft= fragmentManager.beginTransaction();
                 ft.add(R.id.main_container, new AddGroupFragment());
-                       // ft.addToBackStack("group_Main");
+                         ft.addToBackStack(null);
                         ft.commit();
 
 
@@ -302,7 +302,7 @@ public class GroupsMainFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Constants.GROUP_OPERATIONS="EDIT";
-                Constants.GROUP_NAME=arr_group.get(i).getGroup_Name();
+                Constants.GROUP_NAME=arr_group.get(i).getGroup_Name().trim();
                 Constants.SortOrderValue=arr_group.get(i).getGroup_sortOrder();
                 Constants.GROUP_CONTACTS_SIZE=Integer.parseInt(arr_group.get(i).getGroup_totalContactList());
 
