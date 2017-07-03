@@ -38,7 +38,7 @@
     <string name="save_msg">Save Message Link</string>
     <string name="save_photo">Save Photo Link</string>
     <string name="invalid_title">Invalid title</string>
-    <string name="invalid_url">Please enter valid url.</string>
+    <string name="invalid_url">Please follow the url format.</string>
 
     <string name="title_activity_splash">SplashActivity</string>
     <string name="saved_sucess">successfully saved.</string>
