@@ -457,7 +457,7 @@ public class ContactBadge extends View implements OnClickListener {
         // If contact has been assigned, mExtras should no longer be null, but do a null check
         // anyway just in case assignContactFromPhone or Email was called with a null bundle or
         // wasn't assigned previously.
-        final Bundle extras = (mExtras == null) ? new Bundle() : mExtras;
+      /*  final Bundle extras = (mExtras == null) ? new Bundle() : mExtras;
         if (mContactUri != null) {
             QuickContact.showQuickContact(getContext(), ContactBadge.this, mContactUri, QuickContact.MODE_LARGE, mExcludeMimes);
         } else if (mContactEmail != null && mQueryHandler != null) {
@@ -473,7 +473,7 @@ public class ContactBadge extends View implements OnClickListener {
         } else {
             // If a contact hasn't been assigned, don't react to click.
             return;
-        }
+        }*/
     }
 
     ContactQueryHandler.ContactQueryHandlerCallback mContactQueryHandlerCallback =

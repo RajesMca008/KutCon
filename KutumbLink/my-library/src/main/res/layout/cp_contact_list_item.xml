@@ -4,6 +4,7 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:orientation="horizontal">
 
     <include layout="@layout/cp_select_checkbox" />
@@ -19,6 +20,7 @@
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
         style="?android:attr/quickContactBadgeStyleWindowLarge"
+
         android:background="@android:color/transparent"/>
 
     <LinearLayout

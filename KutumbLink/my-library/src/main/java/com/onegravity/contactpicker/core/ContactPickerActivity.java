@@ -23,6 +23,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -31,7 +32,11 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -345,6 +350,15 @@ public class ContactPickerActivity extends AppCompatActivity implements
         enumName = intent.getStringExtra(EXTRA_CONTACT_SORT_ORDER);
         mSortOrder = ContactSortOrder.lookup(enumName);
 
+        ActionBar actionBar = getSupportActionBar();
+        Spannable text = new SpannableString(actionBar.getTitle());
+        text.setSpan(new ForegroundColorSpan(Color.BLUE), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        actionBar.setTitle(text);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setIcon(R.drawable.ic_launcher);
+
+        /*actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setLogo(R.drawable.ic_launcher);*/
        // setTheme(mThemeResId);
         setContentView(R.layout.cp_contact_tab_layout);
 
