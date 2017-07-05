@@ -38,7 +38,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile project(':my-library')
+    def supportLibVersion = '25.1.0'
+    def eventBusLibVersion = '3.0.0'
+    def fastScrollVersion = '0.1.3'
+    //compile project(':my-library')
     //releaseCompile "com.1gravity:android-contactpicker:1.2.1"
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support:design:25.3.0'
@@ -47,4 +50,10 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     compile 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
     compile 'com.google.android.gms:play-services-ads:10.2.0'
+
+
+
+    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
+    compile "org.greenrobot:eventbus:${eventBusLibVersion}"
+    compile "xyz.danoz:recyclerviewfastscroller:${fastScrollVersion}"
 }

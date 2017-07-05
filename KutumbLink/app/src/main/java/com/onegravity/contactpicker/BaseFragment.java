@@ -33,6 +33,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 import java.util.Locale;
 
+import kutumblink.appants.com.kutumblink.R;
+
 /**
  * Super class of ContactFragment / GroupFragment to take care of common tasks.
  */

@@ -23,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SectionIndexer;
 
-import com.onegravity.contactpicker.R;
 import com.onegravity.contactpicker.picture.ContactPictureManager;
 import com.onegravity.contactpicker.picture.ContactPictureType;
 
@@ -31,6 +30,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import kutumblink.appants.com.kutumblink.R;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> implements SectionIndexer  {
 

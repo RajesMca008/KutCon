@@ -22,9 +22,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.onegravity.contactpicker.R;
 
 import java.util.List;
+
+import kutumblink.appants.com.kutumblink.R;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
 

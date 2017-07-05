@@ -49,7 +49,8 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.onegravity.contactpicker.Helper;
-import com.onegravity.contactpicker.R;
+
+import kutumblink.appants.com.kutumblink.R;
 
 import static com.onegravity.contactpicker.picture.Constants.EMAIL_LOOKUP_PROJECTION;
 import static com.onegravity.contactpicker.picture.Constants.PHONE_LOOKUP_PROJECTION;

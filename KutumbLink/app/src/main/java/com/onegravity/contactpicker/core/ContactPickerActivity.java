@@ -23,7 +23,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -32,11 +32,8 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
+import android.text.Html;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -44,7 +41,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.onegravity.contactpicker.OnContactCheckedListener;
-import com.onegravity.contactpicker.R;
 import com.onegravity.contactpicker.contact.Contact;
 import com.onegravity.contactpicker.contact.ContactDescription;
 import com.onegravity.contactpicker.contact.ContactSelectionChanged;
@@ -68,6 +64,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+
+import kutumblink.appants.com.kutumblink.R;
 
 import static android.provider.ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS;
 
@@ -350,16 +348,54 @@ public class ContactPickerActivity extends AppCompatActivity implements
         enumName = intent.getStringExtra(EXTRA_CONTACT_SORT_ORDER);
         mSortOrder = ContactSortOrder.lookup(enumName);
 
-        ActionBar actionBar = getSupportActionBar();
+        /*ActionBar actionBar = getSupportActionBar();
         Spannable text = new SpannableString(actionBar.getTitle());
         text.setSpan(new ForegroundColorSpan(Color.BLUE), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         actionBar.setTitle(text);
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setIcon(R.drawable.ic_launcher);
+        actionBar.setIcon(R.drawable.ic_launcher);*/
 
+
+        /***/
+       /* getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#191919'>ActionBartitle </font>"));*/
+
+        /*getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_actionbar);
+        View view =getSupportActionBar().getCustomView();
+
+        ImageView ib_back=(ImageView)view.findViewById(R.id.ib_action_bar_back);
+        TextView ib_menu=(TextView)view.findViewById(R.id.ib_action_menu);
+        TextView tv_title=(TextView)view.findViewById(R.id.tv_title);
+        TextView ib_back_next=(TextView)view.findViewById(R.id.ib_action_bar_back_next);
+        ib_menu.setVisibility(View.GONE);
+        ib_back_next.setText(" ");
+        tv_title.setText("Select Contacts");
+
+        ib_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        ib_back_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });*/
         /*actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setLogo(R.drawable.ic_launcher);*/
        // setTheme(mThemeResId);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.left_arrow);
+         //upArrow.setColorFilter(getResources().getColor(R.color.black_color), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
         setContentView(R.layout.cp_contact_tab_layout);
 
         // initialize TabLayout
@@ -438,11 +474,12 @@ public class ContactPickerActivity extends AppCompatActivity implements
 
     private void updateTitle() {
         if (mNrOfSelectedContacts == 0) {
-            setTitle(mDefaultTitle);
+            mDefaultTitle="Contacts";
+            setTitle(Html.fromHtml("<font color='#191919'>"+mDefaultTitle+"</font>"));
         }
         else {
             String title = getString(R.string.cp_actionmode_selected, mNrOfSelectedContacts);
-            setTitle(title);
+            setTitle(Html.fromHtml("<font color='#191919'>"+title+"</font>"));
         }
     }
 

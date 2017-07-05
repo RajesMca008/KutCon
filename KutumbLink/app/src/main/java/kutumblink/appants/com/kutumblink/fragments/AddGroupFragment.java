@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.onegravity.contactpicker.contact.Contact;
 import com.onegravity.contactpicker.contact.ContactDescription;
 import com.onegravity.contactpicker.contact.ContactSortOrder;
@@ -48,6 +49,7 @@ import kutumblink.appants.com.kutumblink.model.ContactsDo;
 import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.CustomTextView;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
+
 
 /**
  * Created by Vishnu on 13-03-2016.

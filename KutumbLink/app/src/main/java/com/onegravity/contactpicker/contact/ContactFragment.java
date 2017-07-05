@@ -23,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.onegravity.contactpicker.BaseFragment;
-import com.onegravity.contactpicker.R;
 import com.onegravity.contactpicker.picture.ContactPictureType;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,6 +32,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import kutumblink.appants.com.kutumblink.R;
 import xyz.danoz.recyclerviewfastscroller.sectionindicator.title.SectionTitleIndicator;
 import xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller;
 

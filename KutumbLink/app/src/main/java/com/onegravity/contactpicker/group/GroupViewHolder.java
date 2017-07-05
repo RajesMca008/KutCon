@@ -23,10 +23,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.onegravity.contactpicker.R;
 import com.onegravity.contactpicker.contact.Contact;
 
 import java.util.Collection;
+
+import kutumblink.appants.com.kutumblink.R;
 
 public class GroupViewHolder extends RecyclerView.ViewHolder {
 
