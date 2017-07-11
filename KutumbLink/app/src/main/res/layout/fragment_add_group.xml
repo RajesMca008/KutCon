@@ -154,6 +154,6 @@
             android:paddingRight="15dp"
             android:textColor="@color/whitecolor"
             android:background="@color/redcolor"
-            android:text="Remove from Group"/>
+            android:text="Remove Group"/>
     </LinearLayout>
 </FrameLayout>

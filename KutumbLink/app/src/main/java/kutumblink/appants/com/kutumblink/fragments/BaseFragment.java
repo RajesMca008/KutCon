@@ -136,8 +136,8 @@ public class BaseFragment extends Fragment {
         protected  void showConfirmDialog(String title, String message, final boolean needGoBack) {
             android.support.v7.app.AlertDialog.Builder builder = new  android.support.v7.app.AlertDialog.Builder(getContext());
 
-            builder.setIcon(R.mipmap.ic_launcher);
-        builder.setTitle(title);
+           // builder.setIcon(R.mipmap.ic_launcher);
+        //builder.setTitle(title);
         StringBuffer sb = new StringBuffer(message);
 
 
@@ -174,8 +174,8 @@ public class BaseFragment extends Fragment {
     protected  void showConfirmDialogActions(String title,String message) {
         android.support.v7.app.AlertDialog.Builder builder = new  android.support.v7.app.AlertDialog.Builder(getContext());
 
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.setTitle(title);
+       // builder.setIcon(R.mipmap.ic_launcher);
+       // builder.setTitle(title);
         StringBuffer sb = new StringBuffer(message);
 
 
@@ -206,8 +206,8 @@ public class BaseFragment extends Fragment {
         AlertDialog.Builder builder = new  AlertDialog.Builder(getContext());
 
 
-        builder.setTitle(title);
-        builder.setIcon(R.mipmap.ic_launcher);
+        //builder.setTitle(title);
+        //builder.setIcon(R.mipmap.ic_launcher);
         StringBuffer sb = new StringBuffer(message);
 
 
