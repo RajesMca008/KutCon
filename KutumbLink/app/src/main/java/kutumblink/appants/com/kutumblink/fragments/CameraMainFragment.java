@@ -279,8 +279,8 @@ public class CameraMainFragment extends BaseFragment {
         AlertDialog.Builder builder = new  AlertDialog.Builder(getContext());
 
 
-        builder.setTitle(getString(R.string.app_name));
-        builder.setIcon(R.mipmap.ic_launcher);
+       // builder.setTitle(getString(R.string.app_name));
+        //builder.setIcon(R.mipmap.ic_launcher);
         StringBuffer sb = new StringBuffer(message);
 
 

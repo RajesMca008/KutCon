@@ -6,21 +6,17 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp" >
     <LinearLayout
         android:id="@+id/ll_eventactions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FBFBFB"
-        android:orientation="vertical"
-        >
-
-
+        android:background="@color/whitecolor"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-          >
+            android:orientation="vertical">
             <Button
                 android:id="@+id/btn_ations"
                 android:layout_width="wrap_content"
@@ -68,8 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/line"
-                />
+                android:background="@drawable/line" />
 
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:layout_width="wrap_content"
@@ -132,9 +127,6 @@
                 android:src="@drawable/delete_event_button"
                 android:layout_height="50dp" />
         </LinearLayout>
-
-
-
     </LinearLayout>
     </ScrollView>
     <LinearLayout
@@ -144,14 +136,10 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="64dp"
         android:layout_marginRight="25dp">
-
         <include
             layout="@layout/activity_event_actions"
-
             android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

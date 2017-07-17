@@ -653,8 +653,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
 
-        builder.setTitle(title);
-        builder.setIcon(R.mipmap.ic_launcher);
+       // builder.setTitle(title);
+        //builder.setIcon(R.mipmap.ic_launcher);
         StringBuffer sb = new StringBuffer(message);
 
 
@@ -717,7 +717,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         StringBuffer sb = new StringBuffer();
         sb.append("......Contact Details.....");
         ContentResolver cr = getActivity().getContentResolver();
-        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+       // Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
         String phone = null;
         String name=null;
         String emailContact = null;
@@ -744,6 +744,19 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         System.out.println("****Email " + emailContact + " Email Type : " + emailType);
             }
             emailCur.close();
+
+        Cursor nameCur = cr.query(ContactsContract.Data.CONTENT_URI, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[]{contactId}, ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME);
+        while (nameCur.moveToNext()) {
+            String given = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME));
+            String family = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME));
+            String display = nameCur.getString(nameCur.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME));
+            if(given!=null && given.length()>1)
+            {
+                name=given;
+                Log.i("TEST","NAme"+name+";"+family+";"+display);
+            }
+        }
+
                 ContentValues cv = new ContentValues();
                 cv.put(dbHandler.PHONE_CONTACT_NAME, "" + name);
                 cv.put(dbHandler.PHONE_CONTACT_NUMBER, "" +phone);
