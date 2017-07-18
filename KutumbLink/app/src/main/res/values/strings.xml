@@ -117,4 +117,5 @@
     <string name="cp_actionmode_selected">%d selected</string>
 
     <string name="cp_limit_reached">You can\'t pick more than %d contacts!</string>
+    <string name="selected_no_contats">Selected contacts do not have mobile phone number</string>
 </resources>

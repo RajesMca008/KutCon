@@ -241,20 +241,29 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                     if (arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
 
-                        phoneNos += arr_contacts.get(a).getConatactPhone() + ";";
+                        if(arr_contacts.get(a).getConatactPhone()!=null && !arr_contacts.get(a).getConatactPhone().equals("null") && !arr_contacts.get(a).getConatactPhone().equals(""))
+                        {
+                            phoneNos += arr_contacts.get(a).getConatactPhone() + ";";
+                        }
                         sel = true;
                     }
 
                 }
 
                 if (sel) {
+                    if(!phoneNos.equals("")) {
 
-                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
-                    intent.putExtra("address", phoneNos);
+                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+                        intent.putExtra("address", phoneNos);
 
-                    intent.putExtra("sms_body", "");
-                    intent.setType("vnd.android-dir/mms-sms");
-                    startActivity(intent);
+                        intent.putExtra("sms_body", "");
+                        intent.setType("vnd.android-dir/mms-sms");
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        showConfirmDialog(getString(R.string.app_name),getString(R.string.selected_no_contats) ,false);
+                    }
                 } else {
                     showConfirmDialog(getString(R.string.app_name), "Please select contacts",false);
                 }
@@ -273,6 +282,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 for (int a = 0; a < arr_contacts.size(); a++) {
 
                     if (!arr_contacts.get(a).getConatactEmail().equalsIgnoreCase("null") && arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+
+
                         data[a] = arr_contacts.get(a).getConatactEmail();
 
 
@@ -313,7 +324,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     {
                         ll_actions.setVisibility(View.GONE);
                     }
-                    showConfirmDialog("Groups", "Selected contacts do not have email",false);
+                    showConfirmDialog("Groups", "Selected contacts do not have email address.",false);
                 }
             }
         });
@@ -756,6 +767,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 Log.i("TEST","NAme"+name+";"+family+";"+display);
             }
         }
+        if(nameCur!=null)
+        nameCur.close();
 
                 ContentValues cv = new ContentValues();
                 cv.put(dbHandler.PHONE_CONTACT_NAME, "" + name);

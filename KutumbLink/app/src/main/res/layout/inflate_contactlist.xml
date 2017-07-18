@@ -51,6 +51,7 @@
             android:id="@+id/btn_email"
             android:layout_width="20dp"
             android:layout_height="15dp"
+            android:layout_alignParentEnd="true"
             android:visibility="gone"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"

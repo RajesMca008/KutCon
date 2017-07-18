@@ -122,7 +122,7 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
             if(!(textTitle.getText().toString().length()>1))
             {
                 //textTitle.setError(getString(R.string.invalid_title));
-                showConfirmDialogActions(getString(R.string.app_name),"Please enter title");
+                showConfirmDialogActions(getString(R.string.app_name),"Please enter title.");
                 return;
             }
 
