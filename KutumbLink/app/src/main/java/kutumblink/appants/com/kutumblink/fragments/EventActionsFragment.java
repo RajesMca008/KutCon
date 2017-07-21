@@ -4,6 +4,8 @@ package kutumblink.appants.com.kutumblink.fragments;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -261,20 +263,28 @@ public class EventActionsFragment extends BaseFragment {
                 String data[] = new String[arrEvt.size()];
 
 
-                String[] TO = {""};
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                if (data != null) {
 
-                emailIntent.setData(Uri.parse("mailto:"));
-                emailIntent.setType("text/plain");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, data);
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Test");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Event Date & Time: \n" + tv_evtTitle.getText().toString() + "\n Event Details: \n" + tv_evtDesc.getText().toString() + "\n List of Contacts: \n" + contactsInfo);
+                    final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                    intent.setType("text/plain");
 
-                try {
-                    startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                    intent.putExtra(Intent.EXTRA_EMAIL, data);
+                    intent.setType("message/rfc822");
+                    final PackageManager pm = getActivity().getPackageManager();
+                    final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
+                    ResolveInfo best = null;
+                    for (final ResolveInfo info : matches)
+                        if (info.activityInfo.packageName.endsWith(".gm") ||
+                                info.activityInfo.name.toLowerCase().contains("gmail"))
+                            best = info;
+                    if (best != null)
+                        intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+                    //   startActivity(intent);
+                    startActivityForResult(Intent.createChooser(intent, "Send mail client :"), Activity.RESULT_OK);
 
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(getActivity(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(getActivity(), "Contact's doesn't have email id", Toast.LENGTH_SHORT).show();
                 }
 
             }

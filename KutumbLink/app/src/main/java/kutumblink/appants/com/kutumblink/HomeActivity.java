@@ -395,7 +395,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Invalid");
                 builder.setMessage("Please select future date.");
-                builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

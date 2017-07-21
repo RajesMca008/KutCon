@@ -157,9 +157,26 @@ public class SettingsFragment extends BaseFragment  {
                                     shareIntent.setType("text/plain");
                                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, activity.getString(applicationNameId));
                                     String text = "Install this application: ";
-                                    String link = "https://play.google.com/store/apps/details?id=" + appPackageName;
+                                    //String link = "https://play.google.com/store/apps/details?id=" + appPackageName;
+                                    String link = "market://details?id="+ appPackageName;
                                     shareIntent.putExtra(Intent.EXTRA_TEXT, text + " " + link);
                                     startActivity(Intent.createChooser(shareIntent, "Share link:"));
+
+                                   /* Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?id="+getActivity().getPackageName()));
+                                    startActivity(intent);*/
+
+
+                                   /* final String appPackageName = getActivity(). getPackageName();
+                                    Intent sendIntent = new Intent();
+                                    sendIntent.setAction(Intent.ACTION_SEND);
+                                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out Aap Ka Sewak App at: https://play.google.com/store/apps/details?id=" + appPackageName);
+                                    sendIntent.setType("text/plain");
+                                   startActivity(sendIntent);*/
+
+
+
+
                                     return;
                                 }
                                 if(value.equalsIgnoreCase("Rate KutumbLink") )

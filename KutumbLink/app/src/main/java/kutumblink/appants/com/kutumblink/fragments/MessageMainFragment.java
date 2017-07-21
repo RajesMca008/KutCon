@@ -298,7 +298,7 @@ public class MessageMainFragment extends BaseFragment {
 
 
         builder.setMessage(sb.toString()).setCancelable(false);
-        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkURL));

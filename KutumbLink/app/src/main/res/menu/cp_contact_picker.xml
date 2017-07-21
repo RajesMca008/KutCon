@@ -31,10 +31,10 @@
         app:showAsAction="ifRoom|withText"
         android:icon="@drawable/ic_apps_white_24dp"
         android:title="@android:string/selectAll"/>
-
     <item
         android:id="@+id/action_done"
         app:showAsAction="always|withText"
-        android:icon="@drawable/ic_done_white_24dp"
-        android:title="@android:string/ok"/>
+        android:title="Done"
+        />
+    <!--android:icon="@drawable/ic_done_white_24dp"-->
 </menu>

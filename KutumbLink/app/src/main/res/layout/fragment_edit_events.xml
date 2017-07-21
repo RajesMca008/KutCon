@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="#FBFBFB"
+            android:background="#FFFFFF"
             android:orientation="vertical">
 
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
@@ -39,7 +39,7 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginTop="2dp"
                     android:layout_weight="0.8"
-                    android:background="#FBFBFB"
+                    android:background="#FFFFFF"
                     android:enabled="false"
                     android:minHeight="50dp"
 

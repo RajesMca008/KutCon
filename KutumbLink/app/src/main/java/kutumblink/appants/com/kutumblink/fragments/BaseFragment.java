@@ -142,7 +142,7 @@ public class BaseFragment extends Fragment {
 
 
         builder.setMessage(sb.toString()).setCancelable(false);
-        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -212,7 +212,7 @@ public class BaseFragment extends Fragment {
 
 
         builder.setMessage(sb.toString()).setCancelable(false);
-        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
