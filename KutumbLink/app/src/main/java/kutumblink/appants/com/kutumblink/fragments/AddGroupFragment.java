@@ -441,7 +441,8 @@ public class AddGroupFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Constants.NAV_GROUPS = 100;
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                FragmentManager fragmentManager =mActivity.getSupportFragmentManager();
                 fragmentManager.popBackStack();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new GroupsMainFragment());
@@ -454,7 +455,7 @@ public class AddGroupFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Constants.NAV_GROUPS = 100;
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                 fragmentManager.popBackStack();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new GroupsMainFragment());
@@ -490,7 +491,7 @@ public class AddGroupFragment extends BaseFragment {
         fav_gicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new FavuarateGroupIconsFragment());
                 ft.addToBackStack("group_Main");
@@ -500,7 +501,7 @@ public class AddGroupFragment extends BaseFragment {
         iv_gicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new SelectGroupIconsFragment());
                 ft.addToBackStack("group_Main");
@@ -520,12 +521,12 @@ public class AddGroupFragment extends BaseFragment {
                     }
                 }
 
-                if ((ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)) {
+                if ((ContextCompat.checkSelfPermission(mActivity, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)) {
 
                    /* requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
                             MY_PERMISSIONS_REQUEST_READ_CONTACTS);*/
                     Constants.GROUP_NAME = et_groupname.getText().toString().trim();
-                    Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
+                    Intent intent = new Intent(mActivity, ContactPickerActivity.class)
                             //   .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_AppCompat : R.style.TextAppearance_AppCompat_Caption)
                             .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
                             .putExtra(ContactPickerActivity.EXTRA_SHOW_CHECK_ALL, true)
@@ -566,7 +567,7 @@ public class AddGroupFragment extends BaseFragment {
 
                     Constants.GROUP_NAME = et_groupname.getText().toString().trim();
 
-                    Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
+                    Intent intent = new Intent(mActivity, ContactPickerActivity.class)
                             // .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_Dark : R.style.Theme_Light)
                             .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
                             .putExtra(ContactPickerActivity.EXTRA_SHOW_CHECK_ALL, true)
@@ -667,7 +668,7 @@ public class AddGroupFragment extends BaseFragment {
             }
 
             if (Constants.GROUP_OPERATIONS.equalsIgnoreCase("SAVE")) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
             }
 
@@ -679,8 +680,8 @@ public class AddGroupFragment extends BaseFragment {
             if (data != null) {
                 try {
                     Uri contactData = data.getData();
-                    c = getActivity().managedQuery(contactData, null, null, null, null);
-                    ContentResolver cr = getActivity().getContentResolver();
+                    c = mActivity.managedQuery(contactData, null, null, null, null);
+                    ContentResolver cr = mActivity.getContentResolver();
                     String cNumber = "";
                     String id = "";
                     String emailContact = "";
@@ -691,7 +692,7 @@ public class AddGroupFragment extends BaseFragment {
                         String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
 
                         if (hasPhone.equalsIgnoreCase("1")) {
-                            Cursor phones = getActivity().getContentResolver().query(
+                            Cursor phones = mActivity.getContentResolver().query(
                                     ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
                                     null, null);
@@ -787,7 +788,7 @@ public class AddGroupFragment extends BaseFragment {
         super.onResume();
 
 
-        //SharedPreferences sharedPreferences=getActivity().getSharedPreferences(Constants.PRF_FILE_NAME, Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences=mActivity.getSharedPreferences(Constants.PRF_FILE_NAME, Context.MODE_PRIVATE);
 
         //String sortOder=sharedPreferences.getString("SORT_ORDER",Constants.DEFAULT);
 
