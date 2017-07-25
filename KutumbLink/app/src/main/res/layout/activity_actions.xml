@@ -98,7 +98,7 @@
                 android:layout_height="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
-                android:background="@mipmap/add_group_icon"/>
+                android:background="@drawable/add_remove_contact_icon"/>
 
         </LinearLayout>
         <View   android:layout_width="match_parent"
@@ -122,13 +122,13 @@
                 android:textColor="@color/black_color"
                 android:layout_weight="0.9"
                 android:layout_marginLeft="15dp"
-                android:text="Remove Group"/>
+                android:text="Remove from Group"/>
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/delete_button"/>
+                android:background="@mipmap/remove"/>
 
         </LinearLayout>
         <View   android:layout_width="match_parent"
@@ -188,7 +188,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/note"/>
+                android:background="@mipmap/info"/>
 
         </LinearLayout>
 

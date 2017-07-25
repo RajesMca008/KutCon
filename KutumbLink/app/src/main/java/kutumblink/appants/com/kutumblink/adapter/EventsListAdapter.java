@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import kutumblink.appants.com.kutumblink.R;
@@ -85,7 +87,17 @@ public class EventsListAdapter extends BaseAdapter {
             }else {
                 tv_date.setTextColor(Color.BLACK);
             }
-            tv_date.setText(adb.getEvtDate().replace(",","\n"));
+
+            try {
+
+                String date = new SimpleDateFormat("MMM dd yyyy").format(new SimpleDateFormat("dd/mm/yyyy").parse(adb.getEvtDate().split(",")[0]));
+                date=date+"\n"+adb.getEvtDate().split(",")[1].trim();
+                tv_date.setText(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                tv_date.setText(adb.getEvtDate().replace(",","\n"));
+            }
+
 
 
             // set value into textview

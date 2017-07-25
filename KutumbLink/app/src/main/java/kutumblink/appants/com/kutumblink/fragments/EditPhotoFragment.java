@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -149,7 +148,7 @@ public class EditPhotoFragment extends BaseFragment implements View.OnClickListe
 
                     if (insert > 0) {
                         //  Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
-                        showConfirmDialog(getString(R.string.app_name), getString(R.string.saved_sucess),true);
+                        showConfirmDialog("", getString(R.string.saved_sucess),true);
 
                     }
                 }
@@ -160,7 +159,7 @@ public class EditPhotoFragment extends BaseFragment implements View.OnClickListe
 
                     if (insert > 0) {
                         //Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
-                        showConfirmDialog(getString(R.string.app_name), getString(R.string.updated_sucess),true);
+                        showConfirmDialog("", getString(R.string.updated_sucess),true);
                         //getActivity().onBackPressed();
                     }
                 }

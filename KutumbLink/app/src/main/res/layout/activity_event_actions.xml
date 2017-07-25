@@ -39,7 +39,7 @@
                 android:layout_height="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
-                android:background="@mipmap/add_group_icon"/>
+                android:background="@drawable/add_remove_contact_icon"/>
 
         </LinearLayout>
         <View   android:layout_width="match_parent"

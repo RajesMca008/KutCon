@@ -30,7 +30,6 @@ import kutumblink.appants.com.kutumblink.utils.Constants;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
 
 public class GroupsMainFragment extends BaseFragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -298,6 +297,14 @@ public class GroupsMainFragment extends BaseFragment {
             }
         }
        lv_GroupList.setAdapter(new GroupListAdapter(getActivity(),arr_group));
+
+        if(arr_group.size()>0)
+        {
+            view.findViewById(R.id.bottom_view_line).setVisibility(View.VISIBLE);
+        }else {
+            view.findViewById(R.id.bottom_view_line).setVisibility(View.GONE);
+        }
+
         lv_GroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

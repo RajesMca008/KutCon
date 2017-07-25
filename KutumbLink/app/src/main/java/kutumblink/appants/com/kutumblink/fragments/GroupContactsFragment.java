@@ -26,12 +26,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,7 +80,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     public static Button btn_close;
     ListView lv_conatcst;
     DatabaseHandler dbHandler;
-    ImageView iv_contacts;
+    //ImageView iv_contacts;
     public static ArrayList<GroupDo> arr_group = new ArrayList<GroupDo>();
     public static LinearLayout ll_actions;
 
@@ -127,7 +124,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         tv_Cancel = (TextView) view.findViewById(R.id.tv_cancel);
         tv_Done = (TextView) view.findViewById(R.id.tv_done);
         rl_actions = (LinearLayout) view.findViewById(R.id.rl_actions);
-        iv_contacts = (ImageView) view.findViewById(R.id.iv_selectContacts);
+       // iv_contacts = (ImageView) view.findViewById(R.id.iv_selectContacts);
         no_contacts=(TextView)view.findViewById(R.id.no_contacts);
         no_contacts.setVisibility(View.GONE);
 
@@ -149,7 +146,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
 
 
-        iv_contacts.setOnClickListener(new View.OnClickListener() {
+       /* iv_contacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -165,7 +162,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
 
             }
-        });
+        });*/
         tv_Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,7 +179,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                 if (sel) {
 
-                    showConfirmOptionsDialog("Contacts copied to selected groups", "Are you sure?");
+                    showConfirmOptionsDialog("Add contacts to the group.", "Are you sure?");
                 } else {
 
                     showConfirmOptionsDialog("Groups", "Please select Group");
@@ -262,10 +259,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     }
                     else
                     {
-                        showConfirmDialog(getString(R.string.app_name),getString(R.string.selected_no_contats) ,false);
+                        showConfirmDialog("",getString(R.string.selected_no_contats) ,false);
                     }
                 } else {
-                    showConfirmDialog(getString(R.string.app_name), "Please select contacts",false);
+                    showConfirmDialog("", "Please select contacts",false);
                 }
             }
         });
@@ -324,7 +321,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     {
                         ll_actions.setVisibility(View.GONE);
                     }
-                    showConfirmDialog("Groups", "Selected contacts do not have email address.",false);
+                    showConfirmDialog("", "Selected contacts do not have email address.",false);
                 }
             }
         });
@@ -389,7 +386,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     }
 
                 } else {
-                    showConfirmDialogActions("Groups", "There are no groups to add this contact into.");
+                    showConfirmDialogActions("", "There are no groups to add this contact into.");
                 }
             }
         });
@@ -664,7 +661,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
 
-       // builder.setTitle(title);
+         builder.setTitle(title);
         //builder.setIcon(R.mipmap.ic_launcher);
         StringBuffer sb = new StringBuffer(message);
 
@@ -707,13 +704,15 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                             }
                         }
 
+
+                        showConfirmDialogActions("","Contact(s) copied successfully.");
+
                         Constants.NAV_GROUPS = 100;
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction ft = fragmentManager.beginTransaction();
                         ft.replace(R.id.main_container, new GroupsMainFragment());
                         ft.commit();
                         ll_grpactionslist.setVisibility(View.GONE);
-
 
                     }
                 }

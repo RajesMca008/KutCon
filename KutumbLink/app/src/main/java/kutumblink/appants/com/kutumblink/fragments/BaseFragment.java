@@ -140,7 +140,9 @@ public class BaseFragment extends Fragment {
             android.support.v7.app.AlertDialog.Builder builder = new  android.support.v7.app.AlertDialog.Builder(getContext());
 
            // builder.setIcon(R.mipmap.ic_launcher);
-        //builder.setTitle(title);
+            if(title!=null && !title.equals(""))
+         builder.setTitle(title);
+
         StringBuffer sb = new StringBuffer(message);
 
 
@@ -151,16 +153,18 @@ public class BaseFragment extends Fragment {
 
 
                         //getFragmentManager().popBackStack();
-                        View view = getActivity().getCurrentFocus();
-                        if (view != null) {
-                            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                        }
+
+                        if(mActivity!=null) {
+                            View view = mActivity.getCurrentFocus();
+                            if (view != null) {
+                                InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            }
 
 
-
-                        if(needGoBack) {
-                            getActivity().onBackPressed();
+                            if (needGoBack) {
+                                mActivity.onBackPressed();
+                            }
                         }
                     }
                 }
@@ -187,10 +191,12 @@ public class BaseFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //getFragmentManager().popBackStack();
-                        View view = getActivity().getCurrentFocus();
-                        if (view != null) {
-                            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        if(mActivity!=null) {
+                            View view = mActivity.getCurrentFocus();
+                            if (view != null) {
+                                InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            }
                         }
                       //  getActivity().onBackPressed();
                     }
@@ -209,7 +215,7 @@ public class BaseFragment extends Fragment {
         AlertDialog.Builder builder = new  AlertDialog.Builder(getContext());
 
 
-        //builder.setTitle(title);
+         builder.setTitle(title);
         //builder.setIcon(R.mipmap.ic_launcher);
         StringBuffer sb = new StringBuffer(message);
 
@@ -223,13 +229,14 @@ public class BaseFragment extends Fragment {
                             Constants.NAV_GROUPS=100;
                             dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + params+ "'");
                             dbHandler.DeleteTable("TBL_PHONE_CONTACTS","Phone_Contact_Gid='"+params+"'");
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                             FragmentTransaction ft=fragmentManager.beginTransaction();
                             ft.replace(R.id.main_container, new GroupsMainFragment());
                             ft.commit();
+                            //showConfirmDialog("","Contacts(s) copied successfully.",false);
                         }else if(type==2){
                             dbHandler.DeleteTable(DatabaseHandler.TABLE_EVENTS, "evt_title='" + params + "'");
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                             FragmentTransaction ft = fragmentManager.beginTransaction();
                             ft.replace(R.id.main_container, new EventsMainFragment());
                             ft.commit();
@@ -239,9 +246,12 @@ public class BaseFragment extends Fragment {
                                     dbHandler.DeleteTable("TBL_PHONE_CONTACTS", "Phone_Contact_Gid='" + Constants.GROUP_NAME + "' AND Phone_Contact_ID='"+GroupContactsFragment.arr_contacts.get(i).getConatactId()+"'");
 
                                 }
-                            }
 
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                            }
+                            showConfirmDialog("","Contacts(s) removed successfully.",true);
+
+                           /* FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                             FragmentTransaction ft = fragmentManager.beginTransaction();
                             ft.replace(R.id.main_container, new GroupContactsFragment());
                             ft.commit();
@@ -249,7 +259,7 @@ public class BaseFragment extends Fragment {
 
 
 
-                            Constants.NAV_GROUPS = 100;
+                            Constants.NAV_GROUPS = 100;*/
                         }
 
 
@@ -268,17 +278,6 @@ public class BaseFragment extends Fragment {
     }
 
 
-    /*public void onBackPressed() {
 
-        int count = getFragmentManager().getBackStackEntryCount();
-
-        if (count == 0) {
-            //super.onBackPressed();
-            //additional code
-        } else {
-            getFragmentManager().popBackStack();
-        }
-
-    }*/
 
 }

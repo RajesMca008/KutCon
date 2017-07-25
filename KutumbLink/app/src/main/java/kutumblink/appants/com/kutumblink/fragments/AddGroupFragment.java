@@ -139,9 +139,9 @@ public class AddGroupFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
-                View keyView = getActivity().getCurrentFocus();
+                View keyView = mActivity.getCurrentFocus();
                 if (keyView != null) {
-                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager)mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(keyView.getWindowToken(), 0);
                 }
                  if (!Constants.GROUP_NAME.equalsIgnoreCase("")) {
@@ -178,7 +178,7 @@ public class AddGroupFragment extends BaseFragment {
                         Cursor cgsavesameName = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME.trim() + "'");
 
                         if(cgsavesameName.getCount()>0){
-                            showConfirmDialog("KutumbLink","Group name already exists",false);
+                            showConfirmDialog("","Group name already exists",false);
 
                         }else {
 
@@ -224,7 +224,7 @@ public class AddGroupFragment extends BaseFragment {
                                     cv.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
                                     dbHandler.insert(dbHandler.TABLE_PHONE_CONTACTS, cv);*/
                                 }
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                                 fragmentManager.beginTransaction().replace(R.id.main_container, new GroupsMainFragment()).commit();
 
 
@@ -308,7 +308,7 @@ public class AddGroupFragment extends BaseFragment {
         });
 
 
-        HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
+       /* HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -410,7 +410,7 @@ public class AddGroupFragment extends BaseFragment {
 
                 }
             }
-        });
+        });*/
 
 
         et_groupname.addTextChangedListener(new TextWatcher() {
@@ -455,6 +455,17 @@ public class AddGroupFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Constants.NAV_GROUPS = 100;
+                if(Constants.GROUP_NAME.equals("") )
+                {
+                    try {
+                        dbHandler.DeleteTable(DatabaseHandler.TABLE_PHONE_CONTACTS, "Phone_Contact_Gid='" + Constants.GROUP_OLD_NAME + "'");
+                        dbHandler.DeleteTable(DatabaseHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_OLD_NAME + "'");
+                    }catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
                 FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                 fragmentManager.popBackStack();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -516,7 +527,7 @@ public class AddGroupFragment extends BaseFragment {
                     Cursor cgsavesameName = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_GROUP + " where G_NAME='" + Constants.GROUP_NAME + "'");
 
                     if (cgsavesameName.getCount() > 0) {
-                        showConfirmDialog("KutumbLink", "Group name already exists",true);
+                        showConfirmDialog("", "Group name already exists",true);
                         return;
                     }
                 }
@@ -715,9 +726,9 @@ public class AddGroupFragment extends BaseFragment {
                         emailContact = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
                     }
 
-                    Log.v("DATA NAME...", "NAME CONTACTS.NAME.." + name);
+                  /*  Log.v("DATA NAME...", "NAME CONTACTS.NAME.." + name);
                     Log.v("DATA NAME...", "NAME CONTACTS.NUMBER.." + cNumber);
-                    Log.v("DATA NAME...", "NAME CONTACTS.EMAIL.." + emailContact);
+                    Log.v("DATA NAME...", "NAME CONTACTS.EMAIL.." + emailContact);*/
 
                     ContentValues g_cv = new ContentValues();
                     if (Constants.GROUP_NAME.equalsIgnoreCase("")) {
@@ -782,20 +793,6 @@ public class AddGroupFragment extends BaseFragment {
 
         }
     }
-
-   /* @Override
-    public void onResume() {
-        super.onResume();
-
-
-        //SharedPreferences sharedPreferences=mActivity.getSharedPreferences(Constants.PRF_FILE_NAME, Context.MODE_PRIVATE);
-
-        //String sortOder=sharedPreferences.getString("SORT_ORDER",Constants.DEFAULT);
-
-
-        sortOderTextView.setText("Sort Order  -  "+Constants.SortOrderValue);
-    }*/
-
 
 }
 

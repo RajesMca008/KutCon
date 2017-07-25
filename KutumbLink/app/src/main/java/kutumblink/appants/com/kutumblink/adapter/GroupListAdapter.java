@@ -75,7 +75,14 @@ public class GroupListAdapter extends BaseAdapter {
             TextView tv_totalcontacts=(TextView)convertView.findViewById(R.id.tv_totalcontacts);
             ImageView iv_groupPic=(ImageView)convertView.findViewById(R.id.iv_photo);
             tv_groupName.setText(""+adb.getGroup_Name());
-            tv_totalcontacts.setText(""+adb.getGroup_totalContactList());
+
+            if(adb.getGroup_totalContactList().equals("0"))
+            {
+                tv_totalcontacts.setVisibility(View.GONE);
+            }else {
+                tv_totalcontacts.setText(""+adb.getGroup_totalContactList());
+            }
+
             if(!adb.getGroup_Pic().contains("/")){
                 iv_groupPic.setImageResource(Integer.parseInt(adb.getGroup_Pic()));
             }else{

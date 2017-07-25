@@ -194,11 +194,11 @@ public class EditEventsFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 if(event_title_text.getText().toString().length()==0){
-                    showConfirmDialog(getString(R.string.evt_title), "Please enter date.",false);
+                    showConfirmDialog("", "Please enter date.",false);
                 }else if(tv_eventTitle.getText().toString().length()==0){
-                    showConfirmDialog(getString(R.string.evt_title), "Please enter title.",false);
+                    showConfirmDialog("", "Please enter title.",false);
                 }else if(tv_desc.getText().toString().length()==0){
-                    showConfirmDialog(getString(R.string.evt_title), "Please enter description.",false);
+                    showConfirmDialog("", "Please enter description.",false);
                 }else {
                         try {
                             if (event_title_text.getText().toString().length() < 14) {
@@ -313,11 +313,11 @@ public class EditEventsFragment extends BaseFragment {
 
 
                 if(event_title_text.getText().toString().length()==0){
-                    showConfirmDialog(getString(R.string.evt_title), "Please enter date.",false);
+                    showConfirmDialog("", "Please enter date.",false);
                 }else if(tv_eventTitle.getText().toString().length()==0){
-                    showConfirmDialog(getString(R.string.evt_title), "Please enter title.",false);
+                    showConfirmDialog("", "Please enter title.",false);
                 }else if(tv_desc.getText().toString().length()==0){
-                    showConfirmDialog(getString(R.string.evt_title), "Please enter description.",false);
+                    showConfirmDialog("", "Please enter description.",false);
                 }else {
                     try {
                         if (event_title_text.getText().toString().length() < 14) {
