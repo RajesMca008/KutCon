@@ -227,8 +227,6 @@ public class ContactListAdapter extends BaseAdapter {
             // set value into textview
         }
 
-
-
         return convertView;
     }
 

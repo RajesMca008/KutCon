@@ -23,12 +23,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="35dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:id="@+id/tv_sms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                 
                 android:textColor="@color/black_color"
                 android:layout_weight="0.9"
                 android:layout_marginLeft="15dp"
@@ -36,14 +38,14 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="15dp"
+                
                 android:layout_marginRight="20dp"
                 android:background="@mipmap/message_icon"/>
 
         </LinearLayout>
         <View   android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="5dp"
+             
             android:background="@drawable/line"/>
 
 
@@ -51,14 +53,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
-
+            android:minHeight="35dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:id="@+id/tv_sendEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:textColor="@color/black_color"
                 android:layout_weight="0.9"
                 android:layout_marginLeft="15dp"
@@ -66,14 +67,12 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="15dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/email_icon"/>
 
         </LinearLayout>
         <View   android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="5dp"
             android:background="@drawable/line"/>
 
 
@@ -81,14 +80,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
+            android:minHeight="35dp"
+            android:gravity="center_vertical"
 
             android:orientation="horizontal">
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:id="@+id/tv_copygrp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:textColor="@color/black_color"
                 android:layout_weight="0.9"
                 android:layout_marginLeft="15dp"
@@ -96,14 +95,12 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="15dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/add_remove_contact_icon"/>
 
         </LinearLayout>
         <View   android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="5dp"
             android:background="@drawable/line"/>
 
 
@@ -112,13 +109,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
 
-
+            android:minHeight="35dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:id="@+id/tv_removegroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:textColor="@color/black_color"
                 android:layout_weight="0.9"
                 android:layout_marginLeft="15dp"
@@ -126,14 +123,12 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
                 android:background="@mipmap/remove"/>
 
         </LinearLayout>
         <View   android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="5dp"
             android:background="@drawable/line"/>
 
         <LinearLayout
@@ -141,43 +136,40 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
 
-
+            android:minHeight="35dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:id="@+id/tv_addevt"
                 android:layout_width="wrap_content"
                 android:textColor="@color/black_color"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_weight="0.9"
                 android:layout_marginLeft="15dp"
                 android:text="Add Event"/>
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
                 android:background="@mipmap/events_icon"/>
 
         </LinearLayout>
         <View   android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="5dp"
             android:background="@drawable/line"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
+            android:minHeight="35dp"
+            android:gravity="center_vertical"
 
             android:orientation="horizontal">
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:id="@+id/tv_eci"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
                 android:layout_weight="0.9"
                 android:textColor="@color/black_color"
                 android:layout_marginLeft="15dp"
@@ -185,9 +177,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
                 android:background="@mipmap/info"/>
 
         </LinearLayout>

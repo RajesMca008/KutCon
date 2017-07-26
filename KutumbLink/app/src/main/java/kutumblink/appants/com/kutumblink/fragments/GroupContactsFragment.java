@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -831,8 +832,9 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         c.moveToFirst();
                         do {
                             try {
+                                ContactsDo contactsBean=null;
                                 if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
-                                    ContactsDo contactsBean = new ContactsDo();
+                                    contactsBean = new ContactsDo();
                                     contactsBean.setConatactGroupName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_GID)));
                                     contactsBean.setConatactId(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
                                     contactsBean.setConatactName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NAME)));
@@ -840,13 +842,88 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                                     contactsBean.setConatactPIC(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_PIC)));
                                     contactsBean.setConatactEmail(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_EMAIL)));
                                     contactsBean.setIS_CONTACT_SELECTED(0);
+
+                                    //Just my code here
+                                    try {
+                                        ContentResolver mContentResolver = getContext().getContentResolver();
+                                        Cursor cur = mContentResolver.query(
+                                                ContactsContract.Contacts.CONTENT_URI /*ContactsContract.CommonDataKinds.Phone.CONTENT_URI*/,
+
+                                                null,
+                                                ContactsContract.Contacts._ID+" = ?",
+                                                new String[]{c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID))}, null);
+                                        if (cur.getCount() > 0) {
+                                            while (cur.moveToNext()) {
+                                                String id = cur.getString(cur
+                                                        .getColumnIndex(BaseColumns._ID));
+                                                String contactName = cur
+                                                        .getString(cur
+                                                                .getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
+
+                                                contactsBean.setConatactName(contactName);
+
+                                              /* Cursor phoneCursor= mContentResolver.query(
+                                                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                                        null,
+                                                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+                                                                + " = ?", new String[] { id }, null);
+
+
+                                                Log.i("TEST","PHone:"+phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+*/
+
+                                                Cursor phoneCursor = mContentResolver.query(
+                                                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                                        null,
+                                                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",
+                                                        new String[]{id}, null);
+
+                                                while (phoneCursor.moveToNext())
+                                                {
+                                                    String phone=phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                                    //Log.i("TEST","Phone :::"+phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+                                                    contactsBean.setConatactPhone(phone);
+                                                }
+
+                                                phoneCursor.close();
+                                                Cursor emails = mContentResolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
+                                                        ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + id, null, null);
+                                                while (emails.moveToNext()) {
+                                                    String emailIdOfContact = emails.getString(emails
+                                                            .getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                                                    Log.i("TEST","...COntact Name ...."
+                                                            + contactName + "...contact Number..."
+                                                            + emailIdOfContact);
+
+                                                    contactsBean.setConatactName(contactName);
+                                                    contactsBean.setConatactEmail(emailIdOfContact);
+                                                    /*int emailType = emails.getInt(emails
+                                                            .getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));*/
+
+
+                                                }
+                                                emails.close();
+
+                                            }
+                                        }// end of contact name cursor
+                                        cur.close();
+                                    }catch (Exception e)
+                                    {
+                                        e.printStackTrace();
+                                    }
+
                                     arr_contacts.add(contactsBean);
+
                                 }
                             } catch (Exception e) {
                         }
                         } while (c.moveToNext());
                     }
+
+                   c.close();
                 }
+
 
                Log.i("TEST","List size:"+arr_contacts.size());
                 if(arr_contacts.size()==0)
@@ -897,5 +974,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         super.onActivityResult(requestCode, resultCode, data);
         if(ll_actions.getVisibility()==View.VISIBLE)
         ll_actions.setVisibility(View.GONE);
+
+
     }
 }
