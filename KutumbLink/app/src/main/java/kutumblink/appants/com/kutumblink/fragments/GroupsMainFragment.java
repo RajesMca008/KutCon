@@ -10,7 +10,6 @@ import android.provider.ContactsContract;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,7 +126,10 @@ public class GroupsMainFragment extends BaseFragment {
           }
           FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
           FragmentTransaction ft=fragmentManager.beginTransaction();
-          ft.replace(R.id.main_container, new AddGroupFragment());
+          //ft.replace(R.id.main_container, new AddGroupFragment());
+          ft.add(R.id.main_container, new AddGroupFragment());
+          ft.addToBackStack(null);
+
           ft.commit();
       }else if(Constants.NAV_GROUPS==102){
 
@@ -364,10 +366,10 @@ public class GroupsMainFragment extends BaseFragment {
 
         }
 
-        Log.v("DATA....","DATA FIRSTLOADED...NAME"+name);
+       /* Log.v("DATA....","DATA FIRSTLOADED...NAME"+name);
         Log.v("DATA....","DATA FIRSTLOADED...PHONE"+phone);
         Log.v("DATA....","DATA FIRSTLOADED...EMAILID"+emailContact);
-        Log.v("DATA....","DATA FIRSTLOADED...EMAILTYPE"+emailType);
+        Log.v("DATA....","DATA FIRSTLOADED...EMAILTYPE"+emailType);*/
 
 
         ContentValues cv = new ContentValues();

@@ -455,11 +455,11 @@ public class AddGroupFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Constants.NAV_GROUPS = 100;
-                if(Constants.GROUP_NAME.equals("") )
+                if(Constants.GROUP_NAME.equals("") ||Constants.GROUP_NAME.equals("0") || Constants.GROUP_OLD_NAME.equals(""))
                 {
                     try {
-                        dbHandler.DeleteTable(DatabaseHandler.TABLE_PHONE_CONTACTS, "Phone_Contact_Gid='" + Constants.GROUP_OLD_NAME + "'");
-                        dbHandler.DeleteTable(DatabaseHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_OLD_NAME + "'");
+                        dbHandler.DeleteTable(DatabaseHandler.TABLE_PHONE_CONTACTS, "Phone_Contact_Gid=0" );
+                        dbHandler.DeleteTable(DatabaseHandler.TABLE_GROUP, "G_NAME=0");
                     }catch (Exception e)
                     {
                         e.printStackTrace();
