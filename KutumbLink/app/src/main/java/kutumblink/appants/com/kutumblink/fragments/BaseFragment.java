@@ -1,6 +1,7 @@
 package kutumblink.appants.com.kutumblink.fragments;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
@@ -15,6 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
@@ -142,7 +146,8 @@ public class BaseFragment extends Fragment {
            // builder.setIcon(R.mipmap.ic_launcher);
             if(title!=null && !title.equals(""))
          builder.setTitle(title);
-
+            LayoutInflater inflater = (mActivity).getLayoutInflater();
+            builder.setView(inflater.inflate(R.layout.dialog_customeview,null));
         StringBuffer sb = new StringBuffer(message);
 
 
@@ -184,7 +189,8 @@ public class BaseFragment extends Fragment {
        // builder.setIcon(R.mipmap.ic_launcher);
        // builder.setTitle(title);
         StringBuffer sb = new StringBuffer(message);
-
+        LayoutInflater inflater = (mActivity).getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.dialog_customeview,null));
 
         builder.setMessage(sb.toString()).setCancelable(false);
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -218,6 +224,8 @@ public class BaseFragment extends Fragment {
          builder.setTitle(title);
         //builder.setIcon(R.mipmap.ic_launcher);
         StringBuffer sb = new StringBuffer(message);
+        LayoutInflater inflater = (mActivity).getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.dialog_customeview,null));
 
 
         builder.setMessage(sb.toString()).setCancelable(false);
@@ -269,6 +277,34 @@ public class BaseFragment extends Fragment {
         );
         builder.setNegativeButton("Cancel", null);
         builder.show();
+    }
+
+
+    public void ShowCustomOptionDialog(String title, String message, final int type, final String params)
+    {
+
+        // custom dialog
+        final Dialog dialog = new Dialog(mActivity);
+        dialog.setContentView(R.layout.dialog_customeview);
+        dialog.setTitle("Title...");
+
+        // set the custom dialog components - text, image and button
+        TextView textView = (TextView) dialog.findViewById(R.id.title);
+        textView.setText(title);
+
+        TextView messageView = (TextView) dialog.findViewById(R.id.message);
+        messageView.setText(message);
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.okay);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     @Override
