@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="-5dp"
+
             app:itemTextColor="#3d3b3d"
             app:itemIconTint="@null"
             android:layout_alignParentBottom="true"

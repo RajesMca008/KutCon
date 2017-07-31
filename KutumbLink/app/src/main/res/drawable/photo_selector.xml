@@ -5,7 +5,7 @@
  <!--   <item android:drawable="@drawable/messages_btn_hover" android:state_selected="true"/>
     <item android:drawable="@drawable/messages_btn" android:state_selected="false"/>-->
 
-    <item android:drawable="@mipmap/photos_btn_active_n"   android:state_checked="true"/>
-    <item android:drawable="@mipmap/photos_btn_n"   />
+    <item android:drawable="@drawable/photos_btn_hover"   android:state_checked="true"/>
+    <item android:drawable="@drawable/photos_btn"   />
 
 </selector>

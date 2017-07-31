@@ -5,21 +5,21 @@
         android:id="@+id/navigation_groups"
         android:icon="@drawable/group_selector"
 
-        android:title="Groups" />
+        android:title="" />
 
     <item
         android:id="@+id/navigation_events"
         android:icon="@drawable/event_selector"
-        android:title="Events" />
+        android:title="" />
 
     <item
         android:id="@+id/navigation_message"
         android:icon="@drawable/message_selector"
-        android:title="Messages" />
+        android:title="" />
     <item
         android:id="@+id/navigation_photos"
         android:icon="@drawable/photo_selector"
-       android:title="Photos"  />
+       android:title=""  />
     <!--
      <item
         android:id="@+id/navigation_groups"

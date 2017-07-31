@@ -30,7 +30,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -206,6 +205,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                         "trebuc.ttf");
                 textView.setTypeface(face);
 
+
             }catch (Exception e)
             {
                 e.printStackTrace();
@@ -213,9 +213,9 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
             final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
             // set your height here
-            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, displayMetrics);
+            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, displayMetrics);
             // set your width here
-            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, displayMetrics);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, displayMetrics);
 
             FrameLayout.LayoutParams  params = (FrameLayout.LayoutParams) iconView.getLayoutParams();
             params.gravity = Gravity.CENTER;
