@@ -26,9 +26,9 @@ import kutumblink.appants.com.kutumblink.utils.Constants;
  */
 public class ContactListAdapter extends BaseAdapter {
 
-    ArrayList itemsList;
+    private ArrayList itemsList;
     private Context context;
-    ContactsDo adb;
+    private ContactsDo adb;
     boolean[] checkBoxState;
     //Constructor to initialize values
     public ContactListAdapter(Context context, ArrayList itemsList) {
@@ -82,150 +82,152 @@ public class ContactListAdapter extends BaseAdapter {
 
             // get layout from grid_item.xml
             convertView = inflater.inflate(R.layout.inflate_contactlist, null);
-            TextView tv_contactName=(TextView)convertView.findViewById(R.id.tv_contactName);
-            RelativeLayout rl_contacts=(RelativeLayout)convertView.findViewById(R.id.rl_contacts);
-            final ImageView cb_conatacts=(ImageView)convertView.findViewById(R.id.cb_contacts);
-            Button btn_phone=(Button)convertView.findViewById(R.id.btn_phone);
-            final Button btn_email=(Button)convertView.findViewById(R.id.btn_email);
 
-            try{
-                if(adb.getConatactName().split(" ").length>1 && !adb.getConatactName().matches(".*\\d+.*"))
+
+            // set value into textview
+        }
+
+        TextView tv_contactName=(TextView)convertView.findViewById(R.id.tv_contactName);
+        RelativeLayout rl_contacts=(RelativeLayout)convertView.findViewById(R.id.rl_contacts);
+        final ImageView cb_conatacts=(ImageView)convertView.findViewById(R.id.cb_contacts);
+        Button btn_phone=(Button)convertView.findViewById(R.id.btn_phone);
+        final Button btn_email=(Button)convertView.findViewById(R.id.btn_email);
+
+        try{
+            if(adb.getConatactName().split(" ").length>1 && !adb.getConatactName().matches(".*\\d+.*"))
+            {
+                if( Constants.SortOrderValue.equalsIgnoreCase(Constants.BY_LAST_NAME))
                 {
-                    if( Constants.SortOrderValue.equalsIgnoreCase(Constants.BY_LAST_NAME))
+
+
+
+                    String[] words = adb.getConatactName().split(" ");
+                    String tmp = words[0];  // grab the first
+                    words[0] = words[words.length-1];  //replace the first with the last
+                    words[words.length-1] = tmp;
+                    String name="";
+                    for (int i=0;i<words.length;i++)
                     {
-
-
-
-                        String[] words = adb.getConatactName().split(" ");
-                        String tmp = words[0];  // grab the first
-                        words[0] = words[words.length-1];  //replace the first with the last
-                        words[words.length-1] = tmp;
-                        String name="";
-                        for (int i=0;i<words.length;i++)
-                        {
-                            name=name+" "+words[i];
-                        }
-                        Log.i("TEST", "Sort Name"+name);
-                        tv_contactName.setText(""+name);
+                        name=name+" "+words[i];
                     }
-                    else {
-                        tv_contactName.setText(""+adb.getConatactName());
-                    }
+                    Log.i("TEST", "Sort Name"+name);
+                    tv_contactName.setText(""+name);
                 }
                 else {
                     tv_contactName.setText(""+adb.getConatactName());
                 }
-            }catch (Exception e)
-            {
+            }
+            else {
                 tv_contactName.setText(""+adb.getConatactName());
-                e.printStackTrace();
             }
-
-            try {
-                if (GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")) {
-                    btn_email.setVisibility(View.GONE);
-                } else {
-                    btn_email.setVisibility(View.VISIBLE);
-                }
-
-                if (GroupContactsFragment.arr_contacts.get(position).getConatactPhone().equalsIgnoreCase("null")) {
-                    btn_phone.setVisibility(View.GONE);
-                } else {
-                    btn_phone.setVisibility(View.VISIBLE);
-                }
-            }catch(Exception e){
-
-            }
-
-            tv_contactName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if( GroupContactsFragment.ll_actions.getVisibility()==View.VISIBLE)
-                    {
-                        GroupContactsFragment.ll_actions.setVisibility(View.GONE);
-                    }
-                    //Log.i("TEST","Contact selected "+GroupContactsFragment.arr_contacts.get(position).getConatactName());
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, String.valueOf(GroupContactsFragment.arr_contacts.get(position).getConatactId()));
-                    intent.setData(uri);
-                    context.startActivity(intent);
-                }
-            });
-            cb_conatacts.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-
-                    if( GroupContactsFragment.ll_actions.getVisibility()==View.VISIBLE)
-                    {
-                        GroupContactsFragment.ll_actions.setVisibility(View.GONE);
-                    }
-
-                    if(!checkBoxState[position]) {
-                        checkBoxState[position] = true;
-                        Log.v("Email....","....EMAIL....Y."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());
-
-                        cb_conatacts.setBackgroundResource(R.drawable.radio_btn_selected);
-                        GroupContactsFragment.arr_contacts.get(position).setIS_CONTACT_SELECTED(1);
-                        boolean sel = false;
-
-                        for (int a = 0; a < GroupContactsFragment.arr_contacts.size(); a++) {
-
-                            if (GroupContactsFragment.arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
-
-                                sel = true;
-                            }
-
-                        }
-
-
-                        if(sel){
-                            GroupContactsFragment.rl_actions.setAlpha(0.99f);
-                            GroupContactsFragment.rl_actions.setEnabled(true);
-                            GroupContactsFragment.btn_actions.setEnabled(true);
-                            GroupContactsFragment.btn_close.setEnabled(true);
-                        }else{
-                            GroupContactsFragment.rl_actions.setAlpha(0.5f);
-                            GroupContactsFragment.rl_actions.setEnabled(false);
-                            GroupContactsFragment.btn_actions.setEnabled(false);
-                            GroupContactsFragment.btn_close.setEnabled(false);
-                        }
-                    } else {
-                        Log.v("Email....","....EMAIL....N."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());
-
-                        cb_conatacts.setBackgroundResource(R.drawable.radio_btn);
-                        checkBoxState[position] = false;
-                        GroupContactsFragment.arr_contacts.get(position).setIS_CONTACT_SELECTED(0);
-                        boolean sel = false;
-
-                        for (int a = 0; a < GroupContactsFragment.arr_contacts.size(); a++) {
-
-                            if (GroupContactsFragment.arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
-
-                                sel = true;
-                            }
-
-                        }
-
-
-                        if(sel){
-                            GroupContactsFragment.rl_actions.setAlpha(0.99f);
-                            GroupContactsFragment.rl_actions.setEnabled(true);
-                            GroupContactsFragment.btn_actions.setEnabled(true);
-                            GroupContactsFragment.btn_close.setEnabled(true);
-                        }else{
-                            GroupContactsFragment.rl_actions.setAlpha(0.5f);
-                            GroupContactsFragment.rl_actions.setEnabled(false);
-                            GroupContactsFragment.btn_actions.setEnabled(false);
-                            GroupContactsFragment.btn_close.setEnabled(false);
-                        }
-
-                    }
-
-                }
-            });
-
-            // set value into textview
+        }catch (Exception e)
+        {
+            tv_contactName.setText(""+adb.getConatactName());
+            e.printStackTrace();
         }
+
+        try {
+            if (GroupContactsFragment.arr_contacts.get(position).getConatactEmail().equalsIgnoreCase("null")) {
+                btn_email.setVisibility(View.GONE);
+            } else {
+                btn_email.setVisibility(View.VISIBLE);
+            }
+
+            if (GroupContactsFragment.arr_contacts.get(position).getConatactPhone().equalsIgnoreCase("null")) {
+                btn_phone.setVisibility(View.GONE);
+            } else {
+                btn_phone.setVisibility(View.VISIBLE);
+            }
+        }catch(Exception e){
+
+        }
+
+        tv_contactName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if( GroupContactsFragment.ll_actions.getVisibility()==View.VISIBLE)
+                {
+                    GroupContactsFragment.ll_actions.setVisibility(View.GONE);
+                }
+                //Log.i("TEST","Contact selected "+GroupContactsFragment.arr_contacts.get(position).getConatactName());
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, String.valueOf(GroupContactsFragment.arr_contacts.get(position).getConatactId()));
+                intent.setData(uri);
+                context.startActivity(intent);
+            }
+        });
+        cb_conatacts.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                if( GroupContactsFragment.ll_actions.getVisibility()==View.VISIBLE)
+                {
+                    GroupContactsFragment.ll_actions.setVisibility(View.GONE);
+                }
+
+                if(!checkBoxState[position]) {
+                    checkBoxState[position] = true;
+                    Log.v("Email....","....EMAIL....Y."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());
+
+                    cb_conatacts.setBackgroundResource(R.drawable.radio_btn_selected);
+                    GroupContactsFragment.arr_contacts.get(position).setIS_CONTACT_SELECTED(1);
+                    boolean sel = false;
+
+                    for (int a = 0; a < GroupContactsFragment.arr_contacts.size(); a++) {
+
+                        if (GroupContactsFragment.arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+
+                            sel = true;
+                        }
+
+                    }
+
+
+                    if(sel){
+                        GroupContactsFragment.rl_actions.setAlpha(0.99f);
+                        GroupContactsFragment.rl_actions.setEnabled(true);
+                        GroupContactsFragment.btn_actions.setEnabled(true);
+                        GroupContactsFragment.btn_close.setEnabled(true);
+                    }else{
+                        GroupContactsFragment.rl_actions.setAlpha(0.5f);
+                        GroupContactsFragment.rl_actions.setEnabled(false);
+                        GroupContactsFragment.btn_actions.setEnabled(false);
+                        GroupContactsFragment.btn_close.setEnabled(false);
+                    }
+                } else {
+                    Log.v("Email....","....EMAIL....N."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());
+
+                    cb_conatacts.setBackgroundResource(R.drawable.radio_btn);
+                    checkBoxState[position] = false;
+                    GroupContactsFragment.arr_contacts.get(position).setIS_CONTACT_SELECTED(0);
+                    boolean sel = false;
+
+                    for (int a = 0; a < GroupContactsFragment.arr_contacts.size(); a++) {
+
+                        if (GroupContactsFragment.arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+
+                            sel = true;
+                        }
+
+                    }
+
+
+                    if(sel){
+                        GroupContactsFragment.rl_actions.setAlpha(0.99f);
+                        GroupContactsFragment.rl_actions.setEnabled(true);
+                        GroupContactsFragment.btn_actions.setEnabled(true);
+                        GroupContactsFragment.btn_close.setEnabled(true);
+                    }else{
+                        GroupContactsFragment.rl_actions.setAlpha(0.5f);
+                        GroupContactsFragment.rl_actions.setEnabled(false);
+                        GroupContactsFragment.btn_actions.setEnabled(false);
+                        GroupContactsFragment.btn_close.setEnabled(false);
+                    }
+
+                }
+
+            }
+        });
 
         return convertView;
     }

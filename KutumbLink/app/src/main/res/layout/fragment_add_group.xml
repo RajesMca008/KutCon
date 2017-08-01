@@ -15,8 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:minHeight="30dp"
+        android:gravity="clip_vertical"
+        android:minHeight="35dp"
         android:weightSum="1">
     <kutumblink.appants.com.kutumblink.utils.CustomTextView
         android:id="@+id/tv_subtitle"
@@ -24,9 +24,9 @@
         android:layout_height="20dp"
         android:layout_marginLeft="15dp"
         android:textSize="16sp"
-        android:layout_marginTop="5dp"
+
         android:drawablePadding="15dp"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical"
         android:text="@string/addgroupsubtitle" />
 
         <ImageView

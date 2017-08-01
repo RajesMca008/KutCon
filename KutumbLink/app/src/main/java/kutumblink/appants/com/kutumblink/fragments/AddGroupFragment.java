@@ -112,6 +112,12 @@ public class AddGroupFragment extends BaseFragment {
         HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
 
         HomeActivity.ib_back_next.setText("Groups");
+        HomeActivity.tv_title.setText("Add Group");
+        if(!Constants.GROUP_NAME.equals(""))
+        {
+            HomeActivity.tv_title.setText(Constants.GROUP_NAME);
+
+        }
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
         HomeActivity.ib_menu.setText("Save");
 
@@ -476,7 +482,7 @@ public class AddGroupFragment extends BaseFragment {
 
             }
         });
-        HomeActivity.tv_title.setText("Add Group");
+
 
         if (Constants.imgID.length() < 15) {
             iv_gicon.setImageResource(Integer.parseInt(Constants.imgID));

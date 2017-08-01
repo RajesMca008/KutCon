@@ -11,13 +11,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -143,16 +143,17 @@ public class BaseFragment extends Fragment {
         protected  void showConfirmDialog(String title, String message, final boolean needGoBack) {
             android.support.v7.app.AlertDialog.Builder builder = new  android.support.v7.app.AlertDialog.Builder(getContext());
 
+
            // builder.setIcon(R.mipmap.ic_launcher);
             if(title!=null && !title.equals(""))
          builder.setTitle(title);
-            LayoutInflater inflater = (mActivity).getLayoutInflater();
-            builder.setView(inflater.inflate(R.layout.dialog_customeview,null));
+            /*LayoutInflater inflater = (mActivity).getLayoutInflater();
+            builder.setView(inflater.inflate(R.layout.dialog_customeview,null));*/
         StringBuffer sb = new StringBuffer(message);
 
 
         builder.setMessage(sb.toString()).setCancelable(false);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(Html.fromHtml("<font color='#0AAEEF'>OK</font>"), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -172,9 +173,12 @@ public class BaseFragment extends Fragment {
                             }
                         }
                     }
+
                 }
 
         );
+
+
 
         builder.show();
     }
@@ -189,11 +193,11 @@ public class BaseFragment extends Fragment {
        // builder.setIcon(R.mipmap.ic_launcher);
        // builder.setTitle(title);
         StringBuffer sb = new StringBuffer(message);
-        LayoutInflater inflater = (mActivity).getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.dialog_customeview,null));
+        //LayoutInflater inflater = (mActivity).getLayoutInflater();
+        //builder.setView(inflater.inflate(R.layout.dialog_customeview,null));
 
         builder.setMessage(sb.toString()).setCancelable(false);
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(Html.fromHtml("<font color='#0AAEEF'>OK</font>"), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //getFragmentManager().popBackStack();
@@ -224,12 +228,12 @@ public class BaseFragment extends Fragment {
          builder.setTitle(title);
         //builder.setIcon(R.mipmap.ic_launcher);
         StringBuffer sb = new StringBuffer(message);
-        LayoutInflater inflater = (mActivity).getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.dialog_customeview,null));
+        //LayoutInflater inflater = (mActivity).getLayoutInflater();
+        //builder.setView(inflater.inflate(R.layout.dialog_customeview,null));
 
 
         builder.setMessage(sb.toString()).setCancelable(false);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(Html.fromHtml("<font color='#0AAEEF'>OK</font>"), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -275,8 +279,14 @@ public class BaseFragment extends Fragment {
                 }
 
         );
-        builder.setNegativeButton("Cancel", null);
-        builder.show();
+        builder.setNegativeButton(Html.fromHtml("<font color='#0AAEEF'>CANCEL</font>"), null);
+        AlertDialog dialog =builder.show();
+        /*TextView messageView = (TextView)dialog.findViewById(android.R.id.message);
+        messageView.setGravity(Gravity.CENTER);*/
+
+
+
+
     }
 
 

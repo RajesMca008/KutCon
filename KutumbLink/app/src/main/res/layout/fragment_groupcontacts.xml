@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:orientation="horizontal"
-            android:gravity="center_horizontal"
+            android:gravity="left"
             android:minHeight="40dp">
 
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
@@ -50,6 +50,7 @@
                 android:layout_width="50dp"
                 android:layout_height="35dp"
 
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
@@ -61,8 +62,8 @@
             <Button
                 android:id="@+id/btn_ations"
                 android:layout_height="35dp"
-                android:layout_width="250dp"
-                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
                 android:background="@mipmap/action_button_"
                 android:layout_marginRight="15dp"
                 />
@@ -86,7 +87,7 @@
         <ListView
             android:id="@+id/lv_contacts"
             android:layout_width="match_parent"
-
+            android:fastScrollEnabled="true"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp">
         </ListView>

@@ -322,7 +322,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     {
                         ll_actions.setVisibility(View.GONE);
                     }
-                    showConfirmDialog("", "Selected contacts do not have email address.",false);
+                    showConfirmDialog("", "Selected contacts do not have email.",false);
                 }
             }
         });

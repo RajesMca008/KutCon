@@ -36,31 +36,33 @@
             android:layout_centerVertical="true"
             />
 
+        <LinearLayout
+            android:layout_width="wrap_content" android:orientation="horizontal"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_email"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:visibility="gone"
+
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/email_icon" />
+
         <Button
             android:id="@+id/btn_phone"
             android:layout_width="15dp"
             android:layout_height="25dp"
-            android:layout_alignParentEnd="true"
-
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
             android:visibility="gone"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
             android:background="@drawable/mobile_small"/>
 
-        <Button
-            android:id="@+id/btn_email"
-            android:layout_width="20dp"
-            android:layout_height="15dp"
-            android:layout_alignParentEnd="true"
-            android:visibility="gone"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="25dp"
-
-            android:layout_toStartOf="@+id/btn_phone"
-            android:background="@mipmap/email_icon" />
 
 
+        </LinearLayout>
     </RelativeLayout>
 
 </FrameLayout>
