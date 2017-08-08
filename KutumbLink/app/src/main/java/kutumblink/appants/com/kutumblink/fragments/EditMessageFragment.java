@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,11 +52,11 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
         View view=inflater.inflate(R.layout.fragment_edit_message, container, false);
 
 
-        HomeActivity.ib_back.setBackgroundResource(R.mipmap.ic_launcher);
+
 
         HomeActivity.ib_back_next.setText("");
 
-        HomeActivity.tv_title.setText("Message Links");
+        //HomeActivity.tv_title.setText("Message Links");
         HomeActivity.ib_menu.setBackground(null);
         HomeActivity.ib_menu.setText("");
 
@@ -67,16 +68,37 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
 
         saveButton.setOnClickListener(this);
 
+        HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
+
+        HomeActivity.ib_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                fragmentManager.popBackStack();
+            }
+        });
+
+        HomeActivity.ib_back_next.setText("Back");
+
+        HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                fragmentManager.popBackStack();
+            }
+        });
+
 
         if(getArguments()==null)
         {
             //Not for edit
 
             activity.setTitle("Create Message");
+            HomeActivity.tv_title.setText("Add Message Link");
             isCreateNew=true;
         }else {
             // Came for Edit
-
+            HomeActivity.tv_title.setText("Update Message Link");
             saveButton.setText("Update");
             activity.setTitle("Edit Message");
             isCreateNew=false;
@@ -157,7 +179,7 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
 
                     if (insert > 0) {
                         //Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
-                        showConfirmDialog("", getString(R.string.saved_sucess),true);
+                        showConfirmDialog("", getString(R.string.message_saved),true);
                         //getActivity().onBackPressed();
                     }
                 }

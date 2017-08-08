@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.FragmentManager;
@@ -17,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,8 +53,8 @@ public class EventActionsFragment extends BaseFragment {
 
     TextView tv_addevent, tv_eventSMS, tv_eventEmail;
     TextView tv_evtTitle, tv_evtDesc, tv_evtContacts, tv_evtTime;
-    LinearLayout ll_actions, ll_events;
-    ImageView iv_delete_event;
+    LinearLayout  ll_events;
+    TextView iv_delete_event;
     Button btn_actions;
     ArrayList<EventsDo> arrEvt = new ArrayList<>();
 
@@ -96,7 +94,7 @@ public class EventActionsFragment extends BaseFragment {
         tv_evtDesc = (TextView) view.findViewById(R.id.tv_desc);
         tv_evtContacts = (TextView) view.findViewById(R.id.tv_event_contactinfo);
         tv_evtTime = (TextView) view.findViewById(R.id.tv_event_time);
-        iv_delete_event = (ImageView) view.findViewById(R.id.btn_delete_event);
+        iv_delete_event = (TextView) view.findViewById(R.id.btn_delete_event);
 
         tv_addevent = (TextView) view.findViewById(R.id.tv_addevent);
         tv_eventSMS = (TextView) view.findViewById(R.id.tv_eventsms);

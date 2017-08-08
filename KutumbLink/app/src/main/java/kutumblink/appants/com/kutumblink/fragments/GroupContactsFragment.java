@@ -83,7 +83,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     DatabaseHandler dbHandler;
     //ImageView iv_contacts;
     public static ArrayList<GroupDo> arr_group = new ArrayList<GroupDo>();
-    public static LinearLayout ll_actions;
+
 
 
     TextView tv_Done, tv_Cancel;
@@ -144,6 +144,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 ll_grpactionslist.setVisibility(View.GONE);
             }
         });
+
 
 
 
@@ -976,5 +977,13 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         ll_actions.setVisibility(View.GONE);
 
 
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        ll_actions=null;
+        Log.e("TEST","onDetach"+ll_actions);
     }
 }

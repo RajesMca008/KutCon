@@ -448,12 +448,14 @@ public class AddGroupFragment extends BaseFragment {
             public void onClick(View view) {
                 Constants.NAV_GROUPS = 100;
 
-                FragmentManager fragmentManager =mActivity.getSupportFragmentManager();
+               /* FragmentManager fragmentManager =mActivity.getSupportFragmentManager();
                 fragmentManager.popBackStack();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new GroupsMainFragment());
                 ft.addToBackStack("group_Main");
-                ft.commit();
+                ft.commit();*/
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                fragmentManager.popBackStack();
             }
         });
 

@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -383,10 +385,22 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             System.out.println(selectedDate);
 
             System.out.println("My Date is"+selectedDate);
+
             System.out.println("Today Date is"+today);
             if (today.compareTo(selectedDate)<0) {
                 System.out.println("Today Date is Lesser than my Date");
                 EditEventsFragment.event_title_text.setText(Constants.strDT);
+
+                SimpleDateFormat new12format=new SimpleDateFormat("dd/MM/yyyy, hh:mm a");
+                String updateDateformat="";
+                try {
+                    updateDateformat = new12format.format(selectedDate);
+                    EditEventsFragment.event_title_text.setText(updateDateformat);
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
             }
             else if (today.compareTo(selectedDate)>0) {
                 System.out.println("Today Date is Greater than my date");
@@ -508,5 +522,19 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
     @Override
     public void onFragmentInteraction(Uri uri) {
         Log.i("TEST","Fragment interatcion"+uri);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.i("TEST","dispatchTouchEvent"+BaseFragment.ll_actions);
+        if(BaseFragment.ll_actions!=null)
+        {
+            Rect viewRect = new Rect();
+            BaseFragment.ll_actions.getGlobalVisibleRect(viewRect);
+            if (!viewRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
+                BaseFragment.ll_actions.setVisibility(View.GONE);
+            }
+        }
+        return super.dispatchTouchEvent(ev);
     }
 }

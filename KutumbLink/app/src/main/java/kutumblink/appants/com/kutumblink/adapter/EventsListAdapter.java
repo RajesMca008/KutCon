@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.model.EventsDo;
@@ -91,7 +92,13 @@ public class EventsListAdapter extends BaseAdapter {
             try {
 
                 String date = new SimpleDateFormat("MMM dd yyyy").format(new SimpleDateFormat("dd/mm/yyyy").parse(adb.getEvtDate().split(",")[0]));
-                date=date+"\n"+adb.getEvtDate().split(",")[1].trim();
+
+               SimpleDateFormat date24Format= new SimpleDateFormat("HH:mm");
+                Date time24Hours = date24Format.parse(adb.getEvtDate().split(",")[1].trim());
+                SimpleDateFormat date12Format= new SimpleDateFormat("hh:mm a");
+
+                String timeText=date12Format.format(time24Hours);
+                date=date+"\n"+timeText;
                 tv_date.setText(date);
             } catch (ParseException e) {
                 e.printStackTrace();

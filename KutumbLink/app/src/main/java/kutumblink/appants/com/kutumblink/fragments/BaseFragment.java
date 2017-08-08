@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ public class BaseFragment extends Fragment {
 
     public HomeActivity activity=null;
     protected FragmentActivity mActivity;
+
+    public static LinearLayout ll_actions=null;
 
     public BaseFragment() {
         // Required empty public constructor
@@ -322,6 +325,7 @@ public class BaseFragment extends Fragment {
         super.onAttach(activity);
         mActivity = (FragmentActivity) activity;
     }
+
 
 
 

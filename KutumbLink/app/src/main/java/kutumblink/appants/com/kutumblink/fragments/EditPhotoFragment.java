@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,16 +61,38 @@ public class EditPhotoFragment extends BaseFragment implements View.OnClickListe
         HomeActivity.ib_menu.setBackground(null);
         HomeActivity.ib_menu.setText("");
         saveButton.setOnClickListener(this);
+        HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
 
+        HomeActivity.ib_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                fragmentManager.popBackStack();
+            }
+        });
+
+        HomeActivity.ib_back_next.setText("Photo Links");
+
+        HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                fragmentManager.popBackStack();
+            }
+        });
 
         if(getArguments()==null)
         {
             //Not for edit
 
+
+
+            HomeActivity.tv_title.setText("Add Photo Link");
             activity.setTitle("Create Photo link");
             isCreateNew=true;
         }else {
             // Came for Edit
+            HomeActivity.tv_title.setText("Update Photo Link");
             saveButton.setText("Update");
             activity.setTitle("Edit Photo link");
             isCreateNew=false;
@@ -148,7 +171,7 @@ public class EditPhotoFragment extends BaseFragment implements View.OnClickListe
 
                     if (insert > 0) {
                         //  Toast.makeText(getContext(),getString(R.string.saved_sucess),Toast.LENGTH_LONG).show();
-                        showConfirmDialog("", getString(R.string.saved_sucess),true);
+                        showConfirmDialog("", getString(R.string.photo_saved_sucess),true);
 
                     }
                 }
