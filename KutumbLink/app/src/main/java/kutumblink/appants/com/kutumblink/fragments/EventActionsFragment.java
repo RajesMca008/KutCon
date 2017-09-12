@@ -31,8 +31,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import kutumblink.appants.com.kutumblink.HomeActivity;
@@ -104,7 +106,25 @@ public class EventActionsFragment extends BaseFragment {
         ll_actions.setVisibility(View.GONE);
         tv_evtTitle.setText(b_title);
         tv_evtDesc.setText(b_desc);
-        tv_evtTime.setText(b_time.replace(",", "\n"));
+
+
+        tv_evtTime.setText(b_time.replace(",", "\n")+"rajesh");
+        try{
+
+            String date = new SimpleDateFormat("MMM dd yyyy").format(new SimpleDateFormat("dd/mm/yyyy").parse(b_time.split(",")[0]));
+
+            SimpleDateFormat date24Format= new SimpleDateFormat("HH:mm");
+            Date time24Hours = date24Format.parse(b_time.split(",")[1].trim());
+            SimpleDateFormat date12Format= new SimpleDateFormat("hh:mm a");
+
+            String timeText=date12Format.format(time24Hours);
+            date=date+"\n"+timeText;
+            tv_evtTime.setText(date);
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         try {
 

@@ -34,7 +34,7 @@
 
     <string name="photo_title">Photo Title</string>
     <string name="photo_link_title">Photo Link</string>
-    <string name="hint_text">URL Should start with http:// Or https://</string>
+    <string name="hint_text">URL should start with http:// or https://</string>
     <string name="save_msg">Save Message Link</string>
     <string name="save_photo">Save Photo Link</string>
     <string name="invalid_title">Invalid title</string>
@@ -119,4 +119,5 @@
 
     <string name="cp_limit_reached">You can\'t pick more than %d contacts!</string>
     <string name="selected_no_contats">Selected contacts do not have mobile phone number</string>
+    <string name="event_save">Event is saved.</string>
 </resources>

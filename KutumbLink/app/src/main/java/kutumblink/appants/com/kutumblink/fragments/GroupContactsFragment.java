@@ -826,7 +826,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 dialog.setCancelable(false);
 
           arr_contacts.clear();
-                Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by Phone_Contact_Name ASC");
+                Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by "+DatabaseHandler.PHONE_CONTACT_FNAME+" ASC");
 
                 if (c != null) {
                     if (c.getCount() > 0) {

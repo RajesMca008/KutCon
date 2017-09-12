@@ -240,8 +240,9 @@ public class EditEventsFragment extends BaseFragment {
 
                         }
 
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
+                        showConfirmDialog("",getString(R.string.event_save),true);
+                       // FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                       // fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
 
 
                 }
@@ -276,18 +277,18 @@ public class EditEventsFragment extends BaseFragment {
 
         HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
         if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
-            HomeActivity.tv_title.setText("Edit Details");
+            HomeActivity.tv_title.setText("Edit Event");
         }else {
             HomeActivity.tv_title.setText("Events");
         }
-        HomeActivity.ib_back_next.setText("Edit Details");
+        HomeActivity.ib_back_next.setText("Event Details");
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
 
-        if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
+       /* if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
             HomeActivity.ib_menu.setText("");
         } else {
             HomeActivity.ib_menu.setText("Save");
-        }
+        }*/
 
 
 
