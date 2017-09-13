@@ -546,11 +546,12 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                 boolean sel = false;
 
-                for (int a = 0; a < GroupContactsFragment.arr_contacts.size(); a++) {
+                for (int a = 0; a <arr_contacts.size(); a++) {
 
-                    if (GroupContactsFragment.arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
+                    if (arr_contacts.get(a).getIS_CONTACT_SELECTED() == 1) {
 
                         sel = true;
+                        arr_contacts.get(a).setIS_CONTACT_SELECTED(0);
                     }
 
                 }
@@ -558,8 +559,10 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
                 if (sel) {
 
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.main_container, new GroupContactsFragment()).commit();
+                    lv_conatcst.setAdapter(null);
+                    lv_conatcst.setAdapter(new ContactListAdapter(getActivity(), arr_contacts));
+                    //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    //fragmentManager.beginTransaction().replace(R.id.main_container, new GroupContactsFragment()).commit();
 
                 } else {
                     GroupContactsFragment.rl_actions.setAlpha(0.5f);
