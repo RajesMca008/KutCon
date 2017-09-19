@@ -98,7 +98,7 @@ public class EventsListAdapter extends BaseAdapter {
                 SimpleDateFormat date12Format= new SimpleDateFormat("hh:mm a");
 
                 String timeText=date12Format.format(time24Hours);
-                date=date+"\n"+timeText;
+                date=date+"\n"+timeText.toUpperCase();
                 tv_date.setText(date);
             } catch (ParseException e) {
                 e.printStackTrace();

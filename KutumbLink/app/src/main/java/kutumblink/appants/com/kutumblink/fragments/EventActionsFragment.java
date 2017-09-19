@@ -108,7 +108,7 @@ public class EventActionsFragment extends BaseFragment {
         tv_evtDesc.setText(b_desc);
 
 
-        tv_evtTime.setText(b_time.replace(",", "\n")+"rajesh");
+        tv_evtTime.setText(b_time.replace(",", "\n"));
         try{
 
             String date = new SimpleDateFormat("MMM dd yyyy").format(new SimpleDateFormat("dd/mm/yyyy").parse(b_time.split(",")[0]));
@@ -118,7 +118,7 @@ public class EventActionsFragment extends BaseFragment {
             SimpleDateFormat date12Format= new SimpleDateFormat("hh:mm a");
 
             String timeText=date12Format.format(time24Hours);
-            date=date+"\n"+timeText;
+            date=date+"\n"+timeText.toUpperCase();
             tv_evtTime.setText(date);
 
         }catch (Exception e)

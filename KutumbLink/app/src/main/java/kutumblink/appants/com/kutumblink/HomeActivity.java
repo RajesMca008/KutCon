@@ -386,7 +386,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
             System.out.println("My Date is"+selectedDate);
 
-            System.out.println("Today Date is"+today);
+
             if (today.compareTo(selectedDate)<0) {
                 System.out.println("Today Date is Lesser than my Date");
                 EditEventsFragment.event_title_text.setText(Constants.strDT);
