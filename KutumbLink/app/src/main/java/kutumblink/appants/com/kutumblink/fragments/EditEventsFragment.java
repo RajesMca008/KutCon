@@ -128,8 +128,8 @@ public class EditEventsFragment extends BaseFragment {
             tv_sel_contactlist.setVisibility(View.VISIBLE);
             tv_sel_contactlist.setText("Select from Contact List");
         }else{
-            tv_sel_contactlist.setVisibility(View.GONE);
             ll_contactsList.setVisibility(View.VISIBLE);
+            tv_sel_contactlist.setVisibility(View.VISIBLE);
             tv_contactInfo.setText(showContacts);
         }
 
@@ -279,7 +279,7 @@ public class EditEventsFragment extends BaseFragment {
         if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
             HomeActivity.tv_title.setText("Edit Event");
         }else {
-            HomeActivity.tv_title.setText("Events");
+            HomeActivity.tv_title.setText("Add Event");
         }
         HomeActivity.ib_back_next.setText("Event Details");
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
