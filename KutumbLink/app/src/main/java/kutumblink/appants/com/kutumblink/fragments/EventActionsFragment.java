@@ -111,7 +111,7 @@ public class EventActionsFragment extends BaseFragment {
         tv_evtTime.setText(b_time.replace(",", "\n"));
         try{
 
-            String date = new SimpleDateFormat("MMM dd yyyy").format(new SimpleDateFormat("dd/mm/yyyy").parse(b_time.split(",")[0]));
+            String date = new SimpleDateFormat("MMM dd yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(b_time.split(",")[0]));
 
             SimpleDateFormat date24Format= new SimpleDateFormat("HH:mm");
             Date time24Hours = date24Format.parse(b_time.split(",")[1].trim());
@@ -165,19 +165,21 @@ public class EventActionsFragment extends BaseFragment {
         HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                activity.onBackPressed();
+               /* FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new EventsMainFragment());
-                ft.commit();
+                ft.commit();*/
             }
         });
         HomeActivity.ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                activity.onBackPressed();
+               /* FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_container, new EventsMainFragment());
-                ft.commit();
+                ft.commit();*/
             }
         });
 
@@ -287,6 +289,9 @@ public class EventActionsFragment extends BaseFragment {
                     intent.setType("text/plain");
 
                     intent.putExtra(Intent.EXTRA_EMAIL, data);
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "From " + getString(R.string.app_name));
+
+                    intent.putExtra(android.content.Intent.EXTRA_TEXT,"Event Deails \n" + tv_evtTitle.getText().toString() + "\n Event Date & Time:" + tv_evtTime.getText().toString());
                     intent.setType("message/rfc822");
                     final PackageManager pm = getActivity().getPackageManager();
                     final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
@@ -298,7 +303,7 @@ public class EventActionsFragment extends BaseFragment {
                     if (best != null)
                         intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
                     //   startActivity(intent);
-                    startActivityForResult(Intent.createChooser(intent, "Send mail client :"), Activity.RESULT_OK);
+                    startActivity(Intent.createChooser(intent, "Send mail client :"));
 
 
                 } else {
@@ -382,5 +387,16 @@ public class EventActionsFragment extends BaseFragment {
             }
 
         }
+
+       /* if(requestCode == 12345) {
+            // Mail is successfully send:
+            showConfirmDialog("", "Message sent!", false);
+           *//* if (resultCode == Activity.RESULT_OK) {
+
+                showConfirmDialog("", "Message sent!", false);
+            } else {
+                showConfirmDialog("", "Message not sent!", false);
+            }*//*
+        }*/
     }
 }

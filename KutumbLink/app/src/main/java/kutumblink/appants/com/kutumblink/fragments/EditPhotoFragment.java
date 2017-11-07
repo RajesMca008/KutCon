@@ -148,7 +148,7 @@ public class EditPhotoFragment extends BaseFragment implements View.OnClickListe
             }
 
             //if(!(Patterns.WEB_URL.matcher(textLink.getText().toString()).matches())   || !(textLink.getText().toString().contains("http")))
-            if(!(textLink.getText().toString().contains("https://") || textLink.getText().toString().contains("http://")))
+            if(!(textLink.getText().toString().startsWith("https://") || textLink.getText().toString().startsWith("http://")))
             {
                 //textLink.setError(getString(R.string.invalid_url));
                 showConfirmDialogActions(getString(R.string.app_name),getString(R.string.invalid_url));

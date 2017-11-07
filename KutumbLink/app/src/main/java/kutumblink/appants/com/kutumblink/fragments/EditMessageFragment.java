@@ -11,11 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.utils.DatabaseHandler;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -155,7 +153,7 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
             }
 
             //if(!(Patterns.WEB_URL.matcher(textLink.getText().toString()).matches())  || !(textLink.getText().toString().contains("http")))
-            if(!(textLink.getText().toString().contains("https://") || textLink.getText().toString().contains("http://")))
+            if(!(textLink.getText().toString().startsWith("https://") || textLink.getText().toString().startsWith("http://")))
             {
                 //textLink.setError(getString(R.string.invalid_url));
                 showConfirmDialogActions(getString(R.string.app_name),getString(R.string.invalid_url));

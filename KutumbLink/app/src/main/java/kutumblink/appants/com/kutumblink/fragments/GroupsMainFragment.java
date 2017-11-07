@@ -156,11 +156,6 @@ public class GroupsMainFragment extends BaseFragment {
               }
           }
 
-
-
-
-
-
           FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
           FragmentTransaction ft=fragmentManager.beginTransaction();
           ft.replace(R.id.main_container, new GroupContactsFragment());
@@ -203,11 +198,7 @@ public class GroupsMainFragment extends BaseFragment {
                 String mDrawableName = "group_default_icon";
                 Constants.GROUP_OPERATIONS="SAVE";
                 Constants.GROUP_NAME="";
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-               FragmentTransaction ft= fragmentManager.beginTransaction();
-                ft.add(R.id.main_container, new AddGroupFragment());
-                         ft.addToBackStack(null);
-                        ft.commit();
+
 
 
                 Bitmap bm = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(mDrawableName , "mipmap", getActivity().getPackageName()));
@@ -217,6 +208,14 @@ public class GroupsMainFragment extends BaseFragment {
 
 
                 Constants.imgID = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft= fragmentManager.beginTransaction();
+                ft.add(R.id.main_container, new AddGroupFragment());
+                //ft.addToBackStack(null);
+                ft.commit();
+
               //  Constants.imgID = getResources().getIdentifier(mDrawableName, "mipmap", getActivity().getPackageName());
             }
         });

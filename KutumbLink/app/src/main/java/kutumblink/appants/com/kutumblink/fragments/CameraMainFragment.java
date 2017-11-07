@@ -215,6 +215,7 @@ public class CameraMainFragment extends BaseFragment {
                     fragmentTransaction.replace(R.id.main_container, editFragment);
                     fragmentTransaction.addToBackStack("edit_msg");
                     fragmentTransaction.commit();
+                    HomeActivity.ib_menu.performClick();
                 }
             }
 

@@ -91,7 +91,7 @@ public class EventsListAdapter extends BaseAdapter {
 
             try {
 
-                String date = new SimpleDateFormat("MMM dd yyyy").format(new SimpleDateFormat("dd/mm/yyyy").parse(adb.getEvtDate().split(",")[0]));
+                String date = new SimpleDateFormat("MMM dd yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(adb.getEvtDate().split(",")[0]));
 
                SimpleDateFormat date24Format= new SimpleDateFormat("HH:mm");
                 Date time24Hours = date24Format.parse(adb.getEvtDate().split(",")[1].trim());

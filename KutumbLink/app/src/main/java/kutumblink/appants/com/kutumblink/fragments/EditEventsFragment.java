@@ -54,6 +54,7 @@ public class EditEventsFragment extends BaseFragment {
 
     private static final int REQUEST_CONTACT = 0;
     int INSERT_CONTACT_REQUEST = 2;
+    private String fromGroup="";
 
     public EditEventsFragment() {
         // Required empty public constructor
@@ -105,6 +106,9 @@ public class EditEventsFragment extends BaseFragment {
             tv_eventTitle.setText(args.getString("title"));
             tv_desc.setText(args.getString("desc"));
             contactsInfo = args.getString("contacts");
+            if(args.containsKey("from_group")) {
+                fromGroup = args.getString("from_group", "");
+            }
         }
         try {
             if (contactsInfo != null) {
@@ -128,8 +132,13 @@ public class EditEventsFragment extends BaseFragment {
             tv_sel_contactlist.setVisibility(View.VISIBLE);
             tv_sel_contactlist.setText("Select from Contact List");
         }else{
-            ll_contactsList.setVisibility(View.VISIBLE);
-            tv_sel_contactlist.setVisibility(View.VISIBLE);
+           // ll_contactsList.setVisibility(View.VISIBLE);
+           // tv_sel_contactlist.setVisibility(View.VISIBLE);
+
+           // ll_contactsList.setVisibility(View.VISIBLE);
+             tv_sel_contactlist.setVisibility(View.VISIBLE);
+            tv_contactInfo.setVisibility(View.GONE);
+           view.findViewById(R.id.contact_title).setVisibility(View.GONE);
             tv_contactInfo.setText(showContacts);
         }
 
@@ -241,6 +250,7 @@ public class EditEventsFragment extends BaseFragment {
                         }
 
                         showConfirmDialog("",getString(R.string.event_save),true);
+
                        // FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                        // fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
 
@@ -281,7 +291,12 @@ public class EditEventsFragment extends BaseFragment {
         }else {
             HomeActivity.tv_title.setText("Add Event");
         }
-        HomeActivity.ib_back_next.setText("Event Details");
+        if(fromGroup.equals("")) {
+            HomeActivity.ib_back_next.setText("Event Details");
+        }
+        else {
+            HomeActivity.ib_back_next.setText(fromGroup);
+        }
         HomeActivity.ib_menu.setBackgroundColor(Color.TRANSPARENT);
 
        /* if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
@@ -373,7 +388,8 @@ public class EditEventsFragment extends BaseFragment {
         HomeActivity.ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
+                activity.onBackPressed();
+                /*if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
                     EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -385,7 +401,7 @@ public class EditEventsFragment extends BaseFragment {
                     groupContacts.setArguments(args);
 
                     fragmentTransaction.replace(R.id.main_container, groupContacts);
-                    fragmentTransaction.addToBackStack("edit_event");
+                    //fragmentTransaction.addToBackStack("edit_event");
                     fragmentTransaction.commit();
                 } else {
                     EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
@@ -399,22 +415,23 @@ public class EditEventsFragment extends BaseFragment {
                     groupContacts.setArguments(args);
 
                     fragmentTransaction.replace(R.id.main_container, groupContacts);
-                    fragmentTransaction.addToBackStack("edit_event");
+                    //fragmentTransaction.addToBackStack("edit_event");
                     fragmentTransaction.commit();
-                }
+                }*/
             }
         });
 
         HomeActivity.ib_back_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
+                activity.onBackPressed();
+               /* if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("SAVE")) {
                     EventsMainFragment groupContacts = new EventsMainFragment(); //New means creating adding.
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                     fragmentTransaction.replace(R.id.main_container, groupContacts);
-                    fragmentTransaction.addToBackStack("edit_event");
+                   // fragmentTransaction.addToBackStack("edit_event");
                     fragmentTransaction.commit();
                 } else {
                     EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
@@ -428,9 +445,9 @@ public class EditEventsFragment extends BaseFragment {
                     groupContacts.setArguments(args);
 
                     fragmentTransaction.replace(R.id.main_container, groupContacts);
-                    fragmentTransaction.addToBackStack("edit_event");
+                    //fragmentTransaction.addToBackStack("edit_event");
                     fragmentTransaction.commit();
-                }
+                }*/
             }
         });
 
@@ -483,7 +500,7 @@ public class EditEventsFragment extends BaseFragment {
                     args.putString("time",event_title_text.getText().toString());
                     args.putString("contacts",jsonArray.toString());
                     groupContacts.setArguments(args);
-                    fragmentTransaction.replace(R.id.main_container, groupContacts);
+                    fragmentTransaction.add(R.id.main_container, groupContacts);
                     fragmentTransaction.addToBackStack("Events_Main");
                     fragmentTransaction.commit();
 
@@ -534,7 +551,7 @@ public class EditEventsFragment extends BaseFragment {
                     args.putString("contacts",jsonArray.toString());
                     groupContacts.setArguments(args);
                     fragmentTransaction.replace(R.id.main_container, groupContacts);
-                    fragmentTransaction.addToBackStack("Events_Main");
+                    //fragmentTransaction.addToBackStack("Events_Main");
                     fragmentTransaction.commit();
                 } catch (Exception e) {
 

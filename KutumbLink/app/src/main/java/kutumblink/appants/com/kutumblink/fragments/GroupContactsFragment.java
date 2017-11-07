@@ -2,7 +2,6 @@ package kutumblink.appants.com.kutumblink.fragments;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -312,7 +311,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         if (best != null)
                             intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
                         //   startActivity(intent);
-                        startActivityForResult(Intent.createChooser(intent, "Send mail client :"), Activity.RESULT_OK);
+                        startActivity(Intent.createChooser(intent, "Send mail client :"));
 
 
                     } else {
@@ -448,6 +447,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     args.putString("title", "");
                     args.putString("desc", "");
                     args.putString("time", "");
+                    args.putString("from_group", Constants.GROUP_NAME);
                     args.putString("contacts", jsonArray.toString());
 
                     edtFrg.setArguments(args);
@@ -560,7 +560,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 if (sel) {
 
                     lv_conatcst.setAdapter(null);
-                    lv_conatcst.setAdapter(new ContactListAdapter(getActivity(), arr_contacts));
+                    lv_conatcst.setAdapter(new ContactListAdapter(getContext(), arr_contacts));
                     //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     //fragmentManager.beginTransaction().replace(R.id.main_container, new GroupContactsFragment()).commit();
 
@@ -783,18 +783,18 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             emailCur.close();
     }
     class updateContacts extends AsyncTask<String, String, String> {
-        private ProgressDialog dialog;
+       // private ProgressDialog dialog;
 
         public updateContacts(Activity activity) {
-            dialog = new ProgressDialog(activity);
+           // dialog = new ProgressDialog(activity);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-          dialog.setMessage("Please wait...");
+         /* dialog.setMessage("Please wait...");
             dialog.setCancelable(false);
-            dialog.show();
+            dialog.show();*/
 
         }
 
@@ -824,9 +824,9 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
         @Override
         protected void onPostExecute(String result) {
-           if (dialog.isShowing()) {
+          /* if (dialog.isShowing()) {
                 dialog.dismiss();
-                dialog.setCancelable(false);
+                dialog.setCancelable(false);*/
 
           arr_contacts.clear();
                 Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS + " where Phone_Contact_Gid='" + Constants.GROUP_NAME + "' order by "+DatabaseHandler.PHONE_CONTACT_FNAME+" ASC");
@@ -944,7 +944,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                 c.close();
                 lv_conatcst.setAdapter(new ContactListAdapter(getActivity(), arr_contacts));
 
-            }
+           // }
         }
     }
     @Override
@@ -978,6 +978,20 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
         super.onActivityResult(requestCode, resultCode, data);
         if(ll_actions.getVisibility()==View.VISIBLE)
         ll_actions.setVisibility(View.GONE);
+
+        /*if(requestCode == 12345){
+            // Mail is successfully send:
+
+            showConfirmDialog("","Message sent!",false);
+           *//* if(resultCode == Activity.RESULT_OK){
+               showConfirmDialog("","Message sent!",false);
+            }
+            else
+            {
+                showConfirmDialog("","Message not sent!",false);
+        }*//*
+    }*/
+
 
 
     }

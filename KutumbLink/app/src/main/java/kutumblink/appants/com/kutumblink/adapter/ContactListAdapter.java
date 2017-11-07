@@ -1,5 +1,6 @@
 package kutumblink.appants.com.kutumblink.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -93,6 +94,14 @@ public class ContactListAdapter extends BaseAdapter {
         Button btn_phone=(Button)convertView.findViewById(R.id.btn_phone);
         final Button btn_email=(Button)convertView.findViewById(R.id.btn_email);
 
+
+
+        if(checkBoxState[position])
+        {
+            cb_conatacts.setBackgroundResource(R.drawable.radio_btn_selected);
+        }else{
+            cb_conatacts.setBackgroundResource(R.drawable.radio_btn);}
+
         try{
             if(adb.getConatactName().split(" ").length>1 && !adb.getConatactName().matches(".*\\d+.*"))
             {
@@ -153,7 +162,7 @@ public class ContactListAdapter extends BaseAdapter {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, String.valueOf(GroupContactsFragment.arr_contacts.get(position).getConatactId()));
                 intent.setData(uri);
-                context.startActivity(intent);
+                ((Activity)context).startActivityForResult(intent,987);
             }
         });
         cb_conatacts.setOnClickListener(new View.OnClickListener() {

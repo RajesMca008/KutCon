@@ -60,6 +60,7 @@ import kutumblink.appants.com.kutumblink.fragments.BaseFragment;
 import kutumblink.appants.com.kutumblink.fragments.CameraMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.EditEventsFragment;
 import kutumblink.appants.com.kutumblink.fragments.EventsMainFragment;
+import kutumblink.appants.com.kutumblink.fragments.GroupContactsFragment;
 import kutumblink.appants.com.kutumblink.fragments.GroupsMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.MessageMainFragment;
 import kutumblink.appants.com.kutumblink.fragments.SettingsFragment;
@@ -500,6 +501,27 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                 //Got Permission
                 proceedAfterPermission();
             }
+        }
+
+        //Contact update intent
+        if(requestCode==987)
+        {
+
+            // Reload current fragment
+            /*Fragment frg = null;
+            frg = getSupportFragmentManager().findFragmentByTag("Your_Fragment_TAG");
+            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.detach(frg);
+            ft.attach(frg);
+            ft.commit();*/
+
+
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_container);
+            if (currentFragment instanceof GroupContactsFragment) {
+            FragmentTransaction fragTransaction =  getSupportFragmentManager().beginTransaction();
+            fragTransaction.detach(currentFragment);
+            fragTransaction.attach(currentFragment);
+            fragTransaction.commit();}
         }
     }
 
