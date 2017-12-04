@@ -65,6 +65,7 @@ public class EventsMainFragment extends BaseFragment {
 
                     evtDetails.setTimeInMilli(c.getLong(c.getColumnIndex(DatabaseHandler.EVT_TIME_MILLY)));
                     evtDetails.setEvtSortOder(c.getString(c.getColumnIndex(DatabaseHandler.EVENT_SORT_ORDER)));
+                    evtDetails.setEvent_id(c.getInt(c.getColumnIndex(DatabaseHandler.EVT_ID)));
                     //  groupDetails.setGroup_ID(c.getString(c.getColumnIndex(dbHandler.GROUP_ID)));
                     arr_evts.add(evtDetails);
 
@@ -107,6 +108,7 @@ public class EventsMainFragment extends BaseFragment {
                 args.putString("desc",arr_evts.get(i).getEvtDesc());
                 args.putString("time",arr_evts.get(i).getEvtDate());
                 args.putString("contacts",arr_evts.get(i).getEvtContacts());
+                args.putInt("evn_id",arr_evts.get(i).getEvent_id());
                 groupContacts.setArguments(args);
                 fragmentTransaction.replace(R.id.main_container, groupContacts);
                 fragmentTransaction.addToBackStack("Events_Main");

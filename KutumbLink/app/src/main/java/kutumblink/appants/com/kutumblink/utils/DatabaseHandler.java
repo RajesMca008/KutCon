@@ -191,6 +191,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			e.printStackTrace();
 		}
 
+		Log.i("TEST","Update "+result);
 		return result;
 	}
 

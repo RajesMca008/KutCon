@@ -447,6 +447,8 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                     args.putString("title", "");
                     args.putString("desc", "");
                     args.putString("time", "");
+
+                    args.putInt("evn_id",0);
                     args.putString("from_group", Constants.GROUP_NAME);
                     args.putString("contacts", jsonArray.toString());
 

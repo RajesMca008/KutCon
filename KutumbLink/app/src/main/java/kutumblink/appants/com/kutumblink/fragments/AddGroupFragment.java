@@ -168,11 +168,16 @@ public class AddGroupFragment extends BaseFragment {
                                  g_cv.put(dbHandler.GROUP_TOTALCONTACTS, tempContactObjList.size());
                                 g_cv.put(dbHandler.GROUP_PIC, "" + Constants.imgID);
                                 g_cv.put(dbHandler.GROUP_SORT_ORDER, "" + Constants.SortOrderValue);
-                                dbHandler.UpdateTable(dbHandler.TABLE_GROUP, g_cv, " G_NAME='" + Constants.GROUP_OLD_NAME + "'");
+                               long res= dbHandler.UpdateTable(dbHandler.TABLE_GROUP, g_cv, " G_NAME='" + Constants.GROUP_OLD_NAME + "'");
+
+                               if(res==-1)
+                               {
+                                   showConfirmDialog("",getString(R.string.gname_exists),false);
+                               }
 
                                 ContentValues cv1 = new ContentValues();
                                 cv1.put(dbHandler.PHONE_CONTACT_GID, "" + Constants.GROUP_NAME);
-                                //dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv1, " Phone_Contact_Gid='" + Constants.GROUP_OLD_NAME + "'");
+                                dbHandler.UpdateTable(dbHandler.TABLE_PHONE_CONTACTS, cv1, " Phone_Contact_Gid='" + Constants.GROUP_OLD_NAME + "'");
                                 //dbHandler.DeleteTable(DatabaseHandler.TABLE_PHONE_CONTACTS, "Phone_Contact_Gid='" + Constants.GROUP_OLD_NAME + "'");
 
                                 for(int i=0;i<tempContactObjList.size();i++){

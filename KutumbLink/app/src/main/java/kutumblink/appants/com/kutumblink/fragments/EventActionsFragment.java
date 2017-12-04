@@ -68,6 +68,7 @@ public class EventActionsFragment extends BaseFragment {
     String b_desc = "";
     String b_time = "";
     String b_contactsInfo = "";
+    int evn_id=0;
 
 
     @Override
@@ -86,6 +87,7 @@ public class EventActionsFragment extends BaseFragment {
             b_desc = args.getString("desc");
             b_time = args.getString("time");
             b_contactsInfo = args.getString("contacts");
+            evn_id=args.getInt("evn_id");
         }
         ll_actions = (LinearLayout) view.findViewById(R.id.ll_actions);
         ll_events = (LinearLayout) view.findViewById(R.id.ll_eventactions);
@@ -198,6 +200,7 @@ public class EventActionsFragment extends BaseFragment {
                 args.putString("desc", b_desc);
                 args.putString("title", b_title);
                 args.putString("time", b_time);
+                args.putInt("evn_id",evn_id);
                 editEventFrag.setArguments(args);
                 ft.replace(R.id.main_container, editEventFrag);
                 ft.commit();
@@ -283,15 +286,25 @@ public class EventActionsFragment extends BaseFragment {
                 String data[] = new String[arrEvt.size()];
 
 
+
+
                 if (data != null) {
 
+                    for (int a = 0; a < arrEvt.size(); a++) {
+
+                        if (!arrEvt.get(a).getEvtEmail().equalsIgnoreCase("null")/* && arrEvt.get(a).getEvtEmail() == 1*/) {
+
+                            data[a] = arrEvt.get(a).getEvtEmail();
+                        }
+
+                    }
                     final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                     intent.setType("text/plain");
 
                     intent.putExtra(Intent.EXTRA_EMAIL, data);
                     intent.putExtra(Intent.EXTRA_SUBJECT, "From " + getString(R.string.app_name));
 
-                    intent.putExtra(android.content.Intent.EXTRA_TEXT,"Event Deails \n" + tv_evtTitle.getText().toString() + "\n Event Date & Time:" + tv_evtTime.getText().toString());
+                    intent.putExtra(android.content.Intent.EXTRA_TEXT,"Event Details \n" + tv_evtTitle.getText().toString() + "\n Event Date & Time:" + tv_evtTime.getText().toString());
                     intent.setType("message/rfc822");
                     final PackageManager pm = getActivity().getPackageManager();
                     final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);

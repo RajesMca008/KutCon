@@ -70,6 +70,7 @@ public class EditEventsFragment extends BaseFragment {
     String showContacts="";
     LinearLayout ll_contactsList;
     TextView tv_contactInfo;
+    private int evn_id=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,6 +107,8 @@ public class EditEventsFragment extends BaseFragment {
             tv_eventTitle.setText(args.getString("title"));
             tv_desc.setText(args.getString("desc"));
             contactsInfo = args.getString("contacts");
+
+            evn_id=args.getInt("evn_id");
             if(args.containsKey("from_group")) {
                 fromGroup = args.getString("from_group", "");
             }
@@ -238,7 +241,9 @@ public class EditEventsFragment extends BaseFragment {
 
                             if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("Edit")) {
                                 // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
-                                dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, "evt_title='" + Constants.EVENTS_OLD_NAME + "'");
+                                //dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, "evt_title='" + Constants.EVENTS_OLD_NAME + "'");
+                                dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, DatabaseHandler.EVT_ID+ " =" + evn_id + "");
+
 
                             } else {
                                 dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
@@ -364,8 +369,8 @@ public class EditEventsFragment extends BaseFragment {
 
                         if (Constants.EVENT_OPERATIONS.equalsIgnoreCase("Edit")) {
                             // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS,cv,"evt_title='"+Constants.EVENTS_OLD_NAME+"'");
-                            dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, "evt_title='" + Constants.EVENTS_OLD_NAME + "'");
-
+                           // dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, "evt_title='" + Constants.EVENTS_OLD_NAME + "'");
+                            dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, DatabaseHandler.EVT_ID+" =" + evn_id + "");
                         } else {
                             dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
 

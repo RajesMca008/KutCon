@@ -15,6 +15,16 @@ public class EventsDo {
     private String evtEmail;
     private String evtphone;
 
+    public int getEvent_id() {
+        return event_id;
+    }
+
+    public void setEvent_id(int event_id) {
+        this.event_id = event_id;
+    }
+
+    private int event_id=0;
+
     public String getEvtSortOder() {
         return evtSortOder;
     }
