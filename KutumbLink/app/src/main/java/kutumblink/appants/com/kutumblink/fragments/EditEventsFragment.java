@@ -293,9 +293,11 @@ public class EditEventsFragment extends BaseFragment {
         HomeActivity.ib_back.setBackgroundResource(R.drawable.left_arrow);
         if(Constants.EVENT_OPERATIONS.equalsIgnoreCase("EDIT")){
             HomeActivity.tv_title.setText("Edit Event");
+            HomeActivity.ib_menu.setText("");
         }else {
             HomeActivity.tv_title.setText("Add Event");
         }
+
         if(fromGroup.equals("")) {
             HomeActivity.ib_back_next.setText("Event Details");
         }

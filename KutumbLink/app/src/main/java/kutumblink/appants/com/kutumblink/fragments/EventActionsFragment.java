@@ -53,7 +53,8 @@ public class EventActionsFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    TextView tv_addevent, tv_eventSMS, tv_eventEmail;
+    TextView  tv_eventSMS, tv_eventEmail;
+    View tv_addevent;
     TextView tv_evtTitle, tv_evtDesc, tv_evtContacts, tv_evtTime;
     LinearLayout  ll_events;
     TextView iv_delete_event;
@@ -100,7 +101,7 @@ public class EventActionsFragment extends BaseFragment {
         tv_evtTime = (TextView) view.findViewById(R.id.tv_event_time);
         iv_delete_event = (TextView) view.findViewById(R.id.btn_delete_event);
 
-        tv_addevent = (TextView) view.findViewById(R.id.tv_addevent);
+        tv_addevent = (View) view.findViewById(R.id.tv_addevent_new);
         tv_eventSMS = (TextView) view.findViewById(R.id.tv_eventsms);
         tv_eventEmail = (TextView) view.findViewById(R.id.tv_eventsendEmail);
 
@@ -203,6 +204,7 @@ public class EventActionsFragment extends BaseFragment {
                 args.putInt("evn_id",evn_id);
                 editEventFrag.setArguments(args);
                 ft.replace(R.id.main_container, editEventFrag);
+                ft.addToBackStack(null);
                 ft.commit();
             }
         });
@@ -231,28 +233,35 @@ public class EventActionsFragment extends BaseFragment {
         });
 
 
-        final Collection<Long> selectContats = new ArrayList<Long>();
+
         tv_addevent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 0; i < arrEvt.size(); i++) {
-                    selectContats.add(Long.parseLong(arrEvt.get(i).getEvtContacts()));
-                }
-                Intent intent = new Intent(getActivity(), ContactPickerActivity.class)
-                        // .putExtra(ContactPickerActivity.EXTRA_THEME, mDarkTheme ? R.style.Theme_Dark : R.style.Theme_Light)
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
-                        .putExtra(ContactPickerActivity.EXTRA_SHOW_CHECK_ALL, true)
-                        //  .putExtra(ContactPickerActivity.EXTRA_PRESELECTED_CONTACTS,  GroupsMainFragment.arr_group)
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION, ContactDescription.ADDRESS.name())
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
-                        .putExtra(ContactPickerActivity.EXTRA_ONLY_CONTACTS_WITH_PHONE, false)
 
-                        .putExtra(ContactPickerActivity.EXTRA_PRESELECTED_CONTACTS, (Serializable) selectContats)
+                Log.i("TEST on Addevent","Okay");
+                activity.runOnUiThread(new Thread(new Runnable() {
 
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_SORT_ORDER, ContactSortOrder.AUTOMATIC.name());
-                //.putExtra(ContactPickerActivity.SELECTED_CONTACTS, GroupContactsFragment.arr_contacts);
+                    @Override
+                    public void run() {
+                        Collection<Long> selectContats = new ArrayList<Long>();
+                        for (int i = 0; i < arrEvt.size(); i++) {
+                            selectContats.add(Long.parseLong(arrEvt.get(i).getEvtContacts()));
+                        }
+                        Intent intent = new Intent(getActivity(), ContactPickerActivity.class);
+                        intent .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name());
+                        intent .putExtra(ContactPickerActivity.EXTRA_SHOW_CHECK_ALL, true);
+                        intent .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION, ContactDescription.ADDRESS.name());
+                        intent .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK);
+                        intent .putExtra(ContactPickerActivity.EXTRA_ONLY_CONTACTS_WITH_PHONE, false);
 
-                startActivityForResult(intent, REQUEST_CONTACT);
+                        intent .putExtra(ContactPickerActivity.EXTRA_PRESELECTED_CONTACTS, (Serializable) selectContats);
+
+                        intent  .putExtra(ContactPickerActivity.EXTRA_CONTACT_SORT_ORDER, ContactSortOrder.AUTOMATIC.name());
+
+                        startActivityForResult(intent, REQUEST_CONTACT);
+                    }
+                }));
+
             }
         });
 

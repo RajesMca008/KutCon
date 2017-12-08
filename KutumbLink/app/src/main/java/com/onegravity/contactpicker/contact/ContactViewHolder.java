@@ -52,7 +52,7 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
 
         mSelectedList= (Integer[]) ((ContactPickerActivity)mContext).getIntent().getExtras().get(ContactPickerActivity.SELECTED_CONTACTS);
 
-        Log.i("TEST","::"+mSelectedList);
+        Log.i("TEST ContactViewHolder","::"+mSelectedList);
     }
 
     void bind(final Contact contact) {

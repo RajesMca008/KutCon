@@ -86,7 +86,8 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             Manifest.permission.READ_CONTACTS,
             Manifest.permission.WRITE_CONTACTS,
             Manifest.permission. WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_COARSE_LOCATION};
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.SEND_SMS};
 
     private static final int PERMISSION_CALLBACK_CONSTANT = 100;
     private static final int REQUEST_PERMISSION_SETTING = 101;
@@ -257,10 +258,14 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
         if(ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[0]) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[1]) != PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[2]) != PackageManager.PERMISSION_GRANTED){
+                || ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[2]) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[3]) != PackageManager.PERMISSION_GRANTED)
+        {
             if(ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,permissionsRequired[0])
                     || ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,permissionsRequired[1])
-                    || ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,permissionsRequired[2])){
+                    || ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,permissionsRequired[2])
+                    || ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,permissionsRequired[3])
+                    ){
                 //Show Information about why you need the permission
                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                 builder.setTitle("Need Multiple Permissions");
@@ -546,9 +551,23 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         Log.i("TEST","Fragment interatcion"+uri);
     }
 
-    @Override
+    /*@Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         Log.i("TEST","dispatchTouchEvent"+BaseFragment.ll_actions);
+        if(BaseFragment.ll_actions!=null)
+        {
+            Rect viewRect = new Rect();
+            BaseFragment.ll_actions.getGlobalVisibleRect(viewRect);
+            if (!viewRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
+                BaseFragment.ll_actions.setVisibility(View.GONE);
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }*/
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
         if(BaseFragment.ll_actions!=null)
         {
             Rect viewRect = new Rect();

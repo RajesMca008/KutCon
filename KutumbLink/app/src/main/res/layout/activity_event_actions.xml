@@ -22,11 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
+            android:id="@+id/tv_addevent_new"
 
             android:orientation="horizontal">
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
-                android:id="@+id/tv_addevent"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
