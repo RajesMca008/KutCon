@@ -81,6 +81,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
     private boolean sentToSettings = false;
     private SharedPreferences permissionStatus;
 
+    private InterstitialAd mInterstitialAd;
 
     String[] permissionsRequired = new String[]{
             Manifest.permission.READ_CONTACTS,
@@ -124,7 +125,13 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                             .build();
                     mAdView.loadAd(adRequest);
                 }
+
+                if (interstitial.isLoaded()) {
+                    interstitial.show();
+                }
             }
+
+
 
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
             if(fragmentManager.getFragments().size()>0)
@@ -252,6 +259,10 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             interstitial.loadAd(adRequest2);
 
         }
+
+
+
+
     }
 
     private boolean checkAllrequiredPermissions() {

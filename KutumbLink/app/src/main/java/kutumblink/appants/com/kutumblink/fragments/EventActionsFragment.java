@@ -203,8 +203,8 @@ public class EventActionsFragment extends BaseFragment {
                 args.putString("time", b_time);
                 args.putInt("evn_id",evn_id);
                 editEventFrag.setArguments(args);
-                ft.replace(R.id.main_container, editEventFrag);
-                ft.addToBackStack(null);
+                ft.add(R.id.main_container, editEventFrag,"edit_event");
+                //ft.addToBackStack(null);
                 ft.commit();
             }
         });
@@ -311,9 +311,10 @@ public class EventActionsFragment extends BaseFragment {
                     intent.setType("text/plain");
 
                     intent.putExtra(Intent.EXTRA_EMAIL, data);
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "From " + getString(R.string.app_name));
+                    intent.putExtra(Intent.EXTRA_SUBJECT,tv_evtTitle.getText().toString() /*"From " + getString(R.string.app_name)*/);
 
-                    intent.putExtra(android.content.Intent.EXTRA_TEXT,"Event Details \n" + tv_evtTitle.getText().toString() + "\n Event Date & Time:" + tv_evtTime.getText().toString());
+
+                    intent.putExtra(android.content.Intent.EXTRA_TEXT,"Event Details \n" + tv_evtDesc.getText().toString() + "\n Event Date & Time:" + tv_evtTime.getText().toString());
                     intent.setType("message/rfc822");
                     final PackageManager pm = getActivity().getPackageManager();
                     final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);

@@ -129,8 +129,8 @@ public class EventsMainFragment extends BaseFragment {
                 EditEventsFragment editEvent = new EditEventsFragment(); //New means creating adding.
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, editEvent);
-                fragmentTransaction.addToBackStack("edit_event");
+                fragmentTransaction.add(R.id.main_container, editEvent,"edit_event");
+                //fragmentTransaction.addToBackStack("edit_event");
                 fragmentTransaction.commit();
             }
         });

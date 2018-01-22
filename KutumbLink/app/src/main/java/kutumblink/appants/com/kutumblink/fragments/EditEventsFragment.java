@@ -254,10 +254,12 @@ public class EditEventsFragment extends BaseFragment {
 
                         }
 
+                    btn_save.setVisibility(View.GONE);
+
                         showConfirmDialog("",getString(R.string.event_save),true);
 
-                       // FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                       // fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
+                        //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        //fragmentManager.beginTransaction().replace(R.id.main_container, new EventsMainFragment()).commit();
 
 
                 }
@@ -496,9 +498,19 @@ public class EditEventsFragment extends BaseFragment {
                     dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, " evt_title='" + Constants.EVENTS_OLD_NAME + "'");
 
 
+
+
+
                     EditEventsFragment groupContacts = new EditEventsFragment(); //New means creating adding.
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+
+                    Fragment f = getFragmentManager().findFragmentByTag("edit_event");
+                    if(f!=null)
+                        fragmentTransaction.remove(f);
+                    //fragmentTransaction.commit();
 
 
                     Bundle args = new Bundle();
@@ -507,8 +519,8 @@ public class EditEventsFragment extends BaseFragment {
                     args.putString("time",event_title_text.getText().toString());
                     args.putString("contacts",jsonArray.toString());
                     groupContacts.setArguments(args);
-                    fragmentTransaction.add(R.id.main_container, groupContacts);
-                    fragmentTransaction.addToBackStack("Events_Main");
+                    fragmentTransaction.add(R.id.main_container, groupContacts,"edit_event");
+                    //fragmentTransaction.addToBackStack("edit_event");
                     fragmentTransaction.commit();
 
 
