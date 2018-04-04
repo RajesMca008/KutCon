@@ -95,14 +95,14 @@ public class ContactGroupListAdapter extends BaseAdapter {
 
                     if(!checkBoxState[position]) {
                         checkBoxState[position] = true;
-                        Log.v("Email....","....EMAIL....Y."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());
+                        //Log.v("Email....","....EMAIL....Y."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());
 
                         cb_conatacts.setBackgroundResource(R.drawable.radio_btn_selected);
                         GroupContactsFragment.arr_group.get(position).setGroup_isSELECT(1);
 
 
                     } else {
-                        Log.v("Email....","....EMAIL....N."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());
+                       // Log.v("Email....","....EMAIL....N."+GroupContactsFragment.arr_contacts.get(position).getConatactEmail());
 
                         cb_conatacts.setBackgroundResource(R.drawable.radio_btn);
                         checkBoxState[position] = false;

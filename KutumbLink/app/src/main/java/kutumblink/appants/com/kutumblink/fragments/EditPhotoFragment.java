@@ -87,14 +87,14 @@ public class EditPhotoFragment extends BaseFragment implements View.OnClickListe
 
 
 
-            HomeActivity.tv_title.setText("Add Photo Link");
+            HomeActivity.tv_title.setText(R.string.add_photo_link);
             activity.setTitle("Create Photo link");
             isCreateNew=true;
         }else {
             // Came for Edit
-            HomeActivity.tv_title.setText("Update Photo Link");
-            saveButton.setText("Update");
-            activity.setTitle("Edit Photo link");
+            HomeActivity.tv_title.setText(R.string.update_photo_link);
+            saveButton.setText(R.string.update);
+            activity.setTitle(getString(R.string.edit_photo_link));
             isCreateNew=false;
 
             msgId= (String) getArguments().get(ARG_PARAM1);

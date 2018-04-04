@@ -23,42 +23,6 @@ public class SplashActivity extends Activity {
 
       dbHandler = new DatabaseHandler(getApplicationContext());
 
-/*        Cursor c = dbHandler.retriveData("select * from " + DatabaseHandler.TABLE_PHONE_CONTACTS +"'");
-        if (c != null) {
-            if (c.getCount() > 0) {
-                c.moveToFirst();
-                do {
-
-                    try {
-                        if (!c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)).equalsIgnoreCase("null")) {
-                            ContactsDo contactsBean = new ContactsDo();
-                            contactsBean.setConatactGroupName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_GID)));
-                            contactsBean.setConatactId(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
-                            contactsBean.setConatactName(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NAME)));
-                            contactsBean.setConatactPhone(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_NUMBER)));
-                            contactsBean.setConatactPIC(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_PIC)));
-                            contactsBean.setConatactEmail(c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_EMAIL)));
-                            contactsBean.setIS_CONTACT_SELECTED(0);
-                            arr_contacts.add(contactsBean);
-
-                            Log.v("DATA...","dTAJDHDJDJDJDJKJDKJD"+c.getString(c.getColumnIndex(dbHandler.PHONE_CONTACT_ID)));
-                        }
-                    }catch(Exception e){
-
-                    }
-
-                } while (c.moveToNext());
-
-            }
-        }*/
-
-
-
-
-
-
-
-
         startMainActivity();
     }
 

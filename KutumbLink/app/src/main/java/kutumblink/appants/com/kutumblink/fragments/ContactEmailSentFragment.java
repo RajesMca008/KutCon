@@ -72,29 +72,16 @@ public class ContactEmailSentFragment extends BaseFragment implements View.OnCli
 
             if(!(emailTitle.getText().toString().length()>1))
             {
-                emailTitle.setError("Invalid Subject");
+                emailTitle.setError(getString(R.string.invalid_suject));
                 return;
             }
 
             if(!(emailBody.getText().toString().length()>1))
             {
-                emailBody.setError("Empty body");
+                emailBody.setError(getString(R.string.empty_body));
                 return;
             }
 
-           /* Intent email = new Intent(Intent.ACTION_SEND);
-            email.putExtra(Intent.EXTRA_EMAIL,new String[] { getString(R.string.email)});
-            email.putExtra(Intent.EXTRA_SUBJECT,emailTitle.getText().toString().trim());
-            email.putExtra(Intent.EXTRA_TEXT,emailBody.getText().toString().trim());
-            //email.putExtra(Intent.EXTRA_TEXT,"sent a message using for testing ");
-
-            email.setType("message/rfc822");
-
-            startActivityForResult(Intent.createChooser(email, "Choose an Email client:"),
-                    1);*/
-           /* Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setData(Uri.parse("mailto:jorgesys12@gmail.com"));
-            startActivity(intent);*/
 
 
             Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -114,11 +101,11 @@ public class ContactEmailSentFragment extends BaseFragment implements View.OnCli
         if(requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 getActivity().onBackPressed();
-                makeToast("Email sent.");
+                makeToast(getString(R.string.email_sent));
 
             } else {
 
-                makeToast("Email sent Fail");
+                makeToast(getString(R.string.email_sent_fail));
 
             }
         }

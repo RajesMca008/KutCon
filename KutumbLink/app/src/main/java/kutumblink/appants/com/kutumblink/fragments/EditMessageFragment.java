@@ -50,8 +50,6 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
         View view=inflater.inflate(R.layout.fragment_edit_message, container, false);
 
 
-
-
         HomeActivity.ib_back_next.setText("");
 
         //HomeActivity.tv_title.setText("Message Links");
@@ -141,7 +139,7 @@ public class EditMessageFragment extends BaseFragment implements View.OnClickLis
             if(!(textTitle.getText().toString().length()>1))
             {
                 //textTitle.setError(getString(R.string.invalid_title));
-                showConfirmDialogActions(getString(R.string.app_name),"Please enter title.");
+                showConfirmDialogActions(getString(R.string.app_name),getString(R.string.please_enter_title));
                 return;
             }
 

@@ -63,7 +63,7 @@ public class DateTimePickerFragment extends DialogFragment {
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setTitle("Select date and time")
+                .setTitle(R.string.select_date_time)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //sendResult(Activity.RESULT_OK);

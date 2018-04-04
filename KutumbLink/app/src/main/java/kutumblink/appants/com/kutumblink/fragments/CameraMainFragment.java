@@ -176,12 +176,11 @@ public class CameraMainFragment extends BaseFragment {
                 //cart = mMsgList.get(position);
                 //db.removeProductFromCart(context, cart);
 
-                Log.i("TEST", "Action name" + item);
                 if (item == 1) {
                     new AlertDialog.Builder(getContext())
-                            .setTitle("Are You Sure ?")
+                            .setTitle(getString(R.string.are_you_sure))
                             .setMessage(""+mMsgList.get(position).getMsgTitle())
-                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
 
                                     try {
@@ -286,7 +285,7 @@ public class CameraMainFragment extends BaseFragment {
 
 
         builder.setMessage(sb.toString()).setCancelable(false);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkURL));
@@ -296,7 +295,7 @@ public class CameraMainFragment extends BaseFragment {
                 }
 
         );
-        builder.setNegativeButton("Cancel", null);
+        builder.setNegativeButton(getString(R.string.cancel), null);
         builder.show();
     }
 

@@ -270,17 +270,20 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         if(ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[0]) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[1]) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[2]) != PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[3]) != PackageManager.PERMISSION_GRANTED)
+                || ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[3]) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(HomeActivity.this, permissionsRequired[4]) != PackageManager.PERMISSION_GRANTED
+                )
         {
             if(ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,permissionsRequired[0])
                     || ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,permissionsRequired[1])
                     || ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,permissionsRequired[2])
                     || ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,permissionsRequired[3])
+                    || ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,permissionsRequired[4])
                     ){
                 //Show Information about why you need the permission
                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-                builder.setTitle("Need Multiple Permissions");
-                builder.setMessage("This app needs Camera and Location permissions.");
+                builder.setTitle(R.string.need_mul_permission);
+                builder.setMessage(R.string.need_camera_loc_permis);
                 builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -299,8 +302,8 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                 //Previously Permission Request was cancelled with 'Dont Ask Again',
                 // Redirect to Settings after showing Information about why you need the permission
                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-                builder.setTitle("Need Multiple Permissions");
-                builder.setMessage("This app needs Camera and Location permissions.");
+                builder.setTitle(R.string.need_mul_permission);
+                builder.setMessage(R.string.need_camera_loc_permis);
                 builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -310,7 +313,7 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
                         Uri uri = Uri.fromParts("package", getPackageName(), null);
                         intent.setData(uri);
                         startActivityForResult(intent, REQUEST_PERMISSION_SETTING);
-                        Toast.makeText(getBaseContext(), "Go to Permissions to Grant  Camera and Location", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), R.string.grant_permission, Toast.LENGTH_LONG).show();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -387,8 +390,6 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
         public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
             Constants.strDT+=", "+String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
 
-            Log.v("LOG....","LOG DETAILS>..TIME...>"+Constants.strDT);
-
             String strDate = Constants.strDT;
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
             Date selectedDate = null;
@@ -399,13 +400,8 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            System.out.println(selectedDate);
-
-            System.out.println("My Date is"+selectedDate);
-
 
             if (today.compareTo(selectedDate)<0) {
-                System.out.println("Today Date is Lesser than my Date");
                 EditEventsFragment.event_title_text.setText(Constants.strDT);
 
                 SimpleDateFormat new12format=new SimpleDateFormat("dd/MM/yyyy, hh:mm a");
@@ -420,12 +416,9 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
             }
             else if (today.compareTo(selectedDate)>0) {
-                System.out.println("Today Date is Greater than my date");
-
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Invalid");
-                builder.setMessage("Please select future date.");
+                builder.setTitle(R.string.invalid);
+                builder.setMessage(R.string.select_future_date);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -446,7 +439,6 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
 
             }
             else {
-                System.out.println("Both Dates are equal");
                 EditEventsFragment.event_title_text.setText(Constants.strDT);
             }
 
@@ -503,7 +495,6 @@ public class HomeActivity extends AppCompatActivity implements BaseFragment.OnFr
     protected void onDestroy() {
         super.onDestroy();
         if(Constants.needToShowAdd) {
-            Log.i("TEST", "onDes" + interstitial.isLoaded());
             if (interstitial.isLoaded()) {
                 interstitial.show();
             }

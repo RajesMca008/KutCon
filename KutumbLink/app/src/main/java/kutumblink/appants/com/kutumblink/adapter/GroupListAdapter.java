@@ -60,7 +60,6 @@ public class GroupListAdapter extends BaseAdapter {
         try {
             adb = (GroupDo) getItem(position);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         LayoutInflater inflater = (LayoutInflater) context
@@ -89,12 +88,9 @@ public class GroupListAdapter extends BaseAdapter {
                 iv_groupPic.setImageBitmap(Constants.stringToBitMap(adb.getGroup_Pic()));
             }
 
-            Log.v("DATA..","DATA..BASE 64...."+adb.getGroup_Pic());
             // set value into textview
            // return view;
         }
-
-
 
         return convertView;
     }

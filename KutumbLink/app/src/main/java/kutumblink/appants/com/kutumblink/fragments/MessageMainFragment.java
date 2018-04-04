@@ -310,7 +310,7 @@ public class MessageMainFragment extends BaseFragment {
                 }
 
         );
-        builder.setNegativeButton("Cancel", null);
+        builder.setNegativeButton(getString(R.string.cancel), null);
         builder.show();
     }
 }

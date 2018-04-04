@@ -234,7 +234,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				db.delete(tablename, null, null);
 			} else {
 				int result=db.delete(tablename, whereClause, null);
-				Log.v("TEST","Deleted row"+result);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

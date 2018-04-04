@@ -11,6 +11,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 
+import kutumblink.appants.com.kutumblink.R;
+
 /**
  * Created by rrallabandi on 4/6/2017.
  */
@@ -28,8 +30,8 @@ import android.support.v7.app.AlertDialog;
     if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.READ_EXTERNAL_STORAGE)) {
      AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
      alertBuilder.setCancelable(true);
-     alertBuilder.setTitle("Permission necessary");
-     alertBuilder.setMessage("External storage permission is necessary");
+     alertBuilder.setTitle(R.string.permissions_necessary);
+     alertBuilder.setMessage(R.string.exteranal_permis_necessery);
      alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
       @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
       public void onClick(DialogInterface dialog, int which) {

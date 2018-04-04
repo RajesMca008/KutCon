@@ -88,7 +88,7 @@ public class FavaurateGroupFragment extends BaseFragment {
 
 
 
-        Log.v("GROUP SIZE...","SIZE OF GROUP..."+arr_group.size());
+        //Log.v("GROUP SIZE...","SIZE OF GROUP..."+arr_group.size());
        lv_GroupList.setAdapter(new FavuarateGroupListAdapter(getActivity(),arr_group));
 
 

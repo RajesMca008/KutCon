@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,24 +18,20 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.onegravity.contactpicker.contact.Contact;
 import com.onegravity.contactpicker.contact.ContactDescription;
 import com.onegravity.contactpicker.contact.ContactSortOrder;
 import com.onegravity.contactpicker.core.ContactPickerActivity;
 import com.onegravity.contactpicker.picture.ContactPictureType;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
 import kutumblink.appants.com.kutumblink.HomeActivity;
 import kutumblink.appants.com.kutumblink.R;
 import kutumblink.appants.com.kutumblink.model.EventsDo;
@@ -219,7 +214,7 @@ public class EventActionsFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
-                showConfirmOptionsDialog("Delete Event","Are you sure?",Constants.EVENTS_DELETE,b_title);
+                showConfirmOptionsDialog(getString(R.string.del_event),getString(R.string.are_you_sure),Constants.EVENTS_DELETE,b_title);
 
 
             }
@@ -238,7 +233,7 @@ public class EventActionsFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
-                Log.i("TEST on Addevent","Okay");
+
                 activity.runOnUiThread(new Thread(new Runnable() {
 
                     @Override
@@ -281,7 +276,7 @@ public class EventActionsFragment extends BaseFragment {
                     Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
                     intent.putExtra("address", phoneNos);
 
-                    intent.putExtra("sms_body", "Event Deails \n" + tv_evtTitle.getText().toString() + "\n Event Date & Time:" + tv_evtTime.getText().toString());
+                    intent.putExtra("sms_body", "Event Details \n" + tv_evtTitle.getText().toString() + "\n Event Date & Time:" + tv_evtTime.getText().toString());
                     intent.setType("vnd.android-dir/mms-sms");
                     startActivity(intent);
                 } else {
@@ -293,9 +288,6 @@ public class EventActionsFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 String data[] = new String[arrEvt.size()];
-
-
-
 
                 if (data != null) {
 
@@ -330,7 +322,7 @@ public class EventActionsFragment extends BaseFragment {
 
 
                 } else {
-                    Toast.makeText(getActivity(), "Contact's doesn't have email id", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.contacts_not_email_id, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -338,7 +330,6 @@ public class EventActionsFragment extends BaseFragment {
 
         return view;
     }
-
 
     List<Contact> contacts;
 
@@ -362,7 +353,7 @@ public class EventActionsFragment extends BaseFragment {
 
                     jsonArray.put(jobj);
 
-                    Log.v("DATA....", "DATA.....SAVE..CONTACTID...." + contact.getId());
+
                 }
                 ContentValues cv = new ContentValues();
                 cv.put(DatabaseHandler.EVT_TITLE, tv_evtTitle.getText().toString());
@@ -371,8 +362,6 @@ public class EventActionsFragment extends BaseFragment {
                 cv.put(DatabaseHandler.EVT_CREATED_ON, tv_evtTime.getText().toString());
                 //  dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);
                 dbHandler.UpdateTable(DatabaseHandler.TABLE_EVENTS, cv, " evt_title='" + tv_evtTitle.getText().toString() + "'");
-
-                Log.v("DATA....", "DATA.....SAVE..." + jsonArray.toString());
 
 
                 EventActionsFragment groupContacts = new EventActionsFragment(); //New means creating adding.
@@ -411,15 +400,5 @@ public class EventActionsFragment extends BaseFragment {
 
         }
 
-       /* if(requestCode == 12345) {
-            // Mail is successfully send:
-            showConfirmDialog("", "Message sent!", false);
-           *//* if (resultCode == Activity.RESULT_OK) {
-
-                showConfirmDialog("", "Message sent!", false);
-            } else {
-                showConfirmDialog("", "Message not sent!", false);
-            }*//*
-        }*/
     }
 }

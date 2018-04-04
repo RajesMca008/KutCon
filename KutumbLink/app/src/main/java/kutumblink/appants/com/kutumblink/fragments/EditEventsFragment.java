@@ -551,7 +551,6 @@ public class EditEventsFragment extends BaseFragment {
 
                         jsonArray.put(jobj);
 
-                        Log.v("DATA....", "DATA.....SAVE..CONTACTID...." + contact.getId());
                     }
                /*     ContentValues cv = new ContentValues();
                     cv.put(DatabaseHandler.EVT_TITLE, tv_eventTitle.getText().toString());
@@ -559,7 +558,7 @@ public class EditEventsFragment extends BaseFragment {
                     cv.put(DatabaseHandler.EVT_CONTACTS, jsonArray.toString());
                     cv.put(DatabaseHandler.EVT_CREATED_ON, event_title_text.getText().toString());
                     dbHandler.insert(DatabaseHandler.TABLE_EVENTS, cv);*/
-                    Log.v("DATA....", "DATA.....SAVE..." + jsonArray.toString());
+                   // Log.v("DATA....", "DATA.....SAVE..." + jsonArray.toString());
                     EditEventsFragment groupContacts = new EditEventsFragment(); //New means creating adding.
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -609,7 +608,7 @@ public class EditEventsFragment extends BaseFragment {
                 PendingIntent.FLAG_UPDATE_CURRENT);*/
 
         long futureInMillis = /*SystemClock.elapsedRealtime() +10000*/ delay;
-        Log.i("Date in milli set to"," Alarem :"+futureInMillis);
+        //Log.i("Date in milli set to"," Alarem :"+futureInMillis);
         AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, futureInMillis, pendingIntent);
     }

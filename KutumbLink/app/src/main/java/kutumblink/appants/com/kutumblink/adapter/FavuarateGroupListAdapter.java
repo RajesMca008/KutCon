@@ -23,8 +23,6 @@ public class FavuarateGroupListAdapter extends BaseAdapter {
     //Constructor to initialize values
     public FavuarateGroupListAdapter(Context context, ArrayList itemsList) {
 
-
-
         this.context = context;
         this.itemsList=itemsList;
     }
@@ -78,11 +76,7 @@ public class FavuarateGroupListAdapter extends BaseAdapter {
           //  iv_groupPic.setImageResource(adb.getGroup_Pic());
             iv_groupPic.setImageBitmap(Constants.stringToBitMap(adb.getGroup_Pic()));
 
-
-            // set value into textview
         }
-
-
 
         return convertView;
     }

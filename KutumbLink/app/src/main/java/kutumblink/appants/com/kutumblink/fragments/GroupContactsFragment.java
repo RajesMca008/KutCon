@@ -146,24 +146,6 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
 
 
 
-
-       /* iv_contacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Constants.GROUP_OPERATIONS = "EDIT";
-                Constants.GROUP_OLD_NAME = Constants.GROUP_NAME;
-
-                AddGroupFragment groupContacts = new AddGroupFragment(); //New means creating adding.
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, groupContacts);
-                //fragmentTransaction.addToBackStack("group_Main");
-                fragmentTransaction.commit();
-
-
-            }
-        });*/
         tv_Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -263,7 +245,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         showConfirmDialog("",getString(R.string.selected_no_contats) ,false);
                     }
                 } else {
-                    showConfirmDialog("", "Please select contacts",false);
+                    showConfirmDialog("", getString(R.string.select_contacts),false);
                 }
             }
         });
@@ -311,18 +293,18 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         if (best != null)
                             intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
                         //   startActivity(intent);
-                        startActivity(Intent.createChooser(intent, "Send mail client :"));
+                        startActivity(Intent.createChooser(intent, getString(R.string.send_mail_client)));
 
 
                     } else {
-                        Toast.makeText(getActivity(), "Contact's doesn't have email id", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.contact_dnt_have_email, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     if(ll_actions.getVisibility()==View.VISIBLE)
                     {
                         ll_actions.setVisibility(View.GONE);
                     }
-                    showConfirmDialog("", "Selected contacts do not have email.",false);
+                    showConfirmDialog("", getString(R.string.selected_cont_not_email),false);
                 }
             }
         });
@@ -380,14 +362,14 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         } else {
 
 
-                            showConfirmDialogActions(getString(R.string.app_name), "You don't have more groups");
+                            showConfirmDialogActions(getString(R.string.app_name), getString(R.string.you_dont_have_group));
                         }
                     } else {
-                        showConfirmDialogActions(getString(R.string.app_name), "Please select contacts");
+                        showConfirmDialogActions(getString(R.string.app_name), getString(R.string.select_contacts));
                     }
 
                 } else {
-                    showConfirmDialogActions("", "There are no groups to add this contact into.");
+                    showConfirmDialogActions("", getString(R.string.no_group_to_add));
                 }
             }
         });
@@ -404,7 +386,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
             public void onClick(View view) {
 
 
-                showConfirmOptionsDialog("Remove contacts from group", "Are you sure?", 3, "");
+                showConfirmOptionsDialog(getString(R.string.remove_contact_from_group), getString(R.string.are_you_sure), 3, "");
                 //  dbHandler.DeleteTable(dbHandler.TABLE_GROUP, "G_NAME='" + Constants.GROUP_NAME + "'");
 
                 // Toast.makeText(getActivity(), "Group deleted successfully", Toast.LENGTH_LONG).show();
@@ -712,7 +694,7 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
                         }
 
 
-                        showConfirmDialogActions("","Contact(s) copied successfully.");
+                        showConfirmDialogActions("",getString(R.string.contact_copied));
 
                         Constants.NAV_GROUPS = 100;
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -1003,6 +985,5 @@ public class GroupContactsFragment extends BaseFragment implements Serializable 
     public void onDetach() {
         super.onDetach();
         ll_actions=null;
-        Log.e("TEST","onDetach"+ll_actions);
     }
 }

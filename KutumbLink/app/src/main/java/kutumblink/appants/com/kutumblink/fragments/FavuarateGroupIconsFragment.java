@@ -130,7 +130,7 @@ public class FavuarateGroupIconsFragment extends BaseFragment  {
         // R.layout.listview_layout defines the layout of each item
         SimpleAdapter adapter = new SimpleAdapter(getActivity().getBaseContext(), aList, R.layout.inflate_favgrouplist, from, to);
         gridView.setAdapter(adapter);
-            activity.setTitle("Select Group Image");
+            activity.setTitle(getString(R.string.select_group_img));
 
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

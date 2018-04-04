@@ -264,15 +264,12 @@ public class BaseFragment extends Fragment {
 
 
                             }
-                            showConfirmDialog("","Contacts(s) removed successfully.",true);
+                            showConfirmDialog("",getString(R.string.remove_successfully),true);
 
                            /* FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                             FragmentTransaction ft = fragmentManager.beginTransaction();
                             ft.replace(R.id.main_container, new GroupContactsFragment());
                             ft.commit();
-
-
-
 
                             Constants.NAV_GROUPS = 100;*/
                         }
