@@ -38,7 +38,7 @@
                     android:textSize="18sp"
                     android:layout_weight="0.8"
                     android:singleLine="true"
-                    android:text="Event Title" />
+                    android:text="@string/event_title" />
 
                 <kutumblink.appants.com.kutumblink.utils.CustomTextView
                     android:id="@+id/tv_event_time"
@@ -47,7 +47,7 @@
                     android:layout_marginLeft="25dp"
                     android:textSize="18sp"
                     android:layout_weight="0.2"
-                    android:text="Event Name" />
+                    android:text="@string/event_name" />
 
             </LinearLayout>
 
@@ -60,7 +60,7 @@
                 android:singleLine="true"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black_color"
-                android:text="Event title Text" />
+                android:text="@string/event_title_text" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -74,7 +74,7 @@
                 android:textSize="18sp"
                 android:singleLine="true"
                 android:layout_marginTop="5dp"
-                android:text="Event Description:" />
+                android:text="@string/event_description" />
 
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
                 android:id="@+id/tv_desc"
@@ -85,7 +85,7 @@
                 android:singleLine="true"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black_color"
-                android:text="Event Description Text" />
+                android:text="@string/event_description_text" />
 
             <View
                 android:layout_width="match_parent"
@@ -100,7 +100,7 @@
                 android:textSize="18sp"
                 android:singleLine="true"
                 android:layout_marginTop="5dp"
-                android:text="Event Contacts:" />
+                android:text="@string/event_contacts" />
 
 
             <kutumblink.appants.com.kutumblink.utils.CustomTextView
@@ -112,7 +112,7 @@
                 android:lineSpacingExtra="12dp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black_color"
-                android:text="Contact info 1 \nContact info 2" />
+                android:text="@string/contact_info_1_ncontact_info_2" />
 
             <View
                 android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="250dp"
-                 android:text="Delete Event"
+                 android:text="@string/delete_event"
                 android:gravity="center"
                 android:textSize="20sp"
                 android:textColor="#ffffff"

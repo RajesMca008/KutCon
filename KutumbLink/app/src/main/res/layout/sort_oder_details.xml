@@ -13,7 +13,7 @@
         <CheckedTextView
             android:id="@+id/default_id"
             android:layout_width="fill_parent"
-            android:text="Default"
+            android:text="@string/default_string"
             android:layout_marginRight="5dp"
             android:textSize="18sp"
             android:layout_height="wrap_content" />
@@ -26,7 +26,7 @@
             android:id="@+id/by_firstname"
             android:layout_marginTop="15dp"
             android:layout_width="fill_parent"
-            android:text="By First Name"
+            android:text="@string/by_first_name"
             android:textSize="18sp"
             android:layout_marginRight="5dp"
             android:layout_height="wrap_content" />
@@ -39,7 +39,7 @@
         <CheckedTextView
             android:id="@+id/by_lastname"
             android:layout_width="fill_parent"
-            android:text="By Last Name"
+            android:text="@string/by_last_name"
             android:textSize="18sp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="5dp"

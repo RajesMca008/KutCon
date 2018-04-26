@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:gravity="center_horizontal"
-                android:text="No contacts available in this group. \n Please add contacts"/>
+                android:text="@string/no_contacts_available_in_this_group_n_please_add_contacts"/>
         </LinearLayout>
 
     </LinearLayout>

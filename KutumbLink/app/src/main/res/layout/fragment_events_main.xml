@@ -35,7 +35,7 @@
                 android:textSize="20sp"
                 android:drawableRight="@drawable/r_icon"
                 android:layout_marginRight="10dp"
-                android:text="Add Event" />
+                android:text="@string/add_event" />
 
         </LinearLayout>
 

@@ -32,7 +32,7 @@
         android:textColor="#1e85ce"
         android:id="@+id/okay"
         android:layout_width="wrap_content"
-        android:text="OK"
+        android:text="@string/ok"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content" />
 </LinearLayout>
